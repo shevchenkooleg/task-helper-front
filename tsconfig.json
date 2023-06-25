@@ -1,20 +1,36 @@
 {
     "compilerOptions": {
-        "outDir": "./dist/",
+    "outDir": "./dist/",
         "noImplicitAny": true,
         "module": "ESNext",
-        "target": "es5",
-        "jsx": "react",
+        "target": "es2019",
+        "jsx": "react-jsx",
         "allowJs": true,
+        "strict": true,
         "moduleResolution": "node",
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
-        "isolatedModules": true,
-        "baseUrl": "."
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./src/*"]
+        },
+        "isolatedModules": true
     },
     "ts-node": {
         "compilerOptions": {
             "module": "CommonJS"
         }
-    }
+    },
+    "include": [
+        "*",
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "config/**/*.ts",
+        "config/**/*.tsx",
+        "./scripts/**/*.ts",
+        "./cypress/**/*.ts",
+        "./cypress/**/*.tsx"
+//        "./config/jest/jest.config.ts",
+//        "./config/jest/jestSetup.ts",
+    ]
 }

@@ -1,0 +1,42 @@
+:root {
+    --font-family-main: verdana, sans-serif;
+
+    // size-S
+    --font-size-s: 12px;
+    --font-line-s: 20px;
+    --font-s: var(--font-size-s) / var(--font-line-s) var(--font-family-main);
+
+    // size-M
+    --font-size-m: 16px;
+    --font-line-m: 24px;
+    --font-m: var(--font-size-m) / var(--font-line-m) var(--font-family-main);
+
+    // size-L
+    --font-size-l: 24px;
+    --font-line-l: 32px;
+    --font-l: var(--font-size-l) / var(--font-line-l) var(--font-family-main);
+
+    // size-XL
+    --font-size-xl: 32px;
+    --font-line-xl: 40px;
+    --font-xl: var(--font-size-xl) / var(--font-line-xl) var(--font-family-main);
+
+    // size variables
+
+    --navbar-height: 50px;
+    --sidebar-width: 300px;
+    --sidebar-width-collapsed: 80px;
+
+    // z - Indexes
+
+    --modal-z-index: 10;
+    --drop-down-z-index: 100;
+    --list-box-z-index: 100;
+    --popover-z-index: 100;
+
+    // colors
+
+    --overlay-color: rgba(0 0 0 / 60%);
+    --red-light: #fd0000;
+    --red-dark: #d20e0e;
+}
