@@ -1,3 +1,3 @@
 import {someFunk} from './test'
 
-someFunk()
+someFunk(3)
