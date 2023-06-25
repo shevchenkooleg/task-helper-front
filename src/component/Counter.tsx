@@ -1,16 +1,16 @@
 import {useState} from 'react';
-import style from './Counter.module.scss'
+import style from './Counter.module.scss';
 
 const Counter = () => {
 
-    const [count, setCount] = useState(0)
+    const [count, setCount] = useState(0);
 
     const addOneHandler = () => {
-        setCount(count + 1)
-    }
+        setCount(count + 1);
+    };
     const resetHandler = () => {
-        setCount(0)
-    }
+        setCount(0);
+    };
 
     return (
         <div>
