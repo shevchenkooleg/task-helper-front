@@ -1,17 +1,17 @@
 import path from 'path';
 import type webpack from 'webpack';
 import { buildWebpackConfig } from './config/build/buildWebpackConfig';
-import type { BuildEnv, BuildMode, BuildPaths } from "./config/build/types/config";
+import type { BuildEnv, BuildMode, BuildPaths } from './config/build/types/config';
 
 function getApiUrl (mode: BuildMode, apiUrl?: string) {
     if (apiUrl) {
-        return apiUrl
+        return apiUrl;
     }
     if (mode === 'production') {
-        return '/api'
+        return '/api';
     }
 
-    return 'http://localhost:1337'
+    return 'http://localhost:1337';
 }
 
 
@@ -27,13 +27,13 @@ export default (env: BuildEnv) => {
         locales: '',
         // buildLocales: path.resolve(__dirname, 'build', 'locales')
         buildLocales: ''
-    }
+    };
 
-    const mode = env?.mode || 'development'
-    const PORT = env?.port || 3000
-    const apiUrl = getApiUrl(mode, env?.apiUrl)
+    const mode = env?.mode || 'development';
+    const PORT = env?.port || 3000;
+    const apiUrl = getApiUrl(mode, env?.apiUrl);
 
-    const isDev = mode === 'development'
+    const isDev = mode === 'development';
 
     const config: webpack.Configuration = buildWebpackConfig({
         mode,
@@ -42,7 +42,7 @@ export default (env: BuildEnv) => {
         port: PORT,
         apiUrl,
         project: 'frontend'
-    })
+    });
 
-    return config
-}
+    return config;
+};
