@@ -1,17 +1,23 @@
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import webpack from 'webpack';
-import {BuildOptions} from './types/config';
+import { BuildOptions } from './types/config';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
-export function buildPlugins({paths}: BuildOptions): webpack.WebpackPluginInstance[] {
+export function buildPlugins({ paths, isDev, project, apiUrl }: BuildOptions): webpack.WebpackPluginInstance[] {
 
     const plugins = [
         new HTMLWebpackPlugin({
             template: paths.html
         }),
         new webpack.ProgressPlugin(),
+        new webpack.DefinePlugin({
+            __IS_DEV__: JSON.stringify(isDev),
+            __API__: JSON.stringify(apiUrl),
+            __PROJECT__: JSON.stringify(project)
+        }),
         new MiniCssExtractPlugin({
             filename: 'css/[name].[contenthash:8].css',
             chunkFilename: 'css/[name].[contenthash:8].css',
@@ -30,6 +36,14 @@ export function buildPlugins({paths}: BuildOptions): webpack.WebpackPluginInstan
             },
         }),
     ];
+
+    if (isDev) {
+        // plugins.push(new webpack.HotModuleReplacementPlugin())
+        plugins.push(new ReactRefreshWebpackPlugin());
+        // plugins.push(new BundleAnalyzerPlugin({
+        //     openAnalyzer: false
+        // }));
+    }
 
     return plugins;
 }

@@ -1,11 +1,20 @@
 @import "reset";
+@import './themes/light';
+@import './themes/dark';
+@import './variables/global';
+
+
 
 .app {
-    font-size: 35px;
-    background-color: deepskyblue;
+    font: var(--font-m);
+    color: var(--primary-color);
+    min-height: 100vh;
+    background: var(--bg-color);
 }
 
 .content-page {
     display: flex;
 }
+
+
 

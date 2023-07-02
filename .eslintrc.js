@@ -1,14 +1,14 @@
 module.exports = {
-    'env': {
+    env: {
         'browser': true,
         'es2021': true
     },
-    'extends': [
+    extends: [
         'eslint:recommended',
         'plugin:@typescript-eslint/recommended',
         'plugin:react/recommended'
     ],
-    'overrides': [
+    overrides: [
         {
             'env': {
                 'node': true
@@ -21,17 +21,21 @@ module.exports = {
             }
         }
     ],
-    'parser': '@typescript-eslint/parser',
-    'parserOptions': {
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
         'ecmaVersion': 'latest',
         'sourceType': 'module'
     },
-    'plugins': [
+    plugins: [
         '@typescript-eslint',
-        'react'
+        'react',
+        'unused-imports'
     ],
-    'rules': {
+    rules: {
+        'object-curly-spacing': ['error', 'always'],
         'react/react-in-jsx-scope': 'off',
+        'unused-imports/no-unused-imports': 'error',
+        '@typescript-eslint/no-unused-vars': 1,
         'indent': [
             'error',
             4

@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import style from './Counter.module.scss';
 import MainPageIcon from '/Users/oleg/programming_training/own_projects/task-helper-front/src/MainPage.svg';
 

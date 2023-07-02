@@ -1,11 +1,11 @@
 import webpack from 'webpack';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import {BuildOptions} from './types/config';
-import {buildBabelLoader} from './loaders/buildBabelLoader';
+import { BuildOptions } from './types/config';
+import { buildBabelLoader } from './loaders/buildBabelLoader';
 
 export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
     
-    const {isDev} = options;
+    const { isDev } = options;
 
     // const typescriptLoader = {
     //     test: /\.tsx?$/,
@@ -22,10 +22,15 @@ export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
     };
 
     const fileLoader = {
-        test: /\.(png|jpe?g|gif|woff2|woff)$/i,
+        test: /\.(png|jpe?g|gif|svg|ttf|woff|otf)$/,
         use: [
             {
-                loader: 'file-loader'
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[contenthash].[ext]',
+                    outputPath: 'static/img',
+                    esModule: false // <- here
+                }
             }
         ]
     };
@@ -52,8 +57,8 @@ export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
         ],
     };
 
-    const  codeBabelLoader = buildBabelLoader({...options, isTsx: false});
-    const  tsxCodeBabelLoader = buildBabelLoader({...options, isTsx: true});
+    const  codeBabelLoader = buildBabelLoader({ ...options, isTsx: false });
+    const  tsxCodeBabelLoader = buildBabelLoader({ ...options, isTsx: true });
 
 
     return [

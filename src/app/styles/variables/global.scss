@@ -1,0 +1,28 @@
+
+:root {
+    --font-family-main: Roboto, sans-serif;
+    --font-weit: 200;
+
+    //Fonts settings
+
+    //size-S
+    --font-size-s: 12px;
+    --font-line-s: 20px;
+    --font-s: var(--font-weit) var(--font-size-s) / var(--font-line-s) var(--font-family-main);
+
+    //size-M
+    --font-size-m: 16px;
+    --font-line-m: 24px;
+    --font-m: var(--font-weit) var(--font-size-m) / var(--font-line-m) var(--font-family-main);
+
+    //size-L
+    --font-size-l: 24px;
+    --font-line-l: 32px;
+    --font-l: var(--font-weit) var(--font-size-l) / var(--font-line-l) var(--font-family-main);
+
+    //size-XL
+    --font-size-xl: 32px;
+    --font-line-xl: 40px;
+    --font-xl: var(--font-weit) var(--font-size-xl) / var(--font-line-xl) var(--font-family-main);
+
+}

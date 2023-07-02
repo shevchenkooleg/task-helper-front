@@ -1,10 +1,15 @@
 import React from 'react';
-import Counter from '../component/Counter';
+import { Button } from '@/shared/ui/Button/Button';
+import { classNames } from '@/shared/lib/classNames/classNames';
 
 const App = () => {
     return (
-        <div className='app'>
-            <Counter/>
+        <div className={classNames('app', {},['app_light_theme'])}>
+            {/*<Routes>*/}
+            {/*<Counter/>*/}
+            <Button square={true}>Click me</Button>
+            dmlebvkjdsd
+            {/*</Routes>*/}
         </div>
     );
 };
