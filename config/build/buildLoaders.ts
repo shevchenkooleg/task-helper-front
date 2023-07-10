@@ -22,15 +22,10 @@ export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
     };
 
     const fileLoader = {
-        test: /\.(png|jpe?g|gif|svg|ttf|woff|otf)$/,
+        test: /\.(png|jpe?g|gif|woff2|woff)$/i,
         use: [
             {
-                loader: 'file-loader',
-                options: {
-                    name: '[name].[contenthash].[ext]',
-                    outputPath: 'static/img',
-                    esModule: false // <- here
-                }
+                loader: 'file-loader'
             }
         ]
     };
