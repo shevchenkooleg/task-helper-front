@@ -7,7 +7,7 @@
 
     //size-S
     --font-size-s: 12px;
-    --font-line-s: 20px;
+    --font-line-s: 18px;
     --font-s: var(--font-weit) var(--font-size-s) / var(--font-line-s) var(--font-family-main);
 
     //size-M
@@ -24,5 +24,13 @@
     --font-size-xl: 32px;
     --font-line-xl: 40px;
     --font-xl: var(--font-weit) var(--font-size-xl) / var(--font-line-xl) var(--font-family-main);
+
+
+    //element-size-variables
+
+    --sidebar-width: 300px;
+    --sidebar-width-collapced: 80px;
+    --navbar-height: 50px
+
 
 }

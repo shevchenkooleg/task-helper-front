@@ -5,16 +5,15 @@ import cls from './Button.module.scss';
 export enum ButtonTheme {
     CLEAR = 'clear',
     OUTLINE= 'outline',
-    ROUNDED = 'rounded',
-    SQUARE = 'square'
+    SQUARE = 'square',
+    BACKGROUND = 'background',
 }
 
 export enum ButtonSize {
-    SIZE_S = 'size-s',
-    SIZE_M = 'size-m',
-    SIZE_L = 'size-l',
-    SIZE_XL = 'size-xl',
-
+    SIZE_S = 'size_s',
+    SIZE_M = 'size_m',
+    SIZE_L = 'size_l',
+    SIZE_XL = 'size_xl',
 }
 
 
@@ -26,6 +25,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     size?: ButtonSize
     flex?: boolean
     square?: boolean
+    rounded?: boolean
 }
 
 export const Button = memo((props: ButtonProps) => {
@@ -35,17 +35,19 @@ export const Button = memo((props: ButtonProps) => {
         square,
         disabled,
         children,
-        size,
+        size = ButtonSize.SIZE_M,
         theme = ButtonTheme.OUTLINE,
         flex,
         onClick,
+        rounded,
         ...otherProps
     } = props;
 
     const mods: Mods = {
         [cls[theme]]: true,
         [cls.square]: square,
-        [cls.size_s]: true
+        [cls.rounded]: rounded,
+        [cls[size]]: true
     };
 
     return (
@@ -53,6 +55,7 @@ export const Button = memo((props: ButtonProps) => {
             disabled={disabled}
             type='button'
             className={classNames(cls.Button, mods, [className])}
+            onClick={onClick}
             {...otherProps}
         >
             {children}
