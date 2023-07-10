@@ -5,8 +5,6 @@ type HStackProps = Omit<FlexProps, 'direction'>
 
 export const HStack = (props: HStackProps) => {
     return (
-        <Flex {...props} direction={'row'}>
-            {props.children}
-        </Flex>
+        <Flex {...props} direction={'row'}/>
     );
 };
