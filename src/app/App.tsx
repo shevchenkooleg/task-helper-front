@@ -2,7 +2,7 @@ import React from 'react';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { HStack } from '@/shared/ui/Stack';
 import { useTheme } from '@/shared/lib/hooks/useTheme/useTheme';
-import { Sidebar } from '@/widgets/Sidebar/ui/Sidebar/Sidebar';
+import { Sidebar } from '@/widgets/Sidebar';
 import { AppRouter } from './providers/router';
 
 const App = () => {

@@ -2,8 +2,8 @@ import cls from './Sidebar.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo } from 'react';
 import { VStack } from '@/shared/ui/Stack';
-import { getSidebarItems } from '@/widgets/Sidebar/model/selectors/getSidebarItems';
-import { SidebarItem } from '@/widgets/Sidebar/ui/SidebarItem/SidebarItem';
+import { getSidebarItems } from '../../model/selectors/getSidebarItems';
+import { SidebarItem } from '../SidebarItem/SidebarItem';
 
 interface SidebarProps {
     className?: string

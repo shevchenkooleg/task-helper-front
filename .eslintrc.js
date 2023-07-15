@@ -29,7 +29,8 @@ module.exports = {
     plugins: [
         '@typescript-eslint',
         'react',
-        'unused-imports'
+        'unused-imports',
+        'path-import-validation-plugin',
     ],
     rules: {
         'object-curly-spacing': ['error', 'always'],
@@ -51,6 +52,21 @@ module.exports = {
         'semi': [
             'error',
             'always'
+        ],
+        'path-import-validation-plugin/relative-path-import-checker': ['error', { alias: '@' }],
+        'path-import-validation-plugin/public-api-imports': [
+            'error',
+            {
+                alias: '@',
+                testFilesPatterns: ['**/*.test.*', '**/*.stories.tsx', '**/StoreDecorator.tsx']
+            }
+        ],
+        'path-import-validation-plugin/layer-imports': [
+            'error',
+            {
+                alias: '@',
+                ignoreImportPatterns: ['**/StoreProvider', '**/testing']
+            }
         ]
     }
 };

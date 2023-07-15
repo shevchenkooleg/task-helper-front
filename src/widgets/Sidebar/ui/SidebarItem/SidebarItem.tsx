@@ -2,7 +2,7 @@ import cls from './SidebarItem.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo } from 'react';
 import { AppLink, AppLinkTheme } from '@/shared/ui/AppLink/AppLink';
-import { SidebarItemTypes } from '@/widgets/Sidebar/model/types/sidebar';
+import { SidebarItemTypes } from '../../model/types/sidebar';
 
 interface SidebarItemProps {
     item: SidebarItemTypes

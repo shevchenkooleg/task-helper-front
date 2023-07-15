@@ -20,4 +20,5 @@
 // export const Dark = Template.bind({});
 // Dark.args = {};
 // Dark.decorators = [ThemeDecorator(Theme.DARK)]
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 export default () => {};

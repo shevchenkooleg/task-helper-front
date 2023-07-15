@@ -41,6 +41,7 @@
     "circular-dependency-plugin": "^5.2.2",
     "css-loader": "^6.8.1",
     "eslint": "^8.43.0",
+    "eslint-plugin-path-import-validation-plugin": "^0.0.16",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-unused-imports": "^2.0.0",
     "file-loader": "^6.2.0",
