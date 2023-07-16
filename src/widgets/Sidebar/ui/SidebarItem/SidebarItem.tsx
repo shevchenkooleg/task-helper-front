@@ -1,7 +1,7 @@
 import cls from './SidebarItem.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo } from 'react';
-import { AppLink, AppLinkTheme } from '@/shared/ui/AppLink/AppLink';
+import { AppLink, AppLinkTheme } from '@/shared/ui/AppLink/ui/AppLink';
 import { SidebarItemTypes } from '../../model/types/sidebar';
 
 interface SidebarItemProps {
@@ -14,7 +14,7 @@ export const SidebarItem = memo((props: SidebarItemProps) => {
     return (
         <div className={classNames(cls.SidebarItem, {}, [])}>
             <AppLink to={item.path} theme={AppLinkTheme.SECONDARY}>
-                {item.Icon && <item.Icon className={cls.icon}/>}
+                <item.Icon className={cls.icon}/>
                 <span className={cls.link}>{`${item.text}`}</span>
             </AppLink>
         </div>

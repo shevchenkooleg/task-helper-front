@@ -5,7 +5,6 @@ import cls from './Button.module.scss';
 export enum ButtonTheme {
     CLEAR = 'clear',
     OUTLINE= 'outline',
-    SQUARE = 'square',
     BACKGROUND = 'background',
 }
 
@@ -47,7 +46,9 @@ export const Button = memo((props: ButtonProps) => {
         [cls[theme]]: true,
         [cls.square]: square,
         [cls.rounded]: rounded,
-        [cls[size]]: true
+        [cls[size]]: true,
+        [cls.disabled]: disabled,
+        [cls.flex]: flex
     };
 
     return (
