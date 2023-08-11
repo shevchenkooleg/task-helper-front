@@ -13,7 +13,7 @@
 .clear {
     border: none;
     background: var(--bg-color);
-    color: var(--primary-color)
+    color: var(--primary-color);
 }
 
 .outline {
@@ -33,6 +33,11 @@
     color: var(--inverted-primary-color);
     background: var(--primary-color);
     border: 1px solid var(--primary-color);
+}
+
+.inverted {
+    background: var(--inverted-bg-color);
+    color: var(--inverted-primary-color);
 }
 
 .square {
@@ -90,4 +95,8 @@
 .flex {
     display: flex;
     flex-direction: column;
+}
+
+.active {
+    color: red;
 }

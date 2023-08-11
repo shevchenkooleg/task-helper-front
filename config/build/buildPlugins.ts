@@ -5,8 +5,10 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import CircularDependencyPlugin from 'circular-dependency-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 export function buildPlugins({ paths, isDev, project, apiUrl }: BuildOptions): webpack.WebpackPluginInstance[] {
+    const isProd = !isDev;
 
     const plugins = [
         new HTMLWebpackPlugin({
@@ -18,14 +20,7 @@ export function buildPlugins({ paths, isDev, project, apiUrl }: BuildOptions): w
             __API__: JSON.stringify(apiUrl),
             __PROJECT__: JSON.stringify(project)
         }),
-        new MiniCssExtractPlugin({
-            filename: 'css/[name].[contenthash:8].css',
-            chunkFilename: 'css/[name].[contenthash:8].css',
-        }),
-        new CircularDependencyPlugin({
-            exclude: /node_modules/,
-            failOnError: true,
-        }),
+
         new ForkTsCheckerWebpackPlugin({
             typescript: {
                 diagnosticOptions: {
@@ -40,9 +35,21 @@ export function buildPlugins({ paths, isDev, project, apiUrl }: BuildOptions): w
     if (isDev) {
         // plugins.push(new webpack.HotModuleReplacementPlugin())
         plugins.push(new ReactRefreshWebpackPlugin());
-        // plugins.push(new BundleAnalyzerPlugin({
-        //     openAnalyzer: false
-        // }));
+        plugins.push(new BundleAnalyzerPlugin({
+            openAnalyzer: true
+        }));
+        plugins.push(new ReactRefreshWebpackPlugin());
+        plugins.push(new CircularDependencyPlugin({
+            exclude: /node_modules/,
+            failOnError: true,
+        }),);
+    }
+
+    if (isProd) {
+        plugins.push(new MiniCssExtractPlugin({
+            filename: 'css/[name].[contenthash:8].css',
+            chunkFilename: 'css/[name].[contenthash:8].css'
+        }));
     }
 
     return plugins;

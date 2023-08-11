@@ -1,0 +1,1 @@
+export { OrderDetailsPageAsync as OrderDetailsPage } from './ui/OrderDetailsPage/OrderDetailsPageAsync';

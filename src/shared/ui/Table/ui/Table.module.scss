@@ -1,0 +1,25 @@
+.Table {
+    border: 1px solid var(--bg-color);
+    table-layout: fixed;
+    width: 100%;
+    margin-bottom: 20px;
+    font: var(--font-s)
+}
+th {
+    font-weight: bold;
+    padding: 5px;
+    background: var(--bg-color);
+    border: 1px solid var(--primary-color);
+}
+td{
+    padding: 5px 10px;
+    border: 1px solid var(--primary-color);
+    text-align: left;
+    overflow: clip;
+}
+tbody tr:nth-child(odd){
+    background: var(--bg-color);
+}
+tbody tr:nth-child(even){
+    background: var(--secondary-bg-color);
+}

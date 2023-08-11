@@ -25,6 +25,8 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     flex?: boolean
     square?: boolean
     rounded?: boolean
+    inverted?: boolean
+    active?: boolean
 }
 
 export const Button = memo((props: ButtonProps) => {
@@ -39,6 +41,8 @@ export const Button = memo((props: ButtonProps) => {
         flex,
         onClick,
         rounded,
+        inverted,
+        active,
         ...otherProps
     } = props;
 
@@ -48,7 +52,9 @@ export const Button = memo((props: ButtonProps) => {
         [cls.rounded]: rounded,
         [cls[size]]: true,
         [cls.disabled]: disabled,
-        [cls.flex]: flex
+        [cls.flex]: flex,
+        [cls.inverted]: inverted,
+        [cls.active]:active
     };
 
     return (

@@ -29,6 +29,7 @@ interface TextProps {
     align?: TextAlign
     size?: TextSize
     theme?: TextTheme
+    inverted?: boolean
 }
 
 type HeaderTagType = 'h1' | 'h2' | 'h3' | 'h4'
@@ -41,12 +42,13 @@ const mapSizeToHeaderTag: Record<TextSize, HeaderTagType> = {
 };
 
 export const Text = memo((props: TextProps) => {
-    const { className, text, title, size = TextSize.SIZE_M, align = TextAlign.START, theme = TextTheme.PRIMARY } = props;
+    const { className, text, title, size = TextSize.SIZE_M, align = TextAlign.START, theme = TextTheme.PRIMARY, inverted } = props;
 
     const mods: Mods = {
         [cls[theme]]: true,
         [cls[align]]: true,
-        [cls[size]]: true
+        [cls[size]]: true,
+        [cls.inverted]: inverted
     };
     const HeaderTag = mapSizeToHeaderTag[size];
 

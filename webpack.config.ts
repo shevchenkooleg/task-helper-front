@@ -11,7 +11,7 @@ function getApiUrl (mode: BuildMode, apiUrl?: string) {
         return '/api';
     }
 
-    return 'http://localhost:1337';
+    return 'http://localhost:1337/api';
 }
 
 

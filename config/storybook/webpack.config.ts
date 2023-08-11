@@ -15,7 +15,6 @@ export default ({ config }: { config: webpack.Configuration }) => {
         locales: '',
         buildLocales: ''
     };
-    
 
     config.resolve!.modules = [paths.src, 'node_modules'];
     // config.resolve.modules.push(paths.src)

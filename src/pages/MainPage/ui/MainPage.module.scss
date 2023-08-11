@@ -1,3 +1,8 @@
 .MainPage {
-
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - var(--navbar-height));
+    font: var(--font-size-m);
 }
