@@ -10,6 +10,7 @@ export enum OrderTabHeaderKeys {
     BILL_OF_QUANTITIES ='billOfQuantities',
     KS2_ID ='KS2Id',
     WRITE_OFF_ACT_ID ='writeOffActId',
+    YEAR_OF_EXECUTION = 'yearOfExecution',
     MODIFIED ='modified',
     _ID ='_id',
     USER_ID = 'userId',

@@ -5,13 +5,18 @@ import { fetchOrderById } from '../services/fetchOrderById/fetchOrderById';
 const initialState: OrderDetailsSliceSchema = {
     error: '',
     isLoading: false,
+    editMode: false,
     order: {}
 };
 
 export const orderDetailsSlice = createSlice({
     name: 'orderDetailsSlice',
     initialState,
-    reducers: {},
+    reducers: {
+        toggleEdit: (state)=>{
+            state.editMode = !state.editMode;
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchOrderById.pending, (state) => {

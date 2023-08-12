@@ -17,9 +17,13 @@ export const addNewOrderSlice = createSlice({
         setNewOrderDescription: (state, action) => {
             state.newOrder.description = action.payload;
         },
+        setNewOrderYearOfExecution: (state, action) => {
+            state.newOrder.yearOfExecution = action.payload;
+        },
         resetForm: (state)=>{
             state.newOrder.orderId = '';
             state.newOrder.description = '';
+            state.newOrder.yearOfExecution = '';
             state.error = '';
             state.isLoading = false;
         }

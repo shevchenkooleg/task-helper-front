@@ -26,10 +26,12 @@ export interface Order {
     billOfQuantities?: BillOfQuantities
     KS2Id?: string
     writeOffActId?: string
+    yearOfExecution?: string
 }
 
 export interface OrderDetailsSliceSchema {
     order: Order
     error?: string
     isLoading: boolean
+    editMode: boolean
 }

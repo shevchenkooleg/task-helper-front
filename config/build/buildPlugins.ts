@@ -36,7 +36,7 @@ export function buildPlugins({ paths, isDev, project, apiUrl }: BuildOptions): w
         // plugins.push(new webpack.HotModuleReplacementPlugin())
         plugins.push(new ReactRefreshWebpackPlugin());
         plugins.push(new BundleAnalyzerPlugin({
-            openAnalyzer: true
+            openAnalyzer: false
         }));
         plugins.push(new ReactRefreshWebpackPlugin());
         plugins.push(new CircularDependencyPlugin({

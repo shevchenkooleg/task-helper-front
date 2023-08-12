@@ -12,4 +12,5 @@ export const ordersTitlesMapper: Record<string, string> = {
     'userId': 'userId',
     '__v': '__v',
     'modified': 'Изменен',
+    'yearOfExecution': 'Год выполнения'
 };

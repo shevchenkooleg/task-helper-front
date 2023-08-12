@@ -8,7 +8,6 @@ export enum AppRoutes {
     // ORDER_EDIT = 'order_edit',
     ADMIN_PANEL = 'admin_panel',
     // FORBIDDEN_PAGE = 'forbidden_page',
-    TEST = 'test',
     // //last
     NOT_FOUND = 'notFoundPage'
 }

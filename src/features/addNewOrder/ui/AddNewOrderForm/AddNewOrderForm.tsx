@@ -3,7 +3,7 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo, useCallback, useEffect } from 'react';
 import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { addNewOrderActions, addNewOrderReducer } from '../../model/slice/addNewOrderSlice';
-import { Text } from '@/shared/ui/Text';
+import { Text, TextTheme } from '@/shared/ui/Text';
 import { Input } from '@/shared/ui/Input';
 import { VStack } from '@/shared/ui/Stack';
 import { useSelector } from 'react-redux';
@@ -12,7 +12,7 @@ import { getNewOrderId } from '../../selectors/getNewOrderId/getNewOrderId';
 import { getNewOrderDescription } from '../../selectors/getNewOrderDescription/getNewOrderDescription';
 import { getNewOrderIsLoading } from '../../selectors/getNewOrderIsLoading/getNewOrderIsLoading';
 import { getNewOrderError } from '../../selectors/getNewOrderError/getNewOrderError';
-import { addNewOrder } from '../..';
+import { addNewOrder, getNewOrderYearOfExecution } from '../../index';
 import { getUserAuthData } from '@/entities/User';
 import { Button } from '@/shared/ui/Button';
 
@@ -30,6 +30,7 @@ const AddNewOrderForm = memo((props: AddNewOrderFormProps) => {
     const { className, onSuccess } = props;
     const newOrderId = useSelector(getNewOrderId);
     const newOrderDescription = useSelector(getNewOrderDescription);
+    const newOrderYearOfExecution = useSelector(getNewOrderYearOfExecution);
     const isLoading = useSelector(getNewOrderIsLoading);
     const error = useSelector(getNewOrderError);
     const userId = useSelector(getUserAuthData);
@@ -41,11 +42,15 @@ const AddNewOrderForm = memo((props: AddNewOrderFormProps) => {
     const onChangeNewOrderDescription = useCallback((value: string) => {
         dispatch(addNewOrderActions.setNewOrderDescription(value));
     }, [dispatch]);
+    const onChangeNewOrderYearOfExecution = useCallback((value: string) => {
+        dispatch(addNewOrderActions.setNewOrderYearOfExecution(value));
+    }, [dispatch]);
     const onAddNewOrderClick = useCallback(async () => {
-        if (newOrderId && newOrderDescription && userId){
+        if (newOrderId && newOrderDescription && userId && newOrderYearOfExecution){
             const result = await dispatch(addNewOrder(
                 { orderId: newOrderId,
                     description: newOrderDescription,
+                    yearOfExecution: newOrderYearOfExecution,
                     userId: userId }
             ));
             if (result.meta.requestStatus === 'fulfilled') {
@@ -53,7 +58,7 @@ const AddNewOrderForm = memo((props: AddNewOrderFormProps) => {
                 onSuccess();
             }
         }
-    }, [dispatch, newOrderDescription, newOrderId, onSuccess, userId]);
+    }, [dispatch, newOrderDescription, newOrderId, newOrderYearOfExecution, onSuccess, userId]);
 
     const onEnterKeyPress = useCallback((e: KeyboardEvent) => {
         if (e.key === 'Enter') {
@@ -70,8 +75,11 @@ const AddNewOrderForm = memo((props: AddNewOrderFormProps) => {
 
     return (
         <DynamicModuleLoader reducers={initialReducers} removeAfterUnmount={true}>
-            <div className={classNames(cls.AddNewOrderForm, {}, [className])}>
-                <VStack><Text title={'Добавление нового заказа'}/></VStack>
+            <VStack gap={'8px'} className={classNames(cls.AddNewOrderForm, {}, [className])}>
+                <div><Text title={'Добавление нового заказа'}/></div>
+                <VStack>
+                    {error && <Text title={error} theme={TextTheme.ERROR}/>}
+                </VStack>
                 <VStack align={'end'} gap={'8px'}>
                     <Input
                         value={newOrderId}
@@ -85,13 +93,19 @@ const AddNewOrderForm = memo((props: AddNewOrderFormProps) => {
                         placeholder={'Оборудование'}
                         between={true}
                     />
+                    <Input
+                        value={newOrderYearOfExecution}
+                        onChange={onChangeNewOrderYearOfExecution}
+                        placeholder={'Год выполнения'}
+                        between={true}
+                    />
                     <Button onClick={onAddNewOrderClick}>
                         Добавить
                     </Button>
                 </VStack>
 
 
-            </div>
+            </VStack>
         </DynamicModuleLoader>
     );
 });

@@ -29,6 +29,7 @@ export const OrdersPageTable = memo((props: OrdersPageTableProps) => {
         OrderTabHeaderKeys.BILL_OF_QUANTITIES,
         OrderTabHeaderKeys.KS2_ID,
         OrderTabHeaderKeys.WRITE_OFF_ACT_ID,
+        OrderTabHeaderKeys.YEAR_OF_EXECUTION,
         OrderTabHeaderKeys.MODIFIED
     ];
 

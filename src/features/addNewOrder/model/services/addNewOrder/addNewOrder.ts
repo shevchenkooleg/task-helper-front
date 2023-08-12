@@ -7,6 +7,7 @@ interface AddNewOrderProps {
     orderId: string
     description: string
     userId: string
+    yearOfExecution: string
 }
 
 export const addNewOrder = createAsyncThunk<Order, AddNewOrderProps, ThunkConfig<string>>(
