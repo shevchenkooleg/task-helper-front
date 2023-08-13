@@ -16,16 +16,16 @@ import { addNewOrder, getNewOrderYearOfExecution } from '../../index';
 import { getUserAuthData } from '@/entities/User';
 import { Button } from '@/shared/ui/Button';
 
-const initialReducers: ReducerList = {
-    newOrder: addNewOrderReducer
-};
-
 export interface AddNewOrderFormProps {
     className?: string
     onSuccess: () => void
 }
 
 const AddNewOrderForm = memo((props: AddNewOrderFormProps) => {
+
+    const initialReducers: ReducerList = {
+        newOrder: addNewOrderReducer
+    };
 
     const { className, onSuccess } = props;
     const newOrderId = useSelector(getNewOrderId);

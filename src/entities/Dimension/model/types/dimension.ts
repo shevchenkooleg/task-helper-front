@@ -1,4 +1,5 @@
-export enum materialDimension {
+export enum Dimension {
+    NONE = 'none',
     L = 'l',
     KG = 'kg',
     M = 'm',
@@ -6,6 +7,5 @@ export enum materialDimension {
     G = 'g',
     ML = 'ml',
     SM = 'sm',
-    T = 't',
-    mL = 'ml'
+    T = 't'
 }

@@ -1,6 +1,6 @@
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './OrdersPage.module.scss';
-import { memo, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { Page } from '@/widgets/Page';
 import { ordersPageSliceReducer } from '../../model/slice/ordersPageSlice';
@@ -13,7 +13,6 @@ import { getOrderListSelector, getOrdersList } from '@/features/getOrdersList';
 import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitialEffect';
 import { AddNewOrderModal } from '@/features/addNewOrder';
 import { OrdersPageTable } from '../OrdersPageTable/OrdersPageTable';
-import { fetchOrderById } from '@/entities/Order';
 
 interface OrdersPageProps {
     className?: string
@@ -29,30 +28,22 @@ const OrdersPage = (props: OrdersPageProps) => {
     const dispatch = useAppDispatch();
 
     const [isNewOrderModalOpen, setIsNewOrderModalOpen] = useState(false);
-    const onModalClose = () => {
+    const onModalClose = useCallback(() => {
         dispatch(getOrdersList(null));
         setIsNewOrderModalOpen(false);
-    };
+    },[dispatch]);
 
-    const onLoadClickHandler = () => {
+    const onLoadClickHandler = useCallback(() => {
         userId && dispatch(getOrdersList(null));
-    };
+    },[dispatch, userId]);
 
-    const onClickHandler = () => {
+    const onClickHandler = useCallback(() => {
         setIsNewOrderModalOpen(true);
-        // dispatch(addNewOrder({ orderId: 'qqq', description: 'www', userId: userId ?? '' }));
-    };
-
-    const onFetchClickHandler = () => {
-        dispatch(fetchOrderById('64d39d48aaf15ef01c4293fa'));
-    };
-
+    },[]);
 
     useInitialEffect(()=>{
         userId && dispatch(getOrdersList(null));
     });
-
-    console.log(ordersList);
     
 
     return (
@@ -63,7 +54,6 @@ const OrdersPage = (props: OrdersPageProps) => {
                         <div>Orders Filters block</div>
                         <Button onClick={onLoadClickHandler}>загрузить заказы</Button>
                         <Button onClick={onClickHandler}>добавить заказ</Button>
-                        <Button onClick={onFetchClickHandler}>fetch order by Id</Button>
                     </HStack>
                     <OrdersPageTable orders={ordersList}/>
                     <AddNewOrderModal isOpen={isNewOrderModalOpen} onClose={onModalClose}/>

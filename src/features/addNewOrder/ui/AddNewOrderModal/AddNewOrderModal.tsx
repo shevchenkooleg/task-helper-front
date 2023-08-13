@@ -4,7 +4,7 @@ import { Modal } from '@/shared/ui/Modal';
 import { Loader } from '@/shared/ui/Loader';
 import { AddNewOrderFormAsync } from '../AddNewOrderForm/AddNewOrderFormAsync';
 
-interface LoginModalProps {
+interface AddNewOrderModalProps {
     className?: string
     isOpen: boolean
     onClose: () => void
@@ -12,7 +12,7 @@ interface LoginModalProps {
 }
 
 
-export const AddNewOrderModal: FC<LoginModalProps> = (props) => {
+export const AddNewOrderModal: FC<AddNewOrderModalProps> = (props) => {
     const { className, isOpen, onClose, element } = props;
 
     return (

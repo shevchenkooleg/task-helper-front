@@ -13,6 +13,8 @@ import { AdminPanelDataSchema } from '@/features/getAdminPanelData';
 import { OrdersPageSchema } from '@/pages/OrdersPage';
 import { AddNewOrderSliceSchema } from '@/features/addNewOrder';
 import { OrderDetailsSliceSchema } from '@/entities/Order';
+import { MaterialsPageSchema } from '@/pages/MaterialsPage';
+import { AddNewMaterialSliceSchema } from '@/features/addNewMaterial';
 
 
 export interface StateSchema {
@@ -26,6 +28,8 @@ export interface StateSchema {
     orders?: OrdersPageSchema
     newOrder?: AddNewOrderSliceSchema
     orderDetails?: OrderDetailsSliceSchema
+    materials?: MaterialsPageSchema
+    newMaterial?: AddNewMaterialSliceSchema
     // profile?: ProfileSchema
     // articleDetails?: ArticleDetailsSchema
     // articleDetailsComments?: ArticleDetailsCommentSchema

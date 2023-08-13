@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Material, newMaterialSliceSchema } from '../types/newMaterialSliceSchema';
+import { MaterialsPageSchema } from '../types/materialsPageSchema';
 
-const initialState: newMaterialSliceSchema = {
-    isLoading: false,
+const initialState: MaterialsPageSchema = {
     error: '',
-    newMaterial: {} as Material
+    isLoading: false,
+    materials: []
 };
 
-export const newMaterialSlice = createSlice({
-    name: 'newMaterialSlice',
+export const materialsPageSlice = createSlice({
+    name: 'materialsPageSlice',
     initialState,
     reducers: {},
     extraReducers: (builder) => {
@@ -28,5 +28,5 @@ export const newMaterialSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { actions: newMaterialSliceActions } = newMaterialSlice;
-export const { reducer: newMaterialSliceReducer } = newMaterialSlice;
+export const { actions: materialsPageSliceActions } = materialsPageSlice;
+export const { reducer: materialsPageSliceReducer } = materialsPageSlice;

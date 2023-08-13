@@ -6,6 +6,7 @@ export enum AppRoutes {
     ORDER_DETAILS = 'order_details',
     // ORDER_CREATE = 'order_create',
     // ORDER_EDIT = 'order_edit',
+    MATERIALS = 'materials',
     ADMIN_PANEL = 'admin_panel',
     // FORBIDDEN_PAGE = 'forbidden_page',
     // //last
@@ -19,5 +20,6 @@ export const getRouteOrders = () => '/orders';
 export const getRouteOrderDetails= (orderId: string) => `/orders/${orderId}`;
 export const getRouteOrderCreate = () => 'orders/new';
 export const getRouteOrderEdit = (orderId: string) => `/orders/${orderId}/edit`;
+export const getRouteMaterials = () => '/materials';
 export const getRouteAdminPanel = () => 'admin';
 export const getRouteForbiddenPage = () => 'forbidden';

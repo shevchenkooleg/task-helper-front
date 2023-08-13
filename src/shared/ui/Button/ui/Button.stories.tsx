@@ -4,7 +4,7 @@ export default () => {};
 // import type { Meta, StoryObj } from '@storybook/react';
 // import { Button, ButtonTheme } from './Button';
 //
-// const meta: Meta<typeof Button> = {
+// consts meta: Meta<typeof Button> = {
 //     component: Button,
 //     args: {
 //         style: { margin: '20px' }
@@ -14,14 +14,14 @@ export default () => {};
 // export default meta;
 // type Story = StoryObj<typeof Button>;
 //
-// export const Background: Story = {
+// export consts Background: Story = {
 //     args: {
 //         theme: ButtonTheme.BACKGROUND,
 //         children: 'Button'
 //     },
 // };
 //
-// export const Background_Disabled: Story = {
+// export consts Background_Disabled: Story = {
 //     args: {
 //         theme: ButtonTheme.BACKGROUND,
 //         children: 'Button',
@@ -29,14 +29,14 @@ export default () => {};
 //     },
 // };
 //
-// export const Outline: Story = {
+// export consts Outline: Story = {
 //     args: {
 //         ...Background.args,
 //         theme: ButtonTheme.OUTLINE
 //     },
 // };
 //
-// export const Outline_Rounded: Story = {
+// export consts Outline_Rounded: Story = {
 //     args: {
 //         ...Background.args,
 //         theme: ButtonTheme.OUTLINE,
@@ -44,14 +44,14 @@ export default () => {};
 //     },
 // };
 //
-// export const Clear: Story = {
+// export consts Clear: Story = {
 //     args: {
 //         ...Background.args,
 //         theme: ButtonTheme.CLEAR
 //     },
 // };
 //
-// export const Square: Story = {
+// export consts Square: Story = {
 //     args: {
 //         ...Background.args,
 //         theme: ButtonTheme.OUTLINE,
@@ -59,7 +59,7 @@ export default () => {};
 //     },
 // };
 //
-// export const Square_Rounded: Story = {
+// export consts Square_Rounded: Story = {
 //     args: {
 //         ...Background.args,
 //         theme: ButtonTheme.OUTLINE,
