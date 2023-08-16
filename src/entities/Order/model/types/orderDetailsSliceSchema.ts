@@ -1,4 +1,4 @@
-import { BillOfQuantitiesStatus, orderDocumentsStatus, OrderStatus } from '../consts/orderConsts';
+import { BillOfQuantitiesStatus, OrderDocumentsStatus, OrderStatus } from '../consts/orderConsts';
 
 export interface Order {
     _id?: string
@@ -10,23 +10,23 @@ export interface Order {
     orderStatus?: OrderStatus
     correctionId?: {            // № корректировки
         value: string,
-        status: orderDocumentsStatus
+        status: OrderDocumentsStatus
     }
     consignmentNoteId?: {       // № накладной М11
         value: string,
-        status: orderDocumentsStatus
+        status: OrderDocumentsStatus
     }
     billOfQuantities?: {        // ВОР
         value: BillOfQuantitiesStatus
-        status: orderDocumentsStatus
+        status: OrderDocumentsStatus
     }
     KS2Id?: {                   // № КС-2
         value: string,
-        status: orderDocumentsStatus
+        status: OrderDocumentsStatus
     }
     writeOffActId?: {           // № Акта на списание
         value: string,
-        status: orderDocumentsStatus
+        status: OrderDocumentsStatus
     }
     yearOfExecution?: string
 }

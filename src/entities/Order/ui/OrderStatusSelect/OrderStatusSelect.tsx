@@ -36,8 +36,6 @@ export const OrderStatusSelect = memo((props: OrderStatusSelectProps) => {
         onChange?.(value as OrderStatus);
     },[onChange]);
 
-    console.log(statusOptions);
-
     return (
         <ListBox
             className={classNames('', {}, [className])}

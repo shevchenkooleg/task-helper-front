@@ -13,7 +13,6 @@ export const Table = <T extends Record<string, any>>(props: TableProps<T>) => {
     
     const { className, items, tabKeys=Object.keys(items[0]), headerKeysMapper, callback } = props;
 
-    console.log(items);
     if (items.length > 0){
         return (
             <table className={classNames(cls.Table, {}, [className])}>
@@ -32,6 +31,13 @@ export const Table = <T extends Record<string, any>>(props: TableProps<T>) => {
                         }}>
                             {
                                 tabKeys && tabKeys.map(key=>{
+                                    if (el[key].status){
+                                        return (
+                                            <td key={key}>
+                                                {Array.isArray(el[key].value) ? el[key].value.join(', ') : el[key].value}
+                                            </td>
+                                        );
+                                    }
                                     return (
                                         <td key={key}>
                                             {Array.isArray(el[key]) ? el[key].join(', ') : el[key]}

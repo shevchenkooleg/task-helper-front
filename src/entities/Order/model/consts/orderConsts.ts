@@ -18,7 +18,7 @@ export enum OrderStatus {
             Документ загружен в ТТС - uploaded_to_TTS - UPLOADED_TO_TTS
 * */
 
-export enum orderDocumentsStatus {
+export enum OrderDocumentsStatus {
     ON_CLEARANCE = 'on_clearance',
     WAITING_FOR_EC = 'waiting_for_EC',
     AGREEMENT_IN_EC = 'agreement_in_EC',
