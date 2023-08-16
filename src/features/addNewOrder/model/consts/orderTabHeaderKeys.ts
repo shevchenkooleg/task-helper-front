@@ -1,0 +1,16 @@
+export enum OrderTabHeaderKeys {
+    ORDER_ID = 'orderId',
+    EXECUTED_ID = 'executeId',
+    DESCRIPTION = 'description',
+    ORDER_STATUS = 'orderStatus',
+    CORRECTION_ID = 'correctionId',
+    CONSIGNMENT_NOTE_ID = 'consignmentNoteId',
+    BILL_OF_QUANTITIES = 'billOfQuantities',
+    KS2_ID = 'KS2Id',
+    WRITE_OFF_ACT_ID = 'writeOffActId',
+    YEAR_OF_EXECUTION = 'yearOfExecution',
+    MODIFIED = 'modified',
+    _ID = '_id',
+    USER_ID = 'userId',
+    __V = '__v',
+}

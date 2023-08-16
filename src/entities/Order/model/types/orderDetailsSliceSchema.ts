@@ -1,17 +1,4 @@
-export enum OrderStatus {
-    NONE = 'none',
-    ISSUED = 'issued',
-    WAITING_FOR_REQUEST = 'waiting_for_request',
-    EXECUTING = 'executing',
-    AGREEMENT = 'agreement',
-    WAITING_FOR_TECHNICAL_CLOSING = 'waiting_for_technical_closing',
-    TECHNICAL_CLOSED = 'technical_closed',
-}
-
-export enum BillOfQuantities {
-    NOT_LOADED = 'not_loaded',
-    LOADED = 'loaded',
-}
+import { BillOfQuantitiesStatus, orderDocumentsStatus, OrderStatus } from '../consts/orderConsts';
 
 export interface Order {
     _id?: string
@@ -21,17 +8,45 @@ export interface Order {
     executeId?: string
     description?: string
     orderStatus?: OrderStatus
-    correctionId?: string
-    consignmentNoteId?: string
-    billOfQuantities?: BillOfQuantities
-    KS2Id?: string
-    writeOffActId?: string
+    correctionId?: {            // № корректировки
+        value: string,
+        status: orderDocumentsStatus
+    }
+    consignmentNoteId?: {       // № накладной М11
+        value: string,
+        status: orderDocumentsStatus
+    }
+    billOfQuantities?: {        // ВОР
+        value: BillOfQuantitiesStatus
+        status: orderDocumentsStatus
+    }
+    KS2Id?: {                   // № КС-2
+        value: string,
+        status: orderDocumentsStatus
+    }
+    writeOffActId?: {           // № Акта на списание
+        value: string,
+        status: orderDocumentsStatus
+    }
     yearOfExecution?: string
 }
 
 export interface OrderDetailsSliceSchema {
     order: Order
+    form: Order
     error?: string
     isLoading: boolean
     editMode: boolean
 }
+
+
+
+/*
+            Документ на оформлении - on_clearance - ON_CLEARANCE
+            Документ ожидает отправку в СЦ - waiting_for_EC - WAITING_FOR_EC
+            Документ в СЦ на согласовании - agreement_in_EC - AGREEMENT_IN_EC
+            Документ распечатан, виза СЦ, ожидает подписания - awaiting_signing - AWAITING_SIGNING
+            Документ передан для подписания в АБК - submitted_for_signing - SUBMITTED_FOR_SIGNING
+            Документ подписан, готов к передаче в ОЦО - ready_to_transfer - READY_TO_TRANSFER
+            Документ загружен в ТТС - uploaded_to_TTS - UPLOADED_TO_TTS
+* */

@@ -1,17 +1,17 @@
 import { userActions } from '@/entities/User';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
-import { GetOrdersListResponseInterface } from '../types/getOrdersListTypes';
+import { Order } from '@/entities/Order';
 
 
-export const getOrdersList = createAsyncThunk<GetOrdersListResponseInterface, null, ThunkConfig<string>>(
+export const getOrdersList = createAsyncThunk<Order[], null, ThunkConfig<string>>(
     'orders/getOrdersList',
     async (_, thunkAPI) => {
         const { dispatch, rejectWithValue, extra } = thunkAPI;
         const accessToken = thunkAPI.getState().user!.tokenAuthData!.access_token;
 
         try {
-            const ordersList = await extra.api.get<GetOrdersListResponseInterface>('/order/', {
+            const ordersList = await extra.api.get<Order[]>('/order/', {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 }

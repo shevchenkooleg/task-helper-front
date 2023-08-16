@@ -3,16 +3,17 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 
 interface TableProps<T> {
     className?: string
-    tabKeys?: Array<string>
+    tabKeys?: Array<string> //Если не передать параметр 'tabKeys' - компонент отобразить все имеющиеся поля объектов
     items: Array<T>
     callback?: (event:React.MouseEvent<HTMLTableRowElement>, item:T)=>void
     headerKeysMapper?: Record<string, string>
 }
 
 export const Table = <T extends Record<string, any>>(props: TableProps<T>) => {
-    const { className, items, tabKeys, headerKeysMapper, callback } = props;
+    
+    const { className, items, tabKeys=Object.keys(items[0]), headerKeysMapper, callback } = props;
 
-
+    console.log(items);
     if (items.length > 0){
         return (
             <table className={classNames(cls.Table, {}, [className])}>

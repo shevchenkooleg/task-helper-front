@@ -7,6 +7,11 @@ import { HStack, VStack } from '@/shared/ui/Stack';
 import { Button } from '@/shared/ui/Button';
 import { materialsPageSliceReducer } from '../../model/slice/materialsPageSlice';
 import { AddNewMaterialModal } from '@/features/addNewMaterial';
+import { getMaterialsList, getMaterialsListSelector } from '@/features/getMaterialsList';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitialEffect';
+import { MaterialsPageTable } from '../MaterialsPageTable/MaterialsPageTable';
+import { useSelector } from 'react-redux';
 
 interface MaterialsPageProps {
     className?: string
@@ -19,10 +24,15 @@ const reducers: ReducerList = {
 export const MaterialsPage = memo((props: MaterialsPageProps) => {
     const { className } = props;
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const dispatch = useAppDispatch();
+
+    useInitialEffect(() => {
+        dispatch(getMaterialsList(null));
+    });
 
     const onLoadClickHandler = useCallback(() => {
-        console.log('loading_materials');
-    },[]);
+        dispatch(getMaterialsList(null));
+    },[dispatch]);
 
     const onAddMaterialClickHandler = useCallback(()=>{
         setIsModalOpen(true);
@@ -31,6 +41,8 @@ export const MaterialsPage = memo((props: MaterialsPageProps) => {
     const onModalClose = useCallback(() => {
         setIsModalOpen(false);
     },[]);
+
+    const materialsList = useSelector(getMaterialsListSelector);
 
     return (
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
@@ -41,7 +53,7 @@ export const MaterialsPage = memo((props: MaterialsPageProps) => {
                         <Button onClick={onLoadClickHandler}>загрузить материалы</Button>
                         <Button onClick={onAddMaterialClickHandler}>добавить материал</Button>
                     </HStack>
-                    {/*<OrdersPageTable orders={ordersList}/>*/}
+                    {materialsList && <MaterialsPageTable materials={materialsList}/>}
                     <AddNewMaterialModal isOpen={isModalOpen} onClose={onModalClose}/>
                 </VStack>
             </Page>

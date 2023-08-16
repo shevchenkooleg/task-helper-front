@@ -1,0 +1,1 @@
+export { MaterialDetailsPageAsync as MaterialDetailsPage } from './ui/MaterialDetailsPage/MaterialDetailsPageAsync';

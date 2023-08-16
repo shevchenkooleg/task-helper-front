@@ -1,1 +1,10 @@
 export { type Material } from './model/types/materialDetailsSliceSchema';
+export { type MaterialDetailsSliceSchema } from './model/types/materialDetailsSliceSchema';
+export { materialDetailsSliceReducer, materialDetailsSliceActions } from './model/slice/materialDetailsSlice';
+export { MaterialCard } from './ui/MaterialCard/MaterialCard';
+export { fetchMaterialById } from './model/services/fetchMaterialById/fetchMaterialById';
+export { getMaterialDetailsIsLoading } from './model/selectors/getMaterialDetailsIsLoading/getMaterialDetailsIsLoading';
+export { getMaterialDetailsEditMode } from './model/selectors/getMaterialDetailsEditMode/getMaterialDetailsEditMode';
+export { getMaterialFormData } from './model/selectors/getMaterialFormData/getMaterialFormData';
+export { updateMaterialById } from './model/services/updateMaterialById/updateMaterialById';
+export { deleteMaterialById } from './model/services/deleteMaterialById/deleteMaterialById';

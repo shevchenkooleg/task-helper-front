@@ -3,7 +3,7 @@ import {
     AppRoutes,
     getRouteAbout,
     getRouteAdminPanel,
-    getRouteMain, getRouteMaterials,
+    getRouteMain, getRouteMaterialDetails, getRouteMaterials,
     getRouteOrderDetails,
     getRouteOrders
 } from '@/shared/const/router';
@@ -15,6 +15,7 @@ import { UserRole } from '@/entities/User';
 import { OrdersPage } from '@/pages/OrdersPage';
 import { OrderDetailsPage } from '@/pages/OrderDetailsPage';
 import { MaterialsPage } from '@/pages/MaterialsPage';
+import { MaterialDetailsPage } from '@/pages/MaterialDetailsPage';
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.ABOUT]: {
@@ -48,6 +49,11 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         element: <MaterialsPage/>,
         authOnly: true,
         roles: [UserRole.MANAGER, UserRole.ADMIN]
+    },
+    [AppRoutes.MATERIAL_DETAILS]: {
+        path: getRouteMaterialDetails(':materialId'),
+        element: <MaterialDetailsPage/>,
+        authOnly: true
     },
 
 

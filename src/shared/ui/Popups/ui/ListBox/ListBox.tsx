@@ -53,7 +53,7 @@ export const ListBox = (props: ListBoxProps) => {
                     as={'div'}
                 >
                     <Button disabled={readOnly}>
-                        {labelMapper && value && defaultValue ? (labelMapper[value] ?? labelMapper[defaultValue]) : (value ?? defaultValue)}
+                        {labelMapper && value && defaultValue ? (labelMapper[value] ?? labelMapper[defaultValue]) : (value || defaultValue)}
                     </Button>
                 </HListbox.Button>
                 <HListbox.Options className={classNames(cls.options, {}, optionClasses)}>

@@ -4,7 +4,7 @@ import { memo } from 'react';
 import { OrderTabHeaderKeys } from '@/features/addNewOrder';
 import { Table } from '@/shared/ui/Table';
 import { timeConverter } from '@/shared/lib/timeConverter/timeConverter';
-import { ordersTitlesMapper } from '@/shared/lib/ordersTitlesMapper/ordersTitlesMapper';
+import { ordersTitlesMapper } from '../../model/consts/ordersTitlesMapper/ordersTitlesMapper';
 import { VStack } from '@/shared/ui/Stack';
 import { useNavigate } from 'react-router-dom';
 import { getRouteOrderDetails } from '@/shared/const/router';

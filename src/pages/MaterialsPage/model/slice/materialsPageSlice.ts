@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { MaterialsPageSchema } from '../types/materialsPageSchema';
+import { getMaterialsList } from '@/features/getMaterialsList';
 
 const initialState: MaterialsPageSchema = {
     error: '',
@@ -12,18 +13,21 @@ export const materialsPageSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        //builder
-        //.addCase(loginByUsername.pending, (state) => {
-        //    state.error = undefined
-        //    state.isLoading = true
-        //})
-        //.addCase(loginByUsername.fulfilled, (state) => {
-        //    state.isLoading = false
-        //})
-        //.addCase(loginByUsername.rejected, (state, action) => {
-        //    state.isLoading = false
-        //    state.error = action.payload
-        //})
+        builder
+            .addCase(getMaterialsList.pending, (state) => {
+                state.error = '';
+                state.isLoading = true;
+            })
+            .addCase(getMaterialsList.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.materials = action.payload;
+            })
+            .addCase(getMaterialsList.rejected, (state, action) => {
+                state.isLoading = false;
+                if (action.payload){
+                    state.error = action.payload;
+                }
+            });
     }
 });
 

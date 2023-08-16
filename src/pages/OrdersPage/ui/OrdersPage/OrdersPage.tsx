@@ -50,12 +50,14 @@ const OrdersPage = (props: OrdersPageProps) => {
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
             <Page data-testid={'OrdersPage'} className={classNames(cls.OrdersPage, {}, [className])}>
                 <VStack align={'start'} gap={'16px'}>
-                    <HStack gap={'32px'} justify={'between'}>
+                    <HStack gap={'32px'} justify={'between'} max>
                         <div>Orders Filters block</div>
-                        <Button onClick={onLoadClickHandler}>загрузить заказы</Button>
-                        <Button onClick={onClickHandler}>добавить заказ</Button>
+                        <HStack gap={'32px'}>
+                            <Button onClick={onLoadClickHandler}>обновить заказы</Button>
+                            <Button onClick={onClickHandler}>добавить заказ</Button>
+                        </HStack>
                     </HStack>
-                    <OrdersPageTable orders={ordersList}/>
+                    {ordersList && <OrdersPageTable orders={ordersList}/>}
                     <AddNewOrderModal isOpen={isNewOrderModalOpen} onClose={onModalClose}/>
                 </VStack>
             </Page>
