@@ -46,10 +46,10 @@ const AddNewOrderForm = memo((props: AddNewOrderFormProps) => {
         dispatch(addNewOrderActions.setNewOrderYearOfExecution(value));
     }, [dispatch]);
     const onAddNewOrderClick = useCallback(async () => {
-        if (newOrderId && newOrderDescription && userId && newOrderYearOfExecution){
+        if (newOrderId && userId && newOrderYearOfExecution){
             const result = await dispatch(addNewOrder(
                 { orderId: newOrderId,
-                    description: newOrderDescription,
+                    description: newOrderDescription!,
                     yearOfExecution: newOrderYearOfExecution,
                     userId: userId }
             ));

@@ -1,4 +1,5 @@
-import { MaterialTabHeaderKeys } from '@/features/addNewMaterial';
+import { MaterialTabHeaderKeys } from '@/shared/const/materialTabHeaderKeys';
+
 
 export const materialsTitlesMapper: Record<MaterialTabHeaderKeys, string> = {
     [MaterialTabHeaderKeys.DIMENSION]: 'единица измерения',

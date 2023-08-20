@@ -1,4 +1,4 @@
-import { OrderTabHeaderKeys } from '@/features/addNewOrder';
+import { OrderTabHeaderKeys } from '@/shared/const/orderTabHeaderKeys';
 
 export const ordersTitlesMapper: Record<OrderTabHeaderKeys, string> = {
     [OrderTabHeaderKeys.ORDER_ID]: '№ заказа',

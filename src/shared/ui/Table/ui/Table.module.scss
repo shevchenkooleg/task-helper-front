@@ -1,10 +1,16 @@
 .Table {
+    position: relative;
     border: 1px solid var(--bg-color);
     table-layout: fixed;
     width: 100%;
     margin-bottom: 20px;
     font: var(--font-s)
 }
+
+.cellsRow {
+
+}
+
 th {
     font-weight: bold;
     padding: 5px;
@@ -12,14 +18,97 @@ th {
     border: 1px solid var(--primary-color);
 }
 td{
+
     padding: 5px 10px;
     border: 1px solid var(--primary-color);
     text-align: left;
     overflow: clip;
+
+    &:hover {
+        .help {
+            position: absolute;
+            top: -46px;
+            left: 300px;
+            opacity: 1;
+            transition-property: opacity;
+            transition-duration: 3s;
+        }
+    }
 }
 tbody tr:nth-child(odd){
     background: var(--bg-color);
 }
-tbody tr:nth-child(even){
-    background: var(--secondary-bg-color);
+//tbody tr:nth-child(even){
+//    background: var(--secondary-bg-color);
+//}
+
+.help {
+    position: absolute;
+    top: -30px;
+    opacity: 0;
 }
+
+
+
+//Colorized-cells
+
+.on_clearance {
+    background-color: var(--document-status-on-clearance);
+    color: var(--font-color-inverted);
+}
+
+.waiting_for_EC {
+    background-color: var(--document-status-waiting-for-EC);
+}
+
+.agreement_in_EC {
+    background-color: var(--document-status-agreement-in-EC);
+}
+
+.awaiting_signing {
+    background-color: var(--document-status-awaiting-signing);
+}
+
+.submitted_for_signing {
+    background-color: var(--document-status-submitted-for-signing);
+}
+
+.ready_to_transfer {
+    background-color: var(--document-status-ready-to-transfer);
+}
+
+.uploaded_to_TTS {
+    background-color: var(--document-status-uploaded-to-TTS);
+}
+
+.none {
+    background-color: var(--order-status-none);
+}
+
+.issued {
+    background-color: var(--order-status-issued);
+}
+
+.waiting_for_request {
+    background-color: var(--order-status-waiting-for-request);
+}
+
+.executing {
+    background-color: var(--order-status-executing);
+}
+
+.agreement {
+    background-color: var(--order-status-agreement);
+}
+
+.waiting_for_technical_closing {
+    background-color: var(--order-status-waiting-for-technical-closing);
+}
+
+.technical_closed {
+    background-color: var(--order-status-technical-closed)
+}
+
+
+
+

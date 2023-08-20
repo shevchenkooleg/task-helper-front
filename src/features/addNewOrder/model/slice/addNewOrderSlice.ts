@@ -4,7 +4,11 @@ import { AddNewOrderSliceSchema } from '../types/addNewOrder';
 const initialState: AddNewOrderSliceSchema = {
     error: '',
     isLoading: false,
-    newOrder: {}
+    newOrder: {
+        orderId: 'СО00-',
+        description: '',
+        yearOfExecution: String(new Date().getFullYear() + 1)
+    }
 };
 
 export const addNewOrderSlice = createSlice({

@@ -1,7 +1,7 @@
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo, useCallback } from 'react';
 import { ListBox } from '@/shared/ui/Popups';
-import { OrderDocumentsStatus } from '../../model/consts/orderConsts';
+import { OrderDocumentsStatus, orderDocumentsStatusMapper } from '../../../../shared/const/orderConsts';
 
 interface OrderStatusSelectProps {
     className?: string
@@ -10,24 +10,14 @@ interface OrderStatusSelectProps {
     readOnly?: boolean
 }
 
-const orderStatusMapper: Record<OrderDocumentsStatus, string> = {
-    [OrderDocumentsStatus.ON_CLEARANCE]: 'Документ на оформлении',
-    [OrderDocumentsStatus.WAITING_FOR_EC]: 'Документ ожидает отправку в СЦ',
-    [OrderDocumentsStatus.AGREEMENT_IN_EC]: 'Документ в СЦ на согласовании',
-    [OrderDocumentsStatus.AWAITING_SIGNING]: 'Документ распечатан, виза СЦ, ожидает подписания',
-    [OrderDocumentsStatus.SUBMITTED_FOR_SIGNING]: 'Документ передан для подписания в АБК',
-    [OrderDocumentsStatus.READY_TO_TRANSFER]: 'Документ подписан, готов к передаче в ОЦО',
-    [OrderDocumentsStatus.UPLOADED_TO_TTS]: 'Документ загружен в ТТС',
-};
-
 const statusOptions = [
-    { value: OrderDocumentsStatus.ON_CLEARANCE, content: orderStatusMapper.on_clearance },
-    { value: OrderDocumentsStatus.WAITING_FOR_EC, content: orderStatusMapper.waiting_for_EC },
-    { value: OrderDocumentsStatus.AGREEMENT_IN_EC, content: orderStatusMapper.agreement_in_EC },
-    { value: OrderDocumentsStatus.AWAITING_SIGNING, content: orderStatusMapper.awaiting_signing },
-    { value: OrderDocumentsStatus.SUBMITTED_FOR_SIGNING, content: orderStatusMapper.submitted_for_signing },
-    { value: OrderDocumentsStatus.READY_TO_TRANSFER, content: orderStatusMapper.ready_to_transfer },
-    { value: OrderDocumentsStatus.UPLOADED_TO_TTS, content: orderStatusMapper.uploaded_to_TTS }
+    { value: OrderDocumentsStatus.ON_CLEARANCE, content: orderDocumentsStatusMapper.on_clearance },
+    { value: OrderDocumentsStatus.WAITING_FOR_EC, content: orderDocumentsStatusMapper.waiting_for_EC },
+    { value: OrderDocumentsStatus.AGREEMENT_IN_EC, content: orderDocumentsStatusMapper.agreement_in_EC },
+    { value: OrderDocumentsStatus.AWAITING_SIGNING, content: orderDocumentsStatusMapper.awaiting_signing },
+    { value: OrderDocumentsStatus.SUBMITTED_FOR_SIGNING, content: orderDocumentsStatusMapper.submitted_for_signing },
+    { value: OrderDocumentsStatus.READY_TO_TRANSFER, content: orderDocumentsStatusMapper.ready_to_transfer },
+    { value: OrderDocumentsStatus.UPLOADED_TO_TTS, content: orderDocumentsStatusMapper.uploaded_to_TTS }
 ];
 
 export const OrderDocumentsStatusSelect = memo((props: OrderStatusSelectProps) => {
@@ -47,7 +37,7 @@ export const OrderDocumentsStatusSelect = memo((props: OrderStatusSelectProps) =
             readOnly={readOnly}
             direction={'bottom right'}
             // label={'Состояние документа:'}
-            labelMapper={orderStatusMapper}
+            labelMapper={orderDocumentsStatusMapper}
         />
     );
 });

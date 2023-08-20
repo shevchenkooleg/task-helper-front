@@ -5,3 +5,4 @@ export interface OrdersPageSchema {
     isLoading: boolean
     error?: string
 }
+

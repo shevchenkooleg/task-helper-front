@@ -16,6 +16,7 @@ export const addNewOrder = createAsyncThunk<Order, AddNewOrderProps, ThunkConfig
         const { dispatch, rejectWithValue, extra } = thunkAPI;
         const accessToken = thunkAPI.getState().user!.tokenAuthData!.access_token;
         try {
+            console.log('add');
 
             const newOrder = await extra.api.post<Order>('/order/', {
                 ...newOrderData

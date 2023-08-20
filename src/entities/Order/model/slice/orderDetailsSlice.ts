@@ -37,6 +37,7 @@ export const orderDetailsSlice = createSlice({
             })
             .addCase(fetchOrderById.fulfilled, (state,action) => {
                 state.isLoading = false;
+                console.log('action.payload ', action.payload);
                 state.order = action.payload;
                 state.form = action.payload;
             })

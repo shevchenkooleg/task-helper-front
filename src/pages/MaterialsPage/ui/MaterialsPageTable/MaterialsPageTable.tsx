@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { VStack } from '@/shared/ui/Stack';
 import { Table } from '@/shared/ui/Table';
 import { MaterialTabHeaderKeys } from '@/features/addNewMaterial';
-import { materialsTitlesMapper } from '../../model/consts/materialsTitlesMapper/materialsTitlesMapper';
+import { materialsTitlesMapper } from '../../../../shared/lib/titleMappers/materialsTitlesMapper';
 import { getRouteMaterialDetails } from '@/shared/const/router';
 
 interface MaterialsPageTableProps {

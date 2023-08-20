@@ -12,8 +12,6 @@ const root = createRoot(
     document.getElementById('root') as HTMLElement
 );
 
-console.log('index_init');
-
 root.render(
     <BrowserRouter>
         <StoreProvider>

@@ -19,7 +19,6 @@ export const getOrdersList = createAsyncThunk<Order[], null, ThunkConfig<string>
             if (!ordersList.data) {
                 throw new Error();
             }
-            console.log(ordersList);
             return ordersList.data;
         } catch (e: any) {
             console.log(e);

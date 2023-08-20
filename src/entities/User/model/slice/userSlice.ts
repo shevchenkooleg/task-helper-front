@@ -1,7 +1,7 @@
 import { USER_REFRESH_TOKEN_LOCALSTORAGE_KEY, USER_TOKEN_LOCALSTORAGE_KEY } from '@/shared/const/localStorage';
 import { buildSlice } from '@/shared/lib/store';
 import { PayloadAction } from '@reduxjs/toolkit';
-import { UserRole } from '../consts/consts';
+import { UserRole } from '../../../../shared/const/userConsts';
 import { TokenResponseInterface, User, UserInfoResponseInterface, UserSchema } from '../types/user';
 
 const initialState: UserSchema = {

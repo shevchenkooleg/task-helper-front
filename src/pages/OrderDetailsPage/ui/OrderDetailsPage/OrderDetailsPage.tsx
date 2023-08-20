@@ -31,8 +31,6 @@ const OrderDetailsPage = memo((props: OrderDetailsPageProps) => {
     const isLoading = useSelector(getOrderDetaildIsLoading);
     const editMode = useSelector(getOrderDetailsEditMode);
 
-    console.log('editMode ', editMode);
-
     useInitialEffect(()=>{
         orderId && dispatch(fetchOrderById(orderId));
     });
@@ -69,7 +67,6 @@ const OrderDetailsPage = memo((props: OrderDetailsPageProps) => {
     return (
         <Page className={classNames(cls.OrderDetailsPage, {}, [className])}>
             <VStack gap={'16px'} max={true} >
-                {/*<EditableOrderCard/>*/}
                 <EditableCard
                     reducer={reducer}
                     onBackClick={onBackClickHandler}

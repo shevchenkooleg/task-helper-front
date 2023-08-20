@@ -4,11 +4,11 @@ import { memo } from 'react';
 import { OrderTabHeaderKeys } from '@/features/addNewOrder';
 import { Table } from '@/shared/ui/Table';
 import { timeConverter } from '@/shared/lib/timeConverter/timeConverter';
-import { ordersTitlesMapper } from '../../model/consts/ordersTitlesMapper/ordersTitlesMapper';
+import { ordersTitlesMapper } from '../../../../shared/lib/titleMappers/ordersTitlesMapper';
 import { VStack } from '@/shared/ui/Stack';
 import { useNavigate } from 'react-router-dom';
 import { getRouteOrderDetails } from '@/shared/const/router';
-import { Order } from '@/entities/Order';
+import { billOfQuantitiesStatusMapper, Order, orderDocumentsStatusMapper,orderStatusMapper } from '@/entities/Order';
 
 interface OrdersPageTableProps {
     className?: string
@@ -37,6 +37,12 @@ export const OrdersPageTable = memo((props: OrdersPageTableProps) => {
         el._id && navigate(getRouteOrderDetails(el._id));
     };
 
+    const mapper = {
+        ...orderStatusMapper, ...orderDocumentsStatusMapper, ...billOfQuantitiesStatusMapper
+    };
+
+    console.log(ordersForRendering);
+
     if (ordersForRendering){
         return (
             <VStack gap={'32px'}>
@@ -45,6 +51,7 @@ export const OrdersPageTable = memo((props: OrdersPageTableProps) => {
                     headerKeysMapper={ordersTitlesMapper}
                     items={Object.values(ordersForRendering)}
                     callback={onDoubleClickHandler}
+                    helpMappers={mapper}
                 />
             </VStack>
 

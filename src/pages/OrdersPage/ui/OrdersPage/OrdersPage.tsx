@@ -57,7 +57,11 @@ const OrdersPage = (props: OrdersPageProps) => {
                             <Button onClick={onClickHandler}>добавить заказ</Button>
                         </HStack>
                     </HStack>
-                    {ordersList && <OrdersPageTable orders={ordersList}/>}
+                    {ordersList &&
+                        <OrdersPageTable
+                            orders={ordersList}
+                        />
+                    }
                     <AddNewOrderModal isOpen={isNewOrderModalOpen} onClose={onModalClose}/>
                 </VStack>
             </Page>

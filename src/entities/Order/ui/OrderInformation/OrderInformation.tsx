@@ -9,7 +9,7 @@ import { HStack, VStack } from '@/shared/ui/Stack';
 import { getOrderFormData } from '../../model/selectors/getOrderFormData/getOrderFormData';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { orderDetailsSliceActions } from '../../model/slice/orderDetailsSlice';
-import { BillOfQuantitiesStatus, OrderDocumentsStatus, OrderStatus } from '../../model/consts/orderConsts';
+import { BillOfQuantitiesStatus, OrderDocumentsStatus, OrderStatus } from '../../../../shared/const/orderConsts';
 import { OrderStatusSelect } from '../OrderStatusSelect/OrderStatusSelect';
 import { BillOfQuantitiesStatusSelect } from '../BillOfQuantitiesStatusSelect/BillOfQuantitiesStatusSelect';
 import { OrderDocumentsStatusSelect } from '../OrderDocumentsStatusSelect/OrderDocumentsStatusSelect';
@@ -23,7 +23,6 @@ export const OrderInformation = memo((props: OrderInformationProps) => {
     const form = useSelector(getOrderFormData);
     const dispatch = useAppDispatch();
     const editMode = !useSelector(getOrderDetailsEditMode);
-    console.log(form);
 
     const onChangeExecuteId = useCallback((value?: string) => {
         dispatch(orderDetailsSliceActions.updateOrderForm({

@@ -1,7 +1,7 @@
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo, useCallback } from 'react';
 import { ListBox } from '@/shared/ui/Popups';
-import { BillOfQuantitiesStatus } from '../../model/consts/orderConsts';
+import { BillOfQuantitiesStatus, billOfQuantitiesStatusMapper } from '../../../../shared/const/orderConsts';
 
 interface BillOfQuantitiesStatusSelectProps {
     className?: string
@@ -10,10 +10,10 @@ interface BillOfQuantitiesStatusSelectProps {
     readOnly?: boolean
 }
 
-const billOfQuantitiesStatusMapper: Record<BillOfQuantitiesStatus, string> = {
-    [BillOfQuantitiesStatus.LOADED]: 'Загружен в ТОРО',
-    [BillOfQuantitiesStatus.NOT_LOADED]: 'Не загружен в ТОРО',
-};
+// const billOfQuantitiesStatusMapper: Record<BillOfQuantitiesStatus, string> = {
+//     [BillOfQuantitiesStatus.LOADED]: 'Загружен в ТОРО',
+//     [BillOfQuantitiesStatus.NOT_LOADED]: 'Не загружен в ТОРО',
+// };
 
 const statusOptions = [
     { value: BillOfQuantitiesStatus.NOT_LOADED, content: billOfQuantitiesStatusMapper.not_loaded },
