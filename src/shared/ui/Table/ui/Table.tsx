@@ -49,9 +49,9 @@ export const Table = <T extends Record<string, any>>(props: TableProps<T>) => {
                                         ? helpMappers[el[key]]
                                         : Array.isArray(el[key]) ? el[key].join(', ') : el[key]
                                 }
-                                <span className={cls.help}>
+                                {helpMappers && <span className={cls.help}>
                                     {helpMappers ? helpMappers[el[key]] : el[key]}
-                                </span>
+                                </span>}
                             </td>
                         );
                     })
