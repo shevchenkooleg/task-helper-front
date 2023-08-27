@@ -8,3 +8,4 @@ export { getMaterialDetailsEditMode } from './model/selectors/getMaterialDetails
 export { getMaterialFormData } from './model/selectors/getMaterialFormData/getMaterialFormData';
 export { updateMaterialById } from './model/services/updateMaterialById/updateMaterialById';
 export { deleteMaterialById } from './model/services/deleteMaterialById/deleteMaterialById';
+export { type MaterialToOrderTab } from '@/entities/Material/model/types/materialDetailsSliceSchema';

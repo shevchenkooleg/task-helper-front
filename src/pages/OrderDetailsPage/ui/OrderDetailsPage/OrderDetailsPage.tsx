@@ -9,7 +9,6 @@ import { ReducerList } from '@/shared/lib/components/DynamicModuleLoader/Dynamic
 import {
     fetchOrderById,
     getOrderDetaildIsLoading, getOrderDetailsEditMode,
-    OrderCard,
     orderDetailsSliceActions,
     orderDetailsSliceReducer, updateOrderById
 } from '@/entities/Order';
@@ -18,6 +17,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getRouteOrders } from '@/shared/const/router';
 import { useSelector } from 'react-redux';
 import { deleteOrderById } from '@/entities/Order';
+import { OrderCard } from '@/entities/Order';
 
 interface OrderDetailsPageProps {
     className?: string

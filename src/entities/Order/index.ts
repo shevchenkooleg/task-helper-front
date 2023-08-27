@@ -10,10 +10,12 @@ export { type OrderDetailsSliceSchema } from './model/types/orderDetailsSliceSch
 export { orderDetailsSliceReducer } from './model/slice/orderDetailsSlice';
 export { getOrderData } from './model/selectors/getOrderData/getOrderData';
 export { getOrderFormData } from './model/selectors/getOrderFormData/getOrderFormData';
-export { OrderCard } from './ui/OrderCard/OrderCard';
 export { getOrderDetailsEditMode } from './model/selectors/getEditMode/getOrderDetailsEditMode';
 export { orderDetailsSliceActions } from './model/slice/orderDetailsSlice';
 export { getOrderDetaildIsLoading } from './model/selectors/getOrderDetaildIsLoading/getOrderDetaildIsLoading';
 export { BillOfQuantitiesStatus } from '@/shared/const/orderConsts';
 export { OrderStatus } from '@/shared/const/orderConsts';
-export { type OrderMaterial } from '@/entities/Order/model/types/orderDetailsSliceSchema';
+export { OrderInformation } from './ui/OrderInformation/OrderInformation';
+export { OrderMaterials } from './ui/OrderMaterials/OrderMaterials';
+export { OrderCard } from './ui/OrderCard/OrderCard';
+export { expandDataForMaterial } from './model/services/expandDataForMaterial/expandDataForMaterial';

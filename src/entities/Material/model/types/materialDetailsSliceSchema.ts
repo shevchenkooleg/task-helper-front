@@ -15,3 +15,10 @@ export interface MaterialDetailsSliceSchema {
     material: Material
     form: Material
 }
+
+export interface MaterialToOrderTab extends Material {
+    materialId?: string
+    quantityPerUnit?: string
+    totalUnitsCount?: string
+    totalQuantity?: string
+}

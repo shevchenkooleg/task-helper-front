@@ -17,6 +17,7 @@ export const Table = <T extends Record<string, any>>(props: TableProps<T>) => {
     const tabContent = (el: T, i: number) => {
 
         const orderStatusForColorized = el.orderStatus;
+        // console.log('tabKeys ', tabKeys);
 
         return (
             <tr className={cls.cellsRow} key={i} onDoubleClick={(e)=> {
@@ -24,7 +25,7 @@ export const Table = <T extends Record<string, any>>(props: TableProps<T>) => {
             }}>
                 {
                     tabKeys && tabKeys.map(key=>{
-                        if (el[key].status){
+                        if (typeof el[key] === 'object'){
                             return (
                                 <td
                                     key={key}
@@ -35,9 +36,9 @@ export const Table = <T extends Record<string, any>>(props: TableProps<T>) => {
                                             ? helpMappers[el[key].value]
                                             : Array.isArray(el[key].value) ? el[key].value.join(', ') : el[key].value
                                     }
-                                    <span className={cls.help}>
+                                    {helpMappers && <span className={cls.help}>
                                         {helpMappers ? helpMappers[el[key].status] : el[key].status}
-                                    </span>
+                                    </span>}
                                 </td>
                             );
                         }

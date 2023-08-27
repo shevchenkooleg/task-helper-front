@@ -1,12 +1,5 @@
 import { BillOfQuantitiesStatus, OrderDocumentsStatus, OrderStatus } from '@/shared/const/orderConsts';
-import { Material } from '@/entities/Material';
-
-export interface OrderMaterial extends Material {
-    materialId?: string
-    quantityPerUnit?: string
-    totalUnitsCount?: string
-    totalQuantity?: string
-}
+import { MaterialToOrderTab } from '@/entities/Material';
 
 export interface Order {
     _id?: string
@@ -37,7 +30,7 @@ export interface Order {
         status: OrderDocumentsStatus
     }
     yearOfExecution?: string
-    materials?: Array<OrderMaterial>
+    materials?: Array<MaterialToOrderTab>
 }
 
 export interface OrderDetailsSliceSchema {

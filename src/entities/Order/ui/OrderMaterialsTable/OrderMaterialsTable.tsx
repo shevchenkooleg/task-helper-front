@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import { MaterialInOrderTabHeaderKeys, MaterialTabHeaderKeys } from '@/shared/const/materialTabHeaderKeys';
 import { useSelector } from 'react-redux';
 import { getOrderDetailsEditMode } from '../../model/selectors/getEditMode/getOrderDetailsEditMode';
@@ -6,10 +6,16 @@ import { getOrderFormData } from '../../model/selectors/getOrderFormData/getOrde
 import { VStack } from '@/shared/ui/Stack';
 import { Table } from '@/shared/ui/Table';
 import { materialsInOrderTitlesMapper } from '@/shared/lib/titleMappers/materialsInOrderTitlesMapper';
-import { OrderMaterial } from '../..';
+import { MaterialToOrderTab } from '@/entities/Material';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+//TODO
+
+// eslint-disable-next-line path-import-validation-plugin/layer-imports
+import { materialToOrderSliceActions } from '@/features/addMatarialToOrder';
 
 interface OrderMaterialsTableProps {
     className?: string
+    onOpen: () => void
 }
 
 const materialForOrderTabHeaderKeys = [
@@ -24,19 +30,25 @@ const materialForOrderTabHeaderKeys = [
 
 
 export const OrderMaterialsTable = memo((props: OrderMaterialsTableProps) => {
-    const { className } = props;
+    const { className, onOpen } = props;
     const editMode = useSelector(getOrderDetailsEditMode);
     const materialsForOrderForRendering = useSelector(getOrderFormData)?.materials?.map(el=>el);
+    const dispatch = useAppDispatch();
+
+    const onDoubleClickHandler = useCallback((item: MaterialToOrderTab)=>{
+        editMode && dispatch(materialToOrderSliceActions.setMaterialToOrderForm(item));
+        editMode && onOpen();
+    },[dispatch, editMode, onOpen]);
 
     if (materialsForOrderForRendering){
         return (
             <>
                 <VStack gap={'32px'}>
-                    <Table<OrderMaterial>
+                    <Table<MaterialToOrderTab>
                         tabKeys={materialForOrderTabHeaderKeys}
                         headerKeysMapper={materialsInOrderTitlesMapper}
                         items={Object.values(materialsForOrderForRendering)}
-                        // callback={onDoubleClickHandler}
+                        callback={(event, item)=>onDoubleClickHandler(item)}
                         // helpMappers={mapper}
                     />
                 </VStack>
