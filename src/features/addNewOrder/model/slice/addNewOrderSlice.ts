@@ -5,7 +5,7 @@ const initialState: AddNewOrderSliceSchema = {
     error: '',
     isLoading: false,
     newOrder: {
-        orderId: 'СО00-',
+        orderId: 'СО00-э',
         description: '',
         yearOfExecution: String(new Date().getFullYear() + 1)
     }
@@ -25,9 +25,9 @@ export const addNewOrderSlice = createSlice({
             state.newOrder.yearOfExecution = action.payload;
         },
         resetForm: (state)=>{
-            state.newOrder.orderId = '';
+            state.newOrder.orderId = 'СО00-э';
             state.newOrder.description = '';
-            state.newOrder.yearOfExecution = '';
+            state.newOrder.yearOfExecution = String(new Date().getFullYear() + 1);
             state.error = '';
             state.isLoading = false;
         }

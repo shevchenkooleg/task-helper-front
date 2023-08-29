@@ -82,19 +82,19 @@ const AddNewOrderForm = memo((props: AddNewOrderFormProps) => {
                 </VStack>
                 <VStack align={'end'} gap={'8px'}>
                     <Input
-                        value={newOrderId}
+                        value={newOrderId ?? ''}
                         onChange={onChangeNewOrderId}
                         placeholder={'Номер заказа'}
                         between={true}
                     />
                     <Input
-                        value={newOrderDescription}
+                        value={newOrderDescription ?? ''}
                         onChange={onChangeNewOrderDescription}
                         placeholder={'Оборудование'}
                         between={true}
                     />
                     <Input
-                        value={newOrderYearOfExecution}
+                        value={newOrderYearOfExecution ?? ''}
                         onChange={onChangeNewOrderYearOfExecution}
                         placeholder={'Год выполнения'}
                         between={true}

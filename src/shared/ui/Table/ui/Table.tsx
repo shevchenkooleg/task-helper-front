@@ -8,11 +8,12 @@ interface TableProps<T> {
     callback?: (event:React.MouseEvent<HTMLTableRowElement>, item:T)=>void
     headerKeysMapper?: Record<string, string>
     helpMappers?: Record<string, string>
+    tooltip?: boolean
 }
 
 export const Table = <T extends Record<string, any>>(props: TableProps<T>) => {
     
-    const { className, items, tabKeys=Object.keys(items[0]), headerKeysMapper, callback, helpMappers } = props;
+    const { className, items, tabKeys=Object.keys(items[0]), headerKeysMapper, callback, helpMappers, tooltip = false } = props;
 
     const tabContent = (el: T, i: number) => {
 
@@ -49,7 +50,7 @@ export const Table = <T extends Record<string, any>>(props: TableProps<T>) => {
                                         ? helpMappers[el[key]]
                                         : Array.isArray(el[key]) ? el[key].join(', ') : el[key]
                                 }
-                                {helpMappers && <span className={cls.help}>
+                                {tooltip && <span className={cls.help}>
                                     {helpMappers ? helpMappers[el[key]] : el[key]}
                                 </span>}
                             </td>

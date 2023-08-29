@@ -41,7 +41,7 @@ export const OrdersPageTable = memo((props: OrdersPageTableProps) => {
         ...orderStatusMapper, ...orderDocumentsStatusMapper, ...billOfQuantitiesStatusMapper
     };
 
-    console.log(ordersForRendering);
+    // console.log(ordersForRendering);
 
     if (ordersForRendering){
         return (
@@ -52,6 +52,7 @@ export const OrdersPageTable = memo((props: OrdersPageTableProps) => {
                     items={Object.values(ordersForRendering)}
                     callback={onDoubleClickHandler}
                     helpMappers={mapper}
+                    tooltip={true}
                 />
             </VStack>
 

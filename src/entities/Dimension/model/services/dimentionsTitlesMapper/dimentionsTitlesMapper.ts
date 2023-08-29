@@ -11,5 +11,5 @@ export const dimensionTitlesMapper: Record<Dimension, string> = {
     [Dimension.M]: 'м',
     [Dimension.SM]: 'см',
     [Dimension.UNIT]: 'ед',
-    [Dimension.NONE]: 'н/а',
+    [Dimension.NONE]: 'Укажите размерность материала',
 };

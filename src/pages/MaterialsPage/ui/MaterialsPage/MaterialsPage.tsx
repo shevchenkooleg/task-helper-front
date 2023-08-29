@@ -40,7 +40,8 @@ export const MaterialsPage = memo((props: MaterialsPageProps) => {
 
     const onModalClose = useCallback(() => {
         setIsModalOpen(false);
-    },[]);
+        dispatch(getMaterialsList(null));
+    },[dispatch]);
 
     const materialsList = useSelector(getMaterialsListSelector);
 

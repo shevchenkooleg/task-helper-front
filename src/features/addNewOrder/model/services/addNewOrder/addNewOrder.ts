@@ -16,7 +16,7 @@ export const addNewOrder = createAsyncThunk<Order, AddNewOrderProps, ThunkConfig
         const { dispatch, rejectWithValue, extra } = thunkAPI;
         const accessToken = thunkAPI.getState().user!.tokenAuthData!.access_token;
         try {
-            console.log('add');
+            // console.log('add');
 
             const newOrder = await extra.api.post<Order>('/order/', {
                 ...newOrderData
@@ -29,7 +29,7 @@ export const addNewOrder = createAsyncThunk<Order, AddNewOrderProps, ThunkConfig
             if (!newOrder.data) {
                 throw new Error();
             }
-            console.log(newOrder);
+            // console.log(newOrder);
             return newOrder.data;
         } catch (e) {
             console.log(e);

@@ -19,6 +19,9 @@ export const AddNewMaterialSlice = createSlice({
         setNewMaterialKSUId: (state, action)=>{
             state.newMaterial.KSUId = action.payload;
         },
+        setNewMaterialUPPId: (state, action)=>{
+            state.newMaterial.UPPId = action.payload;
+        },
         setNewMaterialDimension: (state, action) => {
             state.newMaterial.dimension = action.payload;
         },

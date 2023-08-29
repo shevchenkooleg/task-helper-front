@@ -14,7 +14,8 @@ export const updateMaterialById = createAsyncThunk<Material, string, ThunkConfig
     async (materialId, thunkAPI) => {
         const { rejectWithValue, extra, getState } = thunkAPI;
         const accessToken = thunkAPI.getState().user!.tokenAuthData!.access_token;
-        const orderForm = filterObject<Material>(getState()!.materialDetails!.form, ['__v', '_id']);
+        // console.log('form ', filterObject<Material>(getState()!.materialDetails!.form, ['__v', '_id']));
+        const materialForm = filterObject<Material>(getState()!.materialDetails!.form, ['__v', '_id']);
 
         try {
             if (!materialId) {
@@ -22,7 +23,7 @@ export const updateMaterialById = createAsyncThunk<Material, string, ThunkConfig
             }
             const response = await extra.api.put<responseInterface, AxiosResponse, Material>(`/material/${materialId}`,
                 {
-                    ...orderForm
+                    ...materialForm
                 },
                 {
                     headers: {

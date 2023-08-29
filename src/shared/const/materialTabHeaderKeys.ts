@@ -1,6 +1,7 @@
 export enum MaterialTabHeaderKeys {
     MATERIAL_NAME = 'materialName',
     KSU_ID = 'KSUId',
+    UPP_ID = 'UPPId',
     DIMENSION = 'dimension',
     FULL_VOLUME = 'fullVolume',
 }

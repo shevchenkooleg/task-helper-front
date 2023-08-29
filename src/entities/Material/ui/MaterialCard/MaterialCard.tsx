@@ -36,6 +36,12 @@ export const MaterialCard = memo((props: MaterialCardProps) => {
         }));
     }, [dispatch]);
 
+    const onChangeMaterialUPPId = useCallback((value?: string) => {
+        dispatch(materialDetailsSliceActions.updateMaterialForm({
+            UPPId: value || ''
+        }));
+    }, [dispatch]);
+
     const onChangeMaterialFullVolume = useCallback((value?: string) => {
         dispatch(materialDetailsSliceActions.updateMaterialForm({
             fullVolume: value || ''
@@ -61,8 +67,14 @@ export const MaterialCard = memo((props: MaterialCardProps) => {
 
                 <Input
                     readOnly={!editMode}
-                    placeholder={'Код КСУ:'} value={materialForm?.KSUId}
+                    placeholder={'Код КСУ НСИ:'} value={materialForm?.KSUId}
                     onChange={onChangeMaterialKSUId}
+                />
+
+                <Input
+                    readOnly={!editMode}
+                    placeholder={'Код УПП:'} value={materialForm?.UPPId}
+                    onChange={onChangeMaterialUPPId}
                 />
 
                 <Input

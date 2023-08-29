@@ -6,7 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import { VStack } from '@/shared/ui/Stack';
 import { Table } from '@/shared/ui/Table';
 import { MaterialTabHeaderKeys } from '@/features/addNewMaterial';
-import { materialsTitlesMapper } from '../../../../shared/lib/titleMappers/materialsTitlesMapper';
+import {
+    materialsTableContentMapper,
+    materialsTableTitleMapper
+} from '../../../../shared/lib/titleMappers/materialsTableMappers';
 import { getRouteMaterialDetails } from '@/shared/const/router';
 
 interface MaterialsPageTableProps {
@@ -22,6 +25,7 @@ export const MaterialsPageTable = memo((props: MaterialsPageTableProps) => {
     const materialTabHeaderKeys = [
         MaterialTabHeaderKeys.MATERIAL_NAME,
         MaterialTabHeaderKeys.KSU_ID,
+        MaterialTabHeaderKeys.UPP_ID,
         MaterialTabHeaderKeys.FULL_VOLUME,
         MaterialTabHeaderKeys.DIMENSION,
     ];
@@ -35,9 +39,10 @@ export const MaterialsPageTable = memo((props: MaterialsPageTableProps) => {
             <VStack gap={'32px'}>
                 <Table<Material>
                     tabKeys={materialTabHeaderKeys}
-                    headerKeysMapper={materialsTitlesMapper}
+                    headerKeysMapper={materialsTableTitleMapper}
                     items={Object.values(materials)}
                     callback={onDoubleClickHandler}
+                    helpMappers={materialsTableContentMapper}
                 />
             </VStack>
 

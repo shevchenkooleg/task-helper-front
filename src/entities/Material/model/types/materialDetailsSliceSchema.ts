@@ -4,6 +4,7 @@ export interface Material {
     _id?: string
     materialName?: string
     KSUId?: string
+    UPPId?: string
     dimension?: Dimension
     fullVolume?: string
 }

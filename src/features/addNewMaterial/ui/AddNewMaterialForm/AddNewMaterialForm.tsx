@@ -8,25 +8,16 @@ import { Input } from '@/shared/ui/Input';
 import { AddNewMaterialSliceActions, AddNewMaterialSliceReducer } from '../../model/slice/addNewMaterialSlice';
 import { getNewMaterialName } from '../../model/selectors/getNewMaterialName/getNewMaterialName';
 import { useSelector } from 'react-redux';
-import {
-    getNewMaterialKSUId
-} from '../../model/selectors/getNewMaterialKSUId/getNewMaterialKSUId';
-import {
-    getNewMaterialDimension
-} from '../../model/selectors/getNewMaterialDimension/getNewMaterialDimension';
-import {
-    getNewMaterialFullVolume
-} from '../../model/selectors/getNewMaterialFullVolume/getNewMaterialFullVolume';
-import {
-    getNewMaterialError
-} from '../../model/selectors/getNewMaterialError/getNewMaterialError';
-import {
-    getNewMaterialIsLoading
-} from '../../model/selectors/getNewMaterialIsLoading/getNewMaterialIsLoading';
+import { getNewMaterialKSUId } from '../../model/selectors/getNewMaterialKSUId/getNewMaterialKSUId';
+import { getNewMaterialDimension } from '../../model/selectors/getNewMaterialDimension/getNewMaterialDimension';
+import { getNewMaterialFullVolume } from '../../model/selectors/getNewMaterialFullVolume/getNewMaterialFullVolume';
+import { getNewMaterialError } from '../../model/selectors/getNewMaterialError/getNewMaterialError';
+import { getNewMaterialIsLoading } from '../../model/selectors/getNewMaterialIsLoading/getNewMaterialIsLoading';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { DimensionSelect } from '@/entities/Dimension';
+import { Dimension, DimensionSelect } from '@/entities/Dimension';
 import { Button } from '@/shared/ui/Button';
 import { addNewMaterial } from '../../model/services/addNewMaterial/addNewMaterial';
+import { getNewMaterialUPPId } from '../../model/selectors/getNewMaterialUPPId/getNewMaterialUPPId';
 
 export interface AddNewMaterialFormProps {
     className?: string
@@ -45,6 +36,7 @@ const AddNewMaterialForm = memo((props: AddNewMaterialFormProps) => {
     const isLoading = useSelector(getNewMaterialIsLoading);
     const newMaterialName = useSelector(getNewMaterialName);
     const newMaterialKSUId = useSelector(getNewMaterialKSUId);
+    const newMaterialUPPId = useSelector(getNewMaterialUPPId);
     const newMaterialDimension = useSelector(getNewMaterialDimension);
     const newMaterialFullVolume = useSelector(getNewMaterialFullVolume);
 
@@ -55,6 +47,10 @@ const AddNewMaterialForm = memo((props: AddNewMaterialFormProps) => {
 
     const onChangeNewMaterialKSUId = useCallback((value: string) => {
         dispatch(AddNewMaterialSliceActions.setNewMaterialKSUId(value));
+    },[dispatch]);
+
+    const onChangeNewMaterialUPPId = useCallback((value: string) => {
+        dispatch(AddNewMaterialSliceActions.setNewMaterialUPPId(value));
     },[dispatch]);
 
     const onChangeNewMaterialFullVolume = useCallback((value: string) => {
@@ -85,31 +81,37 @@ const AddNewMaterialForm = memo((props: AddNewMaterialFormProps) => {
     return (
         <DynamicModuleLoader reducers={initialReducers} removeAfterUnmount={true}>
             <VStack gap={'8px'} className={classNames(cls.AddNewMaterialForm, {}, [className])}>
-                <div><Text title={'Добавление нового заказа'}/></div>
+                <div><Text title={'Добавление нового материала'}/></div>
                 <VStack>
                     {error && <Text title={error} theme={TextTheme.ERROR}/>}
                 </VStack>
                 <VStack align={'end'} gap={'8px'}>
                     <Input
-                        value={newMaterialName}
+                        value={newMaterialName ?? ''}
                         onChange={onChangeNewMaterialName}
                         placeholder={'Название материала'}
                         between={true}
                     />
                     <Input
-                        value={newMaterialKSUId}
+                        value={newMaterialKSUId ?? ''}
                         onChange={onChangeNewMaterialKSUId}
-                        placeholder={'№ КСУ материала'}
+                        placeholder={'Код КСУ НСИ'}
                         between={true}
                     />
                     <Input
-                        value={newMaterialFullVolume}
+                        value={newMaterialUPPId ?? ''}
+                        onChange={onChangeNewMaterialUPPId}
+                        placeholder={'Код УПП'}
+                        between={true}
+                    />
+                    <Input
+                        value={newMaterialFullVolume ?? ''}
                         onChange={onChangeNewMaterialFullVolume}
                         placeholder={'Объем единицы материала'}
                         between={true}
                     />
                     <DimensionSelect
-                        value={newMaterialDimension}
+                        value={newMaterialDimension ?? Dimension.NONE}
                         onChange={onChangeNewMaterialDimension}
                     />
                     <Button onClick={onAddNewMaterialClick}>
