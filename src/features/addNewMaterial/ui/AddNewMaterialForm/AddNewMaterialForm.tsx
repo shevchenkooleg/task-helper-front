@@ -36,7 +36,7 @@ const AddNewMaterialForm = memo((props: AddNewMaterialFormProps) => {
     const isLoading = useSelector(getNewMaterialIsLoading);
     const newMaterialName = useSelector(getNewMaterialName);
     const newMaterialKSUId = useSelector(getNewMaterialKSUId);
-    const newMaterialUPPId = useSelector(getNewMaterialUPPId);
+    const newMaterialUPPId = useSelector(getNewMaterialUPPId) ?? '';
     const newMaterialDimension = useSelector(getNewMaterialDimension);
     const newMaterialFullVolume = useSelector(getNewMaterialFullVolume);
 
@@ -68,14 +68,15 @@ const AddNewMaterialForm = memo((props: AddNewMaterialFormProps) => {
                 materialName: newMaterialName,
                 dimension: newMaterialDimension,
                 fullVolume: newMaterialFullVolume,
-                KSUId: newMaterialKSUId
+                KSUId: newMaterialKSUId,
+                UPPId: newMaterialUPPId
             }));
             if (result.meta.requestStatus === 'fulfilled') {
                 dispatch(AddNewMaterialSliceActions.resetForm());
                 onSuccess();
             }
         }
-    },[dispatch, newMaterialDimension, newMaterialFullVolume, newMaterialKSUId, newMaterialName, onSuccess]);
+    },[dispatch, newMaterialDimension, newMaterialFullVolume, newMaterialKSUId, newMaterialName, newMaterialUPPId, onSuccess]);
 
 
     return (

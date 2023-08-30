@@ -5,10 +5,11 @@ import { Dimension } from '@/entities/Dimension';
 import { Material } from '@/entities/Material';
 
 interface AddNewMaterialProps {
-    materialName: string,
-    KSUId: string,
-    dimension: Dimension,
-    fullVolume: string,
+    materialName: string
+    KSUId: string
+    UPPId: string
+    dimension: Dimension
+    fullVolume: string
 }
 
 export const addNewMaterial = createAsyncThunk<Material, AddNewMaterialProps, ThunkConfig<string>>(
@@ -29,7 +30,6 @@ export const addNewMaterial = createAsyncThunk<Material, AddNewMaterialProps, Th
             if (!newMaterial.data) {
                 throw new Error();
             }
-            console.log(newMaterial);
             return newMaterial.data;
         } catch (e) {
             console.log(e);

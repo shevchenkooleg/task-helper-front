@@ -34,12 +34,21 @@ export const Input: FC<InputProps> = memo((props: InputProps) => {
 
     } = props;
 
+    let keyDownValue = '1';
+
+    const onKeyDownHandler = (e:React.KeyboardEvent<HTMLInputElement>) => {
+        keyDownValue = e.key;
+    };
+
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log('keyDownValue ', keyDownValue);
         if (type === InputTypes.NUMBER) {
+            console.log('e.currentTarget.value.length ', e.currentTarget.value.length);
             if (e.currentTarget.value.length > 0 && e.currentTarget.value.match(/^\d+$/)) {
                 onChange?.(e.currentTarget.value);
             } else {
-                onChange?.('0');
+                onChange?.(e.currentTarget.value.replace(',', '.'));
+                // onChange?.('0');
             }
         }
         if (type === InputTypes.TEXT) {
@@ -54,7 +63,7 @@ export const Input: FC<InputProps> = memo((props: InputProps) => {
                     {`${placeholder} `}
                 </div>
             )}
-            <input type={type} value={value} onChange={onChangeHandler} disabled={readOnly} {...otherProps}/>
+            <input type={type} value={value} onKeyDown={onKeyDownHandler} onChange={onChangeHandler} disabled={readOnly} {...otherProps}/>
         </>;
 
     if (between){

@@ -4,7 +4,7 @@ import { memo, useCallback, useEffect, useState } from 'react';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { Text, TextTheme } from '@/shared/ui/Text';
 import { HStack, VStack } from '@/shared/ui/Stack';
-import { Input } from '@/shared/ui/Input';
+import { Input, InputTypes } from '@/shared/ui/Input';
 import { Button, ButtonTheme } from '@/shared/ui/Button';
 import { useSelector } from 'react-redux';
 import { getMaterialToOrderError } from '../../model/selectors/getMaterialToOrderError/getMaterialToOrderError';
@@ -141,7 +141,7 @@ const AddMaterialToOrderForm = memo((props: AddMaterialToOrderFormProps) => {
                 <VStack align={'end'} gap={'8px'}>
                     <ComboBox<Material>
                         value={materialToOrderForm?.materialName ?? ''}
-                        placeholder={'Название материала/Код КСУ'}
+                        placeholder={'Название материала/Код КСУ/Код УПП'}
                         query={query}
                         setQuery={onChangeMaterialToOrderComboBoxQuery}
                         items={materialList}
@@ -150,12 +150,14 @@ const AddMaterialToOrderForm = memo((props: AddMaterialToOrderFormProps) => {
                     />
                     <Input
                         value={form?.quantityPerUnit ?? ''}
+                        type={InputTypes.NUMBER}
                         onChange={onChangeMaterialToOrderQuantityPerUnit}
                         placeholder={'количество на ед.оборудования'}
                         between={true}
                     />
                     <Input
                         value={form?.totalUnitsCount ?? ''}
+                        type={InputTypes.NUMBER}
                         onChange={onChangeMaterialToOrderTotalUnitsCount}
                         placeholder={'общее количество ед.оборудования'}
                         between={true}
