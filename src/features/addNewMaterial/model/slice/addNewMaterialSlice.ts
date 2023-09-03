@@ -31,6 +31,7 @@ export const AddNewMaterialSlice = createSlice({
         resetForm: (state) => {
             state.newMaterial.materialName = '';
             state.newMaterial.KSUId = '';
+            state.newMaterial.UPPId = '';
             state.newMaterial.dimension = Dimension.NONE;
             state.newMaterial.fullVolume = '';
         }

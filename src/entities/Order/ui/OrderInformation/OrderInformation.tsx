@@ -39,12 +39,6 @@ export const OrderInformation = memo((props: OrderInformationProps) => {
             orderStatus: value || OrderStatus.NONE
         }));
     }, [dispatch]);
-
-
-
-
-
-
     const onChangeCorrectionId = useCallback((value?: string, status?: OrderDocumentsStatus) => {
         console.log('value: ',value);
         console.log('status: ',status);
@@ -52,16 +46,6 @@ export const OrderInformation = memo((props: OrderInformationProps) => {
             correctionId: { value: value || '', status: status || OrderDocumentsStatus.ON_CLEARANCE }
         }));
     }, [dispatch]);
-
-
-
-
-
-
-
-
-
-
     const onChangeConsignmentNoteId = useCallback((value?: string, status?: OrderDocumentsStatus) => {
         dispatch(orderDetailsSliceActions.updateOrderForm({
             consignmentNoteId: { value: value || '', status: status || OrderDocumentsStatus.ON_CLEARANCE }
@@ -87,6 +71,24 @@ export const OrderInformation = memo((props: OrderInformationProps) => {
             yearOfExecution: value || ''
         }));
     }, [dispatch]);
+    const onConsignmentNoteIdCheckboxClick = useCallback(() => {
+        form?.consignmentNoteId?.value === 'отсутствует'
+            ? dispatch(orderDetailsSliceActions.updateOrderForm({
+                consignmentNoteId: { value: '', status: OrderDocumentsStatus.ON_CLEARANCE }
+            }))
+            : dispatch(orderDetailsSliceActions.updateOrderForm({
+                consignmentNoteId: { value: 'отсутствует', status: OrderDocumentsStatus.UPLOADED_TO_TTS }
+            }));
+    },[dispatch, form?.consignmentNoteId?.value]);
+    const onCorrectionIdCheckboxClick = useCallback(() => {
+        form?.correctionId?.value === 'отсутствует'
+            ? dispatch(orderDetailsSliceActions.updateOrderForm({
+                correctionId: { value: '', status: OrderDocumentsStatus.ON_CLEARANCE }
+            }))
+            : dispatch(orderDetailsSliceActions.updateOrderForm({
+                correctionId: { value: 'отсутствует', status: OrderDocumentsStatus.UPLOADED_TO_TTS }
+            }));
+    },[dispatch, form?.correctionId?.value]);
 
 
     return (
@@ -119,16 +121,27 @@ export const OrderInformation = memo((props: OrderInformationProps) => {
                 />
 
                 <HStack gap={'32px'} justify={'between'} max>
-                    <Input
-                        readOnly={editMode}
-                        placeholder={'Номер корректировки:'}
-                        value={form?.correctionId?.value}
-                        onChange={
-                            (value: string)=>{
-                                onChangeCorrectionId(value, form?.correctionId?.status);
+                    <HStack gap={'32px'}>
+                        <Input
+                            readOnly={editMode}
+                            placeholder={'Номер корректировки:'}
+                            value={form?.correctionId?.value}
+                            onChange={
+                                (value: string)=>{
+                                    onChangeCorrectionId(value, form?.correctionId?.status);
+                                }
                             }
-                        }
-                    />
+                        />
+                        <HStack gap={'4px'}>
+                            <Input
+                                type={'checkbox'}
+                                readOnly={editMode}
+                                checked={form?.correctionId?.value === 'отсутствует' ? true : false}
+                                onClick={ onCorrectionIdCheckboxClick }
+                            />
+                            <span>отсутствует</span>
+                        </HStack>
+                    </HStack>
                     <OrderDocumentsStatusSelect
                         readOnly={editMode}
                         value={form?.correctionId?.status}
@@ -140,16 +153,27 @@ export const OrderInformation = memo((props: OrderInformationProps) => {
                     />
                 </HStack>
                 <HStack gap={'32px'} justify={'between'} max>
-                    <Input
-                        readOnly={editMode}
-                        placeholder={'Номер накладной М11:'}
-                        value={form?.consignmentNoteId?.value}
-                        onChange={
-                            (value: string)=>{
-                                onChangeConsignmentNoteId(value, form?.consignmentNoteId?.status);
+                    <HStack gap={'32px'}>
+                        <Input
+                            readOnly={editMode}
+                            placeholder={'Номер накладной М11:'}
+                            value={form?.consignmentNoteId?.value}
+                            onChange={
+                                (value: string)=>{
+                                    onChangeConsignmentNoteId(value, form?.consignmentNoteId?.status);
+                                }
                             }
-                        }
-                    />
+                        />
+                        <HStack gap={'4px'}>
+                            <Input
+                                type={'checkbox'}
+                                readOnly={editMode}
+                                checked={form?.consignmentNoteId?.value === 'отсутствует' ? true : false}
+                                onClick={ onConsignmentNoteIdCheckboxClick }
+                            />
+                            <span>отсутствует</span>
+                        </HStack>
+                    </HStack>
                     <OrderDocumentsStatusSelect
                         readOnly={editMode}
                         value={form?.consignmentNoteId?.status}

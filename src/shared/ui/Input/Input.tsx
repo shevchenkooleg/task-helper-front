@@ -17,7 +17,7 @@ interface InputProps extends InputAttributes {
     autoFocus?: boolean
     readOnly?: boolean
     between?: boolean
-    type?: InputTypes
+    dataType?: InputTypes
 }
 
 export const Input: FC<InputProps> = memo((props: InputProps) => {
@@ -28,7 +28,7 @@ export const Input: FC<InputProps> = memo((props: InputProps) => {
         readOnly,
         onChange,
         between,
-        type = InputTypes.TEXT,
+        dataType = InputTypes.TEXT,
         placeholder,
         ...otherProps
 
@@ -41,9 +41,9 @@ export const Input: FC<InputProps> = memo((props: InputProps) => {
     };
 
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log('keyDownValue ', keyDownValue);
-        if (type === InputTypes.NUMBER) {
-            console.log('e.currentTarget.value.length ', e.currentTarget.value.length);
+        // console.log('keyDownValue ', keyDownValue);
+        if (dataType === InputTypes.NUMBER) {
+            // console.log('e.currentTarget.value.length ', e.currentTarget.value.length);
             if (e.currentTarget.value.length > 0 && e.currentTarget.value.match(/^\d+$/)) {
                 onChange?.(e.currentTarget.value);
             } else {
@@ -51,7 +51,7 @@ export const Input: FC<InputProps> = memo((props: InputProps) => {
                 // onChange?.('0');
             }
         }
-        if (type === InputTypes.TEXT) {
+        if (dataType === InputTypes.TEXT) {
             onChange?.(e.currentTarget.value);
         }
     };
@@ -63,7 +63,7 @@ export const Input: FC<InputProps> = memo((props: InputProps) => {
                     {`${placeholder} `}
                 </div>
             )}
-            <input type={type} value={value} onKeyDown={onKeyDownHandler} onChange={onChangeHandler} disabled={readOnly} {...otherProps}/>
+            <input type={dataType} value={value} onKeyDown={onKeyDownHandler} onChange={onChangeHandler} disabled={readOnly} {...otherProps}/>
         </>;
 
     if (between){

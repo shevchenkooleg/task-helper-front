@@ -150,14 +150,14 @@ const AddMaterialToOrderForm = memo((props: AddMaterialToOrderFormProps) => {
                     />
                     <Input
                         value={form?.quantityPerUnit ?? ''}
-                        type={InputTypes.NUMBER}
+                        dataType={InputTypes.NUMBER}
                         onChange={onChangeMaterialToOrderQuantityPerUnit}
                         placeholder={'количество на ед.оборудования'}
                         between={true}
                     />
                     <Input
                         value={form?.totalUnitsCount ?? ''}
-                        type={InputTypes.NUMBER}
+                        dataType={InputTypes.NUMBER}
                         onChange={onChangeMaterialToOrderTotalUnitsCount}
                         placeholder={'общее количество ед.оборудования'}
                         between={true}
