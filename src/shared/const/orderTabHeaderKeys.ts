@@ -1,4 +1,5 @@
 export enum OrderTabHeaderKeys {
+    SERIAL_NUMBER = 'serialNumber',
     ORDER_ID = 'orderId',
     EXECUTED_ID = 'executeId',
     DESCRIPTION = 'description',

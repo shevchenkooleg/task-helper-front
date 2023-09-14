@@ -1,6 +1,7 @@
 import { OrderTabHeaderKeys } from '@/shared/const/orderTabHeaderKeys';
 
 export const ordersTitlesMapper: Record<OrderTabHeaderKeys, string> = {
+    [OrderTabHeaderKeys.SERIAL_NUMBER]: '№ п/п',
     [OrderTabHeaderKeys.ORDER_ID]: '№ заказа',
     [OrderTabHeaderKeys.EXECUTED_ID]: '№ выполнения',
     [OrderTabHeaderKeys.DESCRIPTION]: 'Оборудование',

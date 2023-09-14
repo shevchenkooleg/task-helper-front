@@ -7,7 +7,7 @@ import { ordersTitlesMapper } from '../../../../shared/lib/titleMappers/ordersTi
 import { VStack } from '@/shared/ui/Stack';
 import { useNavigate } from 'react-router-dom';
 import { getRouteOrderDetails } from '@/shared/const/router';
-import { billOfQuantitiesStatusMapper, Order, orderDocumentsStatusMapper,orderStatusMapper } from '@/entities/Order';
+import { billOfQuantitiesStatusMapper, Order, orderDocumentsStatusMapper, orderStatusMapper } from '@/entities/Order';
 import { TableGrid } from '@/shared/ui/TableGrid';
 
 interface OrdersPageTableProps {
@@ -20,6 +20,7 @@ export const OrdersPageTable = memo((props: OrdersPageTableProps) => {
     const navigate = useNavigate();
     const ordersForRendering = orders?.map((el)=>({ ...el, modified: timeConverter(el.modified!) }));
     const orderTabHeaderKeys = [
+        OrderTabHeaderKeys.SERIAL_NUMBER,
         OrderTabHeaderKeys.ORDER_ID,
         OrderTabHeaderKeys.EXECUTED_ID,
         OrderTabHeaderKeys.DESCRIPTION,

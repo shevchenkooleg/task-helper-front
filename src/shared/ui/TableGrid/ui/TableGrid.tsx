@@ -31,13 +31,26 @@ export const TableGrid = <T extends Record<string, any>>(props: TableGridProps<T
 
         const orderStatusForColorized = el.orderStatus;
         // console.log('tabKeys ', tabKeys);
+        console.log(el);
 
         return (
             <tr className={cls.cellsRow} key={i} onDoubleClick={(e)=> {
                 callback && callback(e, el);
             }}>
+                {/*{*/}
+                {/*    <td key={i} className={classNames('', { [cls[orderStatusForColorized]]:true }, [])}>*/}
+                {/*        1*/}
+                {/*    </td>*/}
+                {/*}*/}
                 {
                     tabKeys && tabKeys.map(key=>{
+                        if (key === 'serialNumber'){
+                            return (
+                                <td key={i} className={classNames('', { [cls[orderStatusForColorized]]:false }, [])}>
+                                    {i+1}
+                                </td>
+                            );
+                        }
                         if (typeof el[key] === 'object'){
                             return (
                                 <td
@@ -56,7 +69,7 @@ export const TableGrid = <T extends Record<string, any>>(props: TableGridProps<T
                             );
                         }
                         return (
-                            <td key={key} className={classNames('', { [cls[orderStatusForColorized]]:true }, [])}>
+                            <td key={key} className={classNames('', { [cls[orderStatusForColorized]]:true }, [key === 'description' ? cls.description : undefined])}>
                                 {
                                     helpMappers && el[key] in helpMappers
                                         ? helpMappers[el[key]]

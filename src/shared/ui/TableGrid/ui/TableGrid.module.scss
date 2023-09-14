@@ -7,6 +7,7 @@
 
 .orderTemplate {
     grid-template-columns:
+            minmax(40px, 40px)
             minmax(50px, 100px)
             minmax(50px, 100px)
             minmax(50px, 800px)
@@ -55,19 +56,18 @@ td {
     font: var(--font-s);
     //border-collapse: collapse;
     outline: 1px solid black;
-
+    text-align: center;
 }
 
 th {
     position: sticky;
     top: -20px;
     background: #6c7ae0;
-    text-align: left;
+    text-align: center;
     //border: 1px solid rgba(0, 0, 0, 0.42);
     //font-weight: normal;
     //font-size: 1.1rem;
     color: white;
-    outline: 1px solid black;
 }
 
 th:last-child {
@@ -78,12 +78,15 @@ td {
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: var(--document-status-on-clearance);
-    //align-self: center;
-    //justify-self: center;
+    //align-content: center;
 }
 
 tr:nth-child(even) td {
     //background: var(--bg-color);
+}
+
+.description {
+    text-align: left;
 }
 
 
