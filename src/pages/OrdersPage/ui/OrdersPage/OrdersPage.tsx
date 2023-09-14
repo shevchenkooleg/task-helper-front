@@ -50,7 +50,7 @@ const OrdersPage = (props: OrdersPageProps) => {
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
             <Page data-testid={'OrdersPage'} className={classNames(cls.OrdersPage, {}, [className])}>
                 <VStack align={'start'} gap={'16px'}>
-                    <HStack gap={'32px'} justify={'between'} max>
+                    <HStack gap={'32px'} justify={'between'} max className={cls.toolPanel}>
                         <div>Orders Filters block</div>
                         <HStack gap={'32px'}>
                             <Button onClick={onLoadClickHandler}>обновить заказы</Button>

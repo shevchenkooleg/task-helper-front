@@ -4,13 +4,13 @@ import { memo } from 'react';
 import { Material } from '@/entities/Material';
 import { useNavigate } from 'react-router-dom';
 import { VStack } from '@/shared/ui/Stack';
-import { Table } from '@/shared/ui/Table';
 import { MaterialTabHeaderKeys } from '@/features/addNewMaterial';
 import {
     materialsTableContentMapper,
     materialsTableTitleMapper
 } from '../../../../shared/lib/titleMappers/materialsTableMappers';
 import { getRouteMaterialDetails } from '@/shared/const/router';
+import { TableGrid } from '@/shared/ui/TableGrid';
 
 interface MaterialsPageTableProps {
     className?: string
@@ -37,12 +37,13 @@ export const MaterialsPageTable = memo((props: MaterialsPageTableProps) => {
     if (materials){
         return (
             <VStack gap={'32px'}>
-                <Table<Material>
+                <TableGrid<Material>
                     tabKeys={materialTabHeaderKeys}
                     headerKeysMapper={materialsTableTitleMapper}
                     items={Object.values(materials)}
                     callback={onDoubleClickHandler}
                     helpMappers={materialsTableContentMapper}
+                    template={'materialTemplate'}
                 />
             </VStack>
 

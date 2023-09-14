@@ -1,0 +1,148 @@
+.TableGrid {
+    display: grid;
+    min-width: 100%;
+    font: var(--font-s);
+    gap: 0;
+}
+
+.orderTemplate {
+    grid-template-columns:
+            minmax(50px, 100px)
+            minmax(50px, 100px)
+            minmax(50px, 800px)
+            minmax(50px, 200px)
+            minmax(50px, 100px)
+            minmax(50px, 100px)
+            minmax(50px, 130px)
+            minmax(50px, 100px)
+            minmax(50px, 100px)
+            minmax(50px, 100px)
+            minmax(50px, 130px);
+}
+
+.materialTemplate {
+    grid-template-columns:
+            minmax(50px, 1200px)
+            minmax(50px, 200px)
+            minmax(50px, 200px)
+            minmax(50px, 100px)
+            minmax(50px, 100px)
+}
+
+.materialInOrderTemplate {
+    grid-template-columns:
+            minmax(50px, 5000px)
+            minmax(50px, 150px)
+            minmax(50px, 150px)
+            minmax(50px, 150px)
+            minmax(50px, 150px)
+            minmax(50px, 150px)
+            minmax(50px, 150px)
+}
+
+thead,
+tbody,
+tr {
+    display: contents;
+}
+
+th,
+td {
+    padding: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    //white-space: nowrap;
+    font: var(--font-s);
+    //border-collapse: collapse;
+    outline: 1px solid black;
+
+}
+
+th {
+    position: sticky;
+    top: -20px;
+    background: #6c7ae0;
+    text-align: left;
+    //border: 1px solid rgba(0, 0, 0, 0.42);
+    //font-weight: normal;
+    //font-size: 1.1rem;
+    color: white;
+    outline: 1px solid black;
+}
+
+th:last-child {
+    border: 0;
+}
+
+td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: var(--document-status-on-clearance);
+    //align-self: center;
+    //justify-self: center;
+}
+
+tr:nth-child(even) td {
+    //background: var(--bg-color);
+}
+
+
+//Colorized-cells
+
+
+.on_clearance {
+    background-color: var(--document-status-on-clearance);
+    color: var(--font-color-inverted);
+}
+
+.waiting_for_EC {
+    background-color: var(--document-status-waiting-for-EC);
+}
+
+.agreement_in_EC {
+    background-color: var(--document-status-agreement-in-EC);
+}
+
+.awaiting_signing {
+    background-color: var(--document-status-awaiting-signing);
+}
+
+.submitted_for_signing {
+    background-color: var(--document-status-submitted-for-signing);
+}
+
+.ready_to_transfer {
+    background-color: var(--document-status-ready-to-transfer);
+}
+
+.uploaded_to_TTS {
+    background-color: var(--document-status-uploaded-to-TTS);
+}
+
+.none {
+    background-color: var(--order-status-none);
+}
+
+.issued {
+    background-color: var(--order-status-issued);
+}
+
+.waiting_for_request {
+    background-color: var(--order-status-waiting-for-request);
+}
+
+.executing {
+    background-color: var(--order-status-executing);
+}
+
+.agreement {
+    background-color: var(--order-status-agreement);
+}
+
+.waiting_for_technical_closing {
+    background-color: var(--order-status-waiting-for-technical-closing);
+}
+
+.technical_closed {
+    background-color: var(--order-status-technical-closed)
+}

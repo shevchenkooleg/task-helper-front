@@ -2,13 +2,13 @@ import cls from './OrdersPageTable.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo } from 'react';
 import { OrderTabHeaderKeys } from '@/features/addNewOrder';
-import { Table } from '@/shared/ui/Table';
 import { timeConverter } from '@/shared/lib/timeConverter/timeConverter';
 import { ordersTitlesMapper } from '../../../../shared/lib/titleMappers/ordersTitlesMapper';
 import { VStack } from '@/shared/ui/Stack';
 import { useNavigate } from 'react-router-dom';
 import { getRouteOrderDetails } from '@/shared/const/router';
 import { billOfQuantitiesStatusMapper, Order, orderDocumentsStatusMapper,orderStatusMapper } from '@/entities/Order';
+import { TableGrid } from '@/shared/ui/TableGrid';
 
 interface OrdersPageTableProps {
     className?: string
@@ -46,7 +46,15 @@ export const OrdersPageTable = memo((props: OrdersPageTableProps) => {
     if (ordersForRendering){
         return (
             <VStack gap={'32px'}>
-                <Table<Order>
+                {/*<Table<Order>*/}
+                {/*    tabKeys={orderTabHeaderKeys}*/}
+                {/*    headerKeysMapper={ordersTitlesMapper}*/}
+                {/*    items={Object.values(ordersForRendering)}*/}
+                {/*    callback={onDoubleClickHandler}*/}
+                {/*    helpMappers={mapper}*/}
+                {/*    tooltip={true}*/}
+                {/*/>*/}
+                <TableGrid<Order>
                     tabKeys={orderTabHeaderKeys}
                     headerKeysMapper={ordersTitlesMapper}
                     items={Object.values(ordersForRendering)}

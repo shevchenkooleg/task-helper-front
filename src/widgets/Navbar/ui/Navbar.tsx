@@ -9,6 +9,7 @@ import { LoginModal } from '@/features/authByUsername';
 import { HStack } from '@/shared/ui/Stack';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { getTokenAuthData } from '@/entities/User';
+import { useLocation } from 'react-router-dom';
 
 interface NavbarProps {
     className?: string
@@ -19,6 +20,8 @@ export const Navbar = memo((props: NavbarProps) => {
     const [isAuthModal, setIsAuthModal] = useState(false);
     const accessToken = useSelector(getTokenAuthData);
     const dispatch = useAppDispatch();
+    const location = useLocation();
+    console.log(location.pathname);
 
     const onCloseModal = useCallback(() => {
         setIsAuthModal(false);
@@ -36,7 +39,7 @@ export const Navbar = memo((props: NavbarProps) => {
     if (accessToken){
         return (
             <header className={classNames(cls.Navbar, {}, [className])}>
-                <Text className={cls.appName} title={'My_APP'} inverted={true}/>
+                <Text className={cls.appName} title={'TORO_MRP_APP'} inverted={true}/>
                 <HStack className={cls.actions}>
                     <Button
                         theme={ButtonTheme.CLEAR}

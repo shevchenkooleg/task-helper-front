@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { getOrderDetailsEditMode } from '../../model/selectors/getEditMode/getOrderDetailsEditMode';
 import { getOrderFormData } from '../../model/selectors/getOrderFormData/getOrderFormData';
 import { VStack } from '@/shared/ui/Stack';
-import { Table } from '@/shared/ui/Table';
 import { materialsInOrderTitlesMapper } from '@/shared/lib/titleMappers/materialsInOrderTitlesMapper';
 import { MaterialToOrderTab } from '@/entities/Material';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -12,6 +11,7 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 
 // eslint-disable-next-line path-import-validation-plugin/layer-imports
 import { materialToOrderSliceActions } from '@/features/addMatarialToOrder';
+import { TableGrid } from '@/shared/ui/TableGrid';
 
 interface OrderMaterialsTableProps {
     className?: string
@@ -44,11 +44,12 @@ export const OrderMaterialsTable = memo((props: OrderMaterialsTableProps) => {
         return (
             <>
                 <VStack gap={'32px'}>
-                    <Table<MaterialToOrderTab>
+                    <TableGrid<MaterialToOrderTab>
                         tabKeys={materialForOrderTabHeaderKeys}
                         headerKeysMapper={materialsInOrderTitlesMapper}
                         items={Object.values(materialsForOrderForRendering)}
                         callback={(event, item)=>onDoubleClickHandler(item)}
+                        template={'materialInOrderTemplate'}
                         // helpMappers={mapper}
                     />
                 </VStack>
