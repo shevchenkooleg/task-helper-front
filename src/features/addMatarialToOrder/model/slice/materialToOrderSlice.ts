@@ -28,14 +28,14 @@ export const materialToOrderSlice = createSlice({
             state.materialToOrderForm.quantityPerUnit = action.payload;
             if (state.materialToOrderForm.totalUnitsCount){
                 state.materialToOrderForm.totalQuantity =
-                    String((Number(state.materialToOrderForm.totalUnitsCount) * Number(action.payload)).toFixed(3));
+                    String((Number(state.materialToOrderForm.totalUnitsCount) * Number(action.payload)).toFixed(3)).replace('.000', '');
             }
         },
         setTotalUnitsCount: (state, action)=>{
             state.materialToOrderForm.totalUnitsCount = action.payload;
             if (state.materialToOrderForm.quantityPerUnit){
                 state.materialToOrderForm.totalQuantity =
-                    String((Number(state.materialToOrderForm.totalUnitsCount) * Number(action.payload)).toFixed(3));
+                    String((Number(state.materialToOrderForm.totalUnitsCount) * Number(action.payload)).toFixed(3)).replace('.000', '');
             }
         },
         setMaterialToOrderForm: (state, action: PayloadAction<MaterialToOrderTab>) => {
