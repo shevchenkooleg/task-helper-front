@@ -63,7 +63,9 @@ export const Input: FC<InputProps> = memo((props: InputProps) => {
                     {`${placeholder} `}
                 </div>
             )}
-            <input type={dataType} value={value} onKeyDown={onKeyDownHandler} onChange={onChangeHandler} disabled={readOnly} {...otherProps}/>
+            <div>
+                <input type={dataType} value={value} onKeyDown={onKeyDownHandler} onChange={onChangeHandler} disabled={readOnly} {...otherProps}/>
+            </div>
         </>;
 
     if (between){

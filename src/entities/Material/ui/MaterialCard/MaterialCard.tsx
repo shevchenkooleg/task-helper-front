@@ -54,6 +54,15 @@ export const MaterialCard = memo((props: MaterialCardProps) => {
         }));
     }, [dispatch]);
 
+    const inputAutoSizer = (value: string | undefined) => {
+        if (value !== undefined){
+            return { width: `${(value.length + 1) * 9}px` };
+        }
+        return { width: '200px' };
+    };
+
+    materialForm?.materialName && console.log(inputAutoSizer(materialForm?.materialName));
+
     return (
         <VStack max gap={'16px'} className={classNames(cls.MaterialCard, {}, [className])}>
             <div>Информация о материале</div>
@@ -63,6 +72,7 @@ export const MaterialCard = memo((props: MaterialCardProps) => {
                     placeholder={'Наименование материала:'}
                     value={materialForm?.materialName}
                     onChange={onChangeMaterialName}
+                    style={inputAutoSizer(materialForm?.materialName)}
                 />
 
                 <Input

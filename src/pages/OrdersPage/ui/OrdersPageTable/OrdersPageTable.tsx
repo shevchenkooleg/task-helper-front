@@ -18,7 +18,8 @@ interface OrdersPageTableProps {
 export const OrdersPageTable = memo((props: OrdersPageTableProps) => {
     const { className, orders } = props;
     const navigate = useNavigate();
-    const ordersForRendering = orders?.map((el)=>({ ...el, modified: timeConverter(el.modified!) }));
+    //TODO implement timeZones for different users
+    const ordersForRendering = orders?.map((el)=>({ ...el, modified: timeConverter(el.modified!, 3) }));
     const orderTabHeaderKeys = [
         OrderTabHeaderKeys.SERIAL_NUMBER,
         OrderTabHeaderKeys.ORDER_ID,

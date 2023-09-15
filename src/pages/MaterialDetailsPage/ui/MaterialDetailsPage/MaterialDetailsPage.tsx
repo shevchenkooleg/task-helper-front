@@ -21,6 +21,9 @@ import {
     getMaterialDetailsEditMode
 } from '@/entities/Material';
 import { updateMaterialById } from '@/entities/Material';
+import {
+    MaterialDetailsPageToolPanel
+} from '../MaterialDetailsPageToolPanel/MaterialDetailsPageToolPanel';
 
 interface MaterialDetailsPageProps {
     className?: string
@@ -67,23 +70,27 @@ const MaterialDetailsPage = memo((props: MaterialDetailsPageProps) => {
 
 
     return (
-        <Page className={classNames(cls.MaterialDetailsPage, {}, [className])}>
-            <VStack gap={'16px'} max={true} >
-                <EditableCard
-                    onBackClick={onBackClickHandler}
-                    onSaveClick={onSaveClickHandler}
-                    onEditClick={onEditClickHandler}
-                    onDeleteClick={onDeleteClickHandler}
-                    onCancelClick={onCancelClickHandler}
-                    removeAfterUnmount={true}
-                    editMode={editMode}
-                    reducer={reducer}
-                    isLoading={isLoading}
-                >
-                    <MaterialCard/>
-                </EditableCard>
-            </VStack>
-        </Page>
+        <VStack className={cls.layout}>
+            <MaterialDetailsPageToolPanel
+                onBackClick={onBackClickHandler}
+                onSaveClick={onSaveClickHandler}
+                onEditClick={onEditClickHandler}
+                onDeleteClick={onDeleteClickHandler}
+                onCancelClick={onCancelClickHandler}
+                editMode={editMode}
+            />
+            <Page className={classNames(cls.MaterialDetailsPage, {}, [className])}>
+                <VStack gap={'16px'} max={true} >
+                    <EditableCard
+                        removeAfterUnmount={true}
+                        reducer={reducer}
+                        isLoading={isLoading}
+                    >
+                        <MaterialCard/>
+                    </EditableCard>
+                </VStack>
+            </Page>
+        </VStack>
     );
 });
 
