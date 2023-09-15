@@ -48,7 +48,7 @@ const OrdersPage = (props: OrdersPageProps) => {
 
     return (
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
-            <VStack className={cls.toolbar}>
+            <VStack className={cls.layout}>
                 <OrderPageToolsPanel addOrderCallback={onClickHandler} refreshOrdersCallback={onLoadClickHandler}/>
                 <Page data-testid={'OrdersPage'} className={classNames(cls.OrdersPage, {}, [className])}>
                     <VStack align={'start'} gap={'16px'}>

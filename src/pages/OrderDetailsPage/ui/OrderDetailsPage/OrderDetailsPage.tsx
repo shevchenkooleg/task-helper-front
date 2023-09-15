@@ -18,6 +18,7 @@ import { getRouteOrders } from '@/shared/const/router';
 import { useSelector } from 'react-redux';
 import { deleteOrderById } from '@/entities/Order';
 import { OrderCard } from '@/entities/Order';
+import { OrderDetailsPageToolBar } from '../OrderDetailsPageToolBar/OrderDetailsPageToolBar';
 
 interface OrderDetailsPageProps {
     className?: string
@@ -65,23 +66,27 @@ const OrderDetailsPage = memo((props: OrderDetailsPageProps) => {
 
 
     return (
-        <Page className={classNames(cls.OrderDetailsPage, {}, [className])}>
-            <VStack gap={'16px'} max={true} >
-                <EditableCard
-                    reducer={reducer}
-                    onBackClick={onBackClickHandler}
-                    onEditClick={onEditClickHandler}
-                    onDeleteClick={onDeleteClickHandler}
-                    onSaveClick={onSaveClickHandler}
-                    onCancelClick={onCancelClickHandler}
-                    editMode={editMode}
-                    removeAfterUnmount={true}
-                    isLoading={isLoading}
-                >
-                    <OrderCard/>
-                </EditableCard>
-            </VStack>
-        </Page>
+        <VStack className={cls.layout}>
+            <OrderDetailsPageToolBar
+                onBackClick={onBackClickHandler}
+                onEditClick={onEditClickHandler}
+                onDeleteClick={onDeleteClickHandler}
+                onSaveClick={onSaveClickHandler}
+                onCancelClick={onCancelClickHandler}
+                editMode={editMode}
+            />
+            <Page className={classNames(cls.OrderDetailsPage, {}, [className])}>
+                <VStack gap={'16px'} max={true} >
+                    <EditableCard
+                        reducer={reducer}
+                        removeAfterUnmount={true}
+                        isLoading={isLoading}
+                    >
+                        <OrderCard/>
+                    </EditableCard>
+                </VStack>
+            </Page>
+        </VStack>
     );
 });
 
