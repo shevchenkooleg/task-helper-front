@@ -42,19 +42,9 @@ export const OrdersPageTable = memo((props: OrdersPageTableProps) => {
         ...orderStatusMapper, ...orderDocumentsStatusMapper, ...billOfQuantitiesStatusMapper
     };
 
-    // console.log(ordersForRendering);
-
     if (ordersForRendering){
         return (
             <VStack gap={'32px'}>
-                {/*<Table<Order>*/}
-                {/*    tabKeys={orderTabHeaderKeys}*/}
-                {/*    headerKeysMapper={ordersTitlesMapper}*/}
-                {/*    items={Object.values(ordersForRendering)}*/}
-                {/*    callback={onDoubleClickHandler}*/}
-                {/*    helpMappers={mapper}*/}
-                {/*    tooltip={true}*/}
-                {/*/>*/}
                 <TableGrid<Order>
                     tabKeys={orderTabHeaderKeys}
                     headerKeysMapper={ordersTitlesMapper}

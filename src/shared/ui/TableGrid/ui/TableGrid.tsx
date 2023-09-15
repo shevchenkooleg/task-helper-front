@@ -37,11 +37,6 @@ export const TableGrid = <T extends Record<string, any>>(props: TableGridProps<T
             <tr className={cls.cellsRow} key={i} onDoubleClick={(e)=> {
                 callback && callback(e, el);
             }}>
-                {/*{*/}
-                {/*    <td key={i} className={classNames('', { [cls[orderStatusForColorized]]:true }, [])}>*/}
-                {/*        1*/}
-                {/*    </td>*/}
-                {/*}*/}
                 {
                     tabKeys && tabKeys.map(key=>{
                         if (key === 'serialNumber'){
