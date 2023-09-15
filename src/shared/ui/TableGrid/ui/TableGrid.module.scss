@@ -34,7 +34,7 @@
 
 .materialInOrderTemplate {
     grid-template-columns:
-            minmax(50px, 5000px)
+            minmax(50px, 1000px)
             minmax(50px, 150px)
             minmax(50px, 150px)
             minmax(50px, 150px)
@@ -44,7 +44,11 @@
 }
 
 .adminPanelUsersTemplate {
-    grid-template-columns: 1fr 1fr 1fr 1fr
+    grid-template-columns:
+            minmax(50px, 500px)
+            minmax(50px, 250px)
+            minmax(50px, 250px)
+            minmax(50px, 250px)
 }
 
 thead,
@@ -67,7 +71,7 @@ td {
 
 th {
     position: sticky;
-    top: 0px;
+    top: 0;
     background: #6c7ae0;
     text-align: center;
     //border: 1px solid rgba(0, 0, 0, 0.42);

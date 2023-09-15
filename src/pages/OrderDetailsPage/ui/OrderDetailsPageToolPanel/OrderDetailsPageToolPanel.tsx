@@ -1,4 +1,4 @@
-import cls from './OrderDetailsPageToolBar.module.scss';
+import cls from './OrderDetailsPageToolPanel.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo } from 'react';
 import { HStack } from '@/shared/ui/Stack';
@@ -15,7 +15,7 @@ interface OrderDetailsPageToolBarProps {
     editMode?: boolean
 }
 
-export const OrderDetailsPageToolBar = memo((props: OrderDetailsPageToolBarProps) => {
+export const OrderDetailsPageToolPanel = memo((props: OrderDetailsPageToolBarProps) => {
 
     const { className, editMode, onCancelClick, onBackClick, onEditClick, onDeleteClick, onSaveClick, isLoading } = props;
 
@@ -69,4 +69,4 @@ export const OrderDetailsPageToolBar = memo((props: OrderDetailsPageToolBarProps
     );
 });
 
-OrderDetailsPageToolBar.displayName = 'OrderDetailsPageToolBar';
+OrderDetailsPageToolPanel.displayName = 'OrderDetailsPageToolPanel';

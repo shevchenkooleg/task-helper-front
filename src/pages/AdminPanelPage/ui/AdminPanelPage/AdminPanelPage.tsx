@@ -1,3 +1,4 @@
+import cls from './AdminPanelPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo, useEffect, useState } from 'react';
 import { Page } from '@/widgets/Page';
@@ -29,12 +30,14 @@ const AdminPanelPage = (props: AdminPanelPageProps) => {
 
     return (
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount={true}>
-            <Page data-testid={'AdminPanelPage'} className={classNames('', {}, [className])}>
-                <VStack max={true} gap={'8px'} align={'start'}>
-                    <AdminPanelBar contentMode={contentMode} onToggle={setContentMode}/>
-                    <AdminPanelLayout content={contentMode}/>
-                </VStack>
-            </Page>
+            <VStack className={cls.layout}>
+                <AdminPanelBar contentMode={contentMode} onToggle={setContentMode}/>
+                <Page data-testid={'AdminPanelPage'} className={classNames('', {}, [className])}>
+                    <VStack max={true} gap={'8px'} align={'start'} className={cls.AdminPanelPage}>
+                        <AdminPanelLayout content={contentMode}/>
+                    </VStack>
+                </Page>
+            </VStack>
         </DynamicModuleLoader>
     );
 };

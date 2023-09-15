@@ -18,7 +18,7 @@ import { getRouteOrders } from '@/shared/const/router';
 import { useSelector } from 'react-redux';
 import { deleteOrderById } from '@/entities/Order';
 import { OrderCard } from '@/entities/Order';
-import { OrderDetailsPageToolBar } from '../OrderDetailsPageToolBar/OrderDetailsPageToolBar';
+import { OrderDetailsPageToolPanel } from '../OrderDetailsPageToolPanel/OrderDetailsPageToolPanel';
 
 interface OrderDetailsPageProps {
     className?: string
@@ -67,7 +67,7 @@ const OrderDetailsPage = memo((props: OrderDetailsPageProps) => {
 
     return (
         <VStack className={cls.layout}>
-            <OrderDetailsPageToolBar
+            <OrderDetailsPageToolPanel
                 onBackClick={onBackClickHandler}
                 onEditClick={onEditClickHandler}
                 onDeleteClick={onDeleteClickHandler}

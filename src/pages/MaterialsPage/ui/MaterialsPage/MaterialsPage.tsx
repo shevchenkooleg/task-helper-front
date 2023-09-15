@@ -47,7 +47,7 @@ export const MaterialsPage = memo((props: MaterialsPageProps) => {
 
     return (
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
-            <VStack className={cls.toolbar}>
+            <VStack className={cls.layout}>
                 <MaterialsPageToolsPanel
                     addMaterialCallback={onAddMaterialClickHandler}
                     refreshMaterialsCallback={onLoadClickHandler}
