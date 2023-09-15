@@ -51,6 +51,17 @@ export const TableGrid = <T extends Record<string, any>>(props: TableGridProps<T
                                 </td>
                             );
                         }
+                        if (key === 'roles' && typeof el[key] === 'object'){
+                            console.log(el[key]);
+                            return (
+                                <td
+                                    key={key}
+                                    className={classNames(cls.tooltip, {}, [])}
+                                >
+                                    {el[key].join(', ')}
+                                </td>
+                            );
+                        }
                         if (typeof el[key] === 'object'){
                             return (
                                 <td

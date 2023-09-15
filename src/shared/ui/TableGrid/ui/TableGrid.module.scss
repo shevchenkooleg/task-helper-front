@@ -1,12 +1,14 @@
 .TableGrid {
     display: grid;
-    min-width: 100%;
     font: var(--font-s);
     gap: 0;
+    //overflow-y: auto;
 }
 
 .orderTemplate {
+    //width: calc(100% - var(--sidebar-width-collapced));
     grid-template-columns:
+            //1fr 1fr 1fr 3fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr
             minmax(40px, 40px)
             minmax(50px, 100px)
             minmax(50px, 100px)
@@ -18,7 +20,7 @@
             minmax(50px, 100px)
             minmax(50px, 100px)
             minmax(50px, 100px)
-            minmax(50px, 130px);
+            minmax(50px, 130px)
 }
 
 .materialTemplate {
@@ -41,6 +43,10 @@
             minmax(50px, 150px)
 }
 
+.adminPanelUsersTemplate {
+    grid-template-columns: 1fr 1fr 1fr 1fr
+}
+
 thead,
 tbody,
 tr {
@@ -61,7 +67,7 @@ td {
 
 th {
     position: sticky;
-    top: -20px;
+    top: 0px;
     background: #6c7ae0;
     text-align: center;
     //border: 1px solid rgba(0, 0, 0, 0.42);

@@ -2,16 +2,16 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './OrdersPage.module.scss';
 import { memo, useCallback, useState } from 'react';
 import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { Page } from '@/widgets/Page';
 import { ordersPageSliceReducer } from '../../model/slice/ordersPageSlice';
-import { Button } from '@/shared/ui/Button';
-import { HStack, VStack } from '@/shared/ui/Stack';
+import { VStack } from '@/shared/ui/Stack';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
 import { getUserAuthData } from '@/entities/User';
 import { getOrderListSelector, getOrdersList } from '@/features/getOrdersList';
 import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitialEffect';
+import { Page } from '@/widgets/Page';
 import { AddNewOrderModal } from '@/features/addNewOrder';
+import { OrderPageToolsPanel } from '../OrderPageToolsPanel/OrderPageToolsPanel';
 import { OrdersPageTable } from '../OrdersPageTable/OrdersPageTable';
 
 interface OrdersPageProps {
@@ -48,23 +48,19 @@ const OrdersPage = (props: OrdersPageProps) => {
 
     return (
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
-            <Page data-testid={'OrdersPage'} className={classNames(cls.OrdersPage, {}, [className])}>
-                <VStack align={'start'} gap={'16px'}>
-                    <HStack gap={'32px'} justify={'between'} max className={cls.toolPanel}>
-                        <div>Orders Filters block</div>
-                        <HStack gap={'32px'}>
-                            <Button onClick={onLoadClickHandler}>обновить заказы</Button>
-                            <Button onClick={onClickHandler}>добавить заказ</Button>
-                        </HStack>
-                    </HStack>
-                    {ordersList &&
-                        <OrdersPageTable
-                            orders={ordersList}
-                        />
-                    }
-                    <AddNewOrderModal isOpen={isNewOrderModalOpen} onClose={onModalClose}/>
-                </VStack>
-            </Page>
+            <VStack className={cls.toolbar}>
+                <OrderPageToolsPanel addOrderCallback={onClickHandler} refreshOrdersCallback={onLoadClickHandler}/>
+                <Page data-testid={'OrdersPage'} className={classNames(cls.OrdersPage, {}, [className])}>
+                    <VStack align={'start'} gap={'16px'}>
+                        {ordersList &&
+                            <OrdersPageTable
+                                orders={ordersList}
+                            />
+                        }
+                        <AddNewOrderModal isOpen={isNewOrderModalOpen} onClose={onModalClose}/>
+                    </VStack>
+                </Page>
+            </VStack>
         </DynamicModuleLoader>
     );
 };

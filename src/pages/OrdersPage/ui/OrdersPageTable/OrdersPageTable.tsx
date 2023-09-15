@@ -3,11 +3,11 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo } from 'react';
 import { OrderTabHeaderKeys } from '@/features/addNewOrder';
 import { timeConverter } from '@/shared/lib/timeConverter/timeConverter';
-import { ordersTitlesMapper } from '../../../../shared/lib/titleMappers/ordersTitlesMapper';
 import { VStack } from '@/shared/ui/Stack';
 import { useNavigate } from 'react-router-dom';
 import { getRouteOrderDetails } from '@/shared/const/router';
 import { billOfQuantitiesStatusMapper, Order, orderDocumentsStatusMapper, orderStatusMapper } from '@/entities/Order';
+import { ordersTitlesMapper } from '@/shared/lib/titleMappers/ordersTitlesMapper';
 import { TableGrid } from '@/shared/ui/TableGrid';
 
 interface OrdersPageTableProps {

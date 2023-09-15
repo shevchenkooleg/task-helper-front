@@ -9,9 +9,9 @@ import {
     getAdminPanelIsLoading
 } from '../../model/selectors/getAdminPanelIsLoading/getAdminPanelIsLoading';
 import { Skeleton } from '@/shared/ui/Skeleton';
-import { Table } from '@/shared/ui/Table';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { VStack } from '@/shared/ui/Stack';
+import { TableGrid } from '@/shared/ui/TableGrid';
 
 interface AdminPanelUserTableProps {
     className?: string
@@ -36,12 +36,19 @@ export const AdminPanelUserTable = memo((props: AdminPanelUserTableProps) => {
     ];
 
     if (users){
+        console.log(users);
         return (
-            <Table<AdminPanelUserData>
+            // <Table<AdminPanelUserData>
+            //     items={Object.values(users)}
+            //     tabKeys={tabKeys}
+            //     // exceptions={['hashedPassword', '__v', 'salt']}
+            //     callback={onTableClick}
+            // />
+            <TableGrid<AdminPanelUserData>
                 items={Object.values(users)}
                 tabKeys={tabKeys}
-                // exceptions={['hashedPassword', '__v', 'salt']}
                 callback={onTableClick}
+                template={'adminPanelUsersTemplate'}
             />
         );
     }
