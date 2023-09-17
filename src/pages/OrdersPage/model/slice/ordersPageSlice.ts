@@ -5,13 +5,17 @@ import { getOrdersList } from '@/features/getOrdersList';
 const initialState: OrdersPageSchema = {
     error: '',
     isLoading: false,
-    orders: []
+    orders: [],
+    _isInit: false
 };
 
 export const ordersPageSlice = createSlice({
     name: 'ordersPageSlice',
     initialState,
     reducers: {
+        setIsInit: (state)=>{
+            state._isInit = true;
+        }
     },
     extraReducers: (builder) => {
         builder

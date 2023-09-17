@@ -17,6 +17,7 @@ import { MaterialsPageSchema } from '@/pages/MaterialsPage';
 import { AddNewMaterialSliceSchema } from '@/features/addNewMaterial';
 import { MaterialDetailsSliceSchema } from '@/entities/Material';
 import { MaterialToOrderSliceSchema } from '@/features/addMatarialToOrder';
+import { OrderListFiltersSchema } from '@/features/orderListFilters';
 
 
 export interface StateSchema {
@@ -34,6 +35,7 @@ export interface StateSchema {
     newMaterial?: AddNewMaterialSliceSchema
     materialDetails?: MaterialDetailsSliceSchema
     materialToOrder?: MaterialToOrderSliceSchema
+    orderFilters?: OrderListFiltersSchema
     // profile?: ProfileSchema
     // articleDetails?: ArticleDetailsSchema
     // articleDetailsComments?: ArticleDetailsCommentSchema

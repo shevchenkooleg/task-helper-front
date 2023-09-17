@@ -1,8 +1,12 @@
 import cls from './TableGrid.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { TableGridTemplate } from '@/shared/types/ui';
+import { HStack } from '../../Stack';
+import ArrowDown from '@/shared/assets/icons/ArrowDown.svg';
+import ArrowUp from '@/shared/assets/icons/ArrowUp.svg';
+import { SortOrder } from '@/shared/types/sort';
 
-interface TableGridProps<T> {
+interface TableGridProps<T, R, S> {
     className?: string
     tabKeys?: Array<string> //Если не передать параметр 'tabKeys' - компонент отобразить все имеющиеся поля объектов
     items: Array<T>
@@ -11,9 +15,13 @@ interface TableGridProps<T> {
     helpMappers?: Record<string, string>
     tooltip?: boolean
     template?: TableGridTemplate
+    headerFieldClickHandler?: (newField: R) => void
+    currentSortField?: R
+    allowSortFields?: S
+    currentSortOrder?: SortOrder
 }
 
-export const TableGrid = <T extends Record<string, any>>(props: TableGridProps<T>) => {
+export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridProps<T, R, S>) => {
 
     const {
         className,
@@ -23,15 +31,17 @@ export const TableGrid = <T extends Record<string, any>>(props: TableGridProps<T
         callback,
         helpMappers,
         tooltip = false,
-        template = 'orderTemplate'
+        template = 'orderTemplate',
+        currentSortField,
+        allowSortFields,
+        currentSortOrder,
+        headerFieldClickHandler
     } = props;
 
 
     const tabContent = (el: T, i: number) => {
 
         const orderStatusForColorized = el.orderStatus;
-        // console.log('tabKeys ', tabKeys);
-        console.log(el);
 
         return (
             <tr className={cls.cellsRow} key={i} onDoubleClick={(e)=> {
@@ -100,8 +110,32 @@ export const TableGrid = <T extends Record<string, any>>(props: TableGridProps<T
                 <thead className={cls.theadBlock}>
                     <tr>
                         {tabKeys && tabKeys.map((header, key)=>headerKeysMapper
-                            ? <th key={key}>{headerKeysMapper[header]}</th>
-                            : <th key={key}>{header}</th>
+                            ? <th
+                                key={key}
+                                onClick={()=>{
+                                    if (allowSortFields && Object.values(allowSortFields).includes(header as R)){
+                                        headerFieldClickHandler && headerFieldClickHandler(header as R);
+                                    }
+                                }}
+                            >
+                                <HStack gap={'4px'} max justify={'center'}>
+                                    {headerKeysMapper[header]}
+                                    {
+                                        currentSortOrder === 'asc'
+                                            ? <ArrowDown
+                                                className={classNames(cls.sortIndicator, {}, [header === currentSortField ? cls.activeField : undefined])}/>
+                                            : <ArrowUp
+                                                className={classNames(cls.sortIndicator, {}, [header === currentSortField ? cls.activeField : undefined])}/>
+                                    }
+                                </HStack>
+
+                            </th>
+                            : <th
+                                key={key}
+                                onClick={()=>{console.log(header);}}
+                            >
+                                {header}
+                            </th>
                         )}
                     </tr>
                 </thead>

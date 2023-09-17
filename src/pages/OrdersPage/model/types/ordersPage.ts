@@ -4,5 +4,6 @@ export interface OrdersPageSchema {
     orders: Order[]
     isLoading: boolean
     error?: string
+    _isInit: boolean
 }
 

@@ -1,6 +1,6 @@
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './OrdersPage.module.scss';
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useEffect, useState } from 'react';
 import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { ordersPageSliceReducer } from '../../model/slice/ordersPageSlice';
 import { VStack } from '@/shared/ui/Stack';
@@ -13,6 +13,13 @@ import { Page } from '@/widgets/Page';
 import { AddNewOrderModal } from '@/features/addNewOrder';
 import { OrderPageToolsPanel } from '../OrderPageToolsPanel/OrderPageToolsPanel';
 import { OrdersPageTable } from '../OrdersPageTable/OrdersPageTable';
+import {
+    getOrderListFilterField,
+    getOrderListFiltersSortOrder,
+    orderListFiltersSliceReducer
+} from '@/features/orderListFilters';
+import { useSearchParams } from 'react-router-dom';
+import { initOrdersPage } from '../../model/services/initOrdersPage';
 
 interface OrdersPageProps {
     className?: string
@@ -22,10 +29,15 @@ const OrdersPage = (props: OrdersPageProps) => {
     const { className } = props;
     const userId = useSelector(getUserAuthData);
     const ordersList = useSelector(getOrderListSelector);
+    const sortOrder = useSelector(getOrderListFiltersSortOrder);
+    const sortField = useSelector(getOrderListFilterField);
     const reducers: ReducerList = {
-        orders: ordersPageSliceReducer
+        orders: ordersPageSliceReducer,
+        orderFilters: orderListFiltersSliceReducer
     };
     const dispatch = useAppDispatch();
+    const [searchParams] = useSearchParams();
+    console.log(searchParams);
 
     const [isNewOrderModalOpen, setIsNewOrderModalOpen] = useState(false);
     const onModalClose = useCallback(() => {
@@ -42,9 +54,13 @@ const OrdersPage = (props: OrdersPageProps) => {
     },[]);
 
     useInitialEffect(()=>{
-        userId && dispatch(getOrdersList(null));
+        userId && dispatch(initOrdersPage(searchParams));
     });
-    
+
+    useEffect(()=>{
+        userId && sortOrder && sortField && dispatch(getOrdersList(null));
+    },[sortOrder, sortField, dispatch, userId]);
+
 
     return (
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>

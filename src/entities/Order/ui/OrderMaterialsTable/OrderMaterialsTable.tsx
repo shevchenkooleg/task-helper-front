@@ -44,7 +44,7 @@ export const OrderMaterialsTable = memo((props: OrderMaterialsTableProps) => {
         return (
             <>
                 <VStack gap={'32px'}>
-                    <TableGrid<MaterialToOrderTab>
+                    <TableGrid<MaterialToOrderTab, null, null>
                         tabKeys={materialForOrderTabHeaderKeys}
                         headerKeysMapper={materialsInOrderTitlesMapper}
                         items={Object.values(materialsForOrderForRendering)}

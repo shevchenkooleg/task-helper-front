@@ -37,7 +37,7 @@ export const MaterialsPageTable = memo((props: MaterialsPageTableProps) => {
     if (materials){
         return (
             <VStack gap={'32px'}>
-                <TableGrid<Material>
+                <TableGrid<Material, null, null>
                     tabKeys={materialTabHeaderKeys}
                     headerKeysMapper={materialsTableTitleMapper}
                     items={Object.values(materials)}

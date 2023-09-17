@@ -44,7 +44,7 @@ export const AdminPanelUserTable = memo((props: AdminPanelUserTableProps) => {
             //     // exceptions={['hashedPassword', '__v', 'salt']}
             //     callback={onTableClick}
             // />
-            <TableGrid<AdminPanelUserData>
+            <TableGrid<AdminPanelUserData, null, null>
                 items={Object.values(users)}
                 tabKeys={tabKeys}
                 callback={onTableClick}
