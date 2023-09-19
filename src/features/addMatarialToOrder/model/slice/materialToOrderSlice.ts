@@ -35,7 +35,7 @@ export const materialToOrderSlice = createSlice({
             state.materialToOrderForm.totalUnitsCount = action.payload;
             if (state.materialToOrderForm.quantityPerUnit){
                 state.materialToOrderForm.totalQuantity =
-                    String((Number(state.materialToOrderForm.totalUnitsCount) * Number(action.payload)).toFixed(3)).replace('.000', '');
+                    String((Number(state.materialToOrderForm.quantityPerUnit) * Number(action.payload)).toFixed(3)).replace('.000', '');
             }
         },
         setMaterialToOrderForm: (state, action: PayloadAction<MaterialToOrderTab>) => {
