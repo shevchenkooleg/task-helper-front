@@ -4,7 +4,9 @@ import { OrdersSortField, OrderStatus } from '@/shared/const/orderConsts';
 import { SortOrder } from '@/shared/types/sort';
 import { ORDERS_STATUS_FILTER_VALUE, YEAR_OF_EXECUTION_SELECTOR_VALUE } from '@/shared/const/localStorage';
 
-const ordersStatusFilterValue = JSON.parse(localStorage.getItem(ORDERS_STATUS_FILTER_VALUE) || '') ?? {
+const localStorageOrdersStatusFilterValue = localStorage.getItem(ORDERS_STATUS_FILTER_VALUE) ?? 'null';
+
+const ordersStatusFilterValue = JSON.parse( localStorageOrdersStatusFilterValue ) ?? {
     [OrderStatus.NONE]: true,
     [OrderStatus.AGREEMENT]: true,
     [OrderStatus.ISSUED]: true,
