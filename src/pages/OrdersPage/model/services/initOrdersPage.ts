@@ -4,7 +4,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getOrdersPageIsInit } from '../selectors/getOrdersPageIsInit/getOrdersPageIsInit';
 import { OrdersSortField } from '@/shared/const/orderConsts';
 import { orderListFiltersSliceActions } from '@/features/orderListFilters';
-import { getOrdersList } from '@/features/getOrdersList';
 import { ordersPageSliceActions } from '../slice/ordersPageSlice';
 
 
@@ -28,7 +27,8 @@ export const initOrdersPage = createAsyncThunk<void, URLSearchParams, ThunkConfi
             }
 
             dispatch(ordersPageSliceActions.setIsInit());
-            dispatch(getOrdersList(null));
+            console.log('request order because getOrdersPage is init');
+            // dispatch(getOrdersList(null));
         }
     }
 );

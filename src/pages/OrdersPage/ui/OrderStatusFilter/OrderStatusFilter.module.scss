@@ -1,0 +1,26 @@
+.OrderStatusFilter {
+}
+
+.filterTable {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    position: absolute;
+    top: 120px;
+    z-index: var(--overlay-for-filters-z-index);
+    background-color: var(--bg-color);
+    align-items: start;
+}
+
+.overlay {
+    z-index: var(--overlay-for-filters-z-index);
+    background: var(--overlay-cristal);
+}
+
+.applyBtn {
+    z-index: calc(1 + var(--overlay-for-filters-z-index));
+}
+
+.text {
+    cursor: pointer;
+}

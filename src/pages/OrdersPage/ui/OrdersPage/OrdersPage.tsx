@@ -15,7 +15,8 @@ import { OrderPageToolsPanel } from '../OrderPageToolsPanel/OrderPageToolsPanel'
 import { OrdersPageTable } from '../OrdersPageTable/OrdersPageTable';
 import {
     getOrderListFilterField,
-    getOrderListFiltersSortOrder,
+    getOrderListFiltersSortOrder, getOrderListFiltersYearOfExecution,
+    getOrderStatusBoxValues,
     orderListFiltersSliceReducer
 } from '@/features/orderListFilters';
 import { useSearchParams } from 'react-router-dom';
@@ -31,22 +32,25 @@ const OrdersPage = (props: OrdersPageProps) => {
     const ordersList = useSelector(getOrderListSelector);
     const sortOrder = useSelector(getOrderListFiltersSortOrder);
     const sortField = useSelector(getOrderListFilterField);
+    const yearOfExecutionValue = useSelector(getOrderListFiltersYearOfExecution);
+    const orderStatusBoxValues  = useSelector(getOrderStatusBoxValues);
     const reducers: ReducerList = {
         orders: ordersPageSliceReducer,
         orderFilters: orderListFiltersSliceReducer
     };
     const dispatch = useAppDispatch();
     const [searchParams] = useSearchParams();
-    console.log(searchParams);
 
     const [isNewOrderModalOpen, setIsNewOrderModalOpen] = useState(false);
     const onModalClose = useCallback(() => {
+        console.log('request order because modal close');
         dispatch(getOrdersList(null));
         setIsNewOrderModalOpen(false);
     },[dispatch]);
 
     const onLoadClickHandler = useCallback(() => {
         userId && dispatch(getOrdersList(null));
+        console.log('request order because loadOrder button is click');
     },[dispatch, userId]);
 
     const onClickHandler = useCallback(() => {
@@ -58,8 +62,9 @@ const OrdersPage = (props: OrdersPageProps) => {
     });
 
     useEffect(()=>{
-        userId && sortOrder && sortField && dispatch(getOrdersList(null));
-    },[sortOrder, sortField, dispatch, userId]);
+        console.log('request order because orderPageUseEffect is execute (dependencies: sortOrder, sortField, dispatch, userId, yearOfExecutionValue, orderStatusBoxValues)');
+        userId && sortOrder && sortField && yearOfExecutionValue && orderStatusBoxValues && dispatch(getOrdersList(null));
+    },[sortOrder, sortField, dispatch, userId, yearOfExecutionValue, orderStatusBoxValues]);
 
 
     return (

@@ -41,6 +41,7 @@
     // z - Indexes
 
     --overlay-z-index: -1;
+    --overlay-for-filters-z-index: 1;
     --modal-z-index: 10;
     --drop-down-z-index: 100;
     --list-box-z-index: 100;
@@ -49,6 +50,7 @@
 
     // colors
     --overlay-color: rgba(0 0 0 / 60%);
+    --overlay-cristal: rgba(255, 255, 255, 0);
     --red-light: #fd0000;
     --red-dark: #d20e0e;
 

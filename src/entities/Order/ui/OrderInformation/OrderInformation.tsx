@@ -40,8 +40,6 @@ export const OrderInformation = memo((props: OrderInformationProps) => {
         }));
     }, [dispatch]);
     const onChangeCorrectionId = useCallback((value?: string, status?: OrderDocumentsStatus) => {
-        console.log('value: ',value);
-        console.log('status: ',status);
         dispatch(orderDetailsSliceActions.updateOrderForm({
             correctionId: { value: value || '', status: status || OrderDocumentsStatus.ON_CLEARANCE }
         }));

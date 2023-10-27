@@ -19,6 +19,16 @@ export enum OrderStatus {
     TECHNICAL_CLOSED = 'technical_closed',
 }
 
+export const OrderStatusQueryMapper: {[index: string]:string} = {
+    'none': 'none',
+    'issued': 'issued',
+    'waiting_for_request': 'waiting-for-request',
+    'executing': 'executing',
+    'agreement': 'agreement',
+    'waiting_for_technical_closing': 'waiting-for-technical-closing',
+    'technical_closed': 'technical-closed',
+};
+
 export enum OrderDocumentsStatus {
     ON_CLEARANCE = 'on_clearance',
     WAITING_FOR_EC = 'waiting_for_EC',
@@ -83,4 +93,8 @@ export const OrderSortQueryMapper = {
     'KS2Id': 'ks2-id',
     'writeOffActId': 'write-off-act-id',
     'yearOfExecution': 'year-of-execution',
+};
+
+export const OrderYearOfExecutionMapper = {
+    'any': 'Любой'
 };

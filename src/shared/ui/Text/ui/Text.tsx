@@ -30,6 +30,7 @@ interface TextProps {
     size?: TextSize
     theme?: TextTheme
     inverted?: boolean
+    onClick?: ()=>void
 }
 
 type HeaderTagType = 'h1' | 'h2' | 'h3' | 'h4'
@@ -42,7 +43,8 @@ const mapSizeToHeaderTag: Record<TextSize, HeaderTagType> = {
 };
 
 export const Text = memo((props: TextProps) => {
-    const { className, text, title, size = TextSize.SIZE_M, align = TextAlign.START, theme = TextTheme.PRIMARY, inverted } = props;
+    const { className, text, title, size = TextSize.SIZE_M,
+        align = TextAlign.START, theme = TextTheme.PRIMARY, inverted, onClick } = props;
 
     const mods: Mods = {
         [cls[theme]]: true,
@@ -53,7 +55,7 @@ export const Text = memo((props: TextProps) => {
     const HeaderTag = mapSizeToHeaderTag[size];
 
     return (
-        <div className={classNames(cls.Text, mods, [className])}>
+        <div className={classNames(cls.Text, mods, [className])} onClick={onClick}>
             {title &&
                 <HeaderTag
                     className={cls.title}

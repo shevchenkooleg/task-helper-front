@@ -3,7 +3,10 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo } from 'react';
 import { HStack } from '@/shared/ui/Stack';
 import { Button } from '@/shared/ui/Button';
-import { Text } from '@/shared/ui/Text';
+
+
+import { OrderStatusFilter } from '../OrderStatusFilter/OrderStatusFilter';
+import { OrdersYearsOfExecutionSelect } from '../OrdersYearsOfExecutionSelect/OrdersYearsOfExecutionSelect';
 
 interface OrderPageToolsPanelProps {
     className?: string
@@ -20,7 +23,10 @@ export const OrderPageToolsPanel = memo((props: OrderPageToolsPanelProps) => {
             justify={'between'}
             max
             className={classNames(cls.OrderPageToolsPanel, {}, [className])}>
-            <Text text={'Orders Filters block'}/>
+            <HStack gap={'32px'}>
+                <OrdersYearsOfExecutionSelect/>
+                <OrderStatusFilter/>
+            </HStack>
             <HStack gap={'32px'}>
                 <Button onClick={refreshOrdersCallback}>обновить заказы</Button>
                 <Button onClick={addOrderCallback}>добавить заказ</Button>

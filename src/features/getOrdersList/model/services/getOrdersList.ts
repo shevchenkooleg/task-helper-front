@@ -5,9 +5,14 @@ import { Order } from '@/entities/Order';
 //TODO fix fsd layers
 
 // eslint-disable-next-line path-import-validation-plugin/layer-imports
-import { getOrderListFilterField, getOrderListFiltersSortOrder } from '@/features/orderListFilters';
+import {
+    getOrderListFilterField,
+    getOrderListFiltersSortOrder,
+    getOrderListFiltersYearOfExecution, getOrderStatusBoxValues
+} from '@/features/orderListFilters';
 import { OrderSortQueryMapper, OrdersSortField } from '@/shared/const/orderConsts';
 import { addQueryParams } from '@/shared/lib/url/addQueryParams/addQueryParams';
+import { addQueryFilterStatus } from '@/shared/lib/addQueryFilterStatus/addQueryFilterStatus';
 
 
 export const getOrdersList = createAsyncThunk<Order[], null, ThunkConfig<string>>(
@@ -17,19 +22,27 @@ export const getOrdersList = createAsyncThunk<Order[], null, ThunkConfig<string>
         const accessToken = thunkAPI.getState().user!.tokenAuthData!.access_token;
         const order = getOrderListFiltersSortOrder(getState()) ?? 'asc';
         const sort = getOrderListFilterField(getState()) ?? OrdersSortField.ORDER_ID;
-        console.log(sort);
-        console.log(order);
+        const yearOfExecution = getOrderListFiltersYearOfExecution(getState()) ?? 'any';
+        const orderStatusFilterFields  = getOrderStatusBoxValues(getState()) ?? {};
+
+
+        const queryParams = addQueryFilterStatus(
+            {
+                sort: OrderSortQueryMapper[sort],
+                order,
+                yearOfExecution
+            },
+            orderStatusFilterFields
+        );
+
+
 
 
         try {
-            addQueryParams({
-                sort: OrderSortQueryMapper[sort], order
-            });
+            console.log('request orders thunk body execute');
+            addQueryParams(queryParams);
             const ordersList = await extra.api.get<Order[]>('/order/', {
-                params: {
-                    sort: OrderSortQueryMapper[sort],
-                    order: order
-                },
+                params: queryParams,
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 }
@@ -48,7 +61,3 @@ export const getOrdersList = createAsyncThunk<Order[], null, ThunkConfig<string>
         }
     }
 );
-
-function getOrderListFiltersField() {
-    throw new Error('Function not implemented.');
-}
