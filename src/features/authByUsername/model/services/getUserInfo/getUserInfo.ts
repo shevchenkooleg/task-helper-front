@@ -19,14 +19,16 @@ export const getUserInfo = createAsyncThunk<UserInfoResponseInterface, null, Thu
             if (!userInfo.data) {
                 throw new Error();
             }
+            console.log('userInfo: ', userInfo);
             dispatch(userActions.setUserData(userInfo.data));
             return userInfo.data;
         } catch (e: any) {
             console.log(e);
-            if (e.response.data === 'Unauthorized'){
+            if (e.response && e.response.data === 'Unauthorized'){
                 dispatch(userActions.logout());
                 return rejectWithValue('Unauthorized');
             }
+
             return rejectWithValue('error');
         } finally {
             dispatch(userActions.setIsInit());

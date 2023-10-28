@@ -1,4 +1,3 @@
-import { userActions } from '@/entities/User';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { Order } from '@/entities/Order';
@@ -13,10 +12,9 @@ interface AddNewOrderProps {
 export const addNewOrder = createAsyncThunk<Order, AddNewOrderProps, ThunkConfig<string>>(
     'order/addNewOrder',
     async (newOrderData, thunkAPI) => {
-        const { dispatch, rejectWithValue, extra } = thunkAPI;
+        const { rejectWithValue, extra } = thunkAPI;
         const accessToken = thunkAPI.getState().user!.tokenAuthData!.access_token;
         try {
-            // console.log('add');
 
             const newOrder = await extra.api.post<Order>('/order/', {
                 ...newOrderData
@@ -34,8 +32,9 @@ export const addNewOrder = createAsyncThunk<Order, AddNewOrderProps, ThunkConfig
         } catch (e) {
             console.log(e);
             return rejectWithValue('error');
-        } finally {
-            dispatch(userActions.setIsInit());
         }
+        // } finally {
+        //     dispatch(userActions.setIsInit());
+        // }
     }
 );

@@ -106,7 +106,7 @@ export const OrderStatusFilter = memo((props: OrderStatusFilterProps) => {
                     theme={ButtonTheme.OUTLINE_GREEN}
                     className={cls.applyBtn}
                 >Применить</Button>
-                : <Button onClick={onOpenHandler}>Статус заказа</Button>
+                : <Button onClick={onOpenHandler}>Состояние заказа</Button>
             }
             {showOrderStatusFilter && <OrderStatusFilterPanel/>}
         </div>

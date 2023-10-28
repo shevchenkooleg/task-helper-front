@@ -61,7 +61,7 @@ export const orderStatusMapper: Record<OrderStatus, string> = {
     [OrderStatus.AGREEMENT]: 'На согласовании',
     [OrderStatus.WAITING_FOR_REQUEST]: 'Ожидает запроса в ОРТПиР',
     [OrderStatus.WAITING_FOR_TECHNICAL_CLOSING]: 'Ожидает технического закрытия',
-    [OrderStatus.NONE]: 'Статус не указан',
+    [OrderStatus.NONE]: 'Состояние не указано',
 };
 
 export const billOfQuantitiesStatusMapper: Record<BillOfQuantitiesStatus, string> = {
