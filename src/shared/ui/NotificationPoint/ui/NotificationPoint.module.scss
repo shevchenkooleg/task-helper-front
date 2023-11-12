@@ -1,0 +1,100 @@
+.NotificationPoint {
+    position: relative;
+
+}
+
+.notification {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+//NOTIFICATION THEMES
+
+.clear {
+    color: var(--primary-color);
+    background: var(--bg-color);
+}
+
+.outline {
+    color: var(--primary-color);
+    background: var(--bg-color);
+    border: 1px solid var(--primary-color);
+}
+
+.background {
+    color: var(--primary-color);
+    background: var(--bg-color);
+    background-color: var(--inverted-primary-color);
+}
+
+// NOTIFICATION SIZES
+
+.size_s {
+    font: var(--font-s);
+    width: var(--font-line-s);
+    height: var(--font-line-s);
+}
+
+.size_m {
+    width: var(--font-line-m);
+    height: var(--font-line-m);
+    font-size: var(--font-size-);
+}
+
+.size_l {
+    width: var(--font-line-l);
+    height: var(--font-line-l);
+    font-size: var(--font-size-l);
+}
+
+.size_xl {
+    width: var(--font-line-xl);
+    height: var(--font-line-xl);
+    font-size: var(--font-size-xl);
+}
+
+.rounded.size_s {
+    border-radius: var(--font-line-s);
+}
+
+.rounded.size_m {
+    border-radius: var(--font-line-m);
+}
+
+.rounded.size_l {
+    border-radius: var(--font-line-l);
+}
+
+.rounded.size_xl {
+    border-radius: var(--font-line-xl);
+}
+
+
+// NOTIFICATION COLORS
+
+.red {
+    background-color: rgba(239, 41, 41, 0.99);
+}
+
+.orange {
+    background-color: rgba(232, 142, 24, 0.99);
+}
+
+.green {
+    background-color: rgba(47, 208, 12, 0.99);
+}
+
+.yellow {
+    background-color: rgba(218, 215, 14, 0.99);
+}
+
+.blue {
+    background-color: rgba(25, 204, 210, 0.99);
+}
+
+.deep_blue {
+    background-color: rgba(37, 111, 222, 0.99);
+}

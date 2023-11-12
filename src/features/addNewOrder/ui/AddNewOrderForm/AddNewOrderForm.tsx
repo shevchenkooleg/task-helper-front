@@ -19,6 +19,7 @@ import { Button } from '@/shared/ui/Button';
 export interface AddNewOrderFormProps {
     className?: string
     onSuccess: () => void
+    isOpen?: boolean
 }
 
 const AddNewOrderForm = memo((props: AddNewOrderFormProps) => {
@@ -27,7 +28,7 @@ const AddNewOrderForm = memo((props: AddNewOrderFormProps) => {
         newOrder: addNewOrderReducer
     };
 
-    const { className, onSuccess } = props;
+    const { className, onSuccess, isOpen } = props;
     const newOrderId = useSelector(getNewOrderId);
     const newOrderDescription = useSelector(getNewOrderDescription);
     const newOrderYearOfExecution = useSelector(getNewOrderYearOfExecution);
@@ -62,9 +63,9 @@ const AddNewOrderForm = memo((props: AddNewOrderFormProps) => {
 
     const onEnterKeyPress = useCallback((e: KeyboardEvent) => {
         if (e.key === 'Enter') {
-            onAddNewOrderClick();
+            isOpen && onAddNewOrderClick();
         }
-    }, [onAddNewOrderClick]);
+    }, [isOpen, onAddNewOrderClick]);
 
     useEffect(() => {
         window.addEventListener('keydown', onEnterKeyPress);

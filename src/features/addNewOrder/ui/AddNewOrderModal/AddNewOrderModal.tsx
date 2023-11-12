@@ -23,7 +23,7 @@ export const AddNewOrderModal: FC<AddNewOrderModalProps> = (props) => {
             className={classNames('', {}, [className])}
         >
             <Suspense fallback={<Loader/>}>
-                <AddNewOrderFormAsync onSuccess={onClose}/>
+                <AddNewOrderFormAsync onSuccess={onClose} isOpen={isOpen}/>
             </Suspense>
         </Modal>
     );

@@ -8,8 +8,10 @@ import { OrderStatus, orderStatusMapper } from '@/shared/const/orderConsts';
 import { BoundaryLine } from '@/shared/ui/BoundaryLine/BoundaryLine';
 import { Overlay } from '@/shared/ui/Overlay';
 import { useSelector } from 'react-redux';
-import { getOrderStatusBoxFormValues, orderListFiltersSliceActions } from '@/features/orderListFilters';
+import { getOrderStatusBoxFormValues, getOrderStatusBoxValues, orderListFiltersSliceActions } from '@/features/orderListFilters';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { NotificationPoint } from '@/shared/ui/NotificationPoint';
+import { NotificationColor, NotificationTheme } from '@/shared/ui/NotificationPoint/ui/NotificationPoint';
 
 interface OrderStatusFilterProps {
     className?: string
@@ -28,7 +30,8 @@ const orderStatus = [
 export const OrderStatusFilter = memo((props: OrderStatusFilterProps) => {
     const { className } = props;
     const [showOrderStatusFilter, setShowOrderStatusFilter] = useState(false);
-    const orderStatusBoxValues = useSelector(getOrderStatusBoxFormValues) ?? {};
+    const orderStatusBoxFormValues = useSelector(getOrderStatusBoxFormValues) ?? {};
+    const orderStatusBoxValues = useSelector(getOrderStatusBoxValues) ?? {};
     const dispatch = useAppDispatch();
 
     const onOpenHandler = useCallback(() => {
@@ -65,12 +68,12 @@ export const OrderStatusFilter = memo((props: OrderStatusFilterProps) => {
                     <HStack gap={'16px'}>
                         <input
                             type={'checkbox'}
-                            checked={!Object.values(orderStatusBoxValues).includes(false)}
-                            onChange={()=>onAllCheckBoxChangeHandler(Object.values(orderStatusBoxValues).includes(false))}
+                            checked={!Object.values(orderStatusBoxFormValues).includes(false)}
+                            onChange={()=>onAllCheckBoxChangeHandler(Object.values(orderStatusBoxFormValues).includes(false))}
                         />
                         <Text
                             text='Выбрать все'
-                            onClick={()=>onAllCheckBoxChangeHandler(Object.values(orderStatusBoxValues).includes(false))}
+                            onClick={()=>onAllCheckBoxChangeHandler(Object.values(orderStatusBoxFormValues).includes(false))}
                             className={cls.text}
                         />
                     </HStack>
@@ -80,12 +83,12 @@ export const OrderStatusFilter = memo((props: OrderStatusFilterProps) => {
                             <HStack key={el.content} gap={'16px'}>
                                 <input
                                     type={'checkbox'}
-                                    checked={orderStatusBoxValues[el.content] ?? true}
-                                    onChange={()=>onCheckBoxChangeHandler(el.content, orderStatusBoxValues[el.content])}
+                                    checked={orderStatusBoxFormValues[el.content] ?? true}
+                                    onChange={()=>onCheckBoxChangeHandler(el.content, orderStatusBoxFormValues[el.content])}
                                 />
                                 <Text
                                     text={el.value}
-                                    onClick={()=>onCheckBoxChangeHandler(el.content, orderStatusBoxValues[el.content])}
+                                    onClick={()=>onCheckBoxChangeHandler(el.content, orderStatusBoxFormValues[el.content])}
                                     className={cls.text}
                                 />
                             </HStack>)
@@ -106,7 +109,21 @@ export const OrderStatusFilter = memo((props: OrderStatusFilterProps) => {
                     theme={ButtonTheme.OUTLINE_GREEN}
                     className={cls.applyBtn}
                 >Применить</Button>
-                : <Button onClick={onOpenHandler}>Состояние заказа</Button>
+                : <NotificationPoint
+                    notificationText={
+                        Object.values(orderStatusBoxValues).filter(el=>el === true).length < orderStatus.length
+                            ? String(Object.values(orderStatusBoxValues).filter(el=>el === true).length)
+                            : ''
+                    }
+                    color={NotificationColor.ORANGE}
+                    rounded
+                    theme={NotificationTheme.BACKGROUND}
+                    right={'-7'}
+                    top={'-7'}
+                >
+                    <Button onClick={onOpenHandler}>Состояние заказа</Button>
+                </NotificationPoint>
+
             }
             {showOrderStatusFilter && <OrderStatusFilterPanel/>}
         </div>

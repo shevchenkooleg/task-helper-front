@@ -6,7 +6,7 @@ import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 
 export type FlexJustify = 'start' | 'end' | 'center' | 'between' | 'around'
 export type FlexAlign = 'start' | 'center' | 'end'
-export type FlexGap = '4px' | '8px' | '16px' | '32px'
+export type FlexGap = '4px' | '8px' | '12px' | '16px' | '32px'
 export type FlexDirection = 'row' | 'column'
 
 const justifyClasses: Record<FlexJustify, string> = {
@@ -26,6 +26,7 @@ const alignClasses: Record<FlexAlign, string> = {
 const gapClasses: Record<FlexGap, string> = {
     '4px': cls.gap4,
     '8px': cls.gap8,
+    '12px': cls.gap12,
     '16px': cls.gap16,
     '32px': cls.gap32,
 };

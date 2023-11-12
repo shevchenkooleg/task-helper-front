@@ -15,6 +15,8 @@ interface ComboBoxProps<T> {
     value?: string
 }
 
+//TODO do refactoring making code universal (without Material generic)
+
 export const ComboBox = <T extends { materialName?: string, KSUId?: string }>(props: ComboBoxProps<T>) => {
     const { className, placeholder = 'placeholder', query, setQuery, items, callback, value = '' } = props;
 

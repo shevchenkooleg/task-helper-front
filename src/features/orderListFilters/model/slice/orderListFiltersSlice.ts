@@ -55,6 +55,9 @@ export const orderListFiltersSlice = createSlice({
         setOrderStatusBoxForm: (state) => {
             state.orderStatusBox = { ...state.orderStatusBoxForm };
             localStorage.setItem(ORDERS_STATUS_FILTER_VALUE, JSON.stringify(state.orderStatusBoxForm));
+        },
+        setSearchValue: (state, action: PayloadAction<string>) => {
+            state.search = action.payload;
         }
 
     },

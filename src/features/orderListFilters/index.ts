@@ -5,3 +5,4 @@ export { getOrderListFiltersSortOrder } from './model/selectors/getOrderListFilt
 export { getOrderListFiltersYearOfExecution } from './model/selectors/getOrderListFiltersYearOfExecution/getOrderListFiltersYearOfExecution';
 export { getOrderStatusBoxFormValues } from './model/selectors/getOrderStatusBoxFormValues/getOrderStatusBoxFormValues';
 export { getOrderStatusBoxValues } from './model/selectors/getOrderStatusBoxValues/getOrderStatusBoxValues';
+export { getSearchValue } from './model/selectors/getSearchValue/getSearchValue';
