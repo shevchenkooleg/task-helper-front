@@ -1,11 +1,14 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { OrdersPageSchema } from '../types/ordersPage';
 import { getOrdersList } from '@/features/getOrdersList';
+import { Order } from '@/entities/Order';
+import { filterObject } from '@/shared/lib/filterObject/filterObject';
 
 const initialState: OrdersPageSchema = {
     error: '',
     isLoading: false,
     orders: [],
+    searchInOrders: [],
     _isInit: false
 };
 
@@ -15,6 +18,39 @@ export const ordersPageSlice = createSlice({
     reducers: {
         setIsInit: (state)=>{
             state._isInit = true;
+        },
+        searchInOrders: (state, action: PayloadAction<string>) => {
+            if (action.payload === ''){
+                state.searchInOrders = [ ...state.orders ];
+            } else {
+                state.searchInOrders = state.orders;
+                const reg = new RegExp(action.payload.toLowerCase());
+                const result: Order[] = [];
+                state.searchInOrders.map(order=>{
+                    const orderForSearch = filterObject(order, ['_id', 'userId', 'modified', 'yearOfExecution']);
+                    const values = Object.values(orderForSearch);
+                    let matchingFlag = false;
+                    values.forEach((el,i)=>{
+                        if (matchingFlag) return;
+                        console.log('index = ', i);
+
+                        if (el instanceof Object){
+                            // console.log('i= ',i);
+                        } else if (typeof el === 'string')  {
+                            console.log('el, ', el);
+                            console.log('reg,', reg );
+                            if (reg.test(el.toLowerCase())){
+                                console.log('el.toLowerCase(), ', el.toLowerCase());
+                                console.log('ADD ORDER, ', JSON.stringify(order));
+                                result.push(order);
+                                matchingFlag = true;
+                            }
+                        }
+                    });
+                });
+                // console.log(JSON.stringify(result));
+                state.searchInOrders = [ ...result ];
+            }
         }
     },
     extraReducers: (builder) => {
@@ -26,6 +62,7 @@ export const ordersPageSlice = createSlice({
             .addCase(getOrdersList.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.orders = action.payload;
+                state.searchInOrders = action.payload;
             })
             .addCase(getOrdersList.rejected, (state, action) => {
                 state.isLoading = false;

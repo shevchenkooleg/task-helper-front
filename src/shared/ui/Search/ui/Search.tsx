@@ -4,7 +4,6 @@ import { ChangeEvent, memo, useCallback, useEffect } from 'react';
 import { Icon } from '../../Icon';
 import SearchIcon from '../../../assets/icons/SearchLight.svg';
 import { HStack } from '../../Stack';
-import { ComboBox } from '../../Popups/ui/ComboBox/ComboBox';
 
 interface SearchProps {
     className?: string
@@ -35,7 +34,6 @@ export const Search = memo((props: SearchProps) => {
         <HStack gap={'12px'} className={classNames(cls.Search, {}, [className])}>
             <Icon Svg={SearchIcon}/>
             <input className={cls.input} placeholder={'Поиск по заказам'} value={value} onChange={onChangeHandler}/>
-            <ComboBox className={cls.input} query={''} />
         </HStack>
     );
 });

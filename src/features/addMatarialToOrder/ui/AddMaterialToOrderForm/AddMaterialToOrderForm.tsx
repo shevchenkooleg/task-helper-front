@@ -9,7 +9,6 @@ import { Button, ButtonTheme } from '@/shared/ui/Button';
 import { useSelector } from 'react-redux';
 import { getMaterialToOrderError } from '../../model/selectors/getMaterialToOrderError/getMaterialToOrderError';
 import { materialToOrderSliceActions, materialToOrderSliceReducer } from '../../model/slice/materialToOrderSlice';
-import { ComboBox } from '@/shared/ui/Popups/ui/ComboBox/ComboBox';
 import { getMaterialToOrderForm } from '../../model/selectors/getMaterialToOrderForm/getMaterialToOrderForm';
 import { useDebounce } from '@/shared/lib/hooks/useDebounce/useDebounce';
 import { fetchMaterialsForComboBox } from '../../model/services/fetchMaterialsForComboBox/fetchMaterialsForComboBox';
@@ -20,6 +19,7 @@ import { Material } from '@/entities/Material';
 import { expandDataForMaterial, orderDetailsSliceActions } from '@/entities/Order';
 import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { ModalMode } from '@/shared/const/modalConst';
+import { SearchMaterial } from '../SearchMaterial/SearchMaterial';
 
 
 export interface AddMaterialToOrderFormProps {
@@ -139,14 +139,12 @@ const AddMaterialToOrderForm = memo((props: AddMaterialToOrderFormProps) => {
                     {error && <Text title={error} theme={TextTheme.ERROR}/>}
                 </VStack>
                 <VStack align={'end'} gap={'8px'}>
-                    <ComboBox<Material>
+                    <SearchMaterial
                         value={materialToOrderForm?.materialName ?? ''}
-                        placeholder={'Название материала/Код КСУ/Код УПП'}
+                        materialList={materialList}
                         query={query}
                         setQuery={onChangeMaterialToOrderComboBoxQuery}
-                        items={materialList}
                         callback={onChangeMaterialToOrderMaterialId}
-                    // between={true}
                     />
                     <Input
                         value={form?.quantityPerUnit ?? ''}

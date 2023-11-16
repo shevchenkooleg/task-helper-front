@@ -79,10 +79,10 @@ export const NotificationPoint = memo((props: NotificationPointProps) => {
                 className={classNames(cls.notification, mods, [className])}
                 style={
                     {
-                        'top':Number(top),
-                        'bottom': Number(bottom),
-                        'left': Number(left),
-                        'right': Number(right),
+                        'top': top ? Number(top) : '',
+                        'bottom': bottom ? Number(bottom) : '',
+                        'left': left ? Number(left) : '',
+                        'right': right ? Number(right) : '',
                     }
                 }
 

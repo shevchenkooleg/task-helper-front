@@ -5,22 +5,27 @@ import CheckIcon from '@/shared/assets/icons/CheckIcon.svg';
 import cls from './ComboBox.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 
-interface ComboBoxProps<T> {
+interface ComboBoxProps {
     className?: string
     placeholder?: string
+    inputPlaceholder?: string
+    inputStyles?: string
+    inputBlockStyles?: string
+    buttonStyles?: string
+    buttonIconStyles?: string
     query: string
     setQuery?: (value: string)=>void
-    items?: Array<T>
-    callback?: (item:T)=>void
+    items?: Array<string>
+    callback?: (item:string)=>void
     value?: string
 }
 
-//TODO do refactoring making code universal (without Material generic)
+export const ComboBox = (props: ComboBoxProps) => {
+    const { className, placeholder = 'placeholder', query, buttonStyles, buttonIconStyles,
+        setQuery, items, callback, value = '', inputPlaceholder, inputStyles, inputBlockStyles
+    } = props;
 
-export const ComboBox = <T extends { materialName?: string, KSUId?: string }>(props: ComboBoxProps<T>) => {
-    const { className, placeholder = 'placeholder', query, setQuery, items, callback, value = '' } = props;
-
-    const [selected, setSelected] = useState({} as T);
+    const [selected, setSelected] = useState('');
 
     useEffect(()=>{
         callback && callback(selected);
@@ -34,18 +39,19 @@ export const ComboBox = <T extends { materialName?: string, KSUId?: string }>(pr
 
             <Combobox value={selected} onChange={setSelected}>
                 <div className={cls.container}>
-                    <div className={cls.inputBlock}>
+                    <div className={inputBlockStyles ? inputBlockStyles : cls.inputBlock}>
                         <Combobox.Input
-                            className={cls.input}
-                            displayValue={(material: T) => material.materialName ?? value}
+                            className={inputStyles ? inputStyles : cls.input}
+                            displayValue={() => value}
+                            placeholder={inputPlaceholder}
                             onChange={(event) => {
                                 const value = event.target.value;
                                 setQuery && setQuery(value);
                             }}
                         />
-                        <Combobox.Button className={cls.button}>
+                        <Combobox.Button className={buttonStyles ? buttonStyles : cls.button}>
                             <UpDownIcon
-                                className={cls.btnIcon}
+                                className={buttonIconStyles ? buttonIconStyles : cls.btnIcon}
                                 aria-hidden="true"
                             />
                         </Combobox.Button>
@@ -63,35 +69,20 @@ export const ComboBox = <T extends { materialName?: string, KSUId?: string }>(pr
                                     Nothing found.
                                 </div>
                             ) : (
-                                items && items.map((material) => (
+                                items && items.map((item, key) => (
                                     <Combobox.Option
-                                        key={material.KSUId}
-                                        // className={({ active }) =>
-                                        //     `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                                        //         active ? 'bg-teal-600 text-white' : 'text-gray-900'
-                                        //     }`
-                                        // }
+                                        key={key}
                                         className={cls.option}
-                                        value={material}
+                                        value={item}
                                     >
                                         {({ selected, active }) => (
                                             <>
-                                                {/*<span*/}
-                                                {/*    className={`block truncate ${*/}
-                                                {/*        selected ? 'font-medium' : 'font-normal'*/}
-                                                {/*    }`}*/}
-                                                {/*>*/}
                                                 <span
                                                     className={classNames(cls.optionSpan, { [cls.selected]:selected }, [])}
                                                 >
-                                                    {material.materialName}
+                                                    {item}
                                                 </span>
                                                 {selected ? (
-                                                    // <span
-                                                    //     className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                                                    //         active ? 'text-white' : 'text-teal-600'
-                                                    //     }`}
-                                                    // >
                                                     <span
                                                         className={cls.iconSpan}
                                                     >
