@@ -22,12 +22,6 @@ export const getSidebarItems = createSelector(
                 path: getRouteMain(),
                 text: 'Главная',
                 Icon: MainPageIcon
-            },
-            {
-
-                path: getRouteAbout(),
-                text: 'О сайте',
-                Icon: AboutPageIcon
             }
         ];
 
@@ -51,6 +45,13 @@ export const getSidebarItems = createSelector(
                 authOnly: true
             });
         }
+
+        sidebarItemsList.push({
+
+            path: getRouteAbout(),
+            text: 'О сайте',
+            Icon: AboutPageIcon
+        });
         return sidebarItemsList;
     }
 );

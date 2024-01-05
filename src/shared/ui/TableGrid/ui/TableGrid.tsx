@@ -5,6 +5,8 @@ import { HStack } from '../../Stack';
 import ArrowDown from '@/shared/assets/icons/ArrowDown.svg';
 import ArrowUp from '@/shared/assets/icons/ArrowUp.svg';
 import { SortOrder } from '@/shared/types/sort';
+import { ORDERS_TABLE_TEMPLATE } from '@/shared/const/localStorage';
+import { DefaultTableTemplatesObject } from '@/shared/const/defaultTableTamplates';
 
 interface TableGridProps<T, R, S> {
     className?: string
@@ -13,7 +15,6 @@ interface TableGridProps<T, R, S> {
     callback?: (event:React.MouseEvent<HTMLTableRowElement>, item:T)=>void
     headerKeysMapper?: Record<string, string>
     helpMappers?: Record<string, string>
-    tooltip?: boolean
     template?: TableGridTemplate
     headerFieldClickHandler?: (newField: R) => void
     currentSortField?: R
@@ -30,7 +31,6 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
         headerKeysMapper,
         callback,
         helpMappers,
-        tooltip = false,
         template = 'orderTemplate',
         currentSortField,
         allowSortFields,
@@ -38,46 +38,59 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
         headerFieldClickHandler
     } = props;
 
+    const tableTemplate = localStorage.getItem(ORDERS_TABLE_TEMPLATE) ?? DefaultTableTemplatesObject[template];
+
 
     const tabContent = (el: T, i: number) => {
 
         const orderStatusForColorized = el.orderStatus;
-
         return (
-            <tr className={cls.cellsRow} key={i} onDoubleClick={(e)=> {
+            <tr className={cls.cellsRow} key={el._id} onDoubleClick={(e)=> {
                 callback && callback(e, el);
             }}>
                 {
-                    tabKeys && tabKeys.map(key=>{
-                        if (key === 'serialNumber'){
+                    tabKeys && tabKeys.map((key, index)=> {
+                        if (!tabKeys.includes(key)){
+                            return null;
+                        }
+                        if (key === 'serialNumber') {
                             return (
-                                <td key={i} className={classNames('', { [cls[orderStatusForColorized]]:false }, [])}>
-                                    {i+1}
+                                <td key={index} className={classNames(cls.tableCell, {}, [])}>
+                                    <div>
+                                        <div
+                                            className={classNames(cls.colorStripe, { [cls[orderStatusForColorized]]: true }, [])}></div>
+                                        {i + 1}
+                                    </div>
                                 </td>
                             );
                         }
-                        if (key === 'roles' && typeof el[key] === 'object'){
+                        if (key === 'roles' && typeof el[key] === 'object') {
                             console.log(el[key]);
                             return (
                                 <td
-                                    key={key}
+                                    key={index}
                                     className={classNames(cls.tooltip, {}, [])}
                                 >
                                     {el[key].join(', ')}
                                 </td>
                             );
                         }
-                        if (typeof el[key] === 'object'){
+                        if (typeof el[key] === 'object') {
                             return (
                                 <td
-                                    key={key}
-                                    className={classNames(cls.tooltip, { [cls[el[key].status]]:true }, [])}
+                                    key={index}
+                                    className={classNames(cls.tableCell, { [cls[el[key].status]]: false }, [])}
                                 >
-                                    {
-                                        helpMappers && el[key].value in helpMappers
-                                            ? helpMappers[el[key].value]
-                                            : Array.isArray(el[key].value) ? el[key].value.join(', ') : el[key].value
-                                    }
+                                    <div>
+                                        <div
+                                            className={classNames(cls.colorStripe, { [cls[el[key].status]]: true }, [])}></div>
+                                        {
+                                            helpMappers && el[key].value in helpMappers
+                                                ? helpMappers[el[key].value]
+                                                : Array.isArray(el[key].value) ? el[key].value.join(', ') : el[key].value
+                                        }
+                                    </div>
+
                                     {/*{helpMappers && <span className={cls.help}>*/}
                                     {/*    {helpMappers ? helpMappers[el[key].status] : el[key].status}*/}
                                     {/*</span>}*/}
@@ -85,7 +98,8 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
                             );
                         }
                         return (
-                            <td key={key} className={classNames('', { [cls[orderStatusForColorized]]:true }, [key === 'description' ? cls.description : undefined])}>
+                            <td key={index}
+                                className={classNames('', { [cls[orderStatusForColorized]]: false }, [key === 'description' ? cls.description : undefined])}>
                                 {
                                     helpMappers && el[key] in helpMappers
                                         ? helpMappers[el[key]]
@@ -105,8 +119,11 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
 
 
     if (items.length > 0){
+        console.log(tabKeys);
         return (
-            <table className={classNames(cls.TableGrid, { [cls[template]]:true }, [className])}>
+            <table className={classNames(cls.TableGrid, { [cls[template]]:true }, [className])}
+                style={{ gridTemplateColumns: tableTemplate }}
+            >
                 <thead className={cls.theadBlock}>
                     <tr>
                         {tabKeys && tabKeys.map((header, key)=>headerKeysMapper
@@ -140,9 +157,11 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
                     </tr>
                 </thead>
                 <tbody className={cls.tbodyBlock}>
-                    {items && items.map((el, i)=>(
-                        tabContent(el, i)
-                    )
+                    {items && items.map((el, i)=>{
+                        return(
+                            tabContent(el, i)
+                        );
+                    }
                     )}
                 </tbody>
             </table>

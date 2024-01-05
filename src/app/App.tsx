@@ -1,4 +1,4 @@
-import { getUserIsInit } from '@/entities/User';
+import { getUserIsInit, userActions } from '@/entities/User';
 import { getUserInfo } from '@/features/authByUsername';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -16,6 +16,8 @@ const App = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
+        dispatch(userActions.initAuthData());
+        dispatch({ type: 'initGetUserInfo' });
         dispatch(getUserInfo(null));
     }, [dispatch]);
 

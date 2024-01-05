@@ -65,21 +65,22 @@ td {
     //white-space: nowrap;
     font: var(--font-s);
     //border-collapse: collapse;
-    outline: 1px solid black;
+    outline: 1px solid #769fce;
     text-align: center;
 }
 
 th {
     position: sticky;
+    z-index: var(--table-head-z-index);
     margin: 0 auto;
     width: 100%;
     top: 0;
-    background: #6c7ae0;
+    background: #4e81b4;
     text-align: center;
     //border: 1px solid rgba(0, 0, 0, 0.42);
     //font-weight: normal;
     //font-size: 1.1rem;
-    color: white;
+    color: var(--font-color-inverted);
 }
 
 th:last-child {
@@ -94,7 +95,7 @@ td {
 }
 
 tr:nth-child(even) td {
-    //background: var(--bg-color);
+    background: var(--secondary-bg-color);
 }
 
 .description {
@@ -110,6 +111,19 @@ tr:nth-child(even) td {
 
 .activeField {
     opacity: 1;
+}
+
+.tableCell {
+    position: relative;
+    width: 100%;
+}
+
+.colorStripe {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 6px;
 }
 
 

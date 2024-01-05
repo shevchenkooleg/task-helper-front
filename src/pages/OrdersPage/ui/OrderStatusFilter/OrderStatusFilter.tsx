@@ -60,6 +60,8 @@ export const OrderStatusFilter = memo((props: OrderStatusFilterProps) => {
         dispatch(orderListFiltersSliceActions.setOrderStatusBoxElements(checked));
     },[dispatch]);
 
+    console.log('orderStatusBoxValues ', orderStatusBoxValues);
+
     const OrderStatusFilterPanel = () => {
         return (
             <div>

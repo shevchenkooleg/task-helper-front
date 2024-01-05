@@ -33,15 +33,16 @@
 
     //element-size-variables
 
-    --sidebar-width: 300px;
-    --sidebar-width-collapced: 120px;
+    --sidebar-width: 200px;
+    --sidebar-width-collapced: 85px;
     --navbar-height: 50px;
     --toolbar-height: 60px;
 
     // z - Indexes
 
     --overlay-z-index: -1;
-    --overlay-for-filters-z-index: 1;
+    --overlay-for-filters-z-index: 2;
+    --table-head-z-index: 1;
     --modal-z-index: 10;
     --drop-down-z-index: 100;
     --list-box-z-index: 100;
@@ -55,7 +56,7 @@
     --red-dark: #d20e0e;
 
     //colorized_tabs_cells
-    --document-status-on-clearance: #e3e3e3;
+    --document-status-on-clearance: #ffffff;
     --document-status-waiting-for-EC: #c20909;
     --document-status-agreement-in-EC: #0220b4;
     --document-status-awaiting-signing: #525050;

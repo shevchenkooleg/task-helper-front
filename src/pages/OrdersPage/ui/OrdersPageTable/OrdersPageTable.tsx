@@ -76,7 +76,6 @@ export const OrdersPageTable = memo((props: OrdersPageTableProps) => {
                     items={Object.values(ordersForRendering)}
                     callback={onDoubleClickHandler}
                     helpMappers={mapper}
-                    tooltip={true}
                     currentSortField={currentFilterField}
                     currentSortOrder={currentSortOrder}
                     allowSortFields={OrdersSortField}

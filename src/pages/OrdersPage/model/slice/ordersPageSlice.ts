@@ -30,13 +30,9 @@ export const ordersPageSlice = createSlice({
                     const orderForSearch = filterObject(order, ['_id', 'userId', 'modified', 'yearOfExecution']);
                     const values = Object.values(orderForSearch);
                     let matchingFlag = false;
-                    values.forEach((el,i)=>{
-                        if (matchingFlag) return;
-                        console.log('index = ', i);
 
-                        if (el instanceof Object){
-                            // console.log('i= ',i);
-                        } else if (typeof el === 'string')  {
+                    function findMatch(el: string){
+                        if (typeof el === 'string'){
                             console.log('el, ', el);
                             console.log('reg,', reg );
                             if (reg.test(el.toLowerCase())){
@@ -45,6 +41,28 @@ export const ordersPageSlice = createSlice({
                                 result.push(order);
                                 matchingFlag = true;
                             }
+                        }
+                    }
+                    values.forEach((el,i)=>{
+                        if (matchingFlag) return;
+                        console.log('index = ', i);
+
+                        if (el instanceof Object){
+                            const subElement = Object.values(el);
+                            subElement.forEach((el,i)=>{
+                                console.log(JSON.stringify(el));
+                            });
+                            // console.log('i= ',i);
+                        } else if (typeof el === 'string')  {
+                            // console.log('el, ', el);
+                            // console.log('reg,', reg );
+                            // if (reg.test(el.toLowerCase())){
+                            //     console.log('el.toLowerCase(), ', el.toLowerCase());
+                            //     console.log('ADD ORDER, ', JSON.stringify(order));
+                            //     result.push(order);
+                            //     matchingFlag = true;
+                            // }
+                            findMatch(el);
                         }
                     });
                 });
