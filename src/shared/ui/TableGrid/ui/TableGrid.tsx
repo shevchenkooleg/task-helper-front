@@ -6,7 +6,7 @@ import ArrowDown from '@/shared/assets/icons/ArrowDown.svg';
 import ArrowUp from '@/shared/assets/icons/ArrowUp.svg';
 import { SortOrder } from '@/shared/types/sort';
 import { ORDERS_TABLE_TEMPLATE } from '@/shared/const/localStorage';
-import { DefaultTableTemplatesObject } from '@/shared/const/defaultTableTamplates';
+import { tableTemplateCreator } from '@/shared/lib/tableTemplateCreator/tableTemplateCreator';
 
 interface TableGridProps<T, R, S> {
     className?: string
@@ -24,6 +24,8 @@ interface TableGridProps<T, R, S> {
 
 export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridProps<T, R, S>) => {
 
+
+
     const {
         className,
         items,
@@ -38,7 +40,9 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
         headerFieldClickHandler
     } = props;
 
-    const tableTemplate = localStorage.getItem(ORDERS_TABLE_TEMPLATE) ?? DefaultTableTemplatesObject[template];
+    // const tableTemplate = localStorage.getItem(ORDERS_TABLE_TEMPLATE) ?? DefaultTableTemplatesObject[template];
+    const tableTemplate = localStorage.getItem(ORDERS_TABLE_TEMPLATE) ?? tableTemplateCreator(tabKeys, template) ??  '1fr 3fr 3fr 12fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr';
+    console.log(tableTemplateCreator(tabKeys, template));
 
 
     const tabContent = (el: T, i: number) => {

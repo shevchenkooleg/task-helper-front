@@ -17,6 +17,9 @@ interface OrderStatusFilterProps {
     className?: string
 }
 
+
+//TODO fix 'orderStatus' const in component
+
 const orderStatus = [
     { value: orderStatusMapper.none, content: OrderStatus.NONE },
     { value: orderStatusMapper.issued, content: OrderStatus.ISSUED },
@@ -59,8 +62,6 @@ export const OrderStatusFilter = memo((props: OrderStatusFilterProps) => {
     const onAllCheckBoxChangeHandler = useCallback((checked: boolean)=>{
         dispatch(orderListFiltersSliceActions.setOrderStatusBoxElements(checked));
     },[dispatch]);
-
-    console.log('orderStatusBoxValues ', orderStatusBoxValues);
 
     const OrderStatusFilterPanel = () => {
         return (
@@ -113,7 +114,7 @@ export const OrderStatusFilter = memo((props: OrderStatusFilterProps) => {
                 >Применить</Button>
                 : <NotificationPoint
                     notificationText={
-                        Object.values(orderStatusBoxValues).filter(el=>el === true).length < orderStatus.length
+                        Object.values(orderStatusBoxValues).filter(el=>el === true).length < Object.values(OrderStatus).length
                             ? String(Object.values(orderStatusBoxValues).filter(el=>el === true).length)
                             : ''
                     }

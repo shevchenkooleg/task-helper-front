@@ -1,4 +1,4 @@
-import { OrderTabHeaderKeys } from '@/shared/const/orderTabHeaderKeys';
+import { OrderTabHeaderKeys } from '@/shared/const/orderConsts';
 
 export const ordersTitlesMapper: Record<OrderTabHeaderKeys, string> = {
     [OrderTabHeaderKeys.SERIAL_NUMBER]: '№ п/п',

@@ -36,17 +36,20 @@
     --sidebar-width: 200px;
     --sidebar-width-collapced: 85px;
     --navbar-height: 50px;
-    --toolbar-height: 60px;
+    --toolbar-height: 80px;
+    --side-settings-bar-width: 300px;
 
     // z - Indexes
 
     --overlay-z-index: -1;
-    --overlay-for-filters-z-index: 2;
     --table-head-z-index: 1;
+    --overlay-for-filters-z-index: 2;
+    --settingsSideBar-z-index: 3;
     --modal-z-index: 10;
     --drop-down-z-index: 100;
     --list-box-z-index: 100;
     --popover-z-index: 100;
+
 
 
     // colors

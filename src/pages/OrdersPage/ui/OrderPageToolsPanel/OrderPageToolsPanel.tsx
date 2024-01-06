@@ -21,17 +21,15 @@ interface OrderPageToolsPanelProps {
     className?: string
     addOrderCallback?: () => void
     refreshOrdersCallback?: () => void
-    settingsOrdersCallback?: () => void
+    orderPanelSettingsClickCallback?: () => void
 }
 
 export const OrderPageToolsPanel = memo((props: OrderPageToolsPanelProps) => {
-    const { className, addOrderCallback, refreshOrdersCallback, settingsOrdersCallback = ()=> {
+    const { className, addOrderCallback, refreshOrdersCallback, orderPanelSettingsClickCallback = ()=> {
         console.log('settings');} } = props;
     const searchValue = useSelector(getSearchValue) ?? '';
     const dispatch = useAppDispatch();
     const [searchQuery, setSearchQuery] = useState('');
-
-    console.log('searchQuery, ', searchQuery);
 
 
     const onChange = (newValue: string) => {
@@ -55,7 +53,7 @@ export const OrderPageToolsPanel = memo((props: OrderPageToolsPanelProps) => {
             </HStack>
             <HStack gap={'4px'}>
                 <Button onClick={refreshOrdersCallback} theme={ButtonTheme.CLEAR}>{<Icon Svg={RefreshIcon}/>}</Button>
-                <Button onClick={settingsOrdersCallback} theme={ButtonTheme.CLEAR}>{<Icon Svg={SettingsIcon}/>}</Button>
+                <Button className={cls.settingsBtn} onClick={orderPanelSettingsClickCallback} theme={ButtonTheme.CLEAR}>{<Icon Svg={SettingsIcon}/>}</Button>
                 <Button onClick={addOrderCallback} theme={ButtonTheme.CLEAR}>{<Icon Svg={AddCircleIcon}/>}</Button>
             </HStack>
         </HStack>

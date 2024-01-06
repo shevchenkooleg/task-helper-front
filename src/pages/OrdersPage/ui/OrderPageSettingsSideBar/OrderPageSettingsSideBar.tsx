@@ -2,25 +2,36 @@ import cls from './OrderPageSettingsSideBar.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo, useCallback } from 'react';
 import { ToolBar } from '@/widgets/ToolBar';
+import { VStack } from '@/shared/ui/Stack';
+import { OrderPageTableSettings } from '../OrderPageTableSettings/OrderPageTableSettings';
+import { Overlay } from '@/shared/ui/Overlay';
 
 interface OrderPageSettingsSideBarProps {
     className?: string
+    show?: boolean
+    onClose?: () => void
 }
 
 export const OrderPageSettingsSideBar = memo((props: OrderPageSettingsSideBarProps) => {
-    const { className } = props;
+    const { className, show = false, onClose  } = props;
 
 
     const onCloseHandler = useCallback(()=>{
-        console.log('Close handler');},[]);
+        onClose && onClose();},[onClose]);
 
     return (
-        <div className={classNames(cls.OrderPageSettingsSideBar, {}, [className])}>
-            {/*<Overlay className={cls.overlay} onClick={onCloseHandler}/>*/}
-            <ToolBar className={cls.Toolbar}>
-                <div>111</div>
-            </ToolBar>
-        </div>
+        <>
+            {show && <Overlay className={cls.overlay} onClick={onCloseHandler}/>}
+            <div className={classNames(cls.OrderPageSettingsSideBar, { [cls.isShow]:show }, [className])}>
+                <ToolBar className={cls.Toolbar}>
+                    <VStack>
+                        <div>{'Панель настроек "Заказы"'}</div>
+                        <OrderPageTableSettings />
+                    </VStack>
+                </ToolBar>
+            </div>
+        </>
+
     );
 });
 

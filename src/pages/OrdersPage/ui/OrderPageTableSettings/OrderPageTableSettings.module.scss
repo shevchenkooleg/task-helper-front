@@ -1,0 +1,17 @@
+.OrderPageTableSettings {
+    justify-content: start;
+    align-items: start;
+}
+
+.orderTabSettings {
+    padding-top: 10px;
+    height: 0;
+    transition-property: height;
+    transition-duration: 0.3s;
+}
+
+.settingsShow {
+    height: 300px;
+    transition-property: height;
+    transition-duration: 0.3s;
+}

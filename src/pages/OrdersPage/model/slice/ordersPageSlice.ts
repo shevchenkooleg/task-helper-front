@@ -3,12 +3,16 @@ import { OrdersPageSchema } from '../types/ordersPage';
 import { getOrdersList } from '@/features/getOrdersList';
 import { Order } from '@/entities/Order';
 import { filterObject } from '@/shared/lib/filterObject/filterObject';
+import { OrderTabHeaderKeys } from '@/features/addNewOrder';
 
 const initialState: OrdersPageSchema = {
     error: '',
     isLoading: false,
     orders: [],
     searchInOrders: [],
+    orderPageTableSettings: {
+        orderTableKeys: []
+    },
     _isInit: false
 };
 
@@ -18,6 +22,9 @@ export const ordersPageSlice = createSlice({
     reducers: {
         setIsInit: (state)=>{
             state._isInit = true;
+        },
+        setOrderPageTableActiveKeys: (state, action: PayloadAction<OrderTabHeaderKeys[]>) => {
+            state.orderPageTableSettings.orderTableKeys = action.payload;
         },
         searchInOrders: (state, action: PayloadAction<string>) => {
             if (action.payload === ''){

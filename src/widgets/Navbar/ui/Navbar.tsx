@@ -21,7 +21,6 @@ export const Navbar = memo((props: NavbarProps) => {
     const accessToken = useSelector(getTokenAuthData);
     const dispatch = useAppDispatch();
     const location = useLocation();
-    console.log(location.pathname);
 
     const onCloseModal = useCallback(() => {
         setIsAuthModal(false);

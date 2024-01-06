@@ -2,7 +2,7 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './OrdersPage.module.scss';
 import { memo, useCallback, useEffect, useState } from 'react';
 import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { ordersPageSliceReducer } from '../../model/slice/ordersPageSlice';
+import { ordersPageSliceActions, ordersPageSliceReducer } from '../../model/slice/ordersPageSlice';
 import { VStack } from '@/shared/ui/Stack';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useSelector } from 'react-redux';
@@ -21,6 +21,9 @@ import {
 } from '@/features/orderListFilters';
 import { useSearchParams } from 'react-router-dom';
 import { initOrdersPage } from '../../model/services/initOrdersPage';
+import { OrderPageSettingsSideBar } from '../OrderPageSettingsSideBar/OrderPageSettingsSideBar';
+import { ORDERS_TABLE_ACTIVE_KEYS } from '@/shared/const/localStorage';
+import { orderTabHeaderKeysArr } from '@/shared/const/orderConsts';
 
 interface OrdersPageProps {
     className?: string
@@ -42,6 +45,11 @@ const OrdersPage = (props: OrdersPageProps) => {
     const [searchParams] = useSearchParams();
 
     const [isNewOrderModalOpen, setIsNewOrderModalOpen] = useState(false);
+    const [isOrderPageSettingsSideBarShow, setIsOrderPageSettingsSideBarShow] = useState(false);
+
+    const localStorageOrderTableKeys = localStorage.getItem(ORDERS_TABLE_ACTIVE_KEYS);
+
+
     const onModalClose = useCallback(() => {
         console.log('request order because modal close');
         dispatch(getOrdersList(null));
@@ -53,12 +61,17 @@ const OrdersPage = (props: OrdersPageProps) => {
         console.log('request order because loadOrder button is click');
     },[dispatch, userId]);
 
+    const onOrderPanelSettingsClickHandler = useCallback(()=>{
+        setIsOrderPageSettingsSideBarShow(prev => !prev);
+    },[]);
+
     const onClickHandler = useCallback(() => {
         setIsNewOrderModalOpen(true);
     },[]);
 
     useInitialEffect(()=>{
         userId && dispatch(initOrdersPage(searchParams));
+        dispatch(ordersPageSliceActions.setOrderPageTableActiveKeys(localStorageOrderTableKeys ? JSON.parse(localStorageOrderTableKeys) : orderTabHeaderKeysArr));
     });
 
     useEffect(()=>{
@@ -66,6 +79,7 @@ const OrdersPage = (props: OrdersPageProps) => {
         userId && sortOrder && sortField && yearOfExecutionValue && orderStatusBoxValues && dispatch(getOrdersList(null));
     },[sortOrder, sortField, dispatch, userId, yearOfExecutionValue, orderStatusBoxValues]);
 
+    console.log(ordersList);
 
     return (
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
@@ -73,6 +87,7 @@ const OrdersPage = (props: OrdersPageProps) => {
                 <OrderPageToolsPanel
                     addOrderCallback={onClickHandler}
                     refreshOrdersCallback={onLoadClickHandler}
+                    orderPanelSettingsClickCallback={onOrderPanelSettingsClickHandler}
                 />
                 <Page data-testid={'OrdersPage'} className={classNames(cls.OrdersPage, {}, [className])}>
                     <VStack align={'start'} gap={'16px'}>
@@ -84,6 +99,7 @@ const OrdersPage = (props: OrdersPageProps) => {
                         <AddNewOrderModal isOpen={isNewOrderModalOpen} onClose={onModalClose}/>
                     </VStack>
                 </Page>
+                <OrderPageSettingsSideBar show={isOrderPageSettingsSideBarShow} onClose={onOrderPanelSettingsClickHandler}/>
             </VStack>
         </DynamicModuleLoader>
     );

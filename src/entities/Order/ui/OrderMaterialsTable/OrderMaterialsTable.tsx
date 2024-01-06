@@ -49,7 +49,7 @@ export const OrderMaterialsTable = memo((props: OrderMaterialsTableProps) => {
                         headerKeysMapper={materialsInOrderTitlesMapper}
                         items={Object.values(materialsForOrderForRendering)}
                         callback={(event, item)=>onDoubleClickHandler(item)}
-                        template={'materialInOrderTemplate'}
+                        template={'materialTemplate'}
                         // helpMappers={mapper}
                     />
                 </VStack>

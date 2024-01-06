@@ -62,8 +62,6 @@ export const NotificationPoint = memo((props: NotificationPointProps) => {
         [cls[color]]: true,
     };
 
-    console.log(classNames(cls.notification, mods, [className]));
-
     if (!notificationText) {
         return (
             <div>
