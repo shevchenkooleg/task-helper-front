@@ -21,7 +21,7 @@ const reducers: ReducerList = {
     materials: materialsPageSliceReducer
 };
 
-export const MaterialsPage = memo((props: MaterialsPageProps) => {
+export const MaterialsPage = (props: MaterialsPageProps) => {
     const { className } = props;
     const [isModalOpen, setIsModalOpen] = useState(false);
     const dispatch = useAppDispatch();
@@ -61,6 +61,6 @@ export const MaterialsPage = memo((props: MaterialsPageProps) => {
             </VStack>
         </DynamicModuleLoader>
     );
-});
+};
 
-MaterialsPage.displayName = 'MaterialsPage';
+export default memo(MaterialsPage);

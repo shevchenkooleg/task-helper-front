@@ -57,7 +57,7 @@ export const OrderPageTableSettings = memo((props: OrderPageTableSettingsProps) 
                             <input
                                 type={'checkbox'}
                                 checked={orderTableActiveKeys.includes(el)}
-                                onClick={()=>{onCheckBoxClickHandler(el);}}/>
+                                onChange={()=>{onCheckBoxClickHandler(el);}}/>
                             <Text
                                 theme={TextTheme.INVERTED}
                                 text={ordersTitlesMapper[el]}

@@ -1,2 +1,2 @@
 export { type MaterialsPageSchema } from './model/types/materialsPageSchema';
-export { MaterialsPage } from './ui/MaterialsPage/MaterialsPage';
+export { MaterialsPageAsync as MaterialsPage } from './ui/MaterialsPage/MaterialsPageAsync';
