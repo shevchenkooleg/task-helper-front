@@ -10,7 +10,7 @@ import {
     getOrderListFiltersSortOrder,
     getOrderListFiltersYearOfExecution, getOrderStatusBoxValues
 } from '@/features/orderListFilters';
-import { OrderSortQueryMapper, OrdersSortField } from '@/shared/const/orderConsts';
+import { defaultOrdersStatusFilterValue, OrderSortQueryMapper, OrdersSortField } from '@/shared/const/orderConsts';
 import { addQueryParams } from '@/shared/lib/url/addQueryParams/addQueryParams';
 import { addQueryFilterStatus } from '@/shared/lib/addQueryFilterStatus/addQueryFilterStatus';
 
@@ -23,7 +23,7 @@ export const getOrdersList = createAsyncThunk<Order[], null, ThunkConfig<string>
         const order = getOrderListFiltersSortOrder(getState()) ?? 'asc';
         const sort = getOrderListFilterField(getState()) ?? OrdersSortField.ORDER_ID;
         const yearOfExecution = getOrderListFiltersYearOfExecution(getState()) ?? 'any';
-        const orderStatusFilterFields  = getOrderStatusBoxValues(getState()) ?? {};
+        const orderStatusFilterFields  = getOrderStatusBoxValues(getState()) ?? defaultOrdersStatusFilterValue;
 
 
         const queryParams = addQueryFilterStatus(
@@ -36,7 +36,7 @@ export const getOrdersList = createAsyncThunk<Order[], null, ThunkConfig<string>
         );
 
 
-
+        console.log(queryParams);
 
         try {
             console.log('request orders thunk body execute');
@@ -50,6 +50,7 @@ export const getOrdersList = createAsyncThunk<Order[], null, ThunkConfig<string>
             if (!ordersList.data) {
                 throw new Error();
             }
+            console.log(ordersList.data);
             return ordersList.data;
         } catch (e: any) {
             console.log(e);

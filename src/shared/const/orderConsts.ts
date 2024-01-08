@@ -131,3 +131,13 @@ export const orderTabHeaderKeysArr = [
     OrderTabHeaderKeys.YEAR_OF_EXECUTION,
     OrderTabHeaderKeys.MODIFIED
 ];
+
+export const defaultOrdersStatusFilterValue = {
+    [OrderStatus.NONE]: true,
+    [OrderStatus.AGREEMENT]: true,
+    [OrderStatus.ISSUED]: true,
+    [OrderStatus.EXECUTING]: true,
+    [OrderStatus.TECHNICAL_CLOSED]: true,
+    [OrderStatus.WAITING_FOR_TECHNICAL_CLOSING]: true,
+    [OrderStatus.WAITING_FOR_REQUEST]: true
+};

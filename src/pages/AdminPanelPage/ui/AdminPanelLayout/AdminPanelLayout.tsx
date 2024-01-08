@@ -8,14 +8,14 @@ import { AdminPanelUserTable } from '../AdminPanelUserTable/AdminPanelUserTable'
 
 interface AdminPanelLayoutProps {
     className?: string
-    content: AdminPanelContentMode
+    contentMode: AdminPanelContentMode
 }
 
 export const AdminPanelLayout = memo((props: AdminPanelLayoutProps) => {
-    const { className, content } = props;
+    const { className, contentMode } = props;
 
 
-    if (content === AdminPanelContentMode.USERS){
+    if (contentMode === AdminPanelContentMode.USERS){
         return (<AdminPanelUserTable/>);
     }
     return (

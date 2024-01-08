@@ -16,11 +16,12 @@ interface PageProps extends TestProps {
     className?: string
     children: ReactNode
     onScrollEnd?: () => void
+    max?: boolean
 }
 
 
 export const Page = (props: PageProps) => {
-    const { className, children, onScrollEnd } = props;
+    const { className, children, onScrollEnd, max = false } = props;
     const wrapperRef = useRef() as MutableRefObject<HTMLDivElement>;
     const triggerRef = useRef() as MutableRefObject<HTMLDivElement>;
     const dispatch = useAppDispatch();
@@ -48,7 +49,7 @@ export const Page = (props: PageProps) => {
     return (
         <main
             ref={wrapperRef}
-            className={classNames(cls.Page, {}, [className])}
+            className={classNames(cls.Page, { [cls.max]:max }, [className])}
             onScroll={onScroll}
         >
             {children}

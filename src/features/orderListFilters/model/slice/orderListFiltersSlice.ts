@@ -1,20 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { OrderListFiltersSchema } from '../types/orderListFiltersType';
-import { OrdersSortField, OrderStatus } from '@/shared/const/orderConsts';
+import { defaultOrdersStatusFilterValue, OrdersSortField } from '@/shared/const/orderConsts';
 import { SortOrder } from '@/shared/types/sort';
 import { ORDERS_STATUS_FILTER_VALUE, YEAR_OF_EXECUTION_SELECTOR_VALUE } from '@/shared/const/localStorage';
 
 const localStorageOrdersStatusFilterValue = localStorage.getItem(ORDERS_STATUS_FILTER_VALUE) ?? 'null';
 
-const ordersStatusFilterValue = JSON.parse( localStorageOrdersStatusFilterValue ) ?? {
-    [OrderStatus.NONE]: true,
-    [OrderStatus.AGREEMENT]: true,
-    [OrderStatus.ISSUED]: true,
-    [OrderStatus.EXECUTING]: true,
-    [OrderStatus.TECHNICAL_CLOSED]: true,
-    [OrderStatus.WAITING_FOR_TECHNICAL_CLOSING]: true,
-    [OrderStatus.WAITING_FOR_REQUEST]: true
-};
+const ordersStatusFilterValue = JSON.parse( localStorageOrdersStatusFilterValue ) ?? defaultOrdersStatusFilterValue;
 
 const initialState: OrderListFiltersSchema = {
     error: '',

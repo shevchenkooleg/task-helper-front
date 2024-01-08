@@ -4,13 +4,18 @@ import { memo } from 'react';
 
 interface BoundaryLineProps {
     className?: string
+    max?: boolean
 }
 
 export const BoundaryLine = memo((props: BoundaryLineProps) => {
-    const { className } = props;
+    const { className, max = false } = props;
+
+    const mods = {
+        [cls.max]: max
+    };
 
     return (
-        <div className={classNames(cls.BoundaryLine, {}, [className])}/>
+        <div className={classNames(cls.BoundaryLine, mods, [className])}/>
     );
 });
 

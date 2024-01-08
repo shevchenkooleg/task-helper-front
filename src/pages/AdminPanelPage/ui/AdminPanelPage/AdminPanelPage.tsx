@@ -34,7 +34,7 @@ const AdminPanelPage = (props: AdminPanelPageProps) => {
                 <AdminPanelBar contentMode={contentMode} onToggle={setContentMode}/>
                 <Page data-testid={'AdminPanelPage'} className={classNames('', {}, [className])}>
                     <VStack max={true} gap={'8px'} align={'start'} className={cls.AdminPanelPage}>
-                        <AdminPanelLayout content={contentMode}/>
+                        <AdminPanelLayout contentMode={contentMode}/>
                     </VStack>
                 </Page>
             </VStack>

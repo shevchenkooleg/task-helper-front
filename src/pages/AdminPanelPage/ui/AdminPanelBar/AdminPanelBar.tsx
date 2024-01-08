@@ -24,7 +24,7 @@ export const AdminPanelBar = memo((props: AdminPanelBarProps) => {
     };
 
     return (
-        <HStack className={classNames(cls.AdminPanelBar, {}, [className])}>
+        <HStack className={classNames(cls.AdminPanelBar, {}, [className])} gap={'32px'}>
             <Button
                 active={contentMode === AdminPanelContentMode.USERS}
                 onClick={onUsersButtonClick}
