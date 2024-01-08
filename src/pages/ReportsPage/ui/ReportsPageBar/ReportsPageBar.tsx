@@ -3,7 +3,7 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo, useCallback } from 'react';
 import { HStack } from '@/shared/ui/Stack';
 import { Button } from '@/shared/ui/Button';
-import { ReportPanelContentMode } from '../../model/type/reportPage';
+import { ReportPanelContentMode } from '../../model/types/reportsPage';
 
 interface ReportsPageBarProps {
     className?: string

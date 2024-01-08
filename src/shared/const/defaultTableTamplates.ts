@@ -1,6 +1,7 @@
 import { OrderTabHeaderKeys } from './orderConsts';
 import { MaterialInOrderTabHeaderKeys, MaterialTabHeaderKeys } from './materialTabHeaderKeys';
 import { AdminPanelTabHeaderKeys } from './adminPanelConsts';
+import { TotalVolumeMaterialReportKeys } from './reportConsts';
 
 export const DefaultTableTemplatesObject: Record<string, Record<string, string>> = {
     ['orderTemplate'] : {
@@ -33,4 +34,14 @@ export const DefaultTableTemplatesObject: Record<string, Record<string, string>>
         [AdminPanelTabHeaderKeys.CREATED]: '1fr',
         [AdminPanelTabHeaderKeys.ROLES]: '1fr',
     },
+    ['totalVolumeMaterialReportTemplate']: {
+        [TotalVolumeMaterialReportKeys.MATERIAL_NAME]: '3fr',
+        [TotalVolumeMaterialReportKeys.UPP_ID]: '1fr',
+        [TotalVolumeMaterialReportKeys.KSU_ID]: '1fr',
+        [TotalVolumeMaterialReportKeys.TOTAL_VOLUME]: '2fr',
+        [TotalVolumeMaterialReportKeys.DIMENSION]: '1fr',
+        [TotalVolumeMaterialReportKeys.FULL_VOLUME]: '1fr',
+        [TotalVolumeMaterialReportKeys._ID]: '2fr',
+        [TotalVolumeMaterialReportKeys.__V]: '1fr',
+    }
 };

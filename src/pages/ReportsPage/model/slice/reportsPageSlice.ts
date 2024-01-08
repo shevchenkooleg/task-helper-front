@@ -1,9 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ReportsPageSchema } from '../types/reportsPage';
+import { MaterialToReportTab } from '@/entities/Material';
 
 const initialState: ReportsPageSchema = {
     error: '',
-    report: [],
+    totalVolumeMaterialReport: [],
     _isInit: false,
     isLoading: false,
     reportPageSettings: ''
@@ -12,7 +13,11 @@ const initialState: ReportsPageSchema = {
 export const reportsPageSlice = createSlice({
     name: 'reportsPageSlice',
     initialState,
-    reducers: {},
+    reducers: {
+        setTotalVolumeMaterialReport: (state, action: PayloadAction<MaterialToReportTab[]>) => {
+            state.totalVolumeMaterialReport = action.payload;
+        }
+    },
     extraReducers: (builder) => {
         //builder
         //.addCase(loginByUsername.pending, (state) => {

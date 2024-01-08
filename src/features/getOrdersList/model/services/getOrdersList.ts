@@ -47,7 +47,6 @@ export const getOrdersList = createAsyncThunk<Order[], GetOrdersListQueryParams,
             if (!ordersList.data) {
                 throw new Error();
             }
-            console.log(ordersList.data);
             return ordersList.data;
         } catch (e: any) {
             console.log(e);

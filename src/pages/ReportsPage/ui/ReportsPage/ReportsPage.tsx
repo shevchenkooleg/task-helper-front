@@ -6,8 +6,8 @@ import { reportsPageSliceReducer } from '../../model/slice/reportsPageSlice';
 import { VStack } from '@/shared/ui/Stack';
 import { Page } from '@/widgets/Page';
 import { ReportsPageBar } from '../ReportsPageBar/ReportsPageBar';
-import { ReportPanelContentMode } from '../../model/type/reportPage';
 import { ReportsPageLayout } from '../ReportsPageLayout/ReportsPageLayout';
+import { ReportPanelContentMode } from '../../model/types/reportsPage';
 
 interface ReportsPageProps {
     className?: string

@@ -9,3 +9,4 @@ export { getMaterialFormData } from './model/selectors/getMaterialFormData/getMa
 export { updateMaterialById } from './model/services/updateMaterialById/updateMaterialById';
 export { deleteMaterialById } from './model/services/deleteMaterialById/deleteMaterialById';
 export { type MaterialToOrderTab } from '@/entities/Material/model/types/materialDetailsSliceSchema';
+export { type MaterialToReportTab } from './model/types/materialDetailsSliceSchema';

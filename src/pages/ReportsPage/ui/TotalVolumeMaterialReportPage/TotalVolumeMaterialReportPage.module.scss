@@ -1,0 +1,10 @@
+.TotalVolumeMaterialReportPage {
+
+}
+
+.layout {
+    flex-grow: 1;
+    height: calc(100vh - var(--navbar-height));
+    overflow-y: auto;
+    flex-shrink: 1000;
+}

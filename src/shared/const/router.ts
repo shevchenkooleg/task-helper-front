@@ -10,6 +10,7 @@ export enum AppRoutes {
     MATERIAL_DETAILS = 'material_details',
     ADMIN_PANEL = 'admin_panel',
     REPORTS = 'reports',
+    TOTAL_VOLUME_MATERIAL_REPORT = 'total_volume_material_report',
     // FORBIDDEN_PAGE = 'forbidden_page',
     // //last
     NOT_FOUND = 'notFoundPage'
@@ -26,4 +27,6 @@ export const getRouteMaterials = () => '/materials';
 export const getRouteMaterialDetails= (materialId: string) => `/materials/${materialId}`;
 export const getRouteAdminPanel = () => 'admin';
 export const getRouteReports = () => 'reports';
+export const getRouteTotalVolumeMaterialReport = () => '/reports/totalVolumeMaterialReport';
+
 export const getRouteForbiddenPage = () => 'forbidden';

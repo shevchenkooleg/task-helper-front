@@ -23,3 +23,7 @@ export interface MaterialToOrderTab extends Material {
     totalUnitsCount?: string
     totalQuantity?: string
 }
+
+export interface MaterialToReportTab extends Material {
+    totalVolume?: string
+}
