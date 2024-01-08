@@ -1,6 +1,6 @@
 import { classNames } from '@/shared/lib/classNames/classNames';
 import cls from './OrdersPage.module.scss';
-import { memo, useCallback, useEffect, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { ordersPageSliceActions, ordersPageSliceReducer } from '../../model/slice/ordersPageSlice';
 import { VStack } from '@/shared/ui/Stack';
@@ -23,7 +23,8 @@ import { useSearchParams } from 'react-router-dom';
 import { initOrdersPage } from '../../model/services/initOrdersPage';
 import { OrderPageSettingsSideBar } from '../OrderPageSettingsSideBar/OrderPageSettingsSideBar';
 import { ORDERS_TABLE_ACTIVE_KEYS } from '@/shared/const/localStorage';
-import { orderTabHeaderKeysArr } from '@/shared/const/orderConsts';
+import { OrdersSortField, orderTabHeaderKeysArr } from '@/shared/const/orderConsts';
+import { GetOrdersListQueryParams } from '@/features/getOrdersList';
 
 interface OrdersPageProps {
     className?: string
@@ -33,10 +34,15 @@ const OrdersPage = (props: OrdersPageProps) => {
     const { className } = props;
     const userId = useSelector(getUserAuthData);
     const ordersList = useSelector(getOrderListSelector);
-    const sortOrder = useSelector(getOrderListFiltersSortOrder);
-    const sortField = useSelector(getOrderListFilterField);
-    const yearOfExecutionValue = useSelector(getOrderListFiltersYearOfExecution);
+    const sortOrder = useSelector(getOrderListFiltersSortOrder) ?? 'asc';
+    const sortField = useSelector(getOrderListFilterField) ?? OrdersSortField.ORDER_ID;
+    const yearOfExecutionValue = useSelector(getOrderListFiltersYearOfExecution) ?? 'any';
     const orderStatusBoxValues  = useSelector(getOrderStatusBoxValues);
+    const getOrderListQueryParams: GetOrdersListQueryParams = useMemo(
+        ()=>({ order: sortOrder, sort: sortField, yearOfExecution: yearOfExecutionValue }),
+        [sortField, sortOrder, yearOfExecutionValue]
+    );
+
     const reducers: ReducerList = {
         orders: ordersPageSliceReducer,
         orderFilters: orderListFiltersSliceReducer
@@ -52,14 +58,14 @@ const OrdersPage = (props: OrdersPageProps) => {
 
     const onModalClose = useCallback(() => {
         console.log('request order because modal close');
-        dispatch(getOrdersList(null));
+        dispatch(getOrdersList(getOrderListQueryParams));
         setIsNewOrderModalOpen(false);
-    },[dispatch]);
+    },[dispatch, getOrderListQueryParams]);
 
     const onLoadClickHandler = useCallback(() => {
-        userId && dispatch(getOrdersList(null));
+        userId && dispatch(getOrdersList(getOrderListQueryParams));
         console.log('request order because loadOrder button is click');
-    },[dispatch, userId]);
+    },[dispatch, getOrderListQueryParams, userId]);
 
     const onOrderPanelSettingsClickHandler = useCallback(()=>{
         setIsOrderPageSettingsSideBarShow(prev => !prev);
@@ -76,8 +82,8 @@ const OrdersPage = (props: OrdersPageProps) => {
 
     useEffect(()=>{
         console.log('request order because orderPageUseEffect is execute (dependencies: sortOrder, sortField, dispatch, userId, yearOfExecutionValue, orderStatusBoxValues)');
-        userId && sortOrder && sortField && yearOfExecutionValue && orderStatusBoxValues && dispatch(getOrdersList(null));
-    },[sortOrder, sortField, dispatch, userId, yearOfExecutionValue, orderStatusBoxValues]);
+        userId && sortOrder && sortField && yearOfExecutionValue && orderStatusBoxValues && dispatch(getOrdersList(getOrderListQueryParams));
+    },[sortOrder, sortField, dispatch, userId, yearOfExecutionValue, orderStatusBoxValues, getOrderListQueryParams]);
 
     console.log(ordersList);
 

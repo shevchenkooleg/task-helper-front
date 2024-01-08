@@ -21,9 +21,9 @@ export const ReportsPageLayout = memo((props: ReportsPageLayoutProps) => {
 
     const onTotalMaterialsReportButtonClickHandler = (useCallback(()=>{
         console.log('onTotalMaterialsReportButtonClick');
-        const orders = dispatch(getOrdersList(null));
+        const orders = dispatch(getOrdersList({ yearOfExecution: reportYear }));
         console.log('orders ', orders);
-    }, [dispatch]));
+    }, [dispatch, reportYear]));
 
     if (contentMode === ReportPanelContentMode.MATERIALS_REPORTS){
         return (

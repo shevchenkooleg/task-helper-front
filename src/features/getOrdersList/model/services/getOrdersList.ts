@@ -5,26 +5,23 @@ import { Order } from '@/entities/Order';
 //TODO fix fsd layers
 
 // eslint-disable-next-line path-import-validation-plugin/layer-imports
-import {
-    getOrderListFilterField,
-    getOrderListFiltersSortOrder,
-    getOrderListFiltersYearOfExecution, getOrderStatusBoxValues
+import { getOrderStatusBoxValues
 } from '@/features/orderListFilters';
 import { defaultOrdersStatusFilterValue, OrderSortQueryMapper, OrdersSortField } from '@/shared/const/orderConsts';
 import { addQueryParams } from '@/shared/lib/url/addQueryParams/addQueryParams';
 import { addQueryFilterStatus } from '@/shared/lib/addQueryFilterStatus/addQueryFilterStatus';
+import { GetOrdersListQueryParams } from '../types/getOrdersListQueryParams';
 
 
-export const getOrdersList = createAsyncThunk<Order[], null, ThunkConfig<string>>(
+export const getOrdersList = createAsyncThunk<Order[], GetOrdersListQueryParams, ThunkConfig<string>>(
     'orders/getOrdersList',
-    async (_, thunkAPI) => {
+    async (getOrdersListQueryParams, thunkAPI) => {
         const { dispatch, rejectWithValue, extra, getState } = thunkAPI;
         const accessToken = thunkAPI.getState().user!.tokenAuthData!.access_token;
-        const order = getOrderListFiltersSortOrder(getState()) ?? 'asc';
-        const sort = getOrderListFilterField(getState()) ?? OrdersSortField.ORDER_ID;
-        const yearOfExecution = getOrderListFiltersYearOfExecution(getState()) ?? 'any';
+        const order = getOrdersListQueryParams.order ?? 'asc';
+        const sort = getOrdersListQueryParams.sort ?? OrdersSortField.ORDER_ID;
+        const yearOfExecution = getOrdersListQueryParams.yearOfExecution ?? 'any';
         const orderStatusFilterFields  = getOrderStatusBoxValues(getState()) ?? defaultOrdersStatusFilterValue;
-
 
         const queryParams = addQueryFilterStatus(
             {
@@ -36,7 +33,7 @@ export const getOrdersList = createAsyncThunk<Order[], null, ThunkConfig<string>
         );
 
 
-        console.log(queryParams);
+        console.log('queryParams ', queryParams);
 
         try {
             console.log('request orders thunk body execute');
