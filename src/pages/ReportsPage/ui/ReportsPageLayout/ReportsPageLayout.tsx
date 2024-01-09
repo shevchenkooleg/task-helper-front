@@ -15,6 +15,7 @@ import { reportsPageSliceActions } from '../../model/slice/reportsPageSlice';
 import { ReportPanelContentMode } from '../../model/types/reportsPage';
 import { getRouteTotalVolumeMaterialReport } from '@/shared/const/router';
 import { useNavigate } from 'react-router-dom';
+import { defaultOrdersStatusFilterValue } from '@/shared/const/orderConsts';
 
 interface ReportsPageLayoutProps {
     className?: string
@@ -31,7 +32,7 @@ export const ReportsPageLayout = memo((props: ReportsPageLayoutProps) => {
     //TODO refactor this page. move logic part
     const onTotalMaterialsReportButtonClickHandler = (useCallback(()=>{
 
-        const orders = dispatch(getOrdersList({ yearOfExecution: reportYear }));
+        const orders = dispatch(getOrdersList({ yearOfExecution: reportYear, orderStatusFilterFields: defaultOrdersStatusFilterValue }));
 
         orders.then((response)=>{
             const ordersList = response.payload;

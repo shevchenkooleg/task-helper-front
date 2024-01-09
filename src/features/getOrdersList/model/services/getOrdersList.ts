@@ -21,7 +21,7 @@ export const getOrdersList = createAsyncThunk<Order[], GetOrdersListQueryParams,
         const order = getOrdersListQueryParams.order ?? 'asc';
         const sort = getOrdersListQueryParams.sort ?? OrdersSortField.ORDER_ID;
         const yearOfExecution = getOrdersListQueryParams.yearOfExecution ?? 'any';
-        const orderStatusFilterFields  = getOrderStatusBoxValues(getState()) ?? defaultOrdersStatusFilterValue;
+        const orderStatusFilterFields  = getOrdersListQueryParams.orderStatusFilterFields ?? getOrderStatusBoxValues(getState()) ?? defaultOrdersStatusFilterValue;
 
         const queryParams = addQueryFilterStatus(
             {
