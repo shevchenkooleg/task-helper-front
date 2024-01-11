@@ -1,5 +1,6 @@
 import { BillOfQuantitiesStatus, OrderDocumentsStatus, OrderStatus } from '@/shared/const/orderConsts';
 import { MaterialToOrderTab } from '@/entities/Material';
+import { OrderExecutionType, OrderType } from '@/shared/const/addNewOrderConsts';
 
 export interface Order {
     _id?: string
@@ -30,6 +31,8 @@ export interface Order {
         status: OrderDocumentsStatus
     }
     yearOfExecution?: string
+    orderType?: OrderType
+    orderExecutionType?: OrderExecutionType
     materials?: Array<MaterialToOrderTab>
 }
 

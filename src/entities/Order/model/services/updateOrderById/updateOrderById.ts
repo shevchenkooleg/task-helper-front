@@ -19,8 +19,8 @@ export const updateOrderById = createAsyncThunk<void, string, ThunkConfig<string
         const accessToken = thunkAPI.getState().user!.tokenAuthData!.access_token;
         const orderForm = filterObject<Order>(getState()!.orderDetails!.form, ['__v', '_id', 'modified']);
         const materialsForUpdate = orderForm.materials?.map(el=>filterObject(el, ['KSUId', 'dimension', 'fullVolume', 'materialName', '__v',]));
-        // console.log('materialsForUpdate ', materialsForUpdate);
-        // console.log('orderForm ', orderForm);
+        console.log('materialsForUpdate ', materialsForUpdate);
+        console.log('orderForm ', orderForm);
 
         try {
             if (!orderId) {

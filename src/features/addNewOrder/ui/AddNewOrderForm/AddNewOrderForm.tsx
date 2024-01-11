@@ -15,6 +15,7 @@ import { getNewOrderError } from '../../selectors/getNewOrderError/getNewOrderEr
 import { addNewOrder, getNewOrderYearOfExecution } from '../../index';
 import { getUserAuthData } from '@/entities/User';
 import { Button } from '@/shared/ui/Button';
+import { OrderExecutionType, OrderType } from '@/shared/const/addNewOrderConsts';
 
 export interface AddNewOrderFormProps {
     className?: string
@@ -52,7 +53,10 @@ const AddNewOrderForm = memo((props: AddNewOrderFormProps) => {
                 { orderId: newOrderId,
                     description: newOrderDescription!,
                     yearOfExecution: newOrderYearOfExecution,
-                    userId: userId }
+                    userId: userId,
+                    orderType: OrderType.INDEPENDENT,
+                    orderExecutionType: OrderExecutionType.PLANNED,
+                }
             ));
             if (result.meta.requestStatus === 'fulfilled') {
                 dispatch(addNewOrderActions.resetForm());

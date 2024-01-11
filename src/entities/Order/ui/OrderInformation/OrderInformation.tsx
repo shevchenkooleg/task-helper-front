@@ -13,6 +13,14 @@ import { BillOfQuantitiesStatus, OrderDocumentsStatus, OrderStatus } from '../..
 import { OrderStatusSelect } from '../OrderStatusSelect/OrderStatusSelect';
 import { BillOfQuantitiesStatusSelect } from '../BillOfQuantitiesStatusSelect/BillOfQuantitiesStatusSelect';
 import { OrderDocumentsStatusSelect } from '../OrderDocumentsStatusSelect/OrderDocumentsStatusSelect';
+import { ListBox } from '@/shared/ui/Popups';
+import {
+    OrderExecutionType,
+    orderExecutionTypeMapper,
+    OrderType,
+    orderTypeMapper
+} from '@/shared/const/addNewOrderConsts';
+import { orderExecutionTypeOptions, orderTypeOptions } from '@/shared/const/orderDetailsConsts';
 
 interface OrderInformationProps {
     className?: string
@@ -87,17 +95,40 @@ export const OrderInformation = memo((props: OrderInformationProps) => {
                 correctionId: { value: 'отсутствует', status: OrderDocumentsStatus.UPLOADED_TO_TTS }
             }));
     },[dispatch, form?.correctionId?.value]);
+    const onChangeOrderType = useCallback((newType?: string) => {
+        dispatch(orderDetailsSliceActions.updateOrderForm({
+            orderType: newType as OrderType || OrderType.INDEPENDENT
+        }));
+    }, [dispatch]);
+    const onChangeOrderExecutionType = useCallback((newOrderExecutionType: string) => {
+        dispatch(orderDetailsSliceActions.updateOrderForm({
+            orderExecutionType: newOrderExecutionType as OrderExecutionType || OrderExecutionType.PLANNED
+        }));
+    },[dispatch]);
 
 
     return (
         <>
             <div>Информация о заказе</div>
             <VStack max align={'start'} gap={'16px'} className={classNames(cls.OrderInformation, {}, [className])}>
-                <Input
-                    readOnly={true} placeholder={'Номер заказа:'}
-                    value={form?.orderId}
-                />
-
+                <HStack gap={'32px'}>
+                    <Input
+                        readOnly={true} placeholder={'Номер заказа:'}
+                        value={form?.orderId}
+                    />
+                    <ListBox
+                        onChange={onChangeOrderType}
+                        value={form?.orderType && orderTypeMapper[form.orderType]}
+                        items={orderTypeOptions}
+                        readOnly={editMode}
+                    />
+                    <ListBox
+                        onChange={onChangeOrderExecutionType}
+                        value={form?.orderExecutionType && orderExecutionTypeMapper[form.orderExecutionType]}
+                        items={orderExecutionTypeOptions}
+                        readOnly={editMode}
+                    />
+                </HStack>
                 <Input
                     readOnly={editMode}
                     placeholder={'Номер выполнения:'}

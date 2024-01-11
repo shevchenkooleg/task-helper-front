@@ -7,6 +7,7 @@ import ArrowUp from '@/shared/assets/icons/ArrowUp.svg';
 import { SortOrder } from '@/shared/types/sort';
 import { ORDERS_TABLE_TEMPLATE } from '@/shared/const/localStorage';
 import { tableTemplateCreator } from '@/shared/lib/tableTemplateCreator/tableTemplateCreator';
+import { Text, TextSize, TextTheme } from '../../Text';
 
 interface TableGridProps<T, R, S> {
     className?: string
@@ -22,6 +23,8 @@ interface TableGridProps<T, R, S> {
     currentSortOrder?: SortOrder
 }
 
+
+//TODO fix any
 export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridProps<T, R, S>) => {
 
 
@@ -47,6 +50,8 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
 
     const tabContent = (el: T, i: number) => {
 
+        console.log(el);
+
         const orderStatusForColorized = el.orderStatus;
         return (
             <tr className={cls.cellsRow} key={el._id} onDoubleClick={(e)=> {
@@ -56,6 +61,33 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
                     tabKeys && tabKeys.map((key, index)=> {
                         if (!tabKeys.includes(key)){
                             return null;
+                        }
+                        if (key === 'orderId') {
+                            return (
+                                <td key={index}
+                                    className={classNames('', { [cls[orderStatusForColorized]]: false }, [])}>
+                                    <span>{el[key]}</span>
+                                    {el['orderExecutionType'] === 'unplanned' && <span className={cls.unplanned}>н</span>}
+                                </td>
+                            );
+                        }
+                        if (key === 'description') {
+                            return (
+                                <td key={index}
+                                    className={classNames('', { [cls[orderStatusForColorized]]: false }, [])}>
+                                    <HStack justify={'between'} >
+                                        <span>{el[key]}</span>
+                                        {
+                                            el['orderType'] !== 'independent' &&
+                                            <Text
+                                                className={cls.unplanned}
+                                                text={'Подрядный'}
+                                                size={TextSize.SIZE_S}
+                                                theme={TextTheme.ERROR}
+                                            />}
+                                    </HStack>
+                                </td>
+                            );
                         }
                         if (key === 'serialNumber') {
                             return (
@@ -80,14 +112,16 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
                             );
                         }
                         if (typeof el[key] === 'object') {
+                            // console.log('el.orderStatus ', el[key].status);
+                            // console.log('el.orderStatus ', el);
                             return (
                                 <td
                                     key={index}
                                     className={classNames(cls.tableCell, { [cls[el[key].status]]: false }, [])}
                                 >
                                     <div>
-                                        <div
-                                            className={classNames(cls.colorStripe, { [cls[el[key].status]]: true }, [])}></div>
+                                        {el[key].status !== 'on_clearance' && <div className={classNames(cls.colorStripe, { [cls[el[key].status]]: true }, [])}></div>}
+                                        {/*<div className={classNames(cls.colorStripe, { [cls[el[key].status]]: true }, [])}></div>*/}
                                         {
                                             helpMappers && el[key].value in helpMappers
                                                 ? helpMappers[el[key].value]

@@ -1,12 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 import { Order } from '@/entities/Order';
+import { OrderExecutionType, OrderType } from '@/shared/const/addNewOrderConsts';
 
 interface AddNewOrderProps {
     orderId: string
     description: string
     userId: string
     yearOfExecution: string
+    orderType: OrderType,
+    orderExecutionType: OrderExecutionType,
 }
 
 export const addNewOrder = createAsyncThunk<Order, AddNewOrderProps, ThunkConfig<string>>(

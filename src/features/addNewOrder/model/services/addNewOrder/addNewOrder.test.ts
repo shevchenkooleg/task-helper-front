@@ -1,12 +1,15 @@
 import { TestAsyncThunk } from '@/shared/lib/test/TestAsyncThunk/TestAsyncThunk';
 import { addNewOrder } from '../../..';
+import { OrderExecutionType, OrderType } from '@/shared/const/addNewOrderConsts';
 
 
 const newOrderInstance = {
     description: '',
     orderId: '12345',
     userId: 'qqqwwweee111222333',
-    yearOfExecution: '2024'
+    yearOfExecution: '2024',
+    orderType: OrderType.INDEPENDENT,
+    orderExecutionType: OrderExecutionType.PLANNED
 };
 
 describe('addNewOrder.test', () => {

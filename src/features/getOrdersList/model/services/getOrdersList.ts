@@ -22,12 +22,16 @@ export const getOrdersList = createAsyncThunk<Order[], GetOrdersListQueryParams,
         const sort = getOrdersListQueryParams.sort ?? OrdersSortField.ORDER_ID;
         const yearOfExecution = getOrdersListQueryParams.yearOfExecution ?? 'any';
         const orderStatusFilterFields  = getOrdersListQueryParams.orderStatusFilterFields ?? getOrderStatusBoxValues(getState()) ?? defaultOrdersStatusFilterValue;
+        const orderType = getOrdersListQueryParams.orderType ?? 'any';
+        const orderExecutionType = getOrdersListQueryParams.orderExecutionType ?? 'any';
 
         const queryParams = addQueryFilterStatus(
             {
                 sort: OrderSortQueryMapper[sort],
                 order,
-                yearOfExecution
+                yearOfExecution,
+                orderType,
+                orderExecutionType,
             },
             orderStatusFilterFields
         );

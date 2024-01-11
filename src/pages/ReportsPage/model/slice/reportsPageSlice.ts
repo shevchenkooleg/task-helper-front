@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ReportsPageSchema } from '../types/reportsPage';
 import { MaterialToReportTab } from '@/entities/Material';
+import { OrderExecutionType, OrderType } from '@/shared/const/addNewOrderConsts';
 
 const initialState: ReportsPageSchema = {
     error: '',
     totalVolumeMaterialReport: [],
     _isInit: false,
     isLoading: false,
-    reportPageSettings: ''
+    reportPageSettings: { reportYear: '2024', orderType: OrderType.INDEPENDENT, orderExecutionType: OrderExecutionType.PLANNED }
 };
 
 export const reportsPageSlice = createSlice({
@@ -16,6 +17,15 @@ export const reportsPageSlice = createSlice({
     reducers: {
         setTotalVolumeMaterialReport: (state, action: PayloadAction<MaterialToReportTab[]>) => {
             state.totalVolumeMaterialReport = action.payload;
+        },
+        setReportYear: (state, action: PayloadAction<string>) => {
+            state.reportPageSettings.reportYear = action.payload;
+        },
+        setOrderType: (state, action: PayloadAction<OrderType>) => {
+            state.reportPageSettings.orderType = action.payload;
+        },
+        setOrderExecutionType: (state, action: PayloadAction<OrderExecutionType>) => {
+            state.reportPageSettings.orderExecutionType = action.payload;
         }
     },
     extraReducers: (builder) => {

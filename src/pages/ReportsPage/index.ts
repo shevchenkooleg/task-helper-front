@@ -3,3 +3,4 @@ export { ReportsPageAsync as ReportsPage } from './ui/ReportsPage/ReportsPageAsy
 export { TotalVolumeMaterialReportPageAsync as TotalVolumeMaterialReportPage } from './ui/TotalVolumeMaterialReportPage/TotalVolumeMaterialReportPageAsync';
 
 export { getTotalVolumeMaterialReportData } from './model/selectors/getTotalVolumeMaterialReportData/getTotalVolumeMaterialReportData';
+export { getReportPageSettings } from './model/selectors/getReportPageSettings/getReportPageSettings';
