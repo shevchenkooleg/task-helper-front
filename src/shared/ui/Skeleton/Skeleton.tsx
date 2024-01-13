@@ -7,6 +7,7 @@ interface SkeletonProps {
     height?: string | number
     width?: string | number
     border?: string
+    max?: boolean
 }
 
 export const Skeleton = memo((props: SkeletonProps) => {
@@ -14,7 +15,8 @@ export const Skeleton = memo((props: SkeletonProps) => {
         className,
         height,
         width,
-        border
+        border,
+        max,
     } = props;
 
     const styles: CSSProperties = {
@@ -22,6 +24,10 @@ export const Skeleton = memo((props: SkeletonProps) => {
         height,
         borderRadius: border
     };
+
+    max ? styles.width = '100%' : styles.width;
+
+    console.log('styles ', styles);
 
     return (
         <div

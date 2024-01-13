@@ -5,9 +5,12 @@ import { HStack } from '../../Stack';
 import ArrowDown from '@/shared/assets/icons/ArrowDown.svg';
 import ArrowUp from '@/shared/assets/icons/ArrowUp.svg';
 import { SortOrder } from '@/shared/types/sort';
+import { Text, TextSize, TextTheme } from '../../Text';
+import { useTheme } from '@/shared/lib/hooks/useTheme/useTheme';
+import { Theme } from '@/shared/const/theme';
+import { Skeleton } from '../../Skeleton';
 import { ORDERS_TABLE_TEMPLATE } from '@/shared/const/localStorage';
 import { tableTemplateCreator } from '@/shared/lib/tableTemplateCreator/tableTemplateCreator';
-import { Text, TextSize, TextTheme } from '../../Text';
 
 interface TableGridProps<T, R, S> {
     className?: string
@@ -27,7 +30,7 @@ interface TableGridProps<T, R, S> {
 //TODO fix any
 export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridProps<T, R, S>) => {
 
-
+    const availDisplayResolution = document.documentElement.clientWidth;
 
     const {
         className,
@@ -45,7 +48,8 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
 
     // const tableTemplate = localStorage.getItem(ORDERS_TABLE_TEMPLATE) ?? DefaultTableTemplatesObject[template];
     const tableTemplate = localStorage.getItem(ORDERS_TABLE_TEMPLATE) ?? tableTemplateCreator(tabKeys, template) ??  '1fr 3fr 3fr 12fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr';
-    console.log(tableTemplateCreator(tabKeys, template));
+    const { theme } = useTheme();
+    // console.log(tableTemplateCreator(tabKeys, template));
 
 
     const tabContent = (el: T, i: number) => {
@@ -90,11 +94,17 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
                             );
                         }
                         if (key === 'serialNumber') {
+
+                            const mods = {
+                                [cls[orderStatusForColorized]]: true,
+                                [cls.opacityDark]: theme === Theme.DARK
+                            };
+
                             return (
                                 <td key={index} className={classNames(cls.tableCell, {}, [])}>
                                     <div>
                                         <div
-                                            className={classNames(cls.colorStripe, { [cls[orderStatusForColorized]]: true }, [])}></div>
+                                            className={classNames(cls.colorStripe, mods, [])}></div>
                                         {i + 1}
                                     </div>
                                 </td>
@@ -114,13 +124,17 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
                         if (typeof el[key] === 'object') {
                             // console.log('el.orderStatus ', el[key].status);
                             // console.log('el.orderStatus ', el);
+                            const mods = {
+                                [cls[el[key].status]]: true,
+                                [cls.opacityDark]: theme === Theme.DARK
+                            };
                             return (
                                 <td
                                     key={index}
                                     className={classNames(cls.tableCell, { [cls[el[key].status]]: false }, [])}
                                 >
                                     <div>
-                                        {el[key].status !== 'on_clearance' && <div className={classNames(cls.colorStripe, { [cls[el[key].status]]: true }, [])}></div>}
+                                        {el[key].status !== 'on_clearance' && <div className={classNames(cls.colorStripe, mods, [])}></div>}
                                         {/*<div className={classNames(cls.colorStripe, { [cls[el[key].status]]: true }, [])}></div>*/}
                                         {
                                             helpMappers && el[key].value in helpMappers
@@ -207,8 +221,30 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
     }
 
     return (
-        <div></div>
+        <div className={cls.skeleton}>
+            <Skeleton height={50} width={availDisplayResolution - 100}/>
+            <Skeleton height={50} width={availDisplayResolution - 100}/>
+            <Skeleton height={50} width={availDisplayResolution - 100}/>
+            <Skeleton height={50} width={availDisplayResolution - 100}/>
+            <Skeleton height={50} width={availDisplayResolution - 100}/>
+            <Skeleton height={50} width={availDisplayResolution - 100}/>
+            <Skeleton height={50} width={availDisplayResolution - 100}/>
+            <Skeleton height={50} width={availDisplayResolution - 100}/>
+            <Skeleton height={50} width={availDisplayResolution - 100}/>
+            <Skeleton height={50} width={availDisplayResolution - 100}/>
+            <Skeleton height={50} width={availDisplayResolution - 100}/>
+            <Skeleton height={50} width={availDisplayResolution - 100}/>
+            <Skeleton height={50} width={availDisplayResolution - 100}/>
+            <Skeleton height={50} width={availDisplayResolution - 100}/>
+            <Skeleton height={50} width={availDisplayResolution - 100}/>
+            <Skeleton height={50} width={availDisplayResolution - 100}/>
+            <Skeleton height={50} width={availDisplayResolution - 100}/>
+            <Skeleton height={50} width={availDisplayResolution - 100}/>
+            <Skeleton height={50} width={availDisplayResolution - 100}/>
+
+        </div>
     );
+
 };
 
 TableGrid.displayName = 'TableGrid';

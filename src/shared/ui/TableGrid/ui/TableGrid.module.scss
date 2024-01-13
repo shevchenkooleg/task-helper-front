@@ -65,7 +65,7 @@ td {
     //white-space: nowrap;
     font: var(--font-s);
     //border-collapse: collapse;
-    outline: 1px solid #769fce;
+    outline: 1px solid var(--table-delimetr);
     text-align: center;
 }
 
@@ -75,11 +75,12 @@ th {
     margin: 0 auto;
     width: 100%;
     top: 0;
-    background: #4e81b4;
+    background: var(--table-header);
     text-align: center;
     //border: 1px solid rgba(0, 0, 0, 0.42);
     //font-weight: normal;
     //font-size: 1.1rem;
+    //color: var(--font-color-inverted);
     color: var(--font-color-inverted);
 }
 
@@ -90,7 +91,8 @@ th:last-child {
 td {
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: var(--document-status-on-clearance);
+    background-color: var(--table-row);
+    color: var(--table-font-color);
     //align-content: center;
 }
 
@@ -192,4 +194,8 @@ tr:nth-child(even) td {
 
 .technical_closed {
     background-color: var(--order-status-technical-closed)
+}
+
+.opacityDark {
+    opacity: 0.6;
 }
