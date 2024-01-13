@@ -25,6 +25,7 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getReportPageSettings } from '../..';
+import { precisionRound } from '@/shared/lib/precisionRound/precisionRound';
 
 interface MaterialsReportPageProps {
     className?: string
@@ -69,7 +70,7 @@ export const MaterialsReportPage = memo((props: MaterialsReportPageProps) => {
                         });
                     }
                 });
-                console.log('materialArr ', materialArr);
+                // console.log('materialArr ', materialArr);
                 const totalMaterial: {
                     [key: string]: number
                 } = {};
@@ -88,18 +89,20 @@ export const MaterialsReportPage = memo((props: MaterialsReportPageProps) => {
         }).then(totalMaterial => {
             if (totalMaterial) {
                 dispatch(fetchManyMaterialsByArrayID(Object.keys(totalMaterial))).then((response) => {
-                    console.log(response.payload);
-                    console.log('totalMaterial ', totalMaterial);
+                    // console.log(response.payload);
+                    // console.log('totalMaterial ', totalMaterial);
                     if (Array.isArray(response.payload)) {
                         const totalMaterialReport = Object.values(response.payload);
                         totalMaterialReport.forEach(el => {
                             if (el._id) {
-                                el.totalVolume = String(totalMaterial[el._id]);
+                                el.totalVolume = String(precisionRound((totalMaterial[el._id]),3));
                             }
                         });
+                        // console.log('totalMaterialReport ', totalMaterialReport);
                         return totalMaterialReport;
                     }
                 }).then(report => {
+                    // console.log('report ', report);
                     report && dispatch(reportsPageSliceActions.setTotalVolumeMaterialReport(report));
                     navigate(getRouteTotalVolumeMaterialReport());
                 });
