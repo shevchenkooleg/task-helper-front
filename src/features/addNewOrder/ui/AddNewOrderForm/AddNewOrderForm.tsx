@@ -81,7 +81,7 @@ const AddNewOrderForm = memo((props: AddNewOrderFormProps) => {
     return (
         <DynamicModuleLoader reducers={initialReducers} removeAfterUnmount={true}>
             <VStack gap={'8px'} className={classNames(cls.AddNewOrderForm, {}, [className])}>
-                <div><Text title={'Добавление нового заказа'}/></div>
+                <div><Text title={'Добавление заказа'}/></div>
                 <VStack>
                     {error && <Text title={error} theme={TextTheme.ERROR}/>}
                 </VStack>

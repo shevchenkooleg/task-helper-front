@@ -105,7 +105,7 @@ const OrdersPage = (props: OrdersPageProps) => {
                         <AddNewOrderModal isOpen={isNewOrderModalOpen} onClose={onModalClose}/>
                     </VStack>
                 </Page>
-                <OrderPageSettingsSideBar show={isOrderPageSettingsSideBarShow} onClose={onOrderPanelSettingsClickHandler}/>
+                {isOrderPageSettingsSideBarShow && <OrderPageSettingsSideBar show={isOrderPageSettingsSideBarShow} onClose={onOrderPanelSettingsClickHandler}/>}
             </VStack>
         </DynamicModuleLoader>
     );
