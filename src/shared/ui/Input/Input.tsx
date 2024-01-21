@@ -5,9 +5,14 @@ import { HStack } from '../Stack';
 
 type InputAttributes = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'readOnly'>
 
-export const enum InputTypes {
+export enum InputTypes {
     TEXT = 'text',
     NUMBER = 'number',
+}
+
+export enum InputTheme {
+    CLEAR = 'clear',
+    REGULAR = 'regular'
 }
 
 interface InputProps extends InputAttributes {
@@ -18,6 +23,8 @@ interface InputProps extends InputAttributes {
     readOnly?: boolean
     between?: boolean
     dataType?: InputTypes
+    autoWidth?: boolean
+    theme?: InputTheme
 }
 
 export const Input: FC<InputProps> = memo((props: InputProps) => {
@@ -29,7 +36,9 @@ export const Input: FC<InputProps> = memo((props: InputProps) => {
         onChange,
         between,
         dataType = InputTypes.TEXT,
+        theme = InputTheme.REGULAR,
         placeholder,
+        autoWidth,
         ...otherProps
 
     } = props;
@@ -64,7 +73,15 @@ export const Input: FC<InputProps> = memo((props: InputProps) => {
                 </div>
             )}
             <div>
-                <input type={dataType} value={value} onKeyDown={onKeyDownHandler} onChange={onChangeHandler} disabled={readOnly} {...otherProps}/>
+                <input
+                    type={dataType}
+                    value={value}
+                    onKeyDown={onKeyDownHandler}
+                    onChange={onChangeHandler}
+                    disabled={readOnly}
+                    style={{ width: `${autoWidth && value && value.length * 10}px` }}
+                    {...otherProps}
+                />
             </div>
         </>;
 

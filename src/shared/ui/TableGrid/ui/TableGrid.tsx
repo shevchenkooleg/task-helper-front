@@ -46,15 +46,11 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
         headerFieldClickHandler
     } = props;
 
-    // const tableTemplate = localStorage.getItem(ORDERS_TABLE_TEMPLATE) ?? DefaultTableTemplatesObject[template];
     const tableTemplate = localStorage.getItem(ORDERS_TABLE_TEMPLATE) ?? tableTemplateCreator(tabKeys, template) ??  '1fr 3fr 3fr 12fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr';
     const { theme } = useTheme();
-    // console.log(tableTemplateCreator(tabKeys, template));
 
 
     const tabContent = (el: T, i: number) => {
-
-        console.log(el);
 
         const orderStatusForColorized = el.orderStatus;
         return (
@@ -87,7 +83,7 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
                                                 className={cls.unplanned}
                                                 text={'Подрядный'}
                                                 size={TextSize.SIZE_S}
-                                                theme={TextTheme.ERROR}
+                                                theme={TextTheme.HIGHLIGHT}
                                             />}
                                     </HStack>
                                 </td>
@@ -122,8 +118,6 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
                             );
                         }
                         if (typeof el[key] === 'object') {
-                            // console.log('el.orderStatus ', el[key].status);
-                            // console.log('el.orderStatus ', el);
                             const mods = {
                                 [cls[el[key].status]]: true,
                                 [cls.opacityDark]: theme === Theme.DARK
@@ -135,17 +129,12 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
                                 >
                                     <div>
                                         {el[key].status !== 'on_clearance' && <div className={classNames(cls.colorStripe, mods, [])}></div>}
-                                        {/*<div className={classNames(cls.colorStripe, { [cls[el[key].status]]: true }, [])}></div>*/}
                                         {
                                             helpMappers && el[key].value in helpMappers
                                                 ? helpMappers[el[key].value]
                                                 : Array.isArray(el[key].value) ? el[key].value.join(', ') : el[key].value
                                         }
                                     </div>
-
-                                    {/*{helpMappers && <span className={cls.help}>*/}
-                                    {/*    {helpMappers ? helpMappers[el[key].status] : el[key].status}*/}
-                                    {/*</span>}*/}
                                 </td>
                             );
                         }
@@ -157,9 +146,6 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
                                         ? helpMappers[el[key]]
                                         : Array.isArray(el[key]) ? el[key].join(', ') : el[key]
                                 }
-                                {/*{tooltip && <span className={cls.help}>*/}
-                                {/*    {helpMappers ? helpMappers[el[key]] : el[key]}*/}
-                                {/*</span>}*/}
                             </td>
                         );
                     })
@@ -171,7 +157,6 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
 
 
     if (items.length > 0){
-        console.log(tabKeys);
         return (
             <table className={classNames(cls.TableGrid, { [cls[template]]:true }, [className])}
                 style={{ gridTemplateColumns: tableTemplate }}
@@ -201,7 +186,6 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
                             </th>
                             : <th
                                 key={key}
-                                onClick={()=>{console.log(header);}}
                             >
                                 {header}
                             </th>

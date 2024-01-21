@@ -21,16 +21,25 @@ import {
     orderTypeMapper
 } from '@/shared/const/addNewOrderConsts';
 import { orderExecutionTypeOptions, orderTypeOptions } from '@/shared/const/orderDetailsConsts';
+import { Text } from '@/shared/ui/Text';
 
 interface OrderInformationProps {
     className?: string
+}
+
+interface EditableTextBlockProps {
+    editMode?: boolean
+    value?: string
+    onChange?: ()=>void
+    autoWidth?: boolean
+    placeholder?: string
 }
 
 export const OrderInformation = memo((props: OrderInformationProps) => {
     const { className } = props;
     const form = useSelector(getOrderFormData);
     const dispatch = useAppDispatch();
-    const editMode = !useSelector(getOrderDetailsEditMode);
+    const editMode = useSelector(getOrderDetailsEditMode);
 
     const onChangeExecuteId = useCallback((value?: string) => {
         dispatch(orderDetailsSliceActions.updateOrderForm({
@@ -106,67 +115,106 @@ export const OrderInformation = memo((props: OrderInformationProps) => {
         }));
     },[dispatch]);
 
+    const EditableTextBlock = (props: EditableTextBlockProps) => {
+
+        const { editMode, value, onChange, autoWidth, placeholder } = props;
+
+        if (editMode){
+            return(
+
+                <Input
+                    readOnly={editMode}
+                    placeholder={placeholder}
+                    value={value}
+                    onChange={onChange}
+                    autoWidth={autoWidth}
+                />
+            );
+        }
+
+        return (
+            <Text text={value}/>
+        );
+    };
+
+
 
     return (
         <>
             <div>Информация о заказе</div>
             <VStack max align={'start'} gap={'16px'} className={classNames(cls.OrderInformation, {}, [className])}>
-                <HStack gap={'32px'}>
-                    <Input
-                        readOnly={true} placeholder={'Номер заказа:'}
-                        value={form?.orderId}
-                    />
+                <HStack gap={'12px'}>
+                    <ul>Номер заказа:</ul>
+                    <EditableTextBlock editMode={editMode} value={form?.orderId} autoWidth={true}/>
                     <ListBox
                         onChange={onChangeOrderType}
                         value={form?.orderType && orderTypeMapper[form.orderType]}
                         items={orderTypeOptions}
-                        readOnly={editMode}
+                        readOnly={!editMode}
                     />
                     <ListBox
                         onChange={onChangeOrderExecutionType}
                         value={form?.orderExecutionType && orderExecutionTypeMapper[form.orderExecutionType]}
                         items={orderExecutionTypeOptions}
-                        readOnly={editMode}
+                        readOnly={!editMode}
                     />
                 </HStack>
-                <Input
-                    readOnly={editMode}
-                    placeholder={'Номер выполнения:'}
-                    value={form?.executeId}
-                    onChange={onChangeExecuteId}
-                />
+                <HStack gap={'12px'}>
+                    <ul>Номер выполнения:</ul>
+                    <EditableTextBlock
+                        editMode={editMode}
+                        value={form?.executeId}
+                        onChange={onChangeExecuteId}
+                        autoWidth={true}
+                    />
+                </HStack>
+                <HStack gap={'12px'}>
+                    <ul>Оборудование:</ul>
+                    <EditableTextBlock
+                        editMode={editMode}
+                        value={form?.description}
+                        onChange={onChangeDescription}
+                        autoWidth={true}
+                    />
+                </HStack>
+                <HStack gap={'12px'}>
+                    <ul>Состояние заказа:</ul>
+                    <OrderStatusSelect
+                        readOnly={!editMode}
+                        value={form?.orderStatus}
+                        onChange={onChangeOrderStatus}
+                    />
+                </HStack>
 
-                <Input
-                    readOnly={editMode}
-                    placeholder={'Оборудование:'}
-                    value={form?.description}
-                    onChange={onChangeDescription}
-                />
-
-                <OrderStatusSelect
-                    readOnly={editMode}
-                    value={form?.orderStatus}
-                    onChange={onChangeOrderStatus}
-                />
-
-                <HStack gap={'32px'} justify={'between'} max>
+                <HStack gap={'32px'} justify={'between'}>
                     <HStack gap={'32px'}>
-                        <Input
-                            readOnly={editMode}
-                            placeholder={'Номер корректировки:'}
+                        <ul>Номер корректировки:</ul>
+                        <EditableTextBlock
+                            editMode={editMode}
                             value={form?.correctionId?.value}
-                            onChange={
-                                (value: string)=>{
-                                    onChangeCorrectionId(value, form?.correctionId?.status);
-                                }
-                            }
+                            // onChange={(value: string)=>{
+                            //     onChangeCorrectionId(value, form?.correctionId?.status);
+                            // }}
+                            autoWidth={true}
                         />
+                        {/*<Input*/}
+                        {/*    readOnly={editMode}*/}
+                        {/*    placeholder={'Номер корректировки:'}*/}
+                        {/*    value={form?.correctionId?.value}*/}
+                        {/*    onChange={*/}
+                        {/*        (value: string)=>{*/}
+                        {/*            onChangeCorrectionId(value, form?.correctionId?.status);*/}
+                        {/*        }*/}
+                        {/*    }*/}
+                        {/*    autoWidth={true}*/}
+                        {/*/>*/}
                         <HStack gap={'4px'}>
                             <Input
                                 type={'checkbox'}
                                 readOnly={editMode}
                                 checked={form?.correctionId?.value === 'отсутствует' ? true : false}
                                 onClick={ onCorrectionIdCheckboxClick }
+
                             />
                             <span>отсутствует</span>
                         </HStack>
@@ -192,6 +240,7 @@ export const OrderInformation = memo((props: OrderInformationProps) => {
                                     onChangeConsignmentNoteId(value, form?.consignmentNoteId?.status);
                                 }
                             }
+                            autoWidth={true}
                         />
                         <HStack gap={'4px'}>
                             <Input
@@ -243,6 +292,7 @@ export const OrderInformation = memo((props: OrderInformationProps) => {
                                 onChangeKS2Id(value, form?.KS2Id?.status);
                             }
                         }
+                        autoWidth={true}
                     />
                     <OrderDocumentsStatusSelect
                         readOnly={editMode}
@@ -264,6 +314,7 @@ export const OrderInformation = memo((props: OrderInformationProps) => {
                                 onChangeWriteOffActId(value, form?.writeOffActId?.status);
                             }
                         }
+                        autoWidth={true}
                     />
                     <OrderDocumentsStatusSelect
                         readOnly={editMode}
@@ -280,12 +331,14 @@ export const OrderInformation = memo((props: OrderInformationProps) => {
                     placeholder={'Год выполнения:'}
                     value={form?.yearOfExecution}
                     onChange={onChangeYearOfExecution}
+                    autoWidth={true}
                 />
 
                 <Input
                     readOnly={true}
                     placeholder={'Последнее изменение:'}
                     value={timeConverter(form?.modified ? form.modified : '')}
+                    autoWidth={true}
                 />
             </VStack>
         </>

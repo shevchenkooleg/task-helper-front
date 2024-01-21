@@ -5,7 +5,7 @@ import { Listbox as HListbox } from '@headlessui/react';
 import { type DropdownDirection } from '@/shared/types/ui';
 import { mapDirectionClass } from '../../styles/styleClassMapper';
 import { HStack } from '../../../Stack';
-import { Button, ButtonTheme } from '../../../Button';
+import { Button, ButtonSize, ButtonTheme } from '../../../Button';
 import { classNames } from '@/shared/lib/classNames/classNames';
 
 export interface ListBoxItem {
@@ -27,7 +27,7 @@ interface ListBoxProps {
     buttonTheme?: ButtonTheme
 }
 
-export const ListBox = (props: ListBoxProps) => {
+export const  ListBox = (props: ListBoxProps) => {
     const { className, items, value, defaultValue, readOnly,
         label, labelMapper, direction = 'bottom right', onChange, buttonTheme = ButtonTheme.OUTLINE } = props;
 
@@ -53,7 +53,7 @@ export const ListBox = (props: ListBoxProps) => {
                     className={cls.trigger}
                     as={'div'}
                 >
-                    <Button disabled={readOnly} theme={buttonTheme}>
+                    <Button disabled={readOnly} theme={buttonTheme} size={ButtonSize.SIZE_M}>
                         {labelMapper && value && defaultValue ? (labelMapper[value] ?? labelMapper[defaultValue]) : (value || defaultValue)}
                     </Button>
                 </HListbox.Button>

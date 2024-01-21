@@ -82,7 +82,7 @@ const OrderDetailsPage = memo((props: OrderDetailsPageProps) => {
                         removeAfterUnmount={true}
                         isLoading={isLoading}
                     >
-                        <OrderCard/>
+                        <OrderCard newCard={true}/>
                     </EditableCard>
                 </VStack>
             </Page>

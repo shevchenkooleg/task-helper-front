@@ -20,6 +20,16 @@
     }
 }
 
+.highlight {
+    .title {
+        color: var(--highlight);
+    }
+
+    .text {
+        color: var(--highlight);
+    }
+}
+
 .inverted {
     .title {
         color: var(--inverted-primary-color);

@@ -35,7 +35,7 @@ export const OrderStatusSelect = memo((props: OrderStatusSelectProps) => {
             defaultValue={'Укажите состояние заказа'}
             readOnly={readOnly}
             direction={'bottom right'}
-            label={'Состояние заказа:'}
+            // label={'Состояние заказа:'}
             labelMapper={orderStatusMapper}
         />
     );

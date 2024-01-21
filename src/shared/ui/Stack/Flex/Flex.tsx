@@ -6,7 +6,7 @@ import { DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 
 export type FlexJustify = 'start' | 'end' | 'center' | 'between' | 'around'
 export type FlexAlign = 'start' | 'center' | 'end'
-export type FlexGap = '4px' | '8px' | '12px' | '16px' | '32px'
+export type FlexGap = '4px' | '8px' | '12px' | '16px' | '20px' | '24px' | '28px' | '32px'
 export type FlexDirection = 'row' | 'column'
 
 const justifyClasses: Record<FlexJustify, string> = {
@@ -28,6 +28,9 @@ const gapClasses: Record<FlexGap, string> = {
     '8px': cls.gap8,
     '12px': cls.gap12,
     '16px': cls.gap16,
+    '20px': cls.gap20,
+    '24px': cls.gap24,
+    '28px': cls.gap28,
     '32px': cls.gap32,
 };
 
@@ -46,6 +49,7 @@ export interface FlexProps extends divProps {
     gap?: FlexGap
     direction?: FlexDirection,
     max?: boolean
+    width?: string
 }
 
 export const Flex = (props: FlexProps) => {
@@ -56,7 +60,8 @@ export const Flex = (props: FlexProps) => {
         justify = 'start',
         align = 'center',
         gap,
-        max
+        max,
+        width
     } = props;
 
     const additionalClasses = [
@@ -72,7 +77,7 @@ export const Flex = (props: FlexProps) => {
     };
 
     return (
-        <div className={classNames(cls.Flex, mods, additionalClasses)}>
+        <div className={classNames(cls.Flex, mods, additionalClasses)} style={width ? { width:width } : {}}>
             {children}
         </div>
     );
