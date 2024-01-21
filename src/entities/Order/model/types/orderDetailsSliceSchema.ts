@@ -1,4 +1,4 @@
-import { BillOfQuantitiesStatus, OrderDocumentsStatus, OrderStatus } from '@/shared/const/orderConsts';
+import { ExecutionStatus, OrderDocumentsStatus, OrderStatus } from '@/shared/const/orderConsts';
 import { MaterialToOrderTab } from '@/entities/Material';
 import { OrderExecutionType, OrderType } from '@/shared/const/addNewOrderConsts';
 
@@ -7,34 +7,59 @@ export interface Order {
     userId?: string
     modified?: string
     orderId?: string
-    executeId?: string
     description?: string
-    orderStatus?: OrderStatus
-    correctionId?: {            // № корректировки
-        value: string,
-        status: OrderDocumentsStatus
-    }
-    consignmentNoteId?: {       // № накладной М11
-        value: string,
-        status: OrderDocumentsStatus
-    }
-    billOfQuantities?: {        // ВОР
-        value: BillOfQuantitiesStatus
-        status: OrderDocumentsStatus
-    }
-    KS2Id?: {                   // № КС-2
-        value: string,
-        status: OrderDocumentsStatus
-    }
-    writeOffActId?: {           // № Акта на списание
-        value: string,
-        status: OrderDocumentsStatus
-    }
-    yearOfExecution?: string
     orderType?: OrderType
     orderExecutionType?: OrderExecutionType
+    yearOfExecution?: string
+    orderStatus?: OrderStatus
+    materialCorrections?: Array<OrderMaterialCorrectionInterface>
+    consignmentNotes?: Array<OrderConsignmentNoteInterface>
+    executions?: Array<OrderExecutionInterface>
+    // billOfQuantities?: {        // ВОР
+    //     value: BillOfQuantitiesStatus
+    //     status: OrderDocumentsStatus
+    // }
+    KS2Documents?: Array<KS2Document>
+    writeOffDocuments?: Array<WriteOffDocument>
     materials?: Array<MaterialToOrderTab>
 }
+
+export interface OrderMaterialCorrectionInterface {            // Корректировка характеристик материала
+    value: string
+    status: OrderDocumentsStatus
+    _orderId: string
+    _id: string
+}
+
+export interface OrderConsignmentNoteInterface {       // Накладная М11
+    value: string
+    status: OrderDocumentsStatus
+    _orderId: string
+    _id: string
+}
+
+export interface OrderExecutionInterface {
+    value: string
+    status: ExecutionStatus
+    _orderId: string
+    _id: string
+}
+
+export interface KS2Document {                   // КС-2
+    value: string
+    status: OrderDocumentsStatus
+    _executionId: string
+    _id: string
+}
+
+export interface WriteOffDocument {           // Акт на списание
+    value: string
+    status: OrderDocumentsStatus
+    _executionId: string
+    _id: string
+}
+
+
 
 export interface OrderDetailsSliceSchema {
     order: Order
@@ -43,7 +68,6 @@ export interface OrderDetailsSliceSchema {
     isLoading: boolean
     editMode: boolean
 }
-
 
 
 /*

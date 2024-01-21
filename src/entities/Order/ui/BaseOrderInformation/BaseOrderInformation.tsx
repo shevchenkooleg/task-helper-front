@@ -1,15 +1,25 @@
 import cls from './BaseOrderInformation.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import { HStack, VStack } from '@/shared/ui/Stack';
-import { useSelector } from 'react-redux';
-import { getOrderFormData } from '../../model/selectors/getOrderFormData/getOrderFormData';
+import { Text } from '@/shared/ui/Text';
 import { Input } from '@/shared/ui/Input';
 import { ListBox } from '@/shared/ui/Popups';
-import { ButtonTheme } from '@/shared/ui/Button';
+import { ButtonSize, ButtonTheme } from '@/shared/ui/Button';
 import { orderExecutionTypeOptions, orderTypeOptions } from '@/shared/const/orderDetailsConsts';
-import { orderExecutionTypeMapper, orderTypeMapper } from '@/shared/const/addNewOrderConsts';
+import {
+    OrderExecutionType,
+    orderExecutionTypeMapper,
+    OrderType,
+    orderTypeMapper
+} from '@/shared/const/addNewOrderConsts';
 import { OrderStatusSelect } from '../OrderStatusSelect/OrderStatusSelect';
+import { getOrderFormData } from '../../model/selectors/getOrderFormData/getOrderFormData';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { orderDetailsSliceActions } from '../../model/slice/orderDetailsSlice';
+import { OrderStatus } from '@/shared/const/orderConsts';
+import { getOrderDetailsEditMode } from '../../model/selectors/getEditMode/getOrderDetailsEditMode';
 
 interface BaseOrderInformationProps {
     className?: string
@@ -17,7 +27,31 @@ interface BaseOrderInformationProps {
 
 export const BaseOrderInformation = memo((props: BaseOrderInformationProps) => {
     const { className } = props;
+    const dispatch = useAppDispatch();
     const orderFormData = useSelector(getOrderFormData);
+    const editMode = !useSelector(getOrderDetailsEditMode);
+
+
+    const onChangeOrderType = useCallback((newType: string)=>{
+        dispatch(orderDetailsSliceActions.updateOrderForm({
+            orderType: newType as OrderType || OrderType.INDEPENDENT
+        }));
+    },[dispatch]);
+    const onChangeOrderExecutionType = useCallback((newOrderExecutionType: string) => {
+        dispatch(orderDetailsSliceActions.updateOrderForm({
+            orderExecutionType: newOrderExecutionType as OrderExecutionType || OrderExecutionType.PLANNED
+        }));
+    },[dispatch]);
+    const onChangeOrderStatus = useCallback((value?: OrderStatus) => {
+        dispatch(orderDetailsSliceActions.updateOrderForm({
+            orderStatus: value || OrderStatus.NONE
+        }));
+    }, [dispatch]);
+    const onChangeDescription = useCallback((value?: string) => {
+        dispatch(orderDetailsSliceActions.updateOrderForm({
+            description: value || ''
+        }));
+    }, [dispatch]);
 
 
     return (
@@ -26,35 +60,44 @@ export const BaseOrderInformation = memo((props: BaseOrderInformationProps) => {
             <VStack align={'start'} max={true} gap={'4px'}>
                 <HStack gap={'16px'} justify={'between'}  max={true}>
                     <HStack gap={'16px'} justify={'between'}>
-                        <HStack gap={'8px'} width={'289px'} justify={'between'}>
+                        <HStack gap={'8px'} width={'190px'}>
                             <div>№ заказа:</div>
-                            <Input value={orderFormData?.orderId}/>
+                            <Text text={orderFormData?.orderId}/>
                         </HStack>
                         <HStack gap={'8px'}>
                             <ListBox
                                 value={orderFormData?.orderType && orderTypeMapper[orderFormData?.orderType]}
-                                onChange={()=>console.log('qqq')}
+                                onChange={onChangeOrderType}
                                 buttonTheme={ButtonTheme.CLEAR}
                                 items={orderTypeOptions}
+                                readOnly={editMode}
                             />
                             <ListBox
                                 value={orderFormData?.orderExecutionType && orderExecutionTypeMapper[orderFormData?.orderExecutionType]}
-                                onChange={()=>console.log('qqq')}
+                                onChange={onChangeOrderExecutionType}
                                 buttonTheme={ButtonTheme.CLEAR}
                                 items={orderExecutionTypeOptions}
+                                readOnly={editMode}
                             />
                         </HStack>
                     </HStack>
-                    <HStack gap={'8px'}>
+                    <HStack gap={'8px'} width={'240px'}>
                         <OrderStatusSelect
                             value={orderFormData?.orderStatus}
-                            onChange={()=>console.log('qqq')}
+                            onChange={onChangeOrderStatus}
+                            size={ButtonSize.SIZE_S}
+                            readOnly={editMode}
                         />
                     </HStack>
                 </HStack>
                 <HStack gap={'8px'} justify={'between'}>
                     <div>Оборудование:</div>
-                    <Input value={orderFormData?.description} autoWidth={true}/>
+                    <Input
+                        value={orderFormData?.description}
+                        onChange={onChangeDescription}
+                        autoWidth={true}
+                        readOnly={editMode}
+                    />
                 </HStack>
             </VStack>
         </div>

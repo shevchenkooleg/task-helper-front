@@ -19,6 +19,13 @@ export enum OrderStatus {
     TECHNICAL_CLOSED = 'technical_closed',
 }
 
+export enum ExecutionStatus {
+    EXECUTING = 'executing',
+    AGREEMENT = 'agreement',
+    WAITING_FOR_TECHNICAL_CLOSING = 'waiting_for_technical_closing',
+    TECHNICAL_CLOSED = 'technical_closed',
+}
+
 export const OrderStatusQueryMapper: {[index: string]:string} = {
     'none': 'none',
     'issued': 'issued',

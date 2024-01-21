@@ -2,12 +2,15 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo, useCallback } from 'react';
 import { ListBox } from '@/shared/ui/Popups';
 import { OrderStatus, orderStatusMapper } from '../../../../shared/const/orderConsts';
+import { ButtonSize, ButtonTheme } from '@/shared/ui/Button';
 
 interface OrderStatusSelectProps {
     className?: string
     onChange?: (value: OrderStatus) => void
     value?: OrderStatus
+    buttonTheme?: ButtonTheme
     readOnly?: boolean
+    size?: ButtonSize
 }
 
 const statusOptions = [
@@ -20,7 +23,7 @@ const statusOptions = [
 ];
 
 export const OrderStatusSelect = memo((props: OrderStatusSelectProps) => {
-    const { className, onChange, readOnly, value } = props;
+    const { className, onChange, readOnly, value, buttonTheme, size } = props;
 
     const onChangeHandler = useCallback((value: string)=>{
         onChange?.(value as OrderStatus);
@@ -35,6 +38,8 @@ export const OrderStatusSelect = memo((props: OrderStatusSelectProps) => {
             defaultValue={'Укажите состояние заказа'}
             readOnly={readOnly}
             direction={'bottom right'}
+            buttonTheme={buttonTheme}
+            size={size}
             // label={'Состояние заказа:'}
             labelMapper={orderStatusMapper}
         />

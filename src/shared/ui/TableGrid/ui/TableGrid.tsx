@@ -8,7 +8,6 @@ import { SortOrder } from '@/shared/types/sort';
 import { Text, TextSize, TextTheme } from '../../Text';
 import { useTheme } from '@/shared/lib/hooks/useTheme/useTheme';
 import { Theme } from '@/shared/const/theme';
-import { Skeleton } from '../../Skeleton';
 import { ORDERS_TABLE_TEMPLATE } from '@/shared/const/localStorage';
 import { tableTemplateCreator } from '@/shared/lib/tableTemplateCreator/tableTemplateCreator';
 
@@ -206,25 +205,25 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
 
     return (
         <div className={cls.skeleton}>
-            <Skeleton height={50} width={availDisplayResolution - 100}/>
-            <Skeleton height={50} width={availDisplayResolution - 100}/>
-            <Skeleton height={50} width={availDisplayResolution - 100}/>
-            <Skeleton height={50} width={availDisplayResolution - 100}/>
-            <Skeleton height={50} width={availDisplayResolution - 100}/>
-            <Skeleton height={50} width={availDisplayResolution - 100}/>
-            <Skeleton height={50} width={availDisplayResolution - 100}/>
-            <Skeleton height={50} width={availDisplayResolution - 100}/>
-            <Skeleton height={50} width={availDisplayResolution - 100}/>
-            <Skeleton height={50} width={availDisplayResolution - 100}/>
-            <Skeleton height={50} width={availDisplayResolution - 100}/>
-            <Skeleton height={50} width={availDisplayResolution - 100}/>
-            <Skeleton height={50} width={availDisplayResolution - 100}/>
-            <Skeleton height={50} width={availDisplayResolution - 100}/>
-            <Skeleton height={50} width={availDisplayResolution - 100}/>
-            <Skeleton height={50} width={availDisplayResolution - 100}/>
-            <Skeleton height={50} width={availDisplayResolution - 100}/>
-            <Skeleton height={50} width={availDisplayResolution - 100}/>
-            <Skeleton height={50} width={availDisplayResolution - 100}/>
+            {/*<Skeleton height={50} width={availDisplayResolution - 100}/>*/}
+            {/*<Skeleton height={50} width={availDisplayResolution - 100}/>*/}
+            {/*<Skeleton height={50} width={availDisplayResolution - 100}/>*/}
+            {/*<Skeleton height={50} width={availDisplayResolution - 100}/>*/}
+            {/*<Skeleton height={50} width={availDisplayResolution - 100}/>*/}
+            {/*<Skeleton height={50} width={availDisplayResolution - 100}/>*/}
+            {/*<Skeleton height={50} width={availDisplayResolution - 100}/>*/}
+            {/*<Skeleton height={50} width={availDisplayResolution - 100}/>*/}
+            {/*<Skeleton height={50} width={availDisplayResolution - 100}/>*/}
+            {/*<Skeleton height={50} width={availDisplayResolution - 100}/>*/}
+            {/*<Skeleton height={50} width={availDisplayResolution - 100}/>*/}
+            {/*<Skeleton height={50} width={availDisplayResolution - 100}/>*/}
+            {/*<Skeleton height={50} width={availDisplayResolution - 100}/>*/}
+            {/*<Skeleton height={50} width={availDisplayResolution - 100}/>*/}
+            {/*<Skeleton height={50} width={availDisplayResolution - 100}/>*/}
+            {/*<Skeleton height={50} width={availDisplayResolution - 100}/>*/}
+            {/*<Skeleton height={50} width={availDisplayResolution - 100}/>*/}
+            {/*<Skeleton height={50} width={availDisplayResolution - 100}/>*/}
+            {/*<Skeleton height={50} width={availDisplayResolution - 100}/>*/}
 
         </div>
     );

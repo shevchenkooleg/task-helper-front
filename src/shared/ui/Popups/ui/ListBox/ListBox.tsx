@@ -25,11 +25,12 @@ interface ListBoxProps {
     labelMapper?: Record<string, string>
     onChange: <T extends string>(value: T) => void
     buttonTheme?: ButtonTheme
+    size?: ButtonSize
 }
 
 export const  ListBox = (props: ListBoxProps) => {
     const { className, items, value, defaultValue, readOnly,
-        label, labelMapper, direction = 'bottom right', onChange, buttonTheme = ButtonTheme.OUTLINE } = props;
+        label, labelMapper, direction = 'bottom right', onChange, buttonTheme = ButtonTheme.OUTLINE, size = ButtonSize.SIZE_M } = props;
 
     const optionClasses = [
         mapDirectionClass[direction]
@@ -53,7 +54,7 @@ export const  ListBox = (props: ListBoxProps) => {
                     className={cls.trigger}
                     as={'div'}
                 >
-                    <Button disabled={readOnly} theme={buttonTheme} size={ButtonSize.SIZE_M}>
+                    <Button disabled={readOnly} theme={buttonTheme} size={size}>
                         {labelMapper && value && defaultValue ? (labelMapper[value] ?? labelMapper[defaultValue]) : (value || defaultValue)}
                     </Button>
                 </HListbox.Button>

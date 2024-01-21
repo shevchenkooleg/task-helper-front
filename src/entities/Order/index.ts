@@ -15,7 +15,7 @@ export { orderDetailsSliceActions } from './model/slice/orderDetailsSlice';
 export { getOrderDetaildIsLoading } from './model/selectors/getOrderDetaildIsLoading/getOrderDetaildIsLoading';
 export { BillOfQuantitiesStatus } from '@/shared/const/orderConsts';
 export { OrderStatus } from '@/shared/const/orderConsts';
-export { OrderInformation } from './ui/OrderInformation/OrderInformation';
+// export { OrderInformation } from './ui/OrderInformation/OrderInformation';
 export { OrderMaterials } from './ui/OrderMaterials/OrderMaterials';
 export { OrderCard } from './ui/OrderCard/OrderCard';
 export { expandDataForMaterial } from './model/services/expandDataForMaterial/expandDataForMaterial';

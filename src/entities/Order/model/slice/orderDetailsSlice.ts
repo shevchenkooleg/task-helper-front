@@ -21,15 +21,19 @@ export const orderDetailsSlice = createSlice({
     name: 'orderDetailsSlice',
     initialState,
     reducers: {
-        setEditMode: (state, action: PayloadAction<boolean>)=>{
-            state.editMode = action.payload;
-        },
         updateOrderForm: (state, action: PayloadAction<Order>) => {
             state.form = {
                 ...state.form,
                 ...action.payload
             };
         },
+
+
+
+        setEditMode: (state, action: PayloadAction<boolean>)=>{
+            state.editMode = action.payload;
+        },
+
         rollBackForm: (state)=>{
             state.form = { ...state.order };
         },

@@ -3,9 +3,13 @@ import {
     AppRoutes,
     getRouteAbout,
     getRouteAdminPanel,
-    getRouteMain, getRouteMaterialDetails, getRouteMaterials,
+    getRouteMain,
+    getRouteMaterialDetails,
+    getRouteMaterials,
     getRouteOrderDetails,
-    getRouteOrders, getRouteReports, getRouteTotalVolumeMaterialReport
+    getRouteOrders,
+    getRouteReports,
+    getRouteTotalVolumeMaterialReport
 } from '@/shared/const/router';
 import { AppRoutesProps } from '@/shared/types/router';
 import { AboutPage } from '@/pages/AboutPage';
@@ -38,7 +42,7 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         path: getRouteOrders(),
         element: <OrdersPage/>,
         authOnly: true,
-        roles: [UserRole.MANAGER, UserRole.ADMIN]
+        roles: [UserRole.MANAGER, UserRole.ADMIN, UserRole.USER]
     },
     [AppRoutes.ORDER_DETAILS]: {
         path: getRouteOrderDetails(':orderId'),
