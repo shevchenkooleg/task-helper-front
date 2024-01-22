@@ -36,7 +36,13 @@
     align-items: flex-end;
 }
 
+.wrap {
+    flex-wrap: wrap;
+}
 
+.noWrap {
+    flex-wrap: nowrap;
+}
 
 .gap4 {
     gap: 4px

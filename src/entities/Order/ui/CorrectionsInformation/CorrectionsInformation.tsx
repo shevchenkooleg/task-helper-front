@@ -10,6 +10,8 @@ import {
     createMaterialCorrection
 } from '../../model/services/createMaterialCorretion/createMaterialCorretion';
 import { MaterialDataCard } from '../MaterialDataCard/MaterialDataCard';
+import { orderDetailsSliceActions } from '../../model/slice/orderDetailsSlice';
+import { OrderDocumentsStatus } from '@/shared/const/orderConsts';
 import { createConsignmentNote } from '../../model/services/createConsignmentNote/createConsignmentNote';
 import {
     deleteMaterialCorrection
@@ -38,11 +40,11 @@ export const CorrectionsInformation = memo((props: CorrectionsInformationProps) 
     const onConsignmentNotesDelete = useCallback((consignmentNoteId: string)=>{
         dispatch(deleteConsignmentNote({ orderId: orderFormData?._id ?? '', consignmentNoteId }));
     },[dispatch, orderFormData?._id]);
-    // const onChangeMaterialCorrection = useCallback((value?: string, status?: OrderDocumentsStatus)=>{
-    //     dispatch(orderDetailsSliceActions.updateOrderForm({
-    //         // materialCorrections: { value: value || '', status: status || OrderDocumentsStatus.ON_CLEARANCE }
-    //     }));
-    // },[dispatch]);
+    const onChangeMaterialCorrection = useCallback((value?: string, status?: OrderDocumentsStatus)=>{
+        dispatch(orderDetailsSliceActions.updateOrderForm({
+            // materialCorrections: { value: value || '', status: status || OrderDocumentsStatus.ON_CLEARANCE }
+        }));
+    },[dispatch]);
 
 
 

@@ -8,6 +8,7 @@ import { BaseOrderInformation } from '../BaseOrderInformation/BaseOrderInformati
 import { CorrectionsInformation } from '../CorrectionsInformation/CorrectionsInformation';
 import { OrderExecutionType, OrderType } from '@/shared/const/addNewOrderConsts';
 import { ExecutionStatus, OrderDocumentsStatus, OrderStatus } from '@/shared/const/orderConsts';
+import { ExecutionsInformation } from '../ExecutionsInformation/ExecutionsInformation';
 
 
 
@@ -99,6 +100,7 @@ export const OrderCard = memo((props: OrderCardProps) => {
                     <VStack max gap={'20px'} justify={'start'} align={'center'} >
                         <BaseOrderInformation/>
                         <CorrectionsInformation/>
+                        <ExecutionsInformation/>
                     </VStack>
                     <OrderMaterials/>
                 </HStack>

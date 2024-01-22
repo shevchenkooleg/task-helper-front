@@ -19,8 +19,8 @@ export interface Order {
     //     value: BillOfQuantitiesStatus
     //     status: OrderDocumentsStatus
     // }
-    KS2Documents?: Array<KS2Document>
-    writeOffDocuments?: Array<WriteOffDocument>
+    KS2Documents?: Array<KS2DocumentInterface>
+    writeOffDocuments?: Array<WriteOffDocumentInterface>
     materials?: Array<MaterialToOrderTab>
 }
 
@@ -45,14 +45,14 @@ export interface OrderExecutionInterface {
     _id: string
 }
 
-export interface KS2Document {                   // КС-2
+export interface KS2DocumentInterface {                   // КС-2
     value: string
     status: OrderDocumentsStatus
     _executionId: string
     _id: string
 }
 
-export interface WriteOffDocument {           // Акт на списание
+export interface WriteOffDocumentInterface {           // Акт на списание
     value: string
     status: OrderDocumentsStatus
     _executionId: string

@@ -66,6 +66,10 @@
     width: var(--font-line-s);
     height: var(--font-line-s);
 }
+.square.size_xs {
+    width: var(--font-line-s);
+    height: var(--font-line-s);
+}
 
 .square.size_m {
     width: var(--font-line-m);
@@ -85,6 +89,9 @@
     font-size: var(--font-size-xl);
 }
 
+.size_xs {
+    font: var(--font-s);
+}
 
 .size_s {
     font: var(--font-s);

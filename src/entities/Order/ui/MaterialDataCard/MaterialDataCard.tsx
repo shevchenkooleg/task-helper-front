@@ -22,14 +22,17 @@ interface MaterialCorrectionCardProps {
 
 export const MaterialDataCard = memo((props: MaterialCorrectionCardProps) => {
     const { className, data, onChangeMaterialCorrection, onDeleteClick } = props;
-    const editMode = !useSelector(getOrderDetailsEditMode);
+    const editMode = useSelector(getOrderDetailsEditMode);
     const cardId = data?._id;
 
     return (
         <HStack className={classNames(cls.MaterialCorrectionCard, {}, [className])} gap={'12px'}>
-            <Input value={data?.value} readOnly={editMode}/>
+            <Input
+                value={data?.value}
+                readOnly={!editMode}
+            />
             <OrderDocumentsStatusSelect
-                readOnly={editMode}
+                readOnly={!editMode}
                 value={data?.status}
                 size={ButtonSize.SIZE_S}
                 onChange={()=>console.log('qqq')
@@ -38,14 +41,13 @@ export const MaterialDataCard = memo((props: MaterialCorrectionCardProps) => {
                     // }
                 }
             />
-            <Button
-                disabled={editMode}
+            {editMode && <Button
                 size={ButtonSize.SIZE_S}
                 theme={ButtonTheme.OUTLINE_RED}
                 onClick={onDeleteClick}
             >
                 Del
-            </Button>
+            </Button>}
         </HStack>
     );
 });

@@ -11,6 +11,8 @@ export { orderDetailsSliceReducer } from './model/slice/orderDetailsSlice';
 export { getOrderData } from './model/selectors/getOrderData/getOrderData';
 export { getOrderFormData } from './model/selectors/getOrderFormData/getOrderFormData';
 export { getOrderDetailsEditMode } from './model/selectors/getEditMode/getOrderDetailsEditMode';
+export { getOrderFormExecutions } from './model/selectors/getOrderFormExecutions/getOrderFormExecutions';
+export { getOrderId } from './model/selectors/getOrderId/getOrderId';
 export { orderDetailsSliceActions } from './model/slice/orderDetailsSlice';
 export { getOrderDetaildIsLoading } from './model/selectors/getOrderDetaildIsLoading/getOrderDetaildIsLoading';
 export { BillOfQuantitiesStatus } from '@/shared/const/orderConsts';
