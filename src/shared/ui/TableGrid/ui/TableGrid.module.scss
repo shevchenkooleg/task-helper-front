@@ -70,7 +70,6 @@ td {
 }
 
 th {
-    position: sticky;
     z-index: var(--table-head-z-index);
     margin: 0 auto;
     width: 100%;
@@ -83,6 +82,11 @@ th {
     //color: var(--font-color-inverted);
     color: var(--font-color-inverted);
 }
+
+.stickyHeader {
+    position: sticky;
+}
+
 
 th:last-child {
     border: 0;
@@ -106,7 +110,7 @@ tr:nth-child(even) td {
 
 .sortIndicator {
     position: absolute;
-    top: 25px;
+    top: 0;
     right: 0;
     opacity: 0;
 }

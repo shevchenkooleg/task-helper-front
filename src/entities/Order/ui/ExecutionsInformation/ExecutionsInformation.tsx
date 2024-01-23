@@ -24,14 +24,13 @@ export const ExecutionsInformation = memo((props: ExecutionsInformationProps) =>
         orderId && dispatch(createExecution(orderId));
     },[dispatch, orderId]);
 
-    console.log(executions);
-    console.log(orderId);
-
     return (
         <div className={classNames(cls.ExecutionsInformation, {}, [className])}>
-            <h4>Выполнения</h4>
-            <Button size={ButtonSize.SIZE_S} theme={ButtonTheme.CLEAR} onClick={addExecution}>Add Execution</Button>
-            <HStack gap={'12px'}wrap={'wrap'}>
+            <HStack gap={'8px'}>
+                <h4>Выполнения</h4>
+                <Button size={ButtonSize.SIZE_S} theme={ButtonTheme.CLEAR} onClick={addExecution}>Add Execution</Button>
+            </HStack>
+            <HStack gap={'12px'} wrap={'wrap'}>
                 {executions && executions?.length > 0
                     ? executions?.map(ex=><ExecutionCard key={ex._id} execution={ex}/>)
                     : <div>Выполнения для данного заказа отсутствуют</div>

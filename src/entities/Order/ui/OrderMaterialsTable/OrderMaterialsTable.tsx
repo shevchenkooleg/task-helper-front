@@ -30,7 +30,7 @@ const materialForOrderTabHeaderKeys = [
 
 
 export const OrderMaterialsTable = memo((props: OrderMaterialsTableProps) => {
-    const { className, onOpen } = props;
+    const { onOpen } = props;
     const editMode = useSelector(getOrderDetailsEditMode);
     const materialsForOrderForRendering = useSelector(getOrderFormData)?.materials?.map(el=>el);
     const dispatch = useAppDispatch();
@@ -50,6 +50,7 @@ export const OrderMaterialsTable = memo((props: OrderMaterialsTableProps) => {
                         items={Object.values(materialsForOrderForRendering)}
                         callback={(event, item)=>onDoubleClickHandler(item)}
                         template={'materialTemplate'}
+                        stickyHeader={false}
                         // helpMappers={mapper}
                     />
                 </VStack>

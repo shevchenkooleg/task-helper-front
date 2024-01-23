@@ -47,30 +47,32 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.ORDER_DETAILS]: {
         path: getRouteOrderDetails(':orderId'),
         element: <OrderDetailsPage/>,
-        authOnly: true
+        authOnly: true,
+        roles: [UserRole.MANAGER, UserRole.ADMIN, UserRole.USER]
     },
     [AppRoutes.MATERIALS]: {
         path: getRouteMaterials(),
         element: <MaterialsPage/>,
         authOnly: true,
-        roles: [UserRole.MANAGER, UserRole.ADMIN]
+        roles: [UserRole.MANAGER, UserRole.ADMIN, UserRole.USER]
     },
     [AppRoutes.MATERIAL_DETAILS]: {
         path: getRouteMaterialDetails(':materialId'),
         element: <MaterialDetailsPage/>,
-        authOnly: true
+        authOnly: true,
+        roles: [UserRole.MANAGER, UserRole.ADMIN, UserRole.USER]
     },
     [AppRoutes.REPORTS]: {
         path: getRouteReports(),
         element: <ReportsPage/>,
         authOnly: true,
-        roles: [UserRole.MANAGER, UserRole.ADMIN]
+        roles: [UserRole.MANAGER, UserRole.ADMIN, UserRole.USER]
     },
     [AppRoutes.TOTAL_VOLUME_MATERIAL_REPORT]: {
         path: getRouteTotalVolumeMaterialReport(),
         element: <TotalVolumeMaterialReportPage/>,
         authOnly: true,
-        roles: [UserRole.MANAGER, UserRole.ADMIN]
+        roles: [UserRole.MANAGER, UserRole.ADMIN, UserRole.USER]
     },
 
 

@@ -23,6 +23,7 @@ interface TableGridProps<T, R, S> {
     currentSortField?: R
     allowSortFields?: S
     currentSortOrder?: SortOrder
+    stickyHeader?: boolean
 }
 
 
@@ -42,11 +43,14 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
         currentSortField,
         allowSortFields,
         currentSortOrder,
-        headerFieldClickHandler
+        headerFieldClickHandler,
+        stickyHeader = true
     } = props;
 
     const tableTemplate = localStorage.getItem(ORDERS_TABLE_TEMPLATE) ?? tableTemplateCreator(tabKeys, template) ??  '1fr 3fr 3fr 12fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr';
     const { theme } = useTheme();
+
+    console.log('currentSortOrder ', currentSortOrder);
 
 
     const tabContent = (el: T, i: number) => {
@@ -164,6 +168,7 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
                     <tr>
                         {tabKeys && tabKeys.map((header, key)=>headerKeysMapper
                             ? <th
+                                className={classNames('', { [cls.stickyHeader]: stickyHeader }, [])}
                                 key={key}
                                 onClick={()=>{
                                     if (allowSortFields && Object.values(allowSortFields).includes(header as R)){

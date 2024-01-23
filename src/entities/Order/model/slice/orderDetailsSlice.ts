@@ -1,5 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Order, OrderDetailsSliceSchema } from '../types/orderDetailsSliceSchema';
+import {
+    Order,
+    OrderDetailsSliceSchema,
+    OrderExecutionInterface,
+    OrderMaterialCorrectionInterface
+} from '../types/orderDetailsSliceSchema';
 import { fetchOrderById } from '../services/fetchOrderById/fetchOrderById';
 import { updateOrderById } from '../../model/services/updateOrderById/updateOrderById';
 import { deleteOrderById } from '../../model/services/deleteOrderById/deleteOrderById';
@@ -27,6 +32,21 @@ export const orderDetailsSlice = createSlice({
                 ...action.payload
             };
         },
+        updateOrderFormExecution: (state, action: PayloadAction<{execution: OrderExecutionInterface, executionId: string}>) => {
+            state.form = {
+                ...state.form,
+                executions: state.form.executions && state.form.executions
+                    .map(ex=> ex._id === action.payload.executionId ? action.payload.execution : ex)
+            };
+        },
+        updateOrderFormCorrection: (state, action:PayloadAction<{correction: OrderMaterialCorrectionInterface, correctionId: string}>) => {
+            state.form = {
+                ...state.form,
+                materialCorrections: state.form.materialCorrections && state.form.materialCorrections
+                    .map(correction=>correction._id === action.payload.correctionId ? action.payload.correction : correction)
+            };
+        },
+
 
 
 
@@ -79,7 +99,7 @@ export const orderDetailsSlice = createSlice({
                 state.error = '';
                 state.isLoading = true;
             })
-            .addCase(updateOrderById.fulfilled, (state,action) => {
+            .addCase(updateOrderById.fulfilled, (state) => {
                 state.isLoading = false;
                 state.editMode = false;
             })

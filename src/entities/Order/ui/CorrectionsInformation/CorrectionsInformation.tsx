@@ -11,12 +11,12 @@ import {
 } from '../../model/services/createMaterialCorretion/createMaterialCorretion';
 import { MaterialDataCard } from '../MaterialDataCard/MaterialDataCard';
 import { orderDetailsSliceActions } from '../../model/slice/orderDetailsSlice';
-import { OrderDocumentsStatus } from '@/shared/const/orderConsts';
 import { createConsignmentNote } from '../../model/services/createConsignmentNote/createConsignmentNote';
 import {
     deleteMaterialCorrection
 } from '../../model/services/deleteMaterialCorrection/deleteMaterialCorrection';
 import { deleteConsignmentNote } from '../../model/services/deleteConsignmentNote/deleteConsignmentNote';
+import { OrderMaterialCorrectionInterface } from '../../model/types/orderDetailsSliceSchema';
 
 interface CorrectionsInformationProps {
     className?: string
@@ -40,9 +40,10 @@ export const CorrectionsInformation = memo((props: CorrectionsInformationProps) 
     const onConsignmentNotesDelete = useCallback((consignmentNoteId: string)=>{
         dispatch(deleteConsignmentNote({ orderId: orderFormData?._id ?? '', consignmentNoteId }));
     },[dispatch, orderFormData?._id]);
-    const onChangeMaterialCorrection = useCallback((value?: string, status?: OrderDocumentsStatus)=>{
-        dispatch(orderDetailsSliceActions.updateOrderForm({
-            // materialCorrections: { value: value || '', status: status || OrderDocumentsStatus.ON_CLEARANCE }
+    const onChangeMaterialCorrection = useCallback((correctionId: string, newCorrection: OrderMaterialCorrectionInterface)=>{
+        dispatch(orderDetailsSliceActions.updateOrderFormCorrection({
+            correctionId: correctionId,
+            correction: newCorrection
         }));
     },[dispatch]);
 

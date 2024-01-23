@@ -6,40 +6,43 @@ import {
     OrderMaterialCorrectionInterface
 } from '../../model/types/orderDetailsSliceSchema';
 import { OrderDocumentsStatusSelect } from '../OrderDocumentsStatusSelect/OrderDocumentsStatusSelect';
-import { OrderDocumentsStatus } from '@/shared/const/orderConsts';
 import { Input } from '@/shared/ui/Input';
 import { Button, ButtonSize, ButtonTheme } from '@/shared/ui/Button';
 import { HStack } from '@/shared/ui/Stack';
 import { useSelector } from 'react-redux';
 import { getOrderDetailsEditMode } from '../../model/selectors/getEditMode/getOrderDetailsEditMode';
+import { OrderDocumentsStatus } from '@/shared/const/orderConsts';
 
 interface MaterialCorrectionCardProps {
     className?: string
     data?: OrderMaterialCorrectionInterface | OrderConsignmentNoteInterface
-    onChangeMaterialCorrection?: (newStatus: OrderDocumentsStatus) => void
+    onChangeMaterialCorrection?: (correctionId: string, newCorrection: OrderMaterialCorrectionInterface) => void
     onDeleteClick?: ()=>void
 }
 
 export const MaterialDataCard = memo((props: MaterialCorrectionCardProps) => {
     const { className, data, onChangeMaterialCorrection, onDeleteClick } = props;
     const editMode = useSelector(getOrderDetailsEditMode);
-    const cardId = data?._id;
+
+    const onChangeCorrectionValue = (newValue?: string) => {
+        data?._id && onChangeMaterialCorrection && onChangeMaterialCorrection(data?._id, { ...data, value: newValue ?? '' });
+    };
+    const onChangeCorrectionStatus = (newStatus?: OrderDocumentsStatus) => {
+        data?._id && onChangeMaterialCorrection && onChangeMaterialCorrection(data?._id, { ...data, status: newStatus ?? OrderDocumentsStatus.ON_CLEARANCE });
+    };
 
     return (
-        <HStack className={classNames(cls.MaterialCorrectionCard, {}, [className])} gap={'12px'}>
+        <HStack className={classNames(cls.MaterialCorrectionCard, {}, [className])} gap={'12px'} max={true}>
             <Input
                 value={data?.value}
                 readOnly={!editMode}
+                onChange={onChangeCorrectionValue}
             />
             <OrderDocumentsStatusSelect
                 readOnly={!editMode}
                 value={data?.status}
                 size={ButtonSize.SIZE_S}
-                onChange={()=>console.log('qqq')
-                    // (status: OrderDocumentsStatus)=>{
-                    //     onChangeMaterialCorrection(form?.KS2Id?.value, status);
-                    // }
-                }
+                onChange={onChangeCorrectionStatus}
             />
             {editMode && <Button
                 size={ButtonSize.SIZE_S}

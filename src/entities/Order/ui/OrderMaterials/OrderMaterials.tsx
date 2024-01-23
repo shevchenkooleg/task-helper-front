@@ -2,8 +2,8 @@ import cls from './OrderMaterials.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo, useCallback, useState } from 'react';
 import { OrderMaterialsTable } from '../OrderMaterialsTable/OrderMaterialsTable';
-import { VStack } from '@/shared/ui/Stack';
-import { Button } from '@/shared/ui/Button';
+import { HStack, VStack } from '@/shared/ui/Stack';
+import { Button, ButtonSize } from '@/shared/ui/Button';
 import { useSelector } from 'react-redux';
 import { getOrderDetailsEditMode } from '../../model/selectors/getEditMode/getOrderDetailsEditMode';
 // TODO
@@ -40,9 +40,20 @@ export const OrderMaterials = memo((props: OrderMaterialsProps) => {
     },[]);
 
     return (
-        <VStack gap={'32px'} max className={classNames(cls.OrderMaterials, {}, [className])}>
-            Материалы для заказа
-            {editMode && <Button className={cls.addMaterialBtn} onClick={onAddMaterialBtnClickHandler}>Добавить материал</Button>}
+        <VStack gap={'12px'} max className={classNames(cls.OrderMaterials, {}, [className])}>
+            <HStack justify={'start'} gap={'32px'} max={true}>
+                <h4>Материалы для заказа</h4>
+                {
+                    editMode &&
+                    <Button
+                        className={cls.addMaterialBtn}
+                        onClick={onAddMaterialBtnClickHandler}
+                        size={ButtonSize.SIZE_S}
+                    >
+                        Добавить материал
+                    </Button>
+                }
+            </HStack>
             <OrderMaterialsTable onOpen={onModalOpen} />
             <AddMaterialToOrderModal isOpen={isModalOpen} onClose={onModalClose} mode={modalMode}/>
         </VStack>

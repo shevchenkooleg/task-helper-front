@@ -1,6 +1,6 @@
 import cls from './ExecutionCard.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { Text, TextAlign } from '@/shared/ui/Text';
 import {
@@ -13,6 +13,9 @@ import { ListBox } from '@/shared/ui/Popups';
 import { useSelector } from 'react-redux';
 import { getOrderDetailsEditMode } from '../../model/selectors/getEditMode/getOrderDetailsEditMode';
 import { Button, ButtonSize, ButtonTheme } from '@/shared/ui/Button';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { deleteExecution } from '../../model/services/deleteExecution/deleteExecution';
+import { orderDetailsSliceActions } from '../../model/slice/orderDetailsSlice';
 
 interface ExecutionCardProps {
     className?: string
@@ -24,6 +27,20 @@ interface ExecutionCardProps {
 export const ExecutionCard = memo((props: ExecutionCardProps) => {
     const { className, execution, KS2, writeOffDocuments } = props;
     const editMode = useSelector(getOrderDetailsEditMode);
+    const dispatch = useAppDispatch();
+
+
+    const onDeleteClickHandler = useCallback(() => {
+        execution &&  dispatch(deleteExecution({ orderId: execution?._orderId,executionId: execution?._id }));
+    },[dispatch, execution]);
+
+    const onChangeExecuteId = useCallback((newValue?: string) => {
+
+        execution && dispatch(orderDetailsSliceActions.updateOrderFormExecution({
+            executionId: execution?._id,
+            execution: { ...execution, value: newValue ?? '' }
+        }));
+    }, [dispatch, execution]);
 
     return (
 
@@ -33,13 +50,23 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
                     <VStack align={'start'} gap={'8px'}>
                         <HStack gap={'12px'} justify={'between'} max={true}>
                             <Text text={'Основные данные'} align={TextAlign.START}/>
-                            {editMode && <Button size={ButtonSize.SIZE_XS} theme={ButtonTheme.OUTLINE_RED} square={true}>X</Button>}
+                            {
+                                editMode && <Button
+                                    size={ButtonSize.SIZE_XS}
+                                    theme={ButtonTheme.OUTLINE_RED}
+                                    square={true}
+                                    onClick={onDeleteClickHandler}
+                                >
+                                X
+                                </Button>
+                            }
                         </HStack>
                         <HStack max={true} gap={'12px'} justify={'center'}>
                             <Text text={'№ выполнения'}/>
                             <Input
                                 value={execution?.value}
                                 readOnly={!editMode}
+                                onChange={onChangeExecuteId}
                             />
                             <ListBox
                                 readOnly={!editMode}
