@@ -31,6 +31,7 @@ export const fetchOrderById = createAsyncThunk<void, string, ThunkConfig<string>
             if (!orderData.data) {
                 throw new Error();
             }
+            console.log('order_____ ', orderData.data);
             thunkAPI.dispatch(fetchMaterialDataForOrder(orderData.data.order));
 
         } catch (e) {

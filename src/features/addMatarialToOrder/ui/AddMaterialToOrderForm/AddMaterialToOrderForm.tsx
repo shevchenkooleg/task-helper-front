@@ -73,7 +73,9 @@ const AddMaterialToOrderForm = memo((props: AddMaterialToOrderFormProps) => {
 
     const addMaterialToOrderHandler = () => {
         console.log('form ', form);
-        form && dispatch(expandDataForMaterial(form));
+        form && dispatch(expandDataForMaterial(form)).then((order)=> {
+            console.log('order ', order);
+        });
     };
 
     const onCancelClickHandler = useCallback(()=>{

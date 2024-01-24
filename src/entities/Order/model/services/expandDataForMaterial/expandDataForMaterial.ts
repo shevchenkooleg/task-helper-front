@@ -3,7 +3,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Material, MaterialToOrderTab } from '@/entities/Material';
 
 
-type responseMaterialInterface = [Material]
+type responseMaterialInterface = {
+    material: Array<Material>, _newMaterialInstanceId: string
+}
 
 
 export const expandDataForMaterial = createAsyncThunk<MaterialToOrderTab, MaterialToOrderTab, ThunkConfig<string> >(
@@ -25,11 +27,15 @@ export const expandDataForMaterial = createAsyncThunk<MaterialToOrderTab, Materi
             }
             );
 
-            // console.log('updatedMaterial ', updatedMaterial);
-            // console.log('materialData.data ', materialData.data[0]);
+            console.log('response ', materialData.data);
+            console.log('updatedMaterial ', updatedMaterial);
+            console.log('materialData.data ', materialData.data.material[0]);
+            console.log('result ', {
+                ...updatedMaterial, ...materialData.data.material[0], _id: materialData.data._newMaterialInstanceId
+            });
 
             return {
-                ...updatedMaterial, ...materialData.data[0]
+                ...updatedMaterial, ...materialData.data.material[0], _id: materialData.data._newMaterialInstanceId
             };
 
         } catch (e) {

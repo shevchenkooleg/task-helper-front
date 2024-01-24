@@ -10,7 +10,9 @@ interface responseOrderInterface  {
     order: Order
 }
 
-type responseMaterialInterface = [Material]
+type responseMaterialInterface = {
+    material: Array<Material>, _newMaterialInstanceId: string
+}
 
 
 export const fetchMaterialDataForOrder = createAsyncThunk<Material, Order, ThunkConfig<string> >(
@@ -49,12 +51,13 @@ export const fetchMaterialDataForOrder = createAsyncThunk<Material, Order, Thunk
                     newMaterials = [...order.materials];
                     // console.log('newMaterials ', newMaterials);
                     // console.log('materialData.data ', materialData.data);
-                    newMaterials.map((el,i)=>materialData.data.forEach(
+                    newMaterials.map((el,i)=>materialData.data.material.forEach(
                         (material)=>{
                             // console.log(material);
                             if (material._id === el.materialId){
                                 //             // console.log('el ', el);
                                 //             console.log('material ', material);
+                                console.log('material_____', material);
                                 newMaterials[i]={ ...newMaterials[i], ...filterObject<Order>(material, ['_id']) };
                                 //             newMaterials[i]={ ...newMaterials[i], ...material };
                             }
