@@ -3,12 +3,14 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from '@/app/providers/StoreProvider';
 
 
-export const getUserInfo = createAsyncThunk<UserInfoResponseInterface, null, ThunkConfig<string>>(
+export const getUserInfo = createAsyncThunk<UserInfoResponseInterface, string | null, ThunkConfig<string>>(
     'auth/getUserInfo',
-    async (_, thunkAPI) => {
+    async (token, thunkAPI) => {
         const { dispatch, rejectWithValue, extra } = thunkAPI;
         // await dispatch(userActions.initAuthData());
-        const accessToken = thunkAPI.getState().user!.tokenAuthData!.access_token;
+
+        const accessToken = thunkAPI.getState().user!.tokenAuthData!.access_token ?? token;
+        console.log('accessToken ', accessToken);
 
         try {
             const userInfo = await extra.api.get<UserInfoResponseInterface>('/users/info', {

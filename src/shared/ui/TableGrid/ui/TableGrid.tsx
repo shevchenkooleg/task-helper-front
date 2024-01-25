@@ -10,6 +10,9 @@ import { useTheme } from '@/shared/lib/hooks/useTheme/useTheme';
 import { Theme } from '@/shared/const/theme';
 import { ORDERS_TABLE_TEMPLATE } from '@/shared/const/localStorage';
 import { tableTemplateCreator } from '@/shared/lib/tableTemplateCreator/tableTemplateCreator';
+import { Button, ButtonSize, ButtonTheme } from '../../Button';
+import CopyIcon from '../../../assets/icons/CopyIcon.svg';
+import { Icon } from '../../Icon';
 
 interface TableGridProps<T, R, S> {
     className?: string
@@ -24,6 +27,8 @@ interface TableGridProps<T, R, S> {
     allowSortFields?: S
     currentSortOrder?: SortOrder
     stickyHeader?: boolean
+    copyMode?: boolean
+    onCopyClick?: (el:T)=>void
 }
 
 
@@ -44,7 +49,9 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
         allowSortFields,
         currentSortOrder,
         headerFieldClickHandler,
-        stickyHeader = true
+        stickyHeader = true,
+        copyMode = false,
+        onCopyClick
     } = props;
 
     const tableTemplate = localStorage.getItem(ORDERS_TABLE_TEMPLATE) ?? tableTemplateCreator(tabKeys, template) ??  '1fr 3fr 3fr 12fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr 3fr';
@@ -71,6 +78,22 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
                                     className={classNames('', { [cls[orderStatusForColorized]]: false }, [])}>
                                     <span>{el[key]}</span>
                                     {el['orderExecutionType'] === 'unplanned' && <span className={cls.unplanned}>н</span>}
+                                </td>
+                            );
+                        }
+                        if (key === 'materialName'){
+                            return(
+                                <td key={index} className={cls.materialNameBlock}>
+                                    {copyMode &&
+                                        <Button
+                                            size={ButtonSize.SIZE_XS}
+                                            theme={ButtonTheme.CLEAR}
+                                            className={cls.copyBtn}
+                                            onClick={()=>onCopyClick && onCopyClick(el)}
+                                        >
+                                            <Icon Svg={CopyIcon}/>
+                                        </Button>}
+                                    <span>{el[key]}</span>
                                 </td>
                             );
                         }

@@ -132,6 +132,17 @@ tr:nth-child(even) td {
     width: 6px;
 }
 
+.materialNameBlock {
+    position: relative;
+}
+
+.copyBtn {
+    position: absolute;
+    left: -5px;
+    top: 3px;
+    background-color: rgba(0,0,0,0);
+}
+
 .unplanned {
     color: var(--highlight);
     font-size: 16px;

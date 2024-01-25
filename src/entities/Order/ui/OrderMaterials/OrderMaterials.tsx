@@ -22,11 +22,16 @@ export const OrderMaterials = memo((props: OrderMaterialsProps) => {
     const dispatch = useAppDispatch();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [copyMaterialMode, setCopyMaterialMode] = useState(false);
     const [modalMode, setModalMode] = useState(ModalMode.CREATE);
 
     const onAddMaterialBtnClickHandler = () => {
         setModalMode(ModalMode.CREATE);
         setIsModalOpen(true);
+    };
+
+    const onCopyMaterialModeBtnClickHandler = () => {
+        setCopyMaterialMode((prev=>!prev));
     };
 
     const onModalClose = useCallback(() => {
@@ -45,16 +50,24 @@ export const OrderMaterials = memo((props: OrderMaterialsProps) => {
                 <h4>Материалы для заказа</h4>
                 {
                     editMode &&
-                    <Button
-                        className={cls.addMaterialBtn}
-                        onClick={onAddMaterialBtnClickHandler}
-                        size={ButtonSize.SIZE_S}
-                    >
-                        Добавить материал
-                    </Button>
+                    <HStack gap={'12px'} className={cls.materialBtnBlock}>
+                        <Button
+                            onClick={onCopyMaterialModeBtnClickHandler}
+                            size={ButtonSize.SIZE_S}
+                        >
+                            Копировать материал
+                        </Button>
+                        <Button
+                            onClick={onAddMaterialBtnClickHandler}
+                            size={ButtonSize.SIZE_S}
+                        >
+                            Добавить материал
+                        </Button>
+                    </HStack>
+
                 }
             </HStack>
-            <OrderMaterialsTable onOpen={onModalOpen} />
+            <OrderMaterialsTable onOpen={onModalOpen} copyMaterialMode={copyMaterialMode}/>
             <AddMaterialToOrderModal isOpen={isModalOpen} onClose={onModalClose} mode={modalMode}/>
         </VStack>
     );

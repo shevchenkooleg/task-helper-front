@@ -12,10 +12,13 @@ import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch
 // eslint-disable-next-line path-import-validation-plugin/layer-imports
 import { materialToOrderSliceActions } from '@/features/addMatarialToOrder';
 import { TableGrid } from '@/shared/ui/TableGrid';
+import { expandDataForMaterial } from '../../model/services/expandDataForMaterial/expandDataForMaterial';
+import { filterObject } from '@/shared/lib/filterObject/filterObject';
 
 interface OrderMaterialsTableProps {
     className?: string
     onOpen: () => void
+    copyMaterialMode: boolean
 }
 
 const materialForOrderTabHeaderKeys = [
@@ -24,13 +27,13 @@ const materialForOrderTabHeaderKeys = [
     MaterialInOrderTabHeaderKeys.QUANTITY_PER_UNIT,
     MaterialInOrderTabHeaderKeys.TOTAL_UNITS_COUNT,
     MaterialInOrderTabHeaderKeys.TOTAL_QUANTITY,
-    MaterialTabHeaderKeys.DIMENSION,
-    MaterialTabHeaderKeys.FULL_VOLUME,
+    // MaterialTabHeaderKeys.DIMENSION,
+    // MaterialTabHeaderKeys.FULL_VOLUME,
 ];
 
 
 export const OrderMaterialsTable = memo((props: OrderMaterialsTableProps) => {
-    const { onOpen } = props;
+    const { onOpen, copyMaterialMode } = props;
     const editMode = useSelector(getOrderDetailsEditMode);
     const materialsForOrderForRendering = useSelector(getOrderFormData)?.materials?.map(el=>el);
     const dispatch = useAppDispatch();
@@ -39,6 +42,12 @@ export const OrderMaterialsTable = memo((props: OrderMaterialsTableProps) => {
         editMode && dispatch(materialToOrderSliceActions.setMaterialToOrderForm(item));
         editMode && onOpen();
     },[dispatch, editMode, onOpen]);
+
+    const onCopyBtnClick = useCallback((el: MaterialToOrderTab)=>{
+        console.log(el);
+        dispatch(expandDataForMaterial(filterObject(el, ['_id'])));
+
+    },[dispatch]);
 
     if (materialsForOrderForRendering){
         return (
@@ -51,6 +60,8 @@ export const OrderMaterialsTable = memo((props: OrderMaterialsTableProps) => {
                         callback={(event, item)=>onDoubleClickHandler(item)}
                         template={'materialTemplate'}
                         stickyHeader={false}
+                        copyMode={copyMaterialMode}
+                        onCopyClick={onCopyBtnClick}
                         // helpMappers={mapper}
                     />
                 </VStack>

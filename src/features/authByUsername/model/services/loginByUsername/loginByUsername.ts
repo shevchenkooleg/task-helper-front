@@ -32,7 +32,8 @@ export const loginByUsername = createAsyncThunk<TokenResponseInterface, loginByU
             localStorage.setItem(USER_TOKEN_LOCALSTORAGE_KEY, JSON.stringify(responseData.access_token));
             localStorage.setItem(USER_REFRESH_TOKEN_LOCALSTORAGE_KEY, JSON.stringify(responseData.refresh_token));
             dispatch(userActions.setTokenAuthData(responseData));
-            dispatch(getUserInfo(null));
+            console.log('responseData ', responseData);
+            responseData.access_token && dispatch(getUserInfo(responseData.access_token));
             return response.data;
         } catch (e) {
             console.log(e);
