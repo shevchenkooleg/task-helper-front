@@ -69,6 +69,9 @@ export interface OrderDetailsSliceSchema {
     editMode: boolean
 }
 
+export type CreateInnerDocumentOperationsTypes = 'createCorrection' | 'createConsignment' | 'createExecution' | 'createKS2' | 'createWriteOffDocument'
+export type DeleteInnerDocumentOperationsTypes = 'deleteCorrection' | 'deleteConsignment' | 'deleteExecution' | 'deleteKS2' | 'deleteWriteOffDocument'
+
 
 /*
             Документ на оформлении - on_clearance - ON_CLEARANCE

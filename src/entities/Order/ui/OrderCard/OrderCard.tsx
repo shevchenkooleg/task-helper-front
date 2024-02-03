@@ -23,7 +23,7 @@ export const OrderCard = memo((props: OrderCardProps) => {
         return (
             <>
                 <HStack max={true} gap={'16px'} justify={'start'} align={'start'} className={classNames(cls.OrderCard, {}, [className])}>
-                    <VStack max gap={'20px'} justify={'start'} align={'center'} >
+                    <VStack max gap={'32px'} justify={'start'} align={'center'} >
                         <BaseOrderInformation/>
                         <CorrectionsInformation/>
                         <ExecutionsInformation/>

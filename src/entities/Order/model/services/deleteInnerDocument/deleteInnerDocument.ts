@@ -5,20 +5,24 @@ import { Order } from '../../..';
 import {
     fetchMaterialDataForOrder
 } from '../fetchMaterialDataForOrder/fetchMaterialDataForOrder';
+import {
+    DeleteInnerDocumentOperationsTypes
+} from '../../types/orderDetailsSliceSchema';
 
 interface responseInterface  {
     status: string
     order: Order
 }
 
-interface paramsInterface {
+interface DeleteInnerDocumentParams {
     orderId: string
-    consignmentNoteId: string
+    operationType: DeleteInnerDocumentOperationsTypes
+    documentId: string
 }
 
-export const deleteConsignmentNote = createAsyncThunk<void, paramsInterface, ThunkConfig<string> >(
-    'orderDetails/deleteConsignmentNote',
-    async ({ orderId, consignmentNoteId }, thunkAPI) => {
+export const deleteInnerDocument = createAsyncThunk<void, DeleteInnerDocumentParams, ThunkConfig<string> >(
+    'orderDetails/deleteInnerDocument',
+    async ({ orderId, operationType, documentId }, thunkAPI) => {
         const { rejectWithValue, extra, getState } = thunkAPI;
         const accessToken = thunkAPI.getState().user!.tokenAuthData!.access_token;
 
@@ -26,7 +30,13 @@ export const deleteConsignmentNote = createAsyncThunk<void, paramsInterface, Thu
             if (!orderId) {
                 throw new Error('Order not defined');
             }
-            const response = await extra.api.delete<responseInterface, AxiosResponse, Order>(`/order/${orderId}/deleteConsignment/${consignmentNoteId}`,
+            if (!operationType) {
+                throw new Error('Operation type not defined');
+            }
+            if (!documentId) {
+                throw new Error('Inner document not defined');
+            }
+            const response = await extra.api.delete<responseInterface, AxiosResponse, Order>(`/order/${orderId}/deleteInnerDocument/${operationType}/${documentId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${accessToken}`

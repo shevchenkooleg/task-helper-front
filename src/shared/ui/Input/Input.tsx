@@ -79,7 +79,7 @@ export const Input: FC<InputProps> = memo((props: InputProps) => {
                     onKeyDown={onKeyDownHandler}
                     onChange={onChangeHandler}
                     disabled={readOnly}
-                    style={{ width: `${autoWidth && value && value.length * 10}px` }}
+                    style={{ width: `${autoWidth && value && value.length * 10}px`, paddingLeft: '5px' }}
                     {...otherProps}
                 />
             </div>

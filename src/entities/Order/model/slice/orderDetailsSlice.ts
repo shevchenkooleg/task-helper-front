@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
-    Order,
+    Order, OrderConsignmentNoteInterface,
     OrderDetailsSliceSchema,
     OrderExecutionInterface,
     OrderMaterialCorrectionInterface
@@ -44,6 +44,13 @@ export const orderDetailsSlice = createSlice({
                 ...state.form,
                 materialCorrections: state.form.materialCorrections && state.form.materialCorrections
                     .map(correction=>correction._id === action.payload.correctionId ? action.payload.correction : correction)
+            };
+        },
+        updateOrderConsignmentNote: (state, action:PayloadAction<{consignmentNote: OrderConsignmentNoteInterface, consignmentNoteId: string}>) => {
+            state.form = {
+                ...state.form,
+                consignmentNotes: state.form.consignmentNotes && state.form.consignmentNotes
+                    .map(consignmentNote=>consignmentNote._id === action.payload.consignmentNoteId ? action.payload.consignmentNote : consignmentNote)
             };
         },
 

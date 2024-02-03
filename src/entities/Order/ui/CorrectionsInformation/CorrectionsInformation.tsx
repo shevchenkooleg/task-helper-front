@@ -6,17 +6,19 @@ import { getOrderFormData } from '../../model/selectors/getOrderFormData/getOrde
 import { useSelector } from 'react-redux';
 import { Button, ButtonSize, ButtonTheme } from '@/shared/ui/Button';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import {
-    createMaterialCorrection
-} from '../../model/services/createMaterialCorretion/createMaterialCorretion';
+
+
 import { MaterialDataCard } from '../MaterialDataCard/MaterialDataCard';
 import { orderDetailsSliceActions } from '../../model/slice/orderDetailsSlice';
-import { createConsignmentNote } from '../../model/services/createConsignmentNote/createConsignmentNote';
+
+
 import {
-    deleteMaterialCorrection
-} from '../../model/services/deleteMaterialCorrection/deleteMaterialCorrection';
-import { deleteConsignmentNote } from '../../model/services/deleteConsignmentNote/deleteConsignmentNote';
-import { OrderMaterialCorrectionInterface } from '../../model/types/orderDetailsSliceSchema';
+    OrderConsignmentNoteInterface,
+    OrderMaterialCorrectionInterface
+} from '../../model/types/orderDetailsSliceSchema';
+import { getOrderDetailsEditMode } from '../../model/selectors/getEditMode/getOrderDetailsEditMode';
+import { createInnerDocument } from '../../model/services/createInnerDocument/createInnerDocument';
+import { deleteInnerDocument } from '../../model/services/deleteInnerDocument/deleteInnerDocument';
 
 interface CorrectionsInformationProps {
     className?: string
@@ -27,23 +29,30 @@ export const CorrectionsInformation = memo((props: CorrectionsInformationProps) 
     const { className } = props;
     const orderFormData = useSelector(getOrderFormData);
     const dispatch = useAppDispatch();
+    const editMode = useSelector(getOrderDetailsEditMode);
 
     const addMaterialCorrection = useCallback(()=>{
-        orderFormData?._id && dispatch(createMaterialCorrection(orderFormData?._id));
+        orderFormData?._id && dispatch(createInnerDocument({ orderId: orderFormData?._id, operationType: 'createCorrection' }));
     },[dispatch, orderFormData?._id]);
     const addConsignmentNotes = useCallback(()=>{
-        orderFormData?._id && dispatch(createConsignmentNote(orderFormData?._id));
+        orderFormData?._id && dispatch(createInnerDocument({ orderId: orderFormData?._id, operationType: 'createConsignment' }));
     },[dispatch, orderFormData?._id]);
     const onMaterialCorrectionDelete = useCallback((correctionId: string)=>{
-        dispatch(deleteMaterialCorrection({ orderId: orderFormData?._id ?? '', correctionId }));
+        dispatch(deleteInnerDocument({ orderId: orderFormData?._id ?? '', operationType: 'deleteCorrection',  documentId:correctionId }));
     },[dispatch, orderFormData?._id]);
     const onConsignmentNotesDelete = useCallback((consignmentNoteId: string)=>{
-        dispatch(deleteConsignmentNote({ orderId: orderFormData?._id ?? '', consignmentNoteId }));
+        dispatch(deleteInnerDocument({ orderId: orderFormData?._id ?? '',operationType: 'deleteConsignment',  documentId:consignmentNoteId }));
     },[dispatch, orderFormData?._id]);
     const onChangeMaterialCorrection = useCallback((correctionId: string, newCorrection: OrderMaterialCorrectionInterface)=>{
         dispatch(orderDetailsSliceActions.updateOrderFormCorrection({
             correctionId: correctionId,
             correction: newCorrection
+        }));
+    },[dispatch]);
+    const onChangeConsignmentNote = useCallback((consignmentNoteId: string, newConsignmentNote: OrderConsignmentNoteInterface)=>{
+        dispatch(orderDetailsSliceActions.updateOrderConsignmentNote({
+            consignmentNoteId: consignmentNoteId,
+            consignmentNote: newConsignmentNote
         }));
     },[dispatch]);
 
@@ -55,8 +64,8 @@ export const CorrectionsInformation = memo((props: CorrectionsInformationProps) 
             <VStack align={'start'} gap={'16px'}>
                 <VStack align={'start'}>
                     <HStack>
-                        <div>Корректировки назначения:</div>
-                        <Button size={ButtonSize.SIZE_S} theme={ButtonTheme.CLEAR} onClick={addMaterialCorrection}>Add Correction</Button>
+                        <div className={cls.title}>Корректировки назначения:</div>
+                        {editMode && <Button size={ButtonSize.SIZE_S} theme={ButtonTheme.CLEAR} onClick={addMaterialCorrection}>Add Correction</Button>}
                     </HStack>
                     {
                         orderFormData?.materialCorrections && orderFormData?.materialCorrections?.length > 0
@@ -77,8 +86,8 @@ export const CorrectionsInformation = memo((props: CorrectionsInformationProps) 
                 </VStack>
                 <VStack align={'start'}>
                     <HStack>
-                        <div>Накладные М11:</div>
-                        <Button size={ButtonSize.SIZE_S} theme={ButtonTheme.CLEAR} onClick={addConsignmentNotes}>Add M11</Button>
+                        <div className={cls.title}>Накладные М11:</div>
+                        {editMode && <Button size={ButtonSize.SIZE_S} theme={ButtonTheme.CLEAR} onClick={addConsignmentNotes}>Add M11</Button>}
                     </HStack>
 
                     {
@@ -88,7 +97,7 @@ export const CorrectionsInformation = memo((props: CorrectionsInformationProps) 
                                     <MaterialDataCard
                                         data={note}
                                         key={note._id}
-                                        onChangeMaterialCorrection={onChangeMaterialCorrection}
+                                        onChangeMaterialCorrection={onChangeConsignmentNote}
                                         onDeleteClick={()=>onConsignmentNotesDelete(note._id)}
                                     />
                                 ))}

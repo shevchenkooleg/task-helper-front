@@ -14,8 +14,9 @@ import { useSelector } from 'react-redux';
 import { getOrderDetailsEditMode } from '../../model/selectors/getEditMode/getOrderDetailsEditMode';
 import { Button, ButtonSize, ButtonTheme } from '@/shared/ui/Button';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { deleteExecution } from '../../model/services/deleteExecution/deleteExecution';
 import { orderDetailsSliceActions } from '../../model/slice/orderDetailsSlice';
+import { deleteInnerDocument } from '../../model/services/deleteInnerDocument/deleteInnerDocument';
+import { createInnerDocument } from '../../model/services/createInnerDocument/createInnerDocument';
 
 interface ExecutionCardProps {
     className?: string
@@ -31,16 +32,23 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
 
 
     const onDeleteClickHandler = useCallback(() => {
-        execution &&  dispatch(deleteExecution({ orderId: execution?._orderId,executionId: execution?._id }));
+        execution &&  dispatch(deleteInnerDocument({ orderId: execution?._orderId, operationType: 'deleteExecution', documentId: execution?._id }));
     },[dispatch, execution]);
 
     const onChangeExecuteId = useCallback((newValue?: string) => {
-
         execution && dispatch(orderDetailsSliceActions.updateOrderFormExecution({
             executionId: execution?._id,
             execution: { ...execution, value: newValue ?? '' }
         }));
     }, [dispatch, execution]);
+
+    const addKS2 = useCallback(()=>{
+        dispatch(createInnerDocument({ orderId: execution?._orderId ?? '' ,operationType: 'createKS2', correctionId: execution?._id }));
+    },[dispatch, execution?._id, execution?._orderId]);
+
+    const addWriteOffDocument = useCallback(()=>{
+        console.log('addWriteOffDocument');
+    },[]);
 
     return (
 
@@ -78,8 +86,8 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
                     </VStack>
                     <VStack align={'start'} gap={'4px'} max={true}>
                         <HStack justify={'between'} max={true}>
-                            <Text text={'Акты по форме КС-2'} align={TextAlign.START}/>
-                            <Button size={ButtonSize.SIZE_S} theme={ButtonTheme.CLEAR}>Add Document</Button>
+                            <Text text={'Акты по форме КС-2'} align={TextAlign.START} className={cls.title}/>
+                            {editMode && <Button size={ButtonSize.SIZE_S} theme={ButtonTheme.CLEAR} onClick={addKS2}>Add Document</Button>}
                         </HStack>
                         {
                             KS2 && KS2?.length > 0
@@ -89,8 +97,8 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
                     </VStack>
                     <VStack align={'start'} gap={'4px'} max={true}>
                         <HStack justify={'between'} max={true}>
-                            <Text text={'Акты на списание'} align={TextAlign.START}/>
-                            <Button size={ButtonSize.SIZE_S} theme={ButtonTheme.CLEAR}>Add Document</Button>
+                            <Text text={'Акты на списание'} align={TextAlign.START} className={cls.title}/>
+                            {editMode && <Button size={ButtonSize.SIZE_S} theme={ButtonTheme.CLEAR} onClick={addWriteOffDocument}>Add Document</Button>}
                         </HStack>
 
                         {
