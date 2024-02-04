@@ -22,7 +22,8 @@ export const OrderCard = memo((props: OrderCardProps) => {
     if (newCard){
         return (
             <>
-                <HStack max={true} gap={'16px'} justify={'start'} align={'start'} className={classNames(cls.OrderCard, {}, [className])}>
+                <HStack max={true} gap={'16px'} justify={'start'} align={'start'}
+                    className={classNames(cls.OrderCard, {}, [className])}>
                     <VStack max gap={'32px'} justify={'start'} align={'center'} >
                         <BaseOrderInformation/>
                         <CorrectionsInformation/>

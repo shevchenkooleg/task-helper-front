@@ -18,6 +18,7 @@ import { orderDetailsSlice, orderDetailsSliceActions } from '../../model/slice/o
 import { deleteInnerDocument } from '../../model/services/deleteInnerDocument/deleteInnerDocument';
 import { createInnerDocument } from '../../model/services/createInnerDocument/createInnerDocument';
 import { ExecutionDataCard } from '../ExecutionDataCard/ExecutionDataCard';
+import { getOrderId } from '../../model/selectors/getOrderId/getOrderId';
 
 interface ExecutionCardProps {
     className?: string
@@ -28,6 +29,7 @@ interface ExecutionCardProps {
 
 export const ExecutionCard = memo((props: ExecutionCardProps) => {
     const { className, execution, KS2, writeOffDocuments } = props;
+    const orderId = useSelector(getOrderId);
     const editMode = useSelector(getOrderDetailsEditMode);
     const dispatch = useAppDispatch();
 
@@ -48,11 +50,23 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
     },[dispatch, execution?._id, execution?._orderId]);
 
     const addWriteOffDocument = useCallback(()=>{
-        console.log('addWriteOffDocument');
-    },[]);
+        dispatch(createInnerDocument({ orderId: execution?._orderId ?? '' ,operationType: 'createWriteOffDocument', correctionId: execution?._id }));
+    },[dispatch, execution?._id, execution?._orderId]);
+
+    const onKS2Delete = useCallback((documentId: string)=>{
+        orderId && dispatch(deleteInnerDocument({ orderId, operationType: 'deleteKS2', documentId: documentId }));
+    },[dispatch, orderId]);
+
+    const onWriteOffDocumentDelete = useCallback((documentId: string)=>{
+        orderId && dispatch(deleteInnerDocument({ orderId, operationType: 'deleteWriteOffDocument', documentId: documentId }));
+    },[dispatch, orderId]);
 
     const onChangeKS2DataCardValue = useCallback((newKS2: KS2DocumentInterface, KS2Id: string)=>{
         dispatch(orderDetailsSlice.actions.updateExecutionKS2Card({ KS2: newKS2, KS2Id }));
+    },[dispatch]);
+
+    const onChangeWriteOffDataCardValue = useCallback((newWriteOffDocument: WriteOffDocumentInterface, writeOffDocumentId: string)=>{
+        dispatch(orderDetailsSlice.actions.updateExecutionWriteOffCard({ writeOffDocument: newWriteOffDocument, writeOffDocumentId }));
     },[dispatch]);
 
     return (
@@ -97,7 +111,12 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
                         {
                             KS2 && KS2?.length > 0
                                 ? KS2.map((d)=>(
-                                    <ExecutionDataCard key={d._id} data={d} onChangeExecutionDataCardValue={onChangeKS2DataCardValue}/>
+                                    <ExecutionDataCard
+                                        key={d._id}
+                                        data={d}
+                                        onChangeExecutionDataCardValue={onChangeKS2DataCardValue}
+                                        onDeleteClick={()=>onKS2Delete(d._id)}
+                                    />
                                 ))
                                 : <div>Акты по форме КС-2 отсутствуют</div>
                         }
@@ -110,7 +129,14 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
 
                         {
                             writeOffDocuments && writeOffDocuments?.length > 0
-                                ? <div>WriteOffDocuments</div>
+                                ? writeOffDocuments.map((d)=>(
+                                    <ExecutionDataCard
+                                        key={d._id}
+                                        data={d}
+                                        onChangeExecutionDataCardValue={onChangeWriteOffDataCardValue}
+                                        onDeleteClick={()=>onWriteOffDocumentDelete(d._id)}
+                                    />
+                                ))
                                 : <div>Акты на списание отсутствуют</div>
                         }
                     </VStack>

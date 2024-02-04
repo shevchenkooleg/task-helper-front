@@ -11,6 +11,7 @@ import { HStack } from '@/shared/ui/Stack';
 import { getOrderDetailsEditMode } from '../../model/selectors/getEditMode/getOrderDetailsEditMode';
 import { createInnerDocument } from '../../model/services/createInnerDocument/createInnerDocument';
 import { getOrderFormKS2 } from '../../model/selectors/getOrderFormKS2/getOrderFormKS2';
+import { getWriteOffDocuments } from '../../model/selectors/getWriteOffDocuments/getWriteOffDocuments';
 
 interface ExecutionsInformationProps {
     className?: string
@@ -21,6 +22,7 @@ export const ExecutionsInformation = memo((props: ExecutionsInformationProps) =>
     const dispatch = useAppDispatch();
     const executions = useSelector(getOrderFormExecutions);
     const KS2 = useSelector(getOrderFormKS2);
+    const writeOffDocuments = useSelector(getWriteOffDocuments);
     const orderId = useSelector(getOrderId);
     const editMode = useSelector(getOrderDetailsEditMode);
 
@@ -36,7 +38,15 @@ export const ExecutionsInformation = memo((props: ExecutionsInformationProps) =>
             </HStack>
             <HStack gap={'12px'} wrap={'wrap'}>
                 {executions && executions?.length > 0
-                    ? executions?.map(ex=><ExecutionCard key={ex._id} execution={ex} KS2={KS2?.filter(document => document._executionId === ex._id)}/>)
+                    ? executions?.map(
+                        ex=>
+                            <ExecutionCard
+                                key={ex._id}
+                                execution={ex}
+                                KS2={KS2?.filter(document => document._executionId === ex._id)}
+                                writeOffDocuments={writeOffDocuments}
+                            />
+                    )
                     : <div>Выполнения для данного заказа отсутствуют</div>
                 }
             </HStack>

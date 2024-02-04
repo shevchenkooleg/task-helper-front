@@ -4,7 +4,7 @@ import {
     Order, OrderConsignmentNoteInterface,
     OrderDetailsSliceSchema,
     OrderExecutionInterface,
-    OrderMaterialCorrectionInterface
+    OrderMaterialCorrectionInterface, WriteOffDocumentInterface
 } from '../types/orderDetailsSliceSchema';
 import { fetchOrderById } from '../services/fetchOrderById/fetchOrderById';
 import { updateOrderById } from '../../model/services/updateOrderById/updateOrderById';
@@ -55,11 +55,17 @@ export const orderDetailsSlice = createSlice({
             };
         },
         updateExecutionKS2Card: (state, action:PayloadAction<{KS2: KS2DocumentInterface, KS2Id: string}>) => {
-            console.log(action.payload);
             state.form = {
                 ...state.form,
                 KS2Documents: state.form.KS2Documents && state.form.KS2Documents
                     .map(KS2Document=>KS2Document._id === action.payload.KS2Id ? action.payload.KS2 : KS2Document)
+            };
+        },
+        updateExecutionWriteOffCard: (state, action:PayloadAction<{writeOffDocument: WriteOffDocumentInterface, writeOffDocumentId: string}>) => {
+            state.form = {
+                ...state.form,
+                writeOffDocuments: state.form.writeOffDocuments && state.form.writeOffDocuments
+                    .map(writeOffDocument=>writeOffDocument._id === action.payload.writeOffDocumentId ? action.payload.writeOffDocument : writeOffDocument)
             };
         },
 
