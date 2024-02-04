@@ -132,6 +132,15 @@ tr:nth-child(even) td {
     width: 6px;
 }
 
+.stripeMove {
+    left: -6px;
+    top: -7px
+}
+
+.tableRowElement {
+    height: 20px;
+}
+
 .materialNameBlock {
     position: relative;
 }

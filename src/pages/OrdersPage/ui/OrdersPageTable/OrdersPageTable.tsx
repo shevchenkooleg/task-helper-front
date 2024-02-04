@@ -34,6 +34,8 @@ export const OrdersPageTable = memo((props: OrdersPageTableProps) => {
     const currentSortOrder = useSelector(getOrderListFiltersSortOrder);
 
     const orderTableActiveKeys = useSelector(getOrdersPageTableKeys) ?? [];
+    console.log('orderTableActiveKeys ', orderTableActiveKeys);
+    console.log('orderTabHeaderKeysArr ', orderTabHeaderKeysArr);
     const tableKeysForRender = orderTabHeaderKeysArr.filter(key=>orderTableActiveKeys.includes(key));
 
 

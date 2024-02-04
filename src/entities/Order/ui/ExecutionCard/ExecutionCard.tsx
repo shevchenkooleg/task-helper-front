@@ -19,6 +19,8 @@ import { deleteInnerDocument } from '../../model/services/deleteInnerDocument/de
 import { createInnerDocument } from '../../model/services/createInnerDocument/createInnerDocument';
 import { ExecutionDataCard } from '../ExecutionDataCard/ExecutionDataCard';
 import { getOrderId } from '../../model/selectors/getOrderId/getOrderId';
+import { ExecutionStatus, OrderStatus, orderStatusMapper } from '@/shared/const/orderConsts';
+import { orderExecutionStatusOption } from '@/shared/const/orderDetailsConsts';
 
 interface ExecutionCardProps {
     className?: string
@@ -33,6 +35,8 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
     const editMode = useSelector(getOrderDetailsEditMode);
     const dispatch = useAppDispatch();
 
+    const orderExecutionStatusValue = execution?.status ?? OrderStatus.ISSUED;
+
 
     const onDeleteClickHandler = useCallback(() => {
         execution &&  dispatch(deleteInnerDocument({ orderId: execution?._orderId, operationType: 'deleteExecution', documentId: execution?._id }));
@@ -44,6 +48,13 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
             execution: { ...execution, value: newValue ?? '' }
         }));
     }, [dispatch, execution]);
+
+    const onExecutingStatusChange = useCallback((newStatus: ExecutionStatus)=>{
+        execution && dispatch(orderDetailsSliceActions.updateOrderFormExecution({
+            executionId: execution?._id,
+            execution: { ...execution, status: newStatus ?? ExecutionStatus.EXECUTING }
+        }));
+    },[dispatch, execution]);
 
     const addKS2 = useCallback(()=>{
         dispatch(createInnerDocument({ orderId: execution?._orderId ?? '' ,operationType: 'createKS2', correctionId: execution?._id }));
@@ -98,8 +109,9 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
                             <ListBox
                                 readOnly={!editMode}
                                 size={ButtonSize.SIZE_S}
-                                value={execution?.status}
-                                onChange={()=>{console.log('qqq');}}
+                                value={orderStatusMapper[orderExecutionStatusValue]}
+                                items={orderExecutionStatusOption}
+                                onChange={(value: string)=>onExecutingStatusChange(value as ExecutionStatus)}
                             />
                         </HStack>
                     </VStack>

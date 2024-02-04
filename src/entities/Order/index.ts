@@ -21,3 +21,4 @@ export { OrderStatus } from '@/shared/const/orderConsts';
 export { OrderMaterials } from './ui/OrderMaterials/OrderMaterials';
 export { OrderCard } from './ui/OrderCard/OrderCard';
 export { expandDataForMaterial } from './model/services/expandDataForMaterial/expandDataForMaterial';
+export type { OrderExecutionInterface, OrderConsignmentNoteInterface, WriteOffDocumentInterface, KS2DocumentInterface, OrderMaterialCorrectionInterface } from './model/types/orderDetailsSliceSchema';

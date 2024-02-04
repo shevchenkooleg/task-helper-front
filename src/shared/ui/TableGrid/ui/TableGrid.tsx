@@ -1,7 +1,7 @@
 import cls from './TableGrid.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { TableGridTemplate } from '@/shared/types/ui';
-import { HStack } from '../../Stack';
+import { HStack, VStack } from '../../Stack';
 import ArrowDown from '@/shared/assets/icons/ArrowDown.svg';
 import ArrowUp from '@/shared/assets/icons/ArrowUp.svg';
 import { SortOrder } from '@/shared/types/sort';
@@ -59,8 +59,9 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
 
     console.log('currentSortOrder ', currentSortOrder);
 
-
     const tabContent = (el: T, i: number) => {
+
+
 
         const orderStatusForColorized = el.orderStatus;
         return (
@@ -116,7 +117,6 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
                             );
                         }
                         if (key === 'serialNumber') {
-
                             const mods = {
                                 [cls[orderStatusForColorized]]: true,
                                 [cls.opacityDark]: theme === Theme.DARK
@@ -133,7 +133,7 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
                             );
                         }
                         if (key === 'roles' && typeof el[key] === 'object') {
-                            console.log(el[key]);
+                            // console.log(el[key]);
                             return (
                                 <td
                                     key={index}
@@ -143,24 +143,24 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
                                 </td>
                             );
                         }
-                        if (typeof el[key] === 'object') {
-                            const mods = {
-                                [cls[el[key].status]]: true,
-                                [cls.opacityDark]: theme === Theme.DARK
-                            };
+                        if (Array.isArray(el[key]) && el[key].length > 0) {
+                            console.log('el[key]-key ', el[key], key);
                             return (
-                                <td
-                                    key={index}
-                                    className={classNames(cls.tableCell, { [cls[el[key].status]]: false }, [])}
-                                >
-                                    <div>
-                                        {el[key].status !== 'on_clearance' && <div className={classNames(cls.colorStripe, mods, [])}></div>}
-                                        {
-                                            helpMappers && el[key].value in helpMappers
-                                                ? helpMappers[el[key].value]
-                                                : Array.isArray(el[key].value) ? el[key].value.join(', ') : el[key].value
-                                        }
-                                    </div>
+                                <td  key={index}>
+                                    <VStack max={true} gap={'8px'}>
+                                        {el[key].map((document: T) => (
+                                            <HStack className={cls.tableCell} key={document._id} justify={'center'}>
+                                                <div className={classNames(cls.colorStripe, { [cls[document.status]]: true, [cls.opacityDark]: theme === Theme.DARK }, [cls.stripeMove])}></div>
+                                                <div className={cls.tableRowElement} style={{ height: '30px' }}>
+                                                    {
+                                                        helpMappers && document.value in helpMappers
+                                                            ? helpMappers[document.value]
+                                                            : Array.isArray(document.value) ? document.value.join(', ') : document.value
+                                                    }
+                                                </div>
+                                            </HStack>
+                                        ))}
+                                    </VStack>
                                 </td>
                             );
                         }
