@@ -72,8 +72,6 @@ export const Flex = (props: FlexProps) => {
         width
     } = props;
 
-    console.log(wrap);
-
     const additionalClasses = [
         className,
         justifyClasses[justify],

@@ -57,7 +57,7 @@ export const Button = memo((props: ButtonProps) => {
         [cls.disabled]: disabled,
         [cls.flex]: flex,
         [cls.inverted]: inverted,
-        [cls.active]:active
+        [cls.active]:active,
     };
 
     return (

@@ -14,9 +14,10 @@ import { useSelector } from 'react-redux';
 import { getOrderDetailsEditMode } from '../../model/selectors/getEditMode/getOrderDetailsEditMode';
 import { Button, ButtonSize, ButtonTheme } from '@/shared/ui/Button';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { orderDetailsSliceActions } from '../../model/slice/orderDetailsSlice';
+import { orderDetailsSlice, orderDetailsSliceActions } from '../../model/slice/orderDetailsSlice';
 import { deleteInnerDocument } from '../../model/services/deleteInnerDocument/deleteInnerDocument';
 import { createInnerDocument } from '../../model/services/createInnerDocument/createInnerDocument';
+import { ExecutionDataCard } from '../ExecutionDataCard/ExecutionDataCard';
 
 interface ExecutionCardProps {
     className?: string
@@ -49,6 +50,10 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
     const addWriteOffDocument = useCallback(()=>{
         console.log('addWriteOffDocument');
     },[]);
+
+    const onChangeKS2DataCardValue = useCallback((newKS2: KS2DocumentInterface, KS2Id: string)=>{
+        dispatch(orderDetailsSlice.actions.updateExecutionKS2Card({ KS2: newKS2, KS2Id }));
+    },[dispatch]);
 
     return (
 
@@ -91,7 +96,9 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
                         </HStack>
                         {
                             KS2 && KS2?.length > 0
-                                ? <div>KS2</div>
+                                ? KS2.map((d)=>(
+                                    <ExecutionDataCard key={d._id} data={d} onChangeExecutionDataCardValue={onChangeKS2DataCardValue}/>
+                                ))
                                 : <div>Акты по форме КС-2 отсутствуют</div>
                         }
                     </VStack>

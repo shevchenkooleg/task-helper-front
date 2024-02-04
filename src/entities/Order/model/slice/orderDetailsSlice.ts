@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
+    KS2DocumentInterface,
     Order, OrderConsignmentNoteInterface,
     OrderDetailsSliceSchema,
     OrderExecutionInterface,
@@ -51,6 +52,14 @@ export const orderDetailsSlice = createSlice({
                 ...state.form,
                 consignmentNotes: state.form.consignmentNotes && state.form.consignmentNotes
                     .map(consignmentNote=>consignmentNote._id === action.payload.consignmentNoteId ? action.payload.consignmentNote : consignmentNote)
+            };
+        },
+        updateExecutionKS2Card: (state, action:PayloadAction<{KS2: KS2DocumentInterface, KS2Id: string}>) => {
+            console.log(action.payload);
+            state.form = {
+                ...state.form,
+                KS2Documents: state.form.KS2Documents && state.form.KS2Documents
+                    .map(KS2Document=>KS2Document._id === action.payload.KS2Id ? action.payload.KS2 : KS2Document)
             };
         },
 

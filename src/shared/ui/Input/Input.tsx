@@ -39,6 +39,7 @@ export const Input: FC<InputProps> = memo((props: InputProps) => {
         theme = InputTheme.REGULAR,
         placeholder,
         autoWidth,
+        width,
         ...otherProps
 
     } = props;
@@ -48,6 +49,8 @@ export const Input: FC<InputProps> = memo((props: InputProps) => {
     const onKeyDownHandler = (e:React.KeyboardEvent<HTMLInputElement>) => {
         keyDownValue = e.key;
     };
+
+    const inputWidth = width ? width : autoWidth ? autoWidth && value && value.length * 10 : '175';
 
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         // console.log('keyDownValue ', keyDownValue);
@@ -79,7 +82,7 @@ export const Input: FC<InputProps> = memo((props: InputProps) => {
                     onKeyDown={onKeyDownHandler}
                     onChange={onChangeHandler}
                     disabled={readOnly}
-                    style={{ width: `${autoWidth && value && value.length * 10}px`, paddingLeft: '5px' }}
+                    style={{ width: `${inputWidth}px`, paddingLeft: '5px' }}
                     {...otherProps}
                 />
             </div>
