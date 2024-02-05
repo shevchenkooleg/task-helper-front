@@ -44,7 +44,7 @@ export const ExecutionsInformation = memo((props: ExecutionsInformationProps) =>
                                 key={ex._id}
                                 execution={ex}
                                 KS2={KS2?.filter(document => document._executionId === ex._id)}
-                                writeOffDocuments={writeOffDocuments}
+                                writeOffDocuments={writeOffDocuments?.filter(document => document._executionId === ex._id)}
                             />
                     )
                     : <div>Выполнения для данного заказа отсутствуют</div>
