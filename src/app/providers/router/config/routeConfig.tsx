@@ -4,7 +4,7 @@ import {
     getRouteAbout,
     getRouteAdminPanel,
     getRouteMain,
-    getRouteMaterialDetails,
+    getRouteMaterialDetails, getRouteMaterialInvolvementReport,
     getRouteMaterials,
     getRouteOrderDetails,
     getRouteOrders,
@@ -21,6 +21,9 @@ import { OrderDetailsPage } from '@/pages/OrderDetailsPage';
 import { MaterialsPage } from '@/pages/MaterialsPage';
 import { MaterialDetailsPage } from '@/pages/MaterialDetailsPage';
 import { ReportsPage, TotalVolumeMaterialReportPage } from '@/pages/ReportsPage';
+import {
+    MaterialInvolvementReportPage
+} from '@/pages/ReportsPage';
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.ABOUT]: {
@@ -62,15 +65,21 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         authOnly: true,
         roles: [UserRole.MANAGER, UserRole.ADMIN, UserRole.USER]
     },
-    [AppRoutes.REPORTS]: {
-        path: getRouteReports(),
-        element: <ReportsPage/>,
+    [AppRoutes.MATERIAL_INVOLVEMENT_REPORT]: {
+        path: getRouteMaterialInvolvementReport(),
+        element: <MaterialInvolvementReportPage/>,
         authOnly: true,
         roles: [UserRole.MANAGER, UserRole.ADMIN, UserRole.USER]
     },
     [AppRoutes.TOTAL_VOLUME_MATERIAL_REPORT]: {
         path: getRouteTotalVolumeMaterialReport(),
         element: <TotalVolumeMaterialReportPage/>,
+        authOnly: true,
+        roles: [UserRole.MANAGER, UserRole.ADMIN, UserRole.USER]
+    },
+    [AppRoutes.REPORTS]: {
+        path: getRouteReports(),
+        element: <ReportsPage/>,
         authOnly: true,
         roles: [UserRole.MANAGER, UserRole.ADMIN, UserRole.USER]
     },

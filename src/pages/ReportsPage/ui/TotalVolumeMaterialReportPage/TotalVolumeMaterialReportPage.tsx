@@ -1,12 +1,21 @@
 import cls from './TotalVolumeMaterialReportPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import { useSelector } from 'react-redux';
-import { getTotalVolumeMaterialReportData } from '../..';
+import { getReportPageSettings, getTotalVolumeMaterialReportData } from '../..';
 import { TableGrid } from '@/shared/ui/TableGrid';
 import { Page } from '@/widgets/Page';
 import { VStack } from '@/shared/ui/Stack';
 import { totalVolumeMaterialReportKeysArr } from '@/shared/const/reportConsts';
+import { MaterialToReportTab } from '@/entities/Material';
+import {
+    fetchOrdersWithExecMaterialId
+} from '../../model/services/fetchOrdersWithExecMaterialId/fetchOrdersWithExecMaterialId';
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { useNavigate } from 'react-router-dom';
+import { getUserAuthData } from '@/entities/User';
+import { reportsPageSliceActions } from '../../model/slice/reportsPageSlice';
+import { getRouteMaterialInvolvementReport } from '@/shared/const/router';
 
 interface TotalVolumeMaterialReportPageProps {
     className?: string
@@ -14,8 +23,22 @@ interface TotalVolumeMaterialReportPageProps {
 
 export const TotalVolumeMaterialReportPage = (props: TotalVolumeMaterialReportPageProps) => {
     const { className } = props;
+    const dispatch = useAppDispatch();
     const reportData = useSelector(getTotalVolumeMaterialReportData);
+    const navigate = useNavigate();
+    const yearOfExecutionForReport = useSelector(getReportPageSettings)?.reportYear ?? '2025';
+    const userId = useSelector(getUserAuthData);
     console.log(reportData);
+
+    const onMaterialTableClick = useCallback((i: MaterialToReportTab)=>{
+        console.log(i._id);
+        userId && i._id && dispatch(fetchOrdersWithExecMaterialId({ materialId: i._id, yearOfExecution: yearOfExecutionForReport, userId: userId })).then(({ payload })=>{
+            console.log(payload);
+            Array.isArray(payload) && dispatch(reportsPageSliceActions.setOrdersWithExecMaterialIdReport(payload));
+            navigate(getRouteMaterialInvolvementReport());
+        });
+
+    },[dispatch, navigate, userId, yearOfExecutionForReport]);
 
 
 
@@ -30,6 +53,7 @@ export const TotalVolumeMaterialReportPage = (props: TotalVolumeMaterialReportPa
                             items={reportData}
                             tabKeys={totalVolumeMaterialReportKeysArr}
                             template = 'totalVolumeMaterialReportTemplate'
+                            callback={(e,i)=>onMaterialTableClick(i)}
                         />
                     </VStack>
                 </Page>
@@ -37,7 +61,7 @@ export const TotalVolumeMaterialReportPage = (props: TotalVolumeMaterialReportPa
         );
     }
 
-    return null;
+    return <div>111</div>;
 };
 
 export default memo(TotalVolumeMaterialReportPage);

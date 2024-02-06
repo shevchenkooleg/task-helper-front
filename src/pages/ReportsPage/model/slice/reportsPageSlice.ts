@@ -2,10 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ReportsPageSchema } from '../types/reportsPage';
 import { MaterialToReportTab } from '@/entities/Material';
 import { OrderExecutionType, OrderType } from '@/shared/const/addNewOrderConsts';
+import { Order } from '@/entities/Order';
+
+
 
 const initialState: ReportsPageSchema = {
     error: '',
     totalVolumeMaterialReport: [],
+    ordersWithExecMaterialIdReport: [],
     _isInit: false,
     isLoading: false,
     reportPageSettings: { reportYear: '2024', orderType: OrderType.INDEPENDENT, orderExecutionType: OrderExecutionType.PLANNED }
@@ -26,21 +30,25 @@ export const reportsPageSlice = createSlice({
         },
         setOrderExecutionType: (state, action: PayloadAction<OrderExecutionType>) => {
             state.reportPageSettings.orderExecutionType = action.payload;
+        },
+        setOrdersWithExecMaterialIdReport: (state, action:PayloadAction<Order[]>) => {
+            state.ordersWithExecMaterialIdReport = [...action.payload];
         }
     },
     extraReducers: (builder) => {
-        //builder
-        //.addCase(loginByUsername.pending, (state) => {
-        //    state.error = undefined
-        //    state.isLoading = true
-        //})
-        //.addCase(loginByUsername.fulfilled, (state) => {
-        //    state.isLoading = false
-        //})
-        //.addCase(loginByUsername.rejected, (state, action) => {
-        //    state.isLoading = false
-        //    state.error = action.payload
-        //})
+        builder;
+        //     .addCase(fetchOrdersWithExecMaterialId.pending, (state) => {
+        //         state.error = undefined;
+        //         state.isLoading = true;
+        //     })
+        //     .addCase(fetchOrdersWithExecMaterialId.fulfilled, (state, action) => {
+        //         state.isLoading = false;
+        //         state.ordersWithExecMaterialIdReport = action.payload;
+        //     });
+        //     .addCase(fetchOrdersWithExecMaterialId.rejected, (state, action) => {
+        //         state.isLoading = false;
+        //         state.error = action.payload;
+        //     });
     }
 });
 

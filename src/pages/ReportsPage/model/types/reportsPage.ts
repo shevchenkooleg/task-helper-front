@@ -1,8 +1,10 @@
 import { MaterialToReportTab } from '@/entities/Material';
+import { Order } from '@/entities/Order';
 import { OrderExecutionType, OrderType } from '@/shared/const/addNewOrderConsts';
 
 export interface ReportsPageSchema {
     totalVolumeMaterialReport: Array<MaterialToReportTab>
+    ordersWithExecMaterialIdReport: Array<Order>
     reportPageSettings: ReportsPageSetting
     isLoading: boolean
     error?: string

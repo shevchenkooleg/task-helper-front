@@ -58,6 +58,7 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
     const { theme } = useTheme();
 
     console.log('currentSortOrder ', currentSortOrder);
+    console.log('items ', items);
 
     const tabContent = (el: T, i: number) => {
 
@@ -143,27 +144,31 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
                                 </td>
                             );
                         }
-                        if (Array.isArray(el[key]) && el[key].length > 0) {
-                            console.log('el[key]-key ', el[key], key);
-                            return (
-                                <td  key={index}>
-                                    <VStack max={true} gap={'8px'}>
-                                        {el[key].map((document: T) => (
-                                            <HStack className={cls.tableCell} key={document._id} justify={'center'}>
-                                                <div className={classNames(cls.colorStripe, { [cls[document.status]]: true, [cls.opacityDark]: theme === Theme.DARK }, [cls.stripeMove])}></div>
-                                                <div className={cls.tableRowElement} style={{ height: '30px' }}>
-                                                    {
-                                                        helpMappers && document.value in helpMappers
-                                                            ? helpMappers[document.value]
-                                                            : Array.isArray(document.value) ? document.value.join(', ') : document.value
-                                                    }
-                                                </div>
-                                            </HStack>
-                                        ))}
-                                    </VStack>
-                                </td>
-                            );
-                        }
+                        try {
+                            if (Array.isArray(el[key]) && el[key].length > 0) {
+                                console.log('el[key]-key ', el[key], key);
+
+                                return (
+                                    <td  key={index}>
+                                        <VStack max={true} gap={'8px'}>
+                                            {el[key].map((document: T) => (
+                                                <HStack className={cls.tableCell} key={document._id} justify={'center'}>
+                                                    <div className={classNames(cls.colorStripe, { [cls[document.status]]: true, [cls.opacityDark]: theme === Theme.DARK }, [cls.stripeMove])}></div>
+                                                    <div className={cls.tableRowElement} style={{ height: '30px' }}>
+                                                        {
+                                                            helpMappers && document.value in helpMappers
+                                                                ? helpMappers[document.value]
+                                                                : Array.isArray(document.value) ? document.value.join(', ') : document.value
+                                                        }
+                                                    </div>
+                                                </HStack>
+                                            ))}
+                                        </VStack>
+                                    </td>
+                                );
+                            }
+                        } catch (err: any) { console.log(err);}
+
                         return (
                             <td key={index}
                                 className={classNames('', { [cls[orderStatusForColorized]]: false }, [key === 'description' ? cls.description : undefined])}>
