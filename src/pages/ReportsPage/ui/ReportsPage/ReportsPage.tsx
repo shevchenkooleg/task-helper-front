@@ -7,7 +7,7 @@ import { VStack } from '@/shared/ui/Stack';
 import { Page } from '@/widgets/Page';
 import { ReportsPageBar } from '../ReportsPageBar/ReportsPageBar';
 import { ReportsPageLayout } from '../ReportsPageLayout/ReportsPageLayout';
-import { ReportPanelContentMode } from '../../model/types/reportsPage';
+import { ReportPanelActiveTabValues, ReportPanelContentType } from '../../model/types/reportsPage';
 
 interface ReportsPageProps {
     className?: string
@@ -15,7 +15,7 @@ interface ReportsPageProps {
 
 export const ReportsPage = (props: ReportsPageProps) => {
     const { className } = props;
-    const [contentMode, setContentMode] = useState<ReportPanelContentMode>(ReportPanelContentMode.MATERIALS_REPORTS);
+    const [activeTab, setActiveTab] = useState<ReportPanelActiveTabValues>(ReportPanelActiveTabValues.MATERIALS_REPORTS);
     const reducers: ReducerList = {
         reports: reportsPageSliceReducer
     };
@@ -23,10 +23,10 @@ export const ReportsPage = (props: ReportsPageProps) => {
     return (
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
             <VStack className={cls.layout}>
-                <ReportsPageBar contentMode={contentMode} onToggle={setContentMode}/>
+                <ReportsPageBar activeTab={activeTab} onToggle={setActiveTab} contentType={ReportPanelContentType.REPORT_PAGE}/>
                 <Page data-testid={'ReportsPage'} className={classNames('', {}, [className])} max={true}>
                     <VStack max={true} gap={'8px'} align={'start'}  className={classNames(cls.ReportsPage, {}, [className])}>
-                        <ReportsPageLayout contentMode={contentMode}/>
+                        <ReportsPageLayout activeTab={activeTab}/>
                     </VStack>
                 </Page>
             </VStack>

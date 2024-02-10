@@ -6,10 +6,12 @@ import { Order } from '@/entities/Order';
 
 
 
+
+
 const initialState: ReportsPageSchema = {
     error: '',
     totalVolumeMaterialReport: [],
-    ordersWithExecMaterialIdReport: [],
+    materialInvolvementReport: [],
     _isInit: false,
     isLoading: false,
     reportPageSettings: { reportYear: '2024', orderType: OrderType.INDEPENDENT, orderExecutionType: OrderExecutionType.PLANNED }
@@ -31,8 +33,8 @@ export const reportsPageSlice = createSlice({
         setOrderExecutionType: (state, action: PayloadAction<OrderExecutionType>) => {
             state.reportPageSettings.orderExecutionType = action.payload;
         },
-        setOrdersWithExecMaterialIdReport: (state, action:PayloadAction<Order[]>) => {
-            state.ordersWithExecMaterialIdReport = [...action.payload];
+        setMaterialInvolvementReportData: (state, action:PayloadAction<Order[]>) => {
+            state.materialInvolvementReport = [...action.payload];
         }
     },
     extraReducers: (builder) => {

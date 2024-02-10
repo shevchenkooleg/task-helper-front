@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import { getUserAuthData } from '@/entities/User';
 import { reportsPageSliceActions } from '../../model/slice/reportsPageSlice';
 import { getRouteMaterialInvolvementReport } from '@/shared/const/router';
+import { MaterialInvolvementReportData } from '../../model/types/reportsPage';
 
 interface TotalVolumeMaterialReportPageProps {
     className?: string
@@ -33,8 +34,22 @@ export const TotalVolumeMaterialReportPage = (props: TotalVolumeMaterialReportPa
     const onMaterialTableClick = useCallback((i: MaterialToReportTab)=>{
         console.log(i._id);
         userId && i._id && dispatch(fetchOrdersWithExecMaterialId({ materialId: i._id, yearOfExecution: yearOfExecutionForReport, userId: userId })).then(({ payload })=>{
-            console.log(payload);
-            Array.isArray(payload) && dispatch(reportsPageSliceActions.setOrdersWithExecMaterialIdReport(payload));
+            console.log('payload ', payload);
+            const materialInvolvementReportData: Array<MaterialInvolvementReportData> = [];
+
+            Array.isArray(payload) && payload.map((order)=>{
+                materialInvolvementReportData.push({
+                    _id: order._id,
+                    orderId: order.orderId,
+                    description: order.description,
+                    yearOfExecution: order.yearOfExecution,
+                    materials: [...order.materials!.filter(material=>material.materialId === i._id )],
+                });
+            });
+            materialInvolvementReportData.forEach(order=>order.materials?.map(material=>material.materialName = i.materialName));
+            console.log('materialInvolvementReportData ', materialInvolvementReportData);
+            // Array.isArray(payload) && dispatch(reportsPageSliceActions.setMaterialInvolvementReportData(payload));
+            dispatch(reportsPageSliceActions.setMaterialInvolvementReportData(materialInvolvementReportData));
             navigate(getRouteMaterialInvolvementReport());
         });
 

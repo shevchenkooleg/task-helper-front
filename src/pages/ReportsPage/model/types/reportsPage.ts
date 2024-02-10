@@ -4,7 +4,7 @@ import { OrderExecutionType, OrderType } from '@/shared/const/addNewOrderConsts'
 
 export interface ReportsPageSchema {
     totalVolumeMaterialReport: Array<MaterialToReportTab>
-    ordersWithExecMaterialIdReport: Array<Order>
+    materialInvolvementReport: Array<Order>
     reportPageSettings: ReportsPageSetting
     isLoading: boolean
     error?: string
@@ -17,7 +17,30 @@ export interface ReportsPageSetting {
     reportYear: string
 }
 
-export enum ReportPanelContentMode {
+export enum ReportPanelActiveTabValues {
     ORDERS_REPORTS = 'orders-reports',
     MATERIALS_REPORTS = 'materials-reports'
+}
+
+export enum ReportPanelContentType {
+    REPORT_PAGE = 'report-page',
+    TOTAL_VOLUME_MATERIAL_REPORT = 'total-volume-material',
+    MATERIAL_INVOLVEMENT_REPORT = 'material-involvement'
+}
+
+export interface MaterialInvolvementReportData {
+    _id?: string
+    orderId?: string
+    description?: string
+    yearOfExecution?: string
+    materials?: Array<MaterialForMaterialInvolvementReport>
+
+}
+
+export interface MaterialForMaterialInvolvementReport {
+    materialId?: string
+    quantityPerUnit?: string
+    totalUnitsCount?: string
+    totalQuantity?: string
+    materialName?: string
 }

@@ -81,11 +81,6 @@ export enum OrdersSortField {
     ORDER_ID = 'orderId',
     EXECUTE_ID = 'executeId',
     ORDER_STATUS = 'orderStatus',
-    CORRECTION_ID = 'correctionId',
-    CONSIGNMENT_NOTE_ID = 'consignmentNoteId',
-    BILL_OF_QUANTITIES = 'billOfQuantities',
-    KS2_ID = 'KS2Id',
-    WRITE_OF_ACT_ID = 'writeOffActId',
     YEAR_OF_EXECUTION = 'yearOfExecution',
 }
 

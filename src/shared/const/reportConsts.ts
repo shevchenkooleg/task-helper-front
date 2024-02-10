@@ -1,3 +1,4 @@
+import { OrderTabHeaderKeys } from './orderConsts';
 
 export enum TotalVolumeMaterialReportKeys {
     MATERIAL_NAME = 'materialName',
@@ -19,4 +20,12 @@ export const totalVolumeMaterialReportKeysArr = [
     TotalVolumeMaterialReportKeys.FULL_VOLUME,
     TotalVolumeMaterialReportKeys._ID,
     TotalVolumeMaterialReportKeys.__V,
+];
+
+export const MaterialInvolvementReportTabHeaderKeysArr = [
+    OrderTabHeaderKeys.SERIAL_NUMBER,
+    OrderTabHeaderKeys.ORDER_ID,
+    OrderTabHeaderKeys.DESCRIPTION,
+    OrderTabHeaderKeys.YEAR_OF_EXECUTION,
+    'materials'
 ];

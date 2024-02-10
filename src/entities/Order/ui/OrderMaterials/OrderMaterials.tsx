@@ -11,6 +11,7 @@ import { getOrderDetailsEditMode } from '../../model/selectors/getEditMode/getOr
 import { AddMaterialToOrderModal, materialToOrderSliceActions } from '@/features/addMatarialToOrder';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { ModalMode } from '@/shared/const/modalConst';
+import { getOrderFormData } from '../../model/selectors/getOrderFormData/getOrderFormData';
 
 interface OrderMaterialsProps {
     className?: string
@@ -20,6 +21,7 @@ export const OrderMaterials = memo((props: OrderMaterialsProps) => {
     const { className } = props;
     const editMode = useSelector(getOrderDetailsEditMode);
     const dispatch = useAppDispatch();
+    const materialsForOrderForRendering = useSelector(getOrderFormData)?.materials?.map(el=>el);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [copyMaterialMode, setCopyMaterialMode] = useState(false);
@@ -67,7 +69,10 @@ export const OrderMaterials = memo((props: OrderMaterialsProps) => {
 
                 }
             </HStack>
-            <OrderMaterialsTable onOpen={onModalOpen} copyMaterialMode={copyMaterialMode}/>
+            { materialsForOrderForRendering &&  materialsForOrderForRendering.length > 0
+                ? <OrderMaterialsTable onOpen={onModalOpen} copyMaterialMode={copyMaterialMode}/>
+                : <div>Материалы для данного заказа отсутствуют</div>
+            }
             <AddMaterialToOrderModal isOpen={isModalOpen} onClose={onModalClose} mode={modalMode}/>
         </VStack>
     );

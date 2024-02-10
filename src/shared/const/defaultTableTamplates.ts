@@ -43,5 +43,12 @@ export const DefaultTableTemplatesObject: Record<string, Record<string, string>>
         [TotalVolumeMaterialReportKeys.FULL_VOLUME]: '1fr',
         [TotalVolumeMaterialReportKeys._ID]: '2fr',
         [TotalVolumeMaterialReportKeys.__V]: '1fr',
+    },
+    ['materialInvolvementReportTemplate']: {
+        [OrderTabHeaderKeys.SERIAL_NUMBER]: '1fr',
+        [OrderTabHeaderKeys.ORDER_ID]: '1fr',
+        [OrderTabHeaderKeys.DESCRIPTION]: '5fr',
+        [OrderTabHeaderKeys.YEAR_OF_EXECUTION]: '1fr',
+        ['materials']: '10fr'
     }
 };

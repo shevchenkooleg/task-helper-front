@@ -3,21 +3,36 @@ import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo } from 'react';
 
 
-import { ReportPanelContentMode } from '../../model/types/reportsPage';
+import { ReportPanelActiveTabValues, ReportPanelContentType } from '../../model/types/reportsPage';
 import { MaterialsReportPage } from '../MaterialsReportsPage/MaterialsReportPage';
+import { useSearchParams } from 'react-router-dom';
+import { TotalVolumeMaterialReportPage } from '../../index';
+import { MaterialInvolvementReportPage } from '../../index';
 
 
 
 interface ReportsPageLayoutProps {
     className?: string
-    contentMode?: ReportPanelContentMode
+    activeTab?: ReportPanelActiveTabValues
 }
 
 export const ReportsPageLayout = memo((props: ReportsPageLayoutProps) => {
-    const { className, contentMode = ReportPanelContentMode.ORDERS_REPORTS } = props;
+    const { className, activeTab = ReportPanelActiveTabValues.ORDERS_REPORTS } = props;
+    
+    const [searchParams] = useSearchParams();
+    const contentType = searchParams.get('content-type');
 
+    console.log(contentType);
 
-    if (contentMode === ReportPanelContentMode.MATERIALS_REPORTS){
+    if (contentType === ReportPanelContentType.TOTAL_VOLUME_MATERIAL_REPORT){
+        return <TotalVolumeMaterialReportPage/>;
+    }
+
+    if (contentType === ReportPanelContentType.MATERIAL_INVOLVEMENT_REPORT){
+        return <MaterialInvolvementReportPage/>;
+    }
+
+    if (activeTab === ReportPanelActiveTabValues.MATERIALS_REPORTS){
         return <MaterialsReportPage/>;
     }
     
