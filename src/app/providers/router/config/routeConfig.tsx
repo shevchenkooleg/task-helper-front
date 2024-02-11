@@ -4,12 +4,11 @@ import {
     getRouteAbout,
     getRouteAdminPanel,
     getRouteMain,
-    getRouteMaterialDetails, getRouteMaterialInvolvementReport,
+    getRouteMaterialDetails,
     getRouteMaterials,
     getRouteOrderDetails,
     getRouteOrders,
-    getRouteReports,
-    getRouteTotalVolumeMaterialReport
+    getRouteReports
 } from '@/shared/const/router';
 import { AppRoutesProps } from '@/shared/types/router';
 import { AboutPage } from '@/pages/AboutPage';
@@ -20,10 +19,9 @@ import { OrdersPage } from '@/pages/OrdersPage';
 import { OrderDetailsPage } from '@/pages/OrderDetailsPage';
 import { MaterialsPage } from '@/pages/MaterialsPage';
 import { MaterialDetailsPage } from '@/pages/MaterialDetailsPage';
-import { ReportsPage, TotalVolumeMaterialReportPage } from '@/pages/ReportsPage';
-import {
-    MaterialInvolvementReportPage
-} from '@/pages/ReportsPage';
+import { ReportsPage } from '@/pages/ReportsPage';
+
+
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     [AppRoutes.ABOUT]: {
@@ -65,20 +63,20 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         authOnly: true,
         roles: [UserRole.MANAGER, UserRole.ADMIN, UserRole.USER]
     },
-    [AppRoutes.MATERIAL_INVOLVEMENT_REPORT]: {
-        path: getRouteMaterialInvolvementReport(),
-        element: <MaterialInvolvementReportPage/>,
-        authOnly: true,
-        roles: [UserRole.MANAGER, UserRole.ADMIN, UserRole.USER]
-    },
-    [AppRoutes.TOTAL_VOLUME_MATERIAL_REPORT]: {
-        path: getRouteTotalVolumeMaterialReport(),
-        element: <TotalVolumeMaterialReportPage/>,
-        authOnly: true,
-        roles: [UserRole.MANAGER, UserRole.ADMIN, UserRole.USER]
-    },
+    // [AppRoutes.MATERIAL_INVOLVEMENT_REPORT]: {
+    //     path: getRouteMaterialInvolvementReport(),
+    //     element: <MaterialInvolvementReportPage/>,
+    //     authOnly: true,
+    //     roles: [UserRole.MANAGER, UserRole.ADMIN, UserRole.USER]
+    // },
+    // [AppRoutes.TOTAL_VOLUME_MATERIAL_REPORT]: {
+    //     path: getRouteTotalVolumeMaterialReport(),
+    //     element: <TotalVolumeMaterialReportPage/>,
+    //     authOnly: true,
+    //     roles: [UserRole.MANAGER, UserRole.ADMIN, UserRole.USER]
+    // },
     [AppRoutes.REPORTS]: {
-        path: getRouteReports(),
+        path: getRouteReports(':contentType'),
         element: <ReportsPage/>,
         authOnly: true,
         roles: [UserRole.MANAGER, UserRole.ADMIN, UserRole.USER]

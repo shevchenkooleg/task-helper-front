@@ -40,7 +40,7 @@ export const getSidebarItems = createSelector(
                 authOnly: true
             });
             sidebarItemsList.push({
-                path: getRouteReports(),
+                path: getRouteReports('report-page'),
                 text: 'Отчеты',
                 Icon: ReportsPageIcon,
                 authOnly: true

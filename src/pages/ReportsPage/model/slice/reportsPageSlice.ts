@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ReportsPageSchema } from '../types/reportsPage';
+import { ReportsPageSchema, ReportsPageSetting } from '../types/reportsPage';
 import { MaterialToReportTab } from '@/entities/Material';
 import { OrderExecutionType, OrderType } from '@/shared/const/addNewOrderConsts';
 import { Order } from '@/entities/Order';
@@ -14,7 +14,7 @@ const initialState: ReportsPageSchema = {
     materialInvolvementReport: [],
     _isInit: false,
     isLoading: false,
-    reportPageSettings: { reportYear: '2024', orderType: OrderType.INDEPENDENT, orderExecutionType: OrderExecutionType.PLANNED }
+    reportPageSettings: { } as ReportsPageSetting
 };
 
 export const reportsPageSlice = createSlice({

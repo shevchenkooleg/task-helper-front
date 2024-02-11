@@ -25,6 +25,8 @@ export const getOrdersList = createAsyncThunk<Order[], GetOrdersListQueryParams,
         const orderType = getOrdersListQueryParams.orderType ?? 'any';
         const orderExecutionType = getOrdersListQueryParams.orderExecutionType ?? 'any';
 
+        console.log('getOrdersListQueryParams ', getOrdersListQueryParams);
+
         const queryParams = addQueryFilterStatus(
             {
                 sort: OrderSortQueryMapper[sort],

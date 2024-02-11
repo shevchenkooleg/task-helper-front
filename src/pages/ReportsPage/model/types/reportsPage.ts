@@ -33,6 +33,8 @@ export interface MaterialInvolvementReportData {
     orderId?: string
     description?: string
     yearOfExecution?: string
+    orderType?: OrderType
+    orderExecutionType?: OrderExecutionType
     materials?: Array<MaterialForMaterialInvolvementReport>
 
 }

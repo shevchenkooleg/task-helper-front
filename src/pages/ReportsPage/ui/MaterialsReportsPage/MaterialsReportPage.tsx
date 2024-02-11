@@ -1,14 +1,9 @@
 import cls from './MaterialsReportPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo, useCallback } from 'react';
-import { getOrdersList } from '@/features/getOrdersList';
-import { defaultOrdersStatusFilterValue } from '@/shared/const/orderConsts';
-import { MaterialToOrderTab } from '@/entities/Material';
-import {
-    fetchManyMaterialsByArrayID
-} from '../../model/services/fetchManyMaterialsByArrayID/fetchManyMaterialsByArrayID';
+
+
 import { reportsPageSliceActions } from '../../model/slice/reportsPageSlice';
-import { getRouteTotalVolumeMaterialReport } from '@/shared/const/router';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { BoundaryLine } from '@/shared/ui/BoundaryLine/BoundaryLine';
 import { ListBox } from '@/shared/ui/Popups';
@@ -22,10 +17,11 @@ import { orderExecutionTypeOptions, orderTypeOptions } from '@/shared/const/orde
 import { Button, ButtonTheme } from '@/shared/ui/Button';
 import { Input } from '@/shared/ui/Input';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getReportPageSettings } from '../..';
-import { precisionRound } from '@/shared/lib/precisionRound/precisionRound';
+import { getRouteReports } from '@/shared/const/router';
+import { addQueryParams } from '@/shared/lib/url/addQueryParams/addQueryParams';
 
 interface MaterialsReportPageProps {
     className?: string
@@ -35,10 +31,11 @@ export const MaterialsReportPage = memo((props: MaterialsReportPageProps) => {
     const { className } = props;
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
     const reportSettings = useSelector(getReportPageSettings);
-    const reportYear = reportSettings?.reportYear ?? '2024';
-    const orderTypeValue = reportSettings?.orderType ?? OrderType.INDEPENDENT;
-    const orderExecutionTypeValue = reportSettings?.orderExecutionType ?? OrderExecutionType.PLANNED;
+    const reportYear = reportSettings?.reportYear ?? searchParams.get('yearOfExecution') ?? '2024';
+    const orderTypeValue = reportSettings?.orderType || searchParams.get('orderType') || OrderType.INDEPENDENT;
+    const orderExecutionTypeValue = reportSettings?.orderExecutionType || searchParams.get('orderExecutionType') || OrderExecutionType.PLANNED;
 
     const updateReportYear = useCallback((newValue: string) => {
         dispatch(reportsPageSliceActions.setReportYear(newValue));
@@ -51,64 +48,21 @@ export const MaterialsReportPage = memo((props: MaterialsReportPageProps) => {
     }, [dispatch]);
 
     const onTotalMaterialsReportButtonClickHandler = (useCallback(() => {
-
-        const orders = dispatch(getOrdersList({
-            yearOfExecution: reportYear,
-            orderStatusFilterFields: defaultOrdersStatusFilterValue,
-            orderType: orderTypeValue,
-            orderExecutionType: orderExecutionTypeValue
-        }));
-
-        orders.then((response) => {
-            const ordersList = response.payload;
-            if (ordersList && Array.isArray(ordersList) && ordersList?.length > 0) {
-                const materialArr: Array<MaterialToOrderTab> = [];
-                ordersList.forEach((el) => {
-                    if (el.materials && el.materials.length > 0) {
-                        el.materials.forEach(material => {
-                            materialArr.push(material);
-                        });
-                    }
-                });
-                // console.log('materialArr ', materialArr);
-                const totalMaterial: {
-                    [key: string]: number
-                } = {};
-                materialArr.forEach(material => {
-                    if (material.materialId && material.totalQuantity) {
-                        if (totalMaterial[material.materialId]) {
-                            totalMaterial[material.materialId] = totalMaterial[material.materialId] + Number(material.totalQuantity);
-                        } else {
-                            totalMaterial[material.materialId] = Number(material.totalQuantity);
-                        }
-                    }
-                });
-                return totalMaterial;
-            }
-            return undefined;
-        }).then(totalMaterial => {
-            if (totalMaterial) {
-                dispatch(fetchManyMaterialsByArrayID(Object.keys(totalMaterial))).then((response) => {
-                    // console.log(response.payload);
-                    // console.log('totalMaterial ', totalMaterial);
-                    if (Array.isArray(response.payload)) {
-                        const totalMaterialReport = Object.values(response.payload);
-                        totalMaterialReport.forEach(el => {
-                            if (el._id) {
-                                el.totalVolume = String(precisionRound((totalMaterial[el._id]),3));
-                            }
-                        });
-                        // console.log('totalMaterialReport ', totalMaterialReport);
-                        return totalMaterialReport;
-                    }
-                }).then(report => {
-                    // console.log('report ', report);
-                    report && dispatch(reportsPageSliceActions.setTotalVolumeMaterialReport(report));
-                    navigate(getRouteTotalVolumeMaterialReport());
-                });
-            }
-        });
-    }, [dispatch, navigate, orderExecutionTypeValue, orderTypeValue, reportYear]));
+        const params = {
+            ['yearOfExecution']: reportYear,
+            ['orderType']: orderTypeValue,
+            ['orderExecutionType']: orderExecutionTypeValue
+        };
+        addQueryParams(params);
+        // dispatch(reportsPageSliceActions.setReportYear(reportYear));
+        // dispatch(reportsPageSliceActions.setOrderType(orderTypeValue as OrderType));
+        // dispatch(reportsPageSliceActions.setOrderExecutionType(orderExecutionTypeValue as OrderExecutionType));
+        // console.log('reportYear ', reportYear);
+        // console.log('orderTypeValue ', orderTypeValue);
+        // console.log('orderExecutionTypeValue ', orderExecutionTypeValue);
+        // setTimeout(()=>{navigate(getRouteReports('total-volume-material'));});
+        navigate(getRouteReports('total-volume-material'), { state: { queryParams: params } });
+    }, [navigate, orderExecutionTypeValue, orderTypeValue, reportYear]));
 
 
     return (
@@ -120,13 +74,13 @@ export const MaterialsReportPage = memo((props: MaterialsReportPageProps) => {
                     <div>Использование материалов по заказам с характеристиками:</div>
                     <ListBox
                         onChange={orderTypeValueChange}
-                        value={orderTypeMapper[orderTypeValue]}
+                        value={orderTypeMapper[orderTypeValue as OrderType]}
                         items={orderTypeOptions}
                         buttonTheme={ButtonTheme.CLEAR}
                     />
                     <ListBox
                         onChange={orderExecutionTypeValueChange}
-                        value={orderExecutionTypeMapper[orderExecutionTypeValue]}
+                        value={orderExecutionTypeMapper[orderExecutionTypeValue as OrderExecutionType]}
                         items={orderExecutionTypeOptions}
                         buttonTheme={ButtonTheme.CLEAR}
                     />

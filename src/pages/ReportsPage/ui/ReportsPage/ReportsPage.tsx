@@ -8,6 +8,7 @@ import { Page } from '@/widgets/Page';
 import { ReportsPageBar } from '../ReportsPageBar/ReportsPageBar';
 import { ReportsPageLayout } from '../ReportsPageLayout/ReportsPageLayout';
 import { ReportPanelActiveTabValues, ReportPanelContentType } from '../../model/types/reportsPage';
+import { useLocation } from 'react-router-dom';
 
 interface ReportsPageProps {
     className?: string
@@ -19,6 +20,8 @@ export const ReportsPage = (props: ReportsPageProps) => {
     const reducers: ReducerList = {
         reports: reportsPageSliceReducer
     };
+    const contentType = useLocation().pathname.split('/').reverse()[0] as ReportPanelContentType;
+
 
     return (
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
@@ -26,7 +29,7 @@ export const ReportsPage = (props: ReportsPageProps) => {
                 <ReportsPageBar activeTab={activeTab} onToggle={setActiveTab} contentType={ReportPanelContentType.REPORT_PAGE}/>
                 <Page data-testid={'ReportsPage'} className={classNames('', {}, [className])} max={true}>
                     <VStack max={true} gap={'8px'} align={'start'}  className={classNames(cls.ReportsPage, {}, [className])}>
-                        <ReportsPageLayout activeTab={activeTab}/>
+                        <ReportsPageLayout activeTab={activeTab} contentType={contentType}/>
                     </VStack>
                 </Page>
             </VStack>
