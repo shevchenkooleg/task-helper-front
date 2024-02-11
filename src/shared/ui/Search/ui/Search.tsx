@@ -9,10 +9,11 @@ import { useDebounce } from '@/shared/lib/hooks/useDebounce/useDebounce';
 interface SearchProps {
     className?: string
     callBack?: (item:string)=> void
+    placeholder?: string
 }
 
 export const Search = memo((props: SearchProps) => {
-    const { className, callBack } = props;
+    const { className, callBack, placeholder } = props;
     const [searchValue, setSearchValue] = useState('');
 
     const debounceSearchCallback = useDebounce(
@@ -45,7 +46,7 @@ export const Search = memo((props: SearchProps) => {
     return (
         <HStack gap={'12px'} className={classNames(cls.Search, {}, [className])}>
             <Icon Svg={SearchIcon}/>
-            <input className={cls.input} placeholder={'Поиск по заказам'} value={searchValue} onChange={onChangeHandler}/>
+            <input className={cls.input} placeholder={placeholder} value={searchValue} onChange={onChangeHandler}/>
         </HStack>
     );
 });

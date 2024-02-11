@@ -29,7 +29,7 @@ export const MaterialsPageToolsPanel = memo((props: MaterialsPageToolsPanelProps
             className={classNames(cls.MaterialsPageToolsPanel, {}, [className])}>
             <HStack gap={'32px'}>
                 <Text text={'Material Filters block'}/>
-                <Search callBack={searchCallBack}/>
+                <Search callBack={searchCallBack} placeholder={'Поиск по материалам'}/>
             </HStack>
             <HStack gap={'32px'}>
                 <Button onClick={refreshMaterialsCallback}>загрузить материалы</Button>

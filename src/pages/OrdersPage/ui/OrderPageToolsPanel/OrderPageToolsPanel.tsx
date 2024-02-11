@@ -40,7 +40,7 @@ export const OrderPageToolsPanel = memo((props: OrderPageToolsPanelProps) => {
             <HStack gap={'32px'}>
                 <OrdersYearsOfExecutionSelect/>
                 <OrderStatusFilter/>
-                <Search callBack={searchCallBack}/>
+                <Search callBack={searchCallBack} placeholder={'Поиск по заказам'}/>
             </HStack>
             <HStack gap={'4px'}>
                 <Button onClick={refreshOrdersCallback} theme={ButtonTheme.CLEAR}>{<Icon Svg={RefreshIcon}/>}</Button>
