@@ -1,20 +1,19 @@
 import cls from './OrderPageToolsPanel.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { memo, useState } from 'react';
+import { memo, useCallback } from 'react';
 import { HStack } from '@/shared/ui/Stack';
 import { Button, ButtonTheme } from '@/shared/ui/Button';
 
 
 import { OrderStatusFilter } from '../OrderStatusFilter/OrderStatusFilter';
 import { OrdersYearsOfExecutionSelect } from '../OrdersYearsOfExecutionSelect/OrdersYearsOfExecutionSelect';
-import { useSelector } from 'react-redux';
-import { getSearchValue, orderListFiltersSliceActions } from '@/features/orderListFilters';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { OrderSearch } from '../OrderSearch/OrderSearch';
 import AddCircleIcon from '@/shared/assets/icons/AddCircleIcon2.svg';
 import RefreshIcon from '@/shared/assets/icons/RefreshIcon3.svg';
 import SettingsIcon from '@/shared/assets/icons/SettingsIcon2.svg';
 import { Icon } from '@/shared/ui/Icon';
+import { ordersPageSliceActions } from '../..';
+import { Search } from '@/shared/ui/Search';
 
 
 interface OrderPageToolsPanelProps {
@@ -27,14 +26,10 @@ interface OrderPageToolsPanelProps {
 export const OrderPageToolsPanel = memo((props: OrderPageToolsPanelProps) => {
     const { className, addOrderCallback, refreshOrdersCallback, orderPanelSettingsClickCallback = ()=> {
         console.log('settings');} } = props;
-    const searchValue = useSelector(getSearchValue) ?? '';
     const dispatch = useAppDispatch();
-    const [searchQuery, setSearchQuery] = useState('');
-
-
-    const onChange = (newValue: string) => {
-        dispatch(orderListFiltersSliceActions.setSearchValue(newValue));
-    };
+    const searchCallBack = useCallback((item: string)=>{
+        dispatch(ordersPageSliceActions.searchInOrders(item));
+    },[dispatch]);
 
     return (
         <HStack
@@ -45,11 +40,7 @@ export const OrderPageToolsPanel = memo((props: OrderPageToolsPanelProps) => {
             <HStack gap={'32px'}>
                 <OrdersYearsOfExecutionSelect/>
                 <OrderStatusFilter/>
-                <OrderSearch
-                    searchQuery={searchQuery}
-                    setSearchQuery={setSearchQuery}
-                />
-                {/*<Search value={searchValue} onChange={onChange}/>*/}
+                <Search callBack={searchCallBack}/>
             </HStack>
             <HStack gap={'4px'}>
                 <Button onClick={refreshOrdersCallback} theme={ButtonTheme.CLEAR}>{<Icon Svg={RefreshIcon}/>}</Button>

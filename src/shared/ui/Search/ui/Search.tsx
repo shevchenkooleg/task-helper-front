@@ -1,29 +1,41 @@
 import cls from './Search.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { ChangeEvent, memo, useCallback, useEffect } from 'react';
+import { ChangeEvent, memo, useCallback, useEffect, useState } from 'react';
 import { Icon } from '../../Icon';
 import SearchIcon from '../../../assets/icons/SearchLight.svg';
 import { HStack } from '../../Stack';
+import { useDebounce } from '@/shared/lib/hooks/useDebounce/useDebounce';
 
 interface SearchProps {
     className?: string
-    value?: string
-    onChange?: (newValue: string) => void
+    callBack?: (item:string)=> void
 }
 
 export const Search = memo((props: SearchProps) => {
-    const { className, value, onChange } = props;
+    const { className, callBack } = props;
+    const [searchValue, setSearchValue] = useState('');
+
+    const debounceSearchCallback = useDebounce(
+        (item: string) => {
+            console.log('search', item);
+            callBack && callBack(item);
+        },
+        1000);
+
+    useEffect(()=>{
+        debounceSearchCallback && debounceSearchCallback(searchValue);
+    },[debounceSearchCallback, searchValue]);
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        onChange && onChange(e.currentTarget.value);
+        setSearchValue && setSearchValue(e.currentTarget.value);
     };
 
 
     const onEnterKeyPress = useCallback((e: KeyboardEvent) => {
         if (e.key === 'Enter') {
-            value && console.log('search');
+            searchValue && console.log('search');
         }
-    }, [value]);
+    }, [searchValue]);
 
     useEffect(() => {
         window.addEventListener('keydown', onEnterKeyPress);
@@ -33,7 +45,7 @@ export const Search = memo((props: SearchProps) => {
     return (
         <HStack gap={'12px'} className={classNames(cls.Search, {}, [className])}>
             <Icon Svg={SearchIcon}/>
-            <input className={cls.input} placeholder={'Поиск по заказам'} value={value} onChange={onChangeHandler}/>
+            <input className={cls.input} placeholder={'Поиск по заказам'} value={searchValue} onChange={onChangeHandler}/>
         </HStack>
     );
 });
