@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { TokenResponseInterface, userActions } from '@/entities/User';
 import { USER_REFRESH_TOKEN_LOCALSTORAGE_KEY, USER_TOKEN_LOCALSTORAGE_KEY } from '@/shared/const/localStorage';
 import { type ThunkConfig } from '@/app/providers/StoreProvider';
-import { getUserInfo } from '../../..';
+import { getUserInfo } from '../getUserInfo/getUserInfo';
 
 
 interface loginByUsernameProps {

@@ -8,7 +8,7 @@ import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitial
 import { ReducerList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import {
     fetchOrderById,
-    getOrderDetaildIsLoading, getOrderDetailsEditMode,
+    getOrderDetailIsLoading, getOrderDetailsEditMode,
     orderDetailsSliceActions,
     orderDetailsSliceReducer, updateOrderById
 } from '@/entities/Order';
@@ -29,7 +29,7 @@ const OrderDetailsPage = memo((props: OrderDetailsPageProps) => {
     const dispatch = useAppDispatch();
     const { orderId } = useParams();
     const navigate = useNavigate();
-    const isLoading = useSelector(getOrderDetaildIsLoading);
+    const isLoading = useSelector(getOrderDetailIsLoading);
     const editMode = useSelector(getOrderDetailsEditMode);
 
     useInitialEffect(()=>{

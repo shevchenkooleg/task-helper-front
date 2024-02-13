@@ -14,7 +14,7 @@ export { getOrderDetailsEditMode } from './model/selectors/getEditMode/getOrderD
 export { getOrderFormExecutions } from './model/selectors/getOrderFormExecutions/getOrderFormExecutions';
 export { getOrderId } from './model/selectors/getOrderId/getOrderId';
 export { orderDetailsSliceActions } from './model/slice/orderDetailsSlice';
-export { getOrderDetaildIsLoading } from './model/selectors/getOrderDetaildIsLoading/getOrderDetaildIsLoading';
+export { getOrderDetailIsLoading } from './model/selectors/getOrderDetaildIsLoading/getOrderDetailIsLoading';
 export { BillOfQuantitiesStatus } from '@/shared/const/orderConsts';
 export { OrderStatus } from '@/shared/const/orderConsts';
 // export { OrderInformation } from './ui/OrderInformation/OrderInformation';
