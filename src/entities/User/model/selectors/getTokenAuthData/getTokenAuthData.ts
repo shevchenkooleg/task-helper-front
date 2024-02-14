@@ -1,5 +1,5 @@
-import { type StateSchema } from '@/app/providers/StoreProvider';
+import { StateSchema } from '@/app/providers/StoreProvider';
 
 export const getTokenAuthData = (state: StateSchema) => {
-    return state.user.tokenAuthData?.access_token;
+    return state.user?.tokenAuthData?.access_token;
 };
