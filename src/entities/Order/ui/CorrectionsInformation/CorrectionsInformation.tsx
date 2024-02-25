@@ -44,16 +44,10 @@ export const CorrectionsInformation = memo((props: CorrectionsInformationProps) 
         dispatch(deleteInnerDocument({ orderId: orderFormData?._id ?? '',operationType: 'deleteConsignment',  documentId:consignmentNoteId }));
     },[dispatch, orderFormData?._id]);
     const onChangeMaterialCorrection = useCallback((correctionId: string, newCorrection: OrderMaterialCorrectionInterface)=>{
-        dispatch(orderDetailsSliceActions.updateOrderFormCorrection({
-            correctionId: correctionId,
-            correction: newCorrection
-        }));
+        dispatch(orderDetailsSliceActions.updateOrderFormCorrection(newCorrection));
     },[dispatch]);
     const onChangeConsignmentNote = useCallback((consignmentNoteId: string, newConsignmentNote: OrderConsignmentNoteInterface)=>{
-        dispatch(orderDetailsSliceActions.updateOrderConsignmentNote({
-            consignmentNoteId: consignmentNoteId,
-            consignmentNote: newConsignmentNote
-        }));
+        dispatch(orderDetailsSliceActions.updateOrderConsignmentNote(newConsignmentNote));
     },[dispatch]);
 
 

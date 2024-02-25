@@ -44,15 +44,13 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
 
     const onChangeExecuteId = useCallback((newValue?: string) => {
         execution && dispatch(orderDetailsSliceActions.updateOrderFormExecution({
-            executionId: execution?._id,
-            execution: { ...execution, value: newValue ?? '' }
+            ...execution, value: newValue ?? ''
         }));
     }, [dispatch, execution]);
 
     const onExecutingStatusChange = useCallback((newStatus: ExecutionStatus)=>{
         execution && dispatch(orderDetailsSliceActions.updateOrderFormExecution({
-            executionId: execution?._id,
-            execution: { ...execution, status: newStatus ?? ExecutionStatus.EXECUTING }
+            ...execution, status: newStatus ?? ExecutionStatus.EXECUTING
         }));
     },[dispatch, execution]);
 
@@ -72,12 +70,12 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
         orderId && dispatch(deleteInnerDocument({ orderId, operationType: 'deleteWriteOffDocument', documentId: documentId }));
     },[dispatch, orderId]);
 
-    const onChangeKS2DataCardValue = useCallback((newKS2: KS2DocumentInterface, KS2Id: string)=>{
-        dispatch(orderDetailsSlice.actions.updateExecutionKS2Card({ KS2: newKS2, KS2Id }));
+    const onChangeKS2DataCardValue = useCallback((newKS2: KS2DocumentInterface)=>{
+        dispatch(orderDetailsSlice.actions.updateExecutionKS2Card(newKS2));
     },[dispatch]);
 
-    const onChangeWriteOffDataCardValue = useCallback((newWriteOffDocument: WriteOffDocumentInterface, writeOffDocumentId: string)=>{
-        dispatch(orderDetailsSlice.actions.updateExecutionWriteOffCard({ writeOffDocument: newWriteOffDocument, writeOffDocumentId }));
+    const onChangeWriteOffDataCardValue = useCallback((newWriteOffDocument: WriteOffDocumentInterface)=>{
+        dispatch(orderDetailsSlice.actions.updateExecutionWriteOffCard(newWriteOffDocument));
     },[dispatch]);
 
     return (

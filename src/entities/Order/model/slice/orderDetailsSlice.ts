@@ -33,49 +33,44 @@ export const orderDetailsSlice = createSlice({
                 ...action.payload
             };
         },
-        updateOrderFormExecution: (state, action: PayloadAction<{execution: OrderExecutionInterface, executionId: string}>) => {
+        updateOrderFormExecution: (state, action: PayloadAction<OrderExecutionInterface>) => {
             state.form = {
                 ...state.form,
                 executions: state.form.executions && state.form.executions
-                    .map(ex=> ex._id === action.payload.executionId ? action.payload.execution : ex)
+                    .map(ex=> ex._id === action.payload._id ? action.payload : ex)
             };
         },
-        updateOrderFormCorrection: (state, action:PayloadAction<{correction: OrderMaterialCorrectionInterface, correctionId: string}>) => {
+        updateOrderFormCorrection: (state, action:PayloadAction<OrderMaterialCorrectionInterface>) => {
             state.form = {
                 ...state.form,
                 materialCorrections: state.form.materialCorrections && state.form.materialCorrections
-                    .map(correction=>correction._id === action.payload.correctionId ? action.payload.correction : correction)
+                    .map(correction=>correction._id === action.payload._id ? action.payload : correction)
             };
         },
-        updateOrderConsignmentNote: (state, action:PayloadAction<{consignmentNote: OrderConsignmentNoteInterface, consignmentNoteId: string}>) => {
+        updateOrderConsignmentNote: (state, action:PayloadAction<OrderConsignmentNoteInterface>) => {
             state.form = {
                 ...state.form,
                 consignmentNotes: state.form.consignmentNotes && state.form.consignmentNotes
-                    .map(consignmentNote=>consignmentNote._id === action.payload.consignmentNoteId ? action.payload.consignmentNote : consignmentNote)
+                    .map(consignmentNote=>consignmentNote._id === action.payload._id ? action.payload : consignmentNote)
             };
         },
-        updateExecutionKS2Card: (state, action:PayloadAction<{KS2: KS2DocumentInterface, KS2Id: string}>) => {
+        updateExecutionKS2Card: (state, action:PayloadAction<KS2DocumentInterface>) => {
             state.form = {
                 ...state.form,
                 KS2Documents: state.form.KS2Documents && state.form.KS2Documents
-                    .map(KS2Document=>KS2Document._id === action.payload.KS2Id ? action.payload.KS2 : KS2Document)
+                    .map(KS2Document=>KS2Document._id === action.payload._id ? action.payload : KS2Document)
             };
         },
-        updateExecutionWriteOffCard: (state, action:PayloadAction<{writeOffDocument: WriteOffDocumentInterface, writeOffDocumentId: string}>) => {
+        updateExecutionWriteOffCard: (state, action:PayloadAction<WriteOffDocumentInterface>) => {
             state.form = {
                 ...state.form,
                 writeOffDocuments: state.form.writeOffDocuments && state.form.writeOffDocuments
-                    .map(writeOffDocument=>writeOffDocument._id === action.payload.writeOffDocumentId ? action.payload.writeOffDocument : writeOffDocument)
+                    .map(writeOffDocument=>writeOffDocument._id === action.payload._id ? action.payload : writeOffDocument)
             };
         },
-
-
-
-
         setEditMode: (state, action: PayloadAction<boolean>)=>{
             state.editMode = action.payload;
         },
-
         rollBackForm: (state)=>{
             state.form = { ...state.order };
         },
