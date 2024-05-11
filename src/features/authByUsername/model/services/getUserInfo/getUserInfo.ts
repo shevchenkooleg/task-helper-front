@@ -7,7 +7,7 @@ export const getUserInfo = createAsyncThunk<UserInfoResponseInterface, string | 
     'auth/getUserInfo',
     async (token, thunkAPI) => {
         const { dispatch, rejectWithValue, extra } = thunkAPI;
-        await dispatch(userActions.initAuthData());
+        //await dispatch(userActions.initAuthData());
 
         const accessToken = thunkAPI.getState().user!.tokenAuthData!.access_token ?? token;
         console.log('accessToken ', accessToken);

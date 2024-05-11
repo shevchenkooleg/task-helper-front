@@ -53,13 +53,13 @@ export enum BillOfQuantitiesStatus {
 
 
 export const orderDocumentsStatusMapper: Record<OrderDocumentsStatus, string> = {
-    [OrderDocumentsStatus.ON_CLEARANCE]: 'Документ на оформлении',
-    [OrderDocumentsStatus.WAITING_FOR_EC]: 'Документ ожидает отправку в СЦ',
-    [OrderDocumentsStatus.AGREEMENT_IN_EC]: 'Документ в СЦ на согласовании',
-    [OrderDocumentsStatus.AWAITING_SIGNING]: 'Документ распечатан, виза СЦ, ожидает подписания',
-    [OrderDocumentsStatus.SUBMITTED_FOR_SIGNING]: 'Документ передан для подписания в АБК',
-    [OrderDocumentsStatus.READY_TO_TRANSFER]: 'Документ подписан, готов к передаче в ОЦО',
-    [OrderDocumentsStatus.UPLOADED_TO_TTS]: 'Документ загружен в ТТС',
+    [OrderDocumentsStatus.ON_CLEARANCE]: 'На оформлении',
+    [OrderDocumentsStatus.WAITING_FOR_EC]: 'Ожидает отправку в СЦ',
+    [OrderDocumentsStatus.AGREEMENT_IN_EC]: 'На согласовании в СЦ',
+    [OrderDocumentsStatus.AWAITING_SIGNING]: 'Ожидает подписания',
+    [OrderDocumentsStatus.SUBMITTED_FOR_SIGNING]: 'На подписании в АБК',
+    [OrderDocumentsStatus.READY_TO_TRANSFER]: 'Ожидает передачу в ОЦО',
+    [OrderDocumentsStatus.UPLOADED_TO_TTS]: 'Загружен в ТТС',
 };
 export const orderStatusMapper: Record<OrderStatus, string> = {
     [OrderStatus.ISSUED]: 'На оформлении',

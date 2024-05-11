@@ -13,11 +13,12 @@ import MaterialsPageIcon from '@/shared/assets/icons/MaterialsPage.svg';
 import ReportsPageIcon from '@/shared/assets/icons/ReportsPage2.svg';
 import AdminPanelIcon from '@/shared/assets/icons/IcBaselineBuild.svg';
 import { createSelector } from '@reduxjs/toolkit';
-import { getUserAuthData } from '@/entities/User';
+import { getUserAuthData, getUserRoles, UserRole } from '@/entities/User';
 
 export const getSidebarItems = createSelector(
     getUserAuthData,
-    (userData)=> {
+    getUserRoles,
+    (userId, userRoles)=> {
         const sidebarItemsList: SidebarItemTypes[] = [
             {
                 path: getRouteMain(),
@@ -26,7 +27,7 @@ export const getSidebarItems = createSelector(
             }
         ];
 
-        if (userData) {
+        if (userId) {
             sidebarItemsList.push({
                 path: getRouteOrders(),
                 text: 'Заказы',
@@ -45,6 +46,9 @@ export const getSidebarItems = createSelector(
                 Icon: ReportsPageIcon,
                 authOnly: true
             });
+        }
+
+        if (userRoles && userRoles.includes(UserRole.ADMIN)){
             sidebarItemsList.push({
                 path: getRouteAdminPanel(),
                 text: 'Админка',

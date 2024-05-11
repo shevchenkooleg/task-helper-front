@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { TokenResponseInterface, userActions } from '@/entities/User';
 import { USER_REFRESH_TOKEN_LOCALSTORAGE_KEY, USER_TOKEN_LOCALSTORAGE_KEY } from '@/shared/const/localStorage';
 import { type ThunkConfig } from '@/app/providers/StoreProvider';
-import { getUserInfo } from '../getUserInfo/getUserInfo';
 
 
 interface loginByUsernameProps {
@@ -11,7 +10,7 @@ interface loginByUsernameProps {
 }
 
 const clientCredentials = {
-    clientId: 'android',
+    clientId: 'android1',
     clientSecret: 'SomeRandomCharsAndNumbers'
 };
 
@@ -23,7 +22,7 @@ export const loginByUsername = createAsyncThunk<TokenResponseInterface, loginByU
 
         try {
             const response = await extra.api.post<TokenResponseInterface>('/oauth/token', {
-                grant_type: 'password', ...authData, ...clientCredentials
+                grant_type: 'password', ...authData
             });
             if (!response.data) {
                 throw new Error();
@@ -33,7 +32,7 @@ export const loginByUsername = createAsyncThunk<TokenResponseInterface, loginByU
             localStorage.setItem(USER_REFRESH_TOKEN_LOCALSTORAGE_KEY, JSON.stringify(responseData.refresh_token));
             dispatch(userActions.setTokenAuthData(responseData));
             console.log('responseData ', responseData);
-            responseData.access_token && dispatch(getUserInfo(responseData.access_token));
+            //responseData.access_token && dispatch(getUserInfo(responseData.access_token));
             return response.data;
         } catch (e) {
             console.log(e);

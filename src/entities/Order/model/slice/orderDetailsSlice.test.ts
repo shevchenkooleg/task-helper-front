@@ -127,16 +127,18 @@ describe('orderDetailsSlice.test', () => {
             }
         };
 
-        expect(orderDetailsSliceReducer(
-            state as OrderDetailsSliceSchema,
-            orderDetailsSliceActions.updateOrderFormExecution(mockOrderData.executions![0])
-        )).toEqual({
-            form: {
-                executions: [
-                    mockOrderData.executions![0]
-                ]
-            }
-        });
+        if (mockOrderData.executions){
+            expect(orderDetailsSliceReducer(
+                state as OrderDetailsSliceSchema,
+                orderDetailsSliceActions.updateOrderFormExecution(mockOrderData.executions[0])
+            )).toEqual({
+                form: {
+                    executions: [
+                        mockOrderData.executions[0]
+                    ]
+                }
+            });
+        }
     });
     test('test updateOrderFormCorrection', ()=>{
         const state = {
@@ -148,10 +150,12 @@ describe('orderDetailsSlice.test', () => {
                 ]
             }
         };
-        expect(orderDetailsSliceReducer(
-            state as OrderDetailsSliceSchema,
-            orderDetailsSliceActions.updateOrderFormCorrection(mockOrderData.materialCorrections![1])
-        )).toEqual({ form: { materialCorrections: [mockOrderData.materialCorrections![1]] } });
+        if(mockOrderData.materialCorrections){
+            expect(orderDetailsSliceReducer(
+                state as OrderDetailsSliceSchema,
+                orderDetailsSliceActions.updateOrderFormCorrection(mockOrderData.materialCorrections[1])
+            )).toEqual({ form: { materialCorrections: [mockOrderData.materialCorrections[1]] } });
+        }
     });
     test('test updateOrderConsignmentNote', ()=>{
         const state = {

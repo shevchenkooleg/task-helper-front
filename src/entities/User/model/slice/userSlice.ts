@@ -30,6 +30,9 @@ export const userSlice = buildSlice({
         initAuthData: (state) => {
             const user_token = localStorage.getItem(USER_TOKEN_LOCALSTORAGE_KEY);
             const refresh_token = localStorage.getItem(USER_REFRESH_TOKEN_LOCALSTORAGE_KEY);
+            console.log('initAuthData');
+            console.log('user_token', user_token);
+            console.log('refresh_token', refresh_token);
             if (user_token && refresh_token) {
                 state.tokenAuthData = {
                     access_token: JSON.parse(user_token),

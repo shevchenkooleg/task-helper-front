@@ -26,9 +26,9 @@ export const getRouteOrderCreate = () => 'orders/new';
 export const getRouteOrderEdit = (orderId: string) => `/orders/${orderId}/edit`;
 export const getRouteMaterials = () => '/materials';
 export const getRouteMaterialDetails= (materialId: string) => `/materials/${materialId}`;
-export const getRouteAdminPanel = () => 'admin';
+export const getRouteAdminPanel = () => '/admin';
 export const getRouteReports = (contentType: string) => `/reports/${contentType}`;
 // export const getRouteTotalVolumeMaterialReport = () => '/reports/totalVolumeMaterialReport';
 // export const getRouteMaterialInvolvementReport = () => '/reports/materialInvolvementReport';
 
-export const getRouteForbiddenPage = () => 'forbidden';
+export const getRouteForbiddenPage = () => '/forbidden';

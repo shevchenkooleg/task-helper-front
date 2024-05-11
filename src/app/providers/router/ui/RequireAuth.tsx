@@ -10,6 +10,8 @@ interface RequireAuthProps {
 }
 
 export function RequireAuth ({ children, roles }: RequireAuthProps) {
+
+    console.log('roles in RequireAuth', roles);
     const user_id = useSelector(getUserAuthData);
     const location = useLocation();
     const userRoles = useSelector(getUserRoles);

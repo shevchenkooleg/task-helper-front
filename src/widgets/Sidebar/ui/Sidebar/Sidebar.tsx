@@ -19,6 +19,8 @@ export const Sidebar = memo((props: SidebarProps) => {
     const [collapsed, setCollapsed] = useState(sidebarStoragePosition === 'true');
     const sidebarItemsList = useSelector(getSidebarItems);
 
+    console.log(sidebarItemsList);
+
     const toggleSidebar = useCallback(() => {
         setCollapsed(prev => !prev);
         localStorage.setItem(LOCAL_STORAGE_SIDEBAR_POSITION, JSON.stringify(!collapsed));
