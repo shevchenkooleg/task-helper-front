@@ -3,7 +3,8 @@
 }
 
 .menu {
-    background: var(--card-bg);
+    background: var(--bg-color);
+    box-shadow: 5px 5px 5px 1px var(--inverted-bg-color);
     position: absolute;
     z-index: var(--drop-down-z-index);
     border-radius: 8px;

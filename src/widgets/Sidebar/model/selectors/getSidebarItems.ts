@@ -1,13 +1,11 @@
 import { SidebarItemTypes } from '../types/sidebar';
 import {
-    getRouteAbout,
     getRouteAdminPanel,
     getRouteMain,
     getRouteMaterials,
     getRouteOrders, getRouteReports
 } from '@/shared/const/router';
 import MainPageIcon from '@/shared/assets/icons/MainPage.svg';
-import AboutPageIcon from '@/shared/assets/icons/AboutPage.svg';
 import OrdersPageIcon from '@/shared/assets/icons/OrdersPage.svg';
 import MaterialsPageIcon from '@/shared/assets/icons/MaterialsPage.svg';
 import ReportsPageIcon from '@/shared/assets/icons/ReportsPage2.svg';
@@ -57,12 +55,12 @@ export const getSidebarItems = createSelector(
             });
         }
 
-        sidebarItemsList.push({
-
-            path: getRouteAbout(),
-            text: 'О программе',
-            Icon: AboutPageIcon
-        });
+        // sidebarItemsList.push({
+        //
+        //     path: getRouteAbout(),
+        //     text: 'О программе',
+        //     Icon: AboutPageIcon
+        // });
         return sidebarItemsList;
     }
 );

@@ -2,13 +2,13 @@ import { getTokenAuthData, getUserIsInit, userActions } from '@/entities/User';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useTheme } from '@/shared/lib/hooks/useTheme/useTheme';
-import { Navbar } from '@/widgets/Navbar';
-import { Sidebar } from '@/widgets/Sidebar';
 import React, { Suspense, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { AppRouter } from './providers/router';
 import { getUserInfo } from '@/features/authByUsername';
 import { PageLoader } from '@/widgets/PageLoader';
+import { Sidebar } from '@/widgets/Sidebar';
+import { Navbar } from '@/widgets/Navbar';
 
 const App = () => {
 
@@ -33,9 +33,10 @@ const App = () => {
     return (
         <div className={classNames('app', {}, [theme])}>
             <Suspense fallback={<PageLoader/>}>
-                <Navbar/>
+                <Sidebar/>
+
                 <div className="content-page">
-                    <Sidebar/>
+                    <Navbar/>
                     {isInit && <AppRouter/>}
                 </div>
             </Suspense>

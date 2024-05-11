@@ -1,10 +1,11 @@
-import { type UserRole } from '../../../../shared/const/userConsts';
+import { type UserRole } from '@/shared/const/userConsts';
 
 export interface User {
     user_id: string | undefined
-    name: string | undefined
+    userName: string | undefined
     avatar?: string
     roles?: UserRole[]
+    userCredentials?: UserCredentials
 }
 
 export interface TokenResponseInterface {
@@ -15,10 +16,11 @@ export interface TokenResponseInterface {
 }
 
 export interface UserInfoResponseInterface {
-    name: string
+    userName: string
     user_id: string
     scope?: string
     roles?: UserRole[]
+    userCredentials?: UserCredentials
 }
 
 export interface UserSchema {
@@ -27,4 +29,9 @@ export interface UserSchema {
     _isInit: boolean
     error: string
     isLoading: boolean
+}
+
+interface UserCredentials {
+    firstName?: string
+    lastName?: string
 }

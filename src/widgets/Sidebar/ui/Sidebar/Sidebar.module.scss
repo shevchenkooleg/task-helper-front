@@ -1,33 +1,13 @@
 .Sidebar {
     position: relative;
     width: var(--sidebar-width);
-    height: calc(100vh - var(--navbar-height));
+    height: 100vh;
     background-color: var(--inverted-bg-color);
-    transition: width 0.3s;
-}
-
-.collapsed {
-    width: var(--sidebar-width-collapced);
-
-    .switchers {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .lang {
-        margin-left: 0;
-    }
-}
-
-.toggleBtn {
-    //position: absolute;
-    //right: calc(var(--font-line-l) * -1);
-    //bottom: 100px;
+    box-shadow: 5px 0 2px var(--inverted-bg-color);
 }
 
 .items {
-    margin-top: 20px;
-    margin-left: 25px;
+    margin-top: 40px;
 }
 
 .switchers {

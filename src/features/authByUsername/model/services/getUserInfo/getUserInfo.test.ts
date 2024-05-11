@@ -6,7 +6,7 @@ describe('getUserInfo.test', () => {
     test('success get userData', async () => {
 
         const responseData = {
-            name: 'testUser',
+            userName: 'testUser',
             roles: ['USER', 'ADMIN'] as UserRole[],
             scope:  '*',
             user_id:  '4d34ffc71ffcfc82e8df7'

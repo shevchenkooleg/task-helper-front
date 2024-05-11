@@ -20,8 +20,10 @@ export const userSlice = buildSlice({
         },
         setUserData: (state, action: PayloadAction<UserInfoResponseInterface>) => {
             if (state.userData){
+                console.log('action.payload ', action.payload);
                 state.userData.user_id = action.payload.user_id;
-                state.userData.name = action.payload.name;
+                state.userData.userName = action.payload.userName;
+                state.userData.userCredentials = action.payload.userCredentials;
                 if (action.payload.roles){
                     state.userData.roles = [...action.payload.roles] as UserRole[];
                 }

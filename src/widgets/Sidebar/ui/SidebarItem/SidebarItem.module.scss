@@ -1,18 +1,25 @@
 
 .link {
-    margin-left: 20px;
-    opacity: 1;
+    opacity: 0.5;
+    font: var(--font-s);
+
 }
 
 .icon {
     fill: var(--inverted-primary-color);
+    opacity: 0.5;
+}
+
+.active {
+    opacity:1;
+    color: white;
 }
 
 .collapsed {
-    .link {
-        opacity: 0;
-        transition: 0.2s opacity;
-        width: 0;
-    }
+    //.link {
+    //    opacity: 0;
+    //    transition: 0.2s opacity;
+    //    width: 0;
+    //}
 }
 

@@ -4,11 +4,11 @@ import { memo, useCallback, useState } from 'react';
 import { Text } from '@/shared/ui/Text';
 import { Button, ButtonTheme } from '@/shared/ui/Button';
 import { useSelector } from 'react-redux';
-import { userActions } from '@/entities/User';
 import { LoginModal } from '@/features/authByUsername';
 import { HStack } from '@/shared/ui/Stack';
-import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { getTokenAuthData } from '@/entities/User';
+import { AvatarDropdown } from '@/features/avatarDropdown';
+import { NavbarToolsPanel } from '../NavbarToolsPanel/NavbarToolsPanel';
 
 interface NavbarProps {
     className?: string
@@ -18,7 +18,6 @@ export const Navbar = memo((props: NavbarProps) => {
     const { className } = props;
     const [isAuthModal, setIsAuthModal] = useState(false);
     const accessToken = useSelector(getTokenAuthData);
-    const dispatch = useAppDispatch();
 
     const onCloseModal = useCallback(() => {
         setIsAuthModal(false);
@@ -28,22 +27,15 @@ export const Navbar = memo((props: NavbarProps) => {
         setIsAuthModal(true);
     }, []);
 
-    const logOut = useCallback(() => {
-        dispatch(userActions.logout());
-    }, [dispatch]);
+
 
     if (accessToken){
         return (
             <header className={classNames(cls.Navbar, {}, [className])}>
-                <Text className={cls.appName} title={'TORO_MRP_APP'} inverted={true}/>
+                <Text className={cls.appName} title={'Планировщик материалов ТОРО'} inverted={false}/>
                 <HStack className={cls.actions}>
-                    <Button
-                        theme={ButtonTheme.CLEAR}
-                        inverted={true}
-                        onClick={logOut}
-                    >
-                        Выйти
-                    </Button>
+                    <NavbarToolsPanel/>
+                    <AvatarDropdown/>
                 </HStack>
 
             </header>

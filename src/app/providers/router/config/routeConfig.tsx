@@ -8,7 +8,7 @@ import {
     getRouteMaterials,
     getRouteOrderDetails,
     getRouteOrders,
-    getRouteReports
+    getRouteReports, getRouteUserProfile
 } from '@/shared/const/router';
 import { AppRoutesProps } from '@/shared/types/router';
 import { AboutPage } from '@/pages/AboutPage';
@@ -20,6 +20,7 @@ import { OrderDetailsPage } from '@/pages/OrderDetailsPage';
 import { MaterialsPage } from '@/pages/MaterialsPage';
 import { MaterialDetailsPage } from '@/pages/MaterialDetailsPage';
 import { ReportsPage } from '@/pages/ReportsPage';
+import { UserProfilePage } from '@/pages/UserProfilePage';
 
 
 
@@ -63,6 +64,12 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
         authOnly: true,
         roles: [UserRole.MANAGER, UserRole.ADMIN, UserRole.USER]
     },
+    [AppRoutes.USER_PROFILE]: {
+        path: getRouteUserProfile(),
+        element: <UserProfilePage/>,
+        authOnly: true,
+    },
+
     // [AppRoutes.MATERIAL_INVOLVEMENT_REPORT]: {
     //     path: getRouteMaterialInvolvementReport(),
     //     element: <MaterialInvolvementReportPage/>,
