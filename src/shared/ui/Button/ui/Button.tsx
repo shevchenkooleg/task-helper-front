@@ -8,6 +8,7 @@ export enum ButtonTheme {
     OUTLINE_RED= 'outline_red',
     OUTLINE_GREEN= 'outline_green',
     BACKGROUND = 'background',
+    BACKGROUND_GREEN = 'background_green',
 }
 
 export enum ButtonSize {
@@ -30,6 +31,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     rounded?: boolean
     inverted?: boolean
     active?: boolean
+    trimPadding?: boolean
 }
 
 export const Button = memo((props: ButtonProps) => {
@@ -46,6 +48,7 @@ export const Button = memo((props: ButtonProps) => {
         rounded,
         inverted,
         active,
+        trimPadding = false,
         ...otherProps
     } = props;
 
@@ -58,6 +61,7 @@ export const Button = memo((props: ButtonProps) => {
         [cls.flex]: flex,
         [cls.inverted]: inverted,
         [cls.active]:active,
+        [cls.trimPadding]: trimPadding
     };
 
     return (

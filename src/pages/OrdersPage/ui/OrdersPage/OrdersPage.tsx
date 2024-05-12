@@ -91,6 +91,7 @@ const OrdersPage = (props: OrdersPageProps) => {
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
             <VStack className={cls.layout}>
                 <OrderPageToolsPanel
+                    newDesign={true}
                     addOrderCallback={onClickHandler}
                     refreshOrdersCallback={onLoadClickHandler}
                     orderPanelSettingsClickCallback={onOrderPanelSettingsClickHandler}

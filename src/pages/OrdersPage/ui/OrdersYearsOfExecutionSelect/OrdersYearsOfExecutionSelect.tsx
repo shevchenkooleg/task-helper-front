@@ -5,6 +5,7 @@ import { ListBox } from '@/shared/ui/Popups';
 import { getOrderListFiltersYearOfExecution, orderListFiltersSliceActions } from '@/features/orderListFilters';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { VStack } from '@/shared/ui/Stack';
 import { ButtonSize } from '@/shared/ui/Button';
 
 interface OrdersYearsOfExecutionSelectProps {
@@ -30,14 +31,15 @@ export const OrdersYearsOfExecutionSelect = memo((props: OrdersYearsOfExecutionS
     },[dispatch]);
 
     return (
-        <div className={classNames(cls.OrdersYearsOfExecutionSelect, {}, [className])}>
+        <VStack className={classNames(cls.OrdersYearsOfExecutionSelect, {}, [className])}>
             <ListBox
+                label={'Год выполнения'}
                 items={yearSelectorOptions}
                 value={yearOfExecutionValue === 'any' ? 'Год выполнения' : yearOfExecutionValue}
                 onChange={onChangeHandler}
-                size={ButtonSize.SIZE_S}
+                size={ButtonSize.SIZE_XS}
             />
-        </div>
+        </VStack>
     );
 });
 

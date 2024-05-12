@@ -5,8 +5,9 @@ import { Listbox as HListbox } from '@headlessui/react';
 import { type DropdownDirection } from '@/shared/types/ui';
 import { mapDirectionClass } from '../../styles/styleClassMapper';
 import { HStack } from '../../../Stack';
-import { Button, ButtonSize, ButtonTheme } from '../../../Button';
+import { ButtonSize, ButtonTheme } from '../../../Button';
 import { classNames } from '@/shared/lib/classNames/classNames';
+import { Text, TextSize } from '../../../Text';
 
 export interface ListBoxItem {
     value: string
@@ -39,9 +40,7 @@ export const  ListBox = (props: ListBoxProps) => {
     return (
         <HStack gap={'16px'}>
             {label &&
-                <span>
-                    {label}
-                </span>
+                <Text text={label} borderTrim={true} size={TextSize.SIZE_S}/>
             }
             <HListbox
                 as={'div'}
@@ -54,9 +53,10 @@ export const  ListBox = (props: ListBoxProps) => {
                     className={cls.trigger}
                     as={'div'}
                 >
-                    <Button disabled={readOnly} theme={buttonTheme} size={size}>
-                        {labelMapper && value && defaultValue ? (labelMapper[value] ?? labelMapper[defaultValue]) : (value || defaultValue)}
-                    </Button>
+                    {/*<Button disabled={readOnly} theme={buttonTheme} size={size} trimPadding={true}>*/}
+                    {/*    {labelMapper && value && defaultValue ? (labelMapper[value] ?? labelMapper[defaultValue]) : (value || defaultValue)}*/}
+                    {/*</Button>*/}
+                    <Text borderTrim={true} size={TextSize.SIZE_M} text={labelMapper && value && defaultValue ? (labelMapper[value] ?? labelMapper[defaultValue]) : (value || defaultValue)}/>
                 </HListbox.Button>
                 <HListbox.Options className={classNames(cls.options, {}, optionClasses)}>
                     {items?.map((item, id) => (
