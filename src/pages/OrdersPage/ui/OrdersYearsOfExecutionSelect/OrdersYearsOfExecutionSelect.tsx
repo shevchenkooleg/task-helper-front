@@ -5,6 +5,7 @@ import { ListBox } from '@/shared/ui/Popups';
 import { getOrderListFiltersYearOfExecution, orderListFiltersSliceActions } from '@/features/orderListFilters';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { ButtonSize } from '@/shared/ui/Button';
 
 interface OrdersYearsOfExecutionSelectProps {
     className?: string
@@ -34,6 +35,7 @@ export const OrdersYearsOfExecutionSelect = memo((props: OrdersYearsOfExecutionS
                 items={yearSelectorOptions}
                 value={yearOfExecutionValue === 'any' ? 'Год выполнения' : yearOfExecutionValue}
                 onChange={onChangeHandler}
+                size={ButtonSize.SIZE_S}
             />
         </div>
     );

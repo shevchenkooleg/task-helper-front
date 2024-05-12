@@ -56,7 +56,38 @@
     text-align: justify;
 }
 
+.borderTrim {
+    padding: 0;
+    margin: 0;
+}
+
+.size_xs {
+    &.borderTrim{
+        .title {
+            font: var(--font-s-trim-gap)
+        }
+        .text {
+            font: var(--font-xs-trim-gap)
+        }
+    }
+    .title {
+        font: var(--font-s)
+    }
+
+    .text {
+        font: var(--font-xs)
+    }
+}
+
 .size_s {
+    &.borderTrim{
+        .title {
+            font: var(--font-m-trim-gap)
+        }
+        .text {
+            font: var(--font-s-trim-gap)
+        }
+    }
     .title {
         font: var(--font-m)
     }
@@ -67,6 +98,16 @@
 }
 
 .size_m {
+    &.borderTrim{
+        .title {
+            font: var(--font-l-trim-gap)
+        }
+
+        .text {
+            font: var(--font-m-trim-gap)
+        }
+    }
+
     .title {
         font: var(--font-l)
     }
@@ -77,6 +118,14 @@
 }
 
 .size_l {
+    &.borderTrim{
+        .title {
+            font: var(--font-xl-trim-gap)
+        }
+        .text {
+            font: var(--font-l-trim-gap)
+        }
+    }
     .title {
         font: var(--font-xl)
     }
@@ -87,6 +136,14 @@
 }
 
 .size_xl {
+    &.borderTrim{
+        .title {
+            font: var(--font-xxl-trim-gap)
+        }
+        .text {
+            font: var(--font-xl-trim-gap)
+        }
+    }
     .title {
         font: var(--font-xxl)
     }

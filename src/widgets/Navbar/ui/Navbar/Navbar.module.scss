@@ -1,10 +1,11 @@
 .Navbar {
-    margin-left: 15px;
     height: var(--navbar-height);
-    background: var(--bg-color);
+    background: var(--secondary-bg-color);
     display: flex;
     align-items: center;
     padding: 20px;
+    //border-bottom: 2px solid var(--inverted-bg-color);
+    box-shadow: 0 3px 5px var(--secondary-color);
 }
 
 .links,

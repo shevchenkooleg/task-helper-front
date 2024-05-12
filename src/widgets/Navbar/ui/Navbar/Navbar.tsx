@@ -9,6 +9,7 @@ import { HStack } from '@/shared/ui/Stack';
 import { getTokenAuthData } from '@/entities/User';
 import { AvatarDropdown } from '@/features/avatarDropdown';
 import { NavbarToolsPanel } from '../NavbarToolsPanel/NavbarToolsPanel';
+import { Calendar } from '@/features/calendar';
 
 interface NavbarProps {
     className?: string
@@ -34,6 +35,7 @@ export const Navbar = memo((props: NavbarProps) => {
             <header className={classNames(cls.Navbar, {}, [className])}>
                 <Text className={cls.appName} title={'Планировщик материалов ТОРО'} inverted={false}/>
                 <HStack className={cls.actions}>
+                    <Calendar/>
                     <NavbarToolsPanel/>
                     <AvatarDropdown/>
                 </HStack>

@@ -37,7 +37,9 @@ const App = () => {
 
                 <div className="content-page">
                     <Navbar/>
-                    {isInit && <AppRouter/>}
+                    <div className='layout'>
+                        {isInit && <AppRouter/>}
+                    </div>
                 </div>
             </Suspense>
         </div>

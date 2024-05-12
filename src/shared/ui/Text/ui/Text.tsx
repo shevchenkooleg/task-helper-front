@@ -10,6 +10,7 @@ export enum TextAlign {
 }
 
 export enum TextSize {
+    SIZE_XS = 'size_xs',
     SIZE_S = 'size_s',
     SIZE_M = 'size_m',
     SIZE_L = 'size_l',
@@ -30,13 +31,15 @@ interface TextProps {
     align?: TextAlign
     size?: TextSize
     theme?: TextTheme
+    borderTrim?: boolean
     inverted?: boolean
     onClick?: ()=>void
 }
 
-type HeaderTagType = 'h1' | 'h2' | 'h3' | 'h4'
+type HeaderTagType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5'
 
 const mapSizeToHeaderTag: Record<TextSize, HeaderTagType> = {
+    [TextSize.SIZE_XS]: 'h5',
     [TextSize.SIZE_S]: 'h4',
     [TextSize.SIZE_M]: 'h3',
     [TextSize.SIZE_L]: 'h2',
@@ -45,13 +48,15 @@ const mapSizeToHeaderTag: Record<TextSize, HeaderTagType> = {
 
 export const Text = memo((props: TextProps) => {
     const { className, text, title, size = TextSize.SIZE_M,
-        align = TextAlign.START, theme = TextTheme.INVERTED, inverted, onClick } = props;
+        align = TextAlign.START, theme = TextTheme.INVERTED, inverted,
+        onClick, borderTrim = false } = props;
 
     const mods: Mods = {
         [cls[theme]]: true,
         [cls[align]]: true,
         [cls[size]]: true,
-        [cls.inverted]: inverted
+        [cls.inverted]: inverted,
+        [cls.borderTrim]: borderTrim
     };
     const HeaderTag = mapSizeToHeaderTag[size];
 

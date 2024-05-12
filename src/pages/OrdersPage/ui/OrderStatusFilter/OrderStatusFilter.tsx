@@ -1,14 +1,18 @@
 import cls from './OrderStatusFilter.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo, useCallback, useState } from 'react';
-import { Button, ButtonTheme } from '@/shared/ui/Button';
+import { Button, ButtonSize, ButtonTheme } from '@/shared/ui/Button';
 import { Text } from '@/shared/ui/Text';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { OrderStatus, orderStatusMapper } from '@/shared/const/orderConsts';
 import { BoundaryLine } from '@/shared/ui/BoundaryLine/BoundaryLine';
 import { Overlay } from '@/shared/ui/Overlay';
 import { useSelector } from 'react-redux';
-import { getOrderStatusBoxFormValues, getOrderStatusBoxValues, orderListFiltersSliceActions } from '@/features/orderListFilters';
+import {
+    getOrderStatusBoxFormValues,
+    getOrderStatusBoxValues,
+    orderListFiltersSliceActions
+} from '@/features/orderListFilters';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { NotificationPoint } from '@/shared/ui/NotificationPoint';
 import { NotificationColor, NotificationTheme } from '@/shared/ui/NotificationPoint/ui/NotificationPoint';
@@ -111,11 +115,14 @@ export const OrderStatusFilter = memo((props: OrderStatusFilterProps) => {
                     onClick={onApplyHandler}
                     theme={ButtonTheme.OUTLINE_GREEN}
                     className={cls.applyBtn}
-                >Применить</Button>
+                    size={ButtonSize.SIZE_S}
+                >
+                    Применить
+                </Button>
                 : <NotificationPoint
                     notificationText={
-                        Object.values(orderStatusBoxValues).filter(el=>el === true).length < Object.values(OrderStatus).length
-                            ? String(Object.values(orderStatusBoxValues).filter(el=>el === true).length)
+                        Object.values(orderStatusBoxValues).filter(el=>el).length < Object.values(OrderStatus).length
+                            ? String(Object.values(orderStatusBoxValues).filter(el=>el).length)
                             : ''
                     }
                     color={NotificationColor.ORANGE}
@@ -124,7 +131,7 @@ export const OrderStatusFilter = memo((props: OrderStatusFilterProps) => {
                     right={'-7'}
                     top={'-7'}
                 >
-                    <Button onClick={onOpenHandler}>Состояние заказа</Button>
+                    <Button onClick={onOpenHandler} size={ButtonSize.SIZE_S}>Состояние заказа</Button>
                 </NotificationPoint>
 
             }

@@ -5,6 +5,11 @@
 
     //Fonts settings
 
+    //size-XS
+    --font-size-xs: 6px;
+    --font-line-xs: 10px;
+    --font-xs: var(--font-weit) var(--font-size-xs) / var(--font-line-xs) var(--font-family-main);
+
     //size-S
     --font-size-s: 12px;
     --font-line-s: 18px;
@@ -30,11 +35,41 @@
     --font-line-xxl: 48px;
     --font-xxl: var(--font-weit) var(--font-size-xxl) / var(--font-line-xxl) var(--font-family-main);
 
+    //size-XS-trim-gap
+    --font-size-xs-trim-gap: 6px;
+    --font-line-xs-trim-gap: 8px;
+    --font-xs-trim-gap: var(--font-weit) var(--font-size-xs-trim-gap) / var(--font-line-xs-trim-gap) var(--font-family-main);
+
+    //size-S-trim-gap
+    --font-size-s-trim-gap: 12px;
+    --font-line-s-trim-gap: 14px;
+    --font-s-trim-gap: var(--font-weit) var(--font-size-s-trim-gap) / var(--font-line-s-trim-gap) var(--font-family-main);
+
+    //size-M-trim-gap
+    --font-size-m-trim-gap: 16px;
+    --font-line-m-trim-gap: 18px;
+    --font-m-trim-gap: var(--font-weit) var(--font-size-m-trim-gap) / var(--font-line-m-trim-gap) var(--font-family-main);
+
+    //size-L-trim-gap
+    --font-size-l-trim-gap: 24px;
+    --font-line-l-trim-gap: 26px;
+    --font-l-trim-gap: var(--font-weit) var(--font-size-l-trim-gap) / var(--font-line-l-trim-gap) var(--font-family-main);
+
+    //size-XL-trim-gap
+    --font-size-xl-trim-gap: 32px;
+    --font-line-xl-trim-gap: 34px;
+    --font-xl-trim-gap: var(--font-weit) var(--font-size-xl-trim-gap) / var(--font-line-xl-trim-gap) var(--font-family-main);
+
+    //size-XXL-trim-gap
+    --font-size-xxl-trim-gap: 40px;
+    --font-line-xxl-trim-gap: 42px;
+    --font-xxl-trim-gap: var(--font-weit) var(--font-size-xxl-trim-gap) / var(--font-line-xxl-trim-gap) var(--font-family-main);
+
 
     //element-size-variables
 
     --sidebar-width: 90px;
-    --navbar-height: 50px;
+    --navbar-height: 60px;
     --toolbar-height: 80px;
     --side-settings-bar-width: 300px;
 
