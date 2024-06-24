@@ -38,7 +38,7 @@ export function buildPlugins({ paths, isDev, project, apiUrl }: BuildOptions): w
         plugins.push(new BundleAnalyzerPlugin({
             openAnalyzer: false
         }));
-        plugins.push(new ReactRefreshWebpackPlugin());
+        // plugins.push(new ReactRefreshWebpackPlugin());
         plugins.push(new CircularDependencyPlugin({
             exclude: /node_modules/,
             failOnError: true,

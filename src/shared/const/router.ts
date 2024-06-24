@@ -22,6 +22,7 @@ export const getRouteMain = () => '/';
 export const getRouteAbout = () => '/about';
 export const getRouteProfile = (userId: string) => `/profile/${userId}`;
 export const getRouteOrders = () => '/orders';
+export const getRouteStructure = () => '/structure';
 export const getRouteOrderDetails= (orderId: string) => `/orders/${orderId}`;
 export const getRouteOrderCreate = () => 'orders/new';
 export const getRouteOrderEdit = (orderId: string) => `/orders/${orderId}/edit`;

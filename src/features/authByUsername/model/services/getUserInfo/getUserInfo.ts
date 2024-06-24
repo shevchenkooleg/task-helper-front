@@ -9,7 +9,7 @@ export const getUserInfo = createAsyncThunk<UserInfoResponseInterface, string | 
         const { dispatch, rejectWithValue, extra } = thunkAPI;
         //await dispatch(userActions.initAuthData());
 
-        const accessToken = thunkAPI.getState().user!.tokenAuthData!.access_token ?? token;
+        const accessToken = thunkAPI.getState().user?.tokenAuthData?.access_token ?? token;
         console.log('accessToken ', accessToken);
 
         try {

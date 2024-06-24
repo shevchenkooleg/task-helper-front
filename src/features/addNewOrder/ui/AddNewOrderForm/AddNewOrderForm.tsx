@@ -95,7 +95,7 @@ const AddNewOrderForm = memo((props: AddNewOrderFormProps) => {
                     <Input
                         value={newOrderDescription ?? ''}
                         onChange={onChangeNewOrderDescription}
-                        placeholder={'Оборудование'}
+                        placeholder={'Описание'}
                         between={true}
                     />
                     <Input

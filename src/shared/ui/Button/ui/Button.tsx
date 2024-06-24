@@ -19,6 +19,10 @@ export enum ButtonSize {
     SIZE_XL = 'size_xl',
 }
 
+export enum ButtonColor {
+    SECONDARY_COLOR = 'secondary_color'
+}
+
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string
@@ -32,6 +36,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     inverted?: boolean
     active?: boolean
     trimPadding?: boolean
+    color?: ButtonColor
 }
 
 export const Button = memo((props: ButtonProps) => {
@@ -49,6 +54,7 @@ export const Button = memo((props: ButtonProps) => {
         inverted,
         active,
         trimPadding = false,
+        color = '',
         ...otherProps
     } = props;
 
@@ -61,7 +67,8 @@ export const Button = memo((props: ButtonProps) => {
         [cls.flex]: flex,
         [cls.inverted]: inverted,
         [cls.active]:active,
-        [cls.trimPadding]: trimPadding
+        [cls.trimPadding]: trimPadding,
+        [cls[color]]:color
     };
 
     return (

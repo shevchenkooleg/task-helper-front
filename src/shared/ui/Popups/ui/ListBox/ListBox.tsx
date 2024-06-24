@@ -65,12 +65,12 @@ export const  ListBox = (props: ListBoxProps) => {
                             value={item.value}
                             as={Fragment}
                         >
-                            {({ active, selected }) => (
+                            {({ focus, selected }) => (
                                 <li
                                     className={classNames(
                                         cls.item,
                                         {
-                                            [popupCls.active]: active,
+                                            [popupCls.active]: focus,
                                             [popupCls.disabled]: item.disabled
                                         }, []
                                     )}

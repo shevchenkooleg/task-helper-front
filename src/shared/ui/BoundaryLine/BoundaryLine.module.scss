@@ -1,9 +1,13 @@
 .BoundaryLine {
-    margin: 10px 0;
+    margin: 5px 0;
     border: 1px solid var(--primary-color);
     width: 100%;
 }
 
 .max {
     width: 100%;
+}
+
+.color_black {
+    border-color: black;
 }

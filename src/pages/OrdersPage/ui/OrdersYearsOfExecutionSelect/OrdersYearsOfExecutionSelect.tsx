@@ -1,12 +1,11 @@
 import cls from './OrdersYearsOfExecutionSelect.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo, useCallback } from 'react';
-import { ListBox } from '@/shared/ui/Popups';
 import { getOrderListFiltersYearOfExecution, orderListFiltersSliceActions } from '@/features/orderListFilters';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { VStack } from '@/shared/ui/Stack';
-import { ButtonSize } from '@/shared/ui/Button';
+import { MListBox } from '@/shared/ui/Popups/ui/MListBox/MListBox';
+import { HStack } from '@/shared/ui/Stack';
 
 interface OrdersYearsOfExecutionSelectProps {
     className?: string
@@ -31,15 +30,14 @@ export const OrdersYearsOfExecutionSelect = memo((props: OrdersYearsOfExecutionS
     },[dispatch]);
 
     return (
-        <VStack className={classNames(cls.OrdersYearsOfExecutionSelect, {}, [className])}>
-            <ListBox
+        <HStack className={classNames(cls.OrdersYearsOfExecutionSelect, {}, [className])}>
+            <MListBox
                 label={'Год выполнения'}
                 items={yearSelectorOptions}
-                value={yearOfExecutionValue === 'any' ? 'Год выполнения' : yearOfExecutionValue}
+                value={yearOfExecutionValue}
                 onChange={onChangeHandler}
-                size={ButtonSize.SIZE_XS}
             />
-        </VStack>
+        </HStack>
     );
 });
 

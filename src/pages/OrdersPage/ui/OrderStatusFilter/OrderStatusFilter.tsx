@@ -1,11 +1,10 @@
 import cls from './OrderStatusFilter.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo, useCallback, useState } from 'react';
-import { Button, ButtonSize, ButtonTheme } from '@/shared/ui/Button';
-import { Text } from '@/shared/ui/Text';
+import { Button, ButtonSize } from '@/shared/ui/Button';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { OrderStatus, orderStatusMapper } from '@/shared/const/orderConsts';
-import { BoundaryLine } from '@/shared/ui/BoundaryLine/BoundaryLine';
+import { BoundaryLine, BoundaryLineColor } from '@/shared/ui/BoundaryLine/BoundaryLine';
 import { Overlay } from '@/shared/ui/Overlay';
 import { useSelector } from 'react-redux';
 import {
@@ -16,6 +15,9 @@ import {
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { NotificationPoint } from '@/shared/ui/NotificationPoint';
 import { NotificationColor, NotificationTheme } from '@/shared/ui/NotificationPoint/ui/NotificationPoint';
+import { ButtonColor } from '@/shared/ui/Button/ui/Button';
+import { TextColor } from '@/shared/ui/Text/ui/Text';
+import { CheckIcon, ChevronDownIcon } from '@heroicons/react/20/solid';
 
 interface OrderStatusFilterProps {
     className?: string
@@ -41,6 +43,9 @@ export const OrderStatusFilter = memo((props: OrderStatusFilterProps) => {
     const orderStatusBoxValues = useSelector(getOrderStatusBoxValues) ?? {};
     const dispatch = useAppDispatch();
 
+    console.log('orderStatusBoxFormValues ', orderStatusBoxFormValues);
+    console.log('orderStatusBoxValues ', orderStatusBoxValues);
+
     const onOpenHandler = useCallback(() => {
         setShowOrderStatusFilter((prev)=>!prev);
     },[]);
@@ -50,10 +55,10 @@ export const OrderStatusFilter = memo((props: OrderStatusFilterProps) => {
         dispatch(orderListFiltersSliceActions.setOrderStatusBoxForm());
     },[dispatch]);
 
-    const onCloseHandler = useCallback(()=>{
-        setShowOrderStatusFilter(false);
-        dispatch(orderListFiltersSliceActions.resetOrderStatusBoxForm());
-    },[dispatch]);
+    // const onCloseHandler = useCallback(()=>{
+    //     setShowOrderStatusFilter(false);
+    //     dispatch(orderListFiltersSliceActions.resetOrderStatusBoxForm());
+    // },[dispatch]);
 
     const onCheckBoxChangeHandler = useCallback((field: string, checked: boolean) => {
         const payload = {
@@ -70,34 +75,43 @@ export const OrderStatusFilter = memo((props: OrderStatusFilterProps) => {
     const OrderStatusFilterPanel = () => {
         return (
             <div>
-                <Overlay className={cls.overlay} onClick={onCloseHandler}/>
-                <VStack className={cls.filterTable} gap={'4px'}>
-                    <HStack gap={'16px'}>
+                <Overlay className={cls.overlay} onClick={onApplyHandler}/>
+                <VStack className={cls.filterTable}>
+                    <HStack max={true} className={cls.item}>
                         <input
                             type={'checkbox'}
                             checked={!Object.values(orderStatusBoxFormValues).includes(false)}
                             onChange={()=>onAllCheckBoxChangeHandler(Object.values(orderStatusBoxFormValues).includes(false))}
+                            className={cls.checkBox}
                         />
-                        <Text
-                            text='Выбрать все'
+                        <CheckIcon
+                            className={classNames(cls.checkIcon, { [cls.selected]: !Object.values(orderStatusBoxFormValues).includes(false) } , [])}
+                            onClick={()=>onAllCheckBoxChangeHandler(Object.values(orderStatusBoxFormValues).includes(false))}
+                        />
+                        <div
                             onClick={()=>onAllCheckBoxChangeHandler(Object.values(orderStatusBoxFormValues).includes(false))}
                             className={cls.text}
-                        />
+                            color={TextColor.BLACK}
+                        >{'Выбрать все'}</div>
                     </HStack>
-                    <BoundaryLine/>
+                    <BoundaryLine color={BoundaryLineColor.BLACK}/>
                     {orderStatus.map(el => {
                         return (
-                            <HStack key={el.content} gap={'16px'}>
+                            <HStack key={el.content} className={cls.item} max>
                                 <input
                                     type={'checkbox'}
                                     checked={orderStatusBoxFormValues[el.content] ?? true}
                                     onChange={()=>onCheckBoxChangeHandler(el.content, orderStatusBoxFormValues[el.content])}
+                                    className={cls.checkBox}
                                 />
-                                <Text
-                                    text={el.value}
+                                <CheckIcon
+                                    className={classNames(cls.checkIcon, { [cls.selected]: orderStatusBoxFormValues[el.content] } , [])}
+                                    onClick={()=>onCheckBoxChangeHandler(el.content, orderStatusBoxFormValues[el.content])}
+                                />
+                                <div
                                     onClick={()=>onCheckBoxChangeHandler(el.content, orderStatusBoxFormValues[el.content])}
                                     className={cls.text}
-                                />
+                                >{el.value}</div>
                             </HStack>)
                         ;
                     })}
@@ -110,31 +124,27 @@ export const OrderStatusFilter = memo((props: OrderStatusFilterProps) => {
 
     return (
         <div className={classNames(cls.OrderStatusFilter, {}, [className])}>
-            {showOrderStatusFilter
-                ? <Button
-                    onClick={onApplyHandler}
-                    theme={ButtonTheme.OUTLINE_GREEN}
-                    className={cls.applyBtn}
-                    size={ButtonSize.SIZE_S}
-                >
-                    Применить
+            <NotificationPoint
+                notificationText={
+                    Object.values(orderStatusBoxValues).filter(el=>el).length < Object.values(OrderStatus).length
+                        ? String(Object.values(orderStatusBoxValues).filter(el=>el).length)
+                        : ''
+                }
+                color={NotificationColor.ORANGE}
+                rounded
+                theme={NotificationTheme.BACKGROUND}
+                right={'130'}
+                top={'-3'}
+            >
+                <Button onClick={onOpenHandler} size={ButtonSize.SIZE_S} rounded={true} color={ButtonColor.SECONDARY_COLOR} style={{ position: 'relative', width: '140px', padding: '6px 20px 6px 5px' }}>
+                    Состояние заказа
+                    <ChevronDownIcon
+                        className={cls.dropIcon}
+                        aria-hidden="true"
+                    />
                 </Button>
-                : <NotificationPoint
-                    notificationText={
-                        Object.values(orderStatusBoxValues).filter(el=>el).length < Object.values(OrderStatus).length
-                            ? String(Object.values(orderStatusBoxValues).filter(el=>el).length)
-                            : ''
-                    }
-                    color={NotificationColor.ORANGE}
-                    rounded
-                    theme={NotificationTheme.BACKGROUND}
-                    right={'-7'}
-                    top={'-7'}
-                >
-                    <Button onClick={onOpenHandler} size={ButtonSize.SIZE_S}>Состояние заказа</Button>
-                </NotificationPoint>
-
-            }
+            </NotificationPoint>
+            
             {showOrderStatusFilter && <OrderStatusFilterPanel/>}
         </div>
     );

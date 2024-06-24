@@ -1,0 +1,65 @@
+.MListBox {
+
+}
+
+.btn {
+    display: block;
+    padding: 3px 3px 3px 15px;
+    border-radius: 10px;
+    width: 175px;
+    text-align: left;
+    border: 1px solid var(--secondary-color);
+    background-color: var(--bg-color);
+    color: var(--secondary-color);
+
+}
+
+.dropIcon {
+    width: 20px;
+    position: absolute;
+    top: 85px;
+    right: 20px;
+    pointer-events: none;
+}
+
+.checkIcon {
+    width: 20px;
+    visibility: hidden;
+}
+.selected {
+    visibility: visible;
+}
+
+.option {
+    margin-top: 2px;
+    z-index: var(--list-box-z-index);
+    padding: 5px;
+    border-radius: 5px;
+    width: 175px;
+    backdrop-filter: blur(5px);
+    box-shadow: inset 0 0 0 3000px rgba(79, 100, 169, 0.22);
+    border: 1px solid rgba(91, 90, 90, 0.58);
+    :hover {
+        background-color: rgba(255, 255, 255, 0.4);
+    }
+    :hover div {
+        background-color: rgba(0, 0, 0, 0);
+    }
+    :hover svg {
+        background-color: rgba(0, 0, 0, 0);
+    }
+}
+
+.element {
+    display: flex;
+    padding: 5px;
+    gap: 5px;
+    align-items: center;
+    border-radius: 5px;
+    cursor: default;
+    user-select: none;
+}
+
+.text {
+    font: var(--font-m);
+}

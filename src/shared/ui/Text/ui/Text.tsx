@@ -9,6 +9,12 @@ export enum TextAlign {
     JUSTIFY = 'justify'
 }
 
+export enum TextColor {
+    PRIMARY = 'primary_color',
+    SECONDARY = 'secondary_color',
+    BLACK = 'black_color'
+}
+
 export enum TextSize {
     SIZE_XS = 'size_xs',
     SIZE_S = 'size_s',
@@ -33,6 +39,7 @@ interface TextProps {
     theme?: TextTheme
     borderTrim?: boolean
     inverted?: boolean
+    color?: TextColor
     onClick?: ()=>void
 }
 
@@ -49,14 +56,15 @@ const mapSizeToHeaderTag: Record<TextSize, HeaderTagType> = {
 export const Text = memo((props: TextProps) => {
     const { className, text, title, size = TextSize.SIZE_M,
         align = TextAlign.START, theme = TextTheme.INVERTED, inverted,
-        onClick, borderTrim = false } = props;
+        onClick, borderTrim = false, color= '' } = props;
+
 
     const mods: Mods = {
         [cls[theme]]: true,
         [cls[align]]: true,
         [cls[size]]: true,
         [cls.inverted]: inverted,
-        [cls.borderTrim]: borderTrim
+        [cls.borderTrim]: borderTrim,
     };
     const HeaderTag = mapSizeToHeaderTag[size];
 
@@ -64,14 +72,14 @@ export const Text = memo((props: TextProps) => {
         <div className={classNames(cls.Text, mods, [className])} onClick={onClick}>
             {title &&
                 <HeaderTag
-                    className={cls.title}
+                    className={classNames(cls.title, { [cls[color]]: color })}
                 >
                     {title}
                 </HeaderTag>
             }
             {text &&
                 <p
-                    className={cls.text}
+                    className={classNames(cls.text, { [cls[color]]: color })}
                 >
                     {text}
                 </p>

@@ -3,13 +3,14 @@ import {
     getRouteAdminPanel,
     getRouteMain,
     getRouteMaterials,
-    getRouteOrders, getRouteReports
+    getRouteOrders, getRouteReports, getRouteStructure
 } from '@/shared/const/router';
 import MainPageIcon from '@/shared/assets/icons/MainPage.svg';
 import OrdersPageIcon from '@/shared/assets/icons/OrdersPage.svg';
 import MaterialsPageIcon from '@/shared/assets/icons/MaterialsPage.svg';
 import ReportsPageIcon from '@/shared/assets/icons/ReportsPage2.svg';
 import AdminPanelIcon from '@/shared/assets/icons/IcBaselineBuild.svg';
+import StructurePageIcon from '@/shared/assets/icons/StructurePage2.svg';
 import { createSelector } from '@reduxjs/toolkit';
 import { getUserAuthData, getUserRoles, UserRole } from '@/entities/User';
 
@@ -26,6 +27,12 @@ export const getSidebarItems = createSelector(
         ];
 
         if (userId) {
+            sidebarItemsList.push({
+                path: getRouteStructure(),
+                text: 'Объекты',
+                Icon: StructurePageIcon,
+                authOnly: true
+            });
             sidebarItemsList.push({
                 path: getRouteOrders(),
                 text: 'Заказы',

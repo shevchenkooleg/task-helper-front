@@ -40,11 +40,12 @@ export const OrderPageToolsPanel = memo((props: OrderPageToolsPanelProps) => {
                 max
                 className={classNames(cls.OrderPageToolsPanel, {}, [className])}>
                 <HStack>
-                    <Button theme={ButtonTheme.BACKGROUND_GREEN} size={ButtonSize.SIZE_S} rounded={true}>
+                    <Button theme={ButtonTheme.BACKGROUND_GREEN} size={ButtonSize.SIZE_S} rounded={true} onClick={addOrderCallback}>
                         Создать заказ
                     </Button>
                 </HStack>
-                <HStack>
+                <HStack gap={'8px'}>
+                    <OrderStatusFilter/>
                     <OrdersYearsOfExecutionSelect/>
                 </HStack>
                 {/*<HStack gap={'32px'}>*/}

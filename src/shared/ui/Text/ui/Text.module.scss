@@ -10,6 +10,18 @@
     color: var(--secondary-color);
 }
 
+.primary_color {
+    color: var(--primary-color);
+}
+
+.secondary_color {
+    color: var(--secondary-color);
+}
+
+.black_color {
+    color: black;
+}
+
 .error {
     .title {
         color: var(--red-light);
