@@ -15,6 +15,7 @@ export { getOrderFormExecutions } from './model/selectors/getOrderFormExecutions
 export { getOrderId } from './model/selectors/getOrderId/getOrderId';
 export { orderDetailsSliceActions } from './model/slice/orderDetailsSlice';
 export { getOrderDetailIsLoading } from './model/selectors/getOrderDetaildIsLoading/getOrderDetailIsLoading';
+export { getOrderDetailsCardView } from './model/selectors/getOrderDetailsCardView/getOrderDetailsCardView';
 export { BillOfQuantitiesStatus } from '@/shared/const/orderConsts';
 export { OrderStatus } from '@/shared/const/orderConsts';
 // export { OrderInformation } from './ui/OrderInformation/OrderInformation';

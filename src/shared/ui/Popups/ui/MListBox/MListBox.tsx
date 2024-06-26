@@ -25,18 +25,16 @@ interface MListBoxProps {
 
 export const MListBox = memo((props: MListBoxProps) => {
 
-    const { items, value, onChange, label } = props;
+    const { items, value, onChange, label , readOnly } = props;
 
-    console.log(value);
+    console.log('readOnly ', readOnly);
     return (
         <HListBox value={value} onChange={onChange}>
-            <ListboxButton className={cls.btn}>
-                {label &&
-                    <HStack gap={'8px'}>
-                        <Text text={label} borderTrim={false} size={TextSize.SIZE_S}/>
-                        <Text text={value === 'any' ? '---' : value} borderTrim={false} size={TextSize.SIZE_M}/>
-                    </HStack>
-                }
+            <ListboxButton className={classNames(cls.btn, { [cls.readonly]:readOnly })} disabled={readOnly}>
+                <HStack gap={'8px'}>
+                    {label && <Text text={label} borderTrim={false} size={TextSize.SIZE_S}/>}
+                    <Text text={value === 'any' ? '---' : value} borderTrim={false} size={TextSize.SIZE_M}/>
+                </HStack>
                 <ChevronDownIcon
                     className={cls.dropIcon}
                     aria-hidden="true"
@@ -53,8 +51,8 @@ export const MListBox = memo((props: MListBoxProps) => {
                             value={item.value}
                             className={classNames(cls.element)}
                         >
-                            <CheckIcon className={classNames(cls.checkIcon, { [cls.selected]: item.value === value } , [])} />
-                            <div className={cls.text}>{item.value === 'any' ? '---' : item.value}</div>
+                            <CheckIcon className={classNames(cls.checkIcon, { [cls.selected]: item.content === value } , [])} />
+                            <div className={cls.text}>{item.value === 'any' ? '---' : item.content}</div>
                         </ListboxOption>
                     ))}
                 </ListboxOptions>

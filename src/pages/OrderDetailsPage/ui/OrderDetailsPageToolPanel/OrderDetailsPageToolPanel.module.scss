@@ -1,4 +1,13 @@
 .OrderDetailsPageToolBar {
-    padding: 20px 20px 20px 45px;
-    box-shadow: 0 2px 5px var(--secondary-color);
+    height: calc(100vh - var(--navbar-height) - 22px);
+    padding-top: 30px;
+    margin: 0 10px;
+    //padding: 20px 20px 20px 45px;
+    //box-shadow: 0 2px 5px var(--secondary-color);
+    //height: var(--toolbar-height);
+    //margin-bottom: 10px;
+}
+
+.btn {
+    width: 120px;
 }

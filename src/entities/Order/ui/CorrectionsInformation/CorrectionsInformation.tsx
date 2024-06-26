@@ -19,6 +19,7 @@ import {
 import { getOrderDetailsEditMode } from '../../model/selectors/getEditMode/getOrderDetailsEditMode';
 import { createInnerDocument } from '../../model/services/createInnerDocument/createInnerDocument';
 import { deleteInnerDocument } from '../../model/services/deleteInnerDocument/deleteInnerDocument';
+import { Card } from '@/shared/ui/Card';
 
 interface CorrectionsInformationProps {
     className?: string
@@ -56,52 +57,55 @@ export const CorrectionsInformation = memo((props: CorrectionsInformationProps) 
         <div className={classNames(cls.CorrectionsInformation, {}, [className])}>
             <h4>Движение материалов</h4>
             <VStack align={'start'} gap={'16px'}>
-                <VStack align={'start'}>
-                    <HStack>
-                        <div className={cls.title}>Корректировки назначения:</div>
-                        {editMode && <Button size={ButtonSize.SIZE_S} theme={ButtonTheme.CLEAR} onClick={addMaterialCorrection}>Add Correction</Button>}
-                    </HStack>
-                    {
-                        orderFormData?.materialCorrections && orderFormData?.materialCorrections?.length > 0
-                            ? <VStack gap={'8px'}>
-                                {orderFormData?.materialCorrections?.map(correction=>(
-                                    <MaterialDataCard
-                                        data={correction}
-                                        key={correction._id}
-                                        onChangeMaterialCorrection={onChangeMaterialCorrection}
-                                        onDeleteClick={()=>onMaterialCorrectionDelete(correction._id)}
-                                    />
-                                ))}
-                            </VStack>
-                            : <HStack gap={'32px'}>
-                                Корректировки отсутствуют
-                            </HStack>
-                    }
-                </VStack>
-                <VStack align={'start'}>
-                    <HStack>
-                        <div className={cls.title}>Накладные М11:</div>
-                        {editMode && <Button size={ButtonSize.SIZE_S} theme={ButtonTheme.CLEAR} onClick={addConsignmentNotes}>Add M11</Button>}
-                    </HStack>
+                <Card max={true}>
+                    <VStack align={'start'} gap={'24px'}>
+                        <HStack max align={'center'} justify={'center'}>
+                            <div className={cls.title}>Корректировки назначения товаров:</div>
+                            {editMode && <Button size={ButtonSize.SIZE_S} theme={ButtonTheme.CLEAR} onClick={addMaterialCorrection}>Add Correction</Button>}
+                        </HStack>
+                        {
+                            orderFormData?.materialCorrections && orderFormData?.materialCorrections?.length > 0
+                                ? <VStack gap={'8px'}>
+                                    {orderFormData?.materialCorrections?.map(correction=>(
+                                        <MaterialDataCard
+                                            data={correction}
+                                            key={correction._id}
+                                            onChangeMaterialCorrection={onChangeMaterialCorrection}
+                                            onDeleteClick={()=>onMaterialCorrectionDelete(correction._id)}
+                                        />
+                                    ))}
+                                </VStack>
+                                : <HStack gap={'32px'}>
+                                    Корректировки отсутствуют
+                                </HStack>
+                        }
+                    </VStack>
+                </Card>
+                <Card max={true}>
+                    <VStack align={'start'}>
+                        <HStack>
+                            <div className={cls.title}>Накладные М11:</div>
+                            {editMode && <Button size={ButtonSize.SIZE_S} theme={ButtonTheme.CLEAR} onClick={addConsignmentNotes}>Add M11</Button>}
+                        </HStack>
 
-                    {
-                        orderFormData?.consignmentNotes && orderFormData?.consignmentNotes?.length > 0
-                            ? <VStack gap={'8px'}>
-                                {orderFormData?.consignmentNotes?.map(note=>(
-                                    <MaterialDataCard
-                                        data={note}
-                                        key={note._id}
-                                        onChangeMaterialCorrection={onChangeConsignmentNote}
-                                        onDeleteClick={()=>onConsignmentNotesDelete(note._id)}
-                                    />
-                                ))}
-                            </VStack>
-                            : <HStack gap={'32px'}>
-                                Накладные М11 отсутствуют
-                            </HStack>
-                    }
-
-                </VStack>
+                        {
+                            orderFormData?.consignmentNotes && orderFormData?.consignmentNotes?.length > 0
+                                ? <VStack gap={'8px'}>
+                                    {orderFormData?.consignmentNotes?.map(note=>(
+                                        <MaterialDataCard
+                                            data={note}
+                                            key={note._id}
+                                            onChangeMaterialCorrection={onChangeConsignmentNote}
+                                            onDeleteClick={()=>onConsignmentNotesDelete(note._id)}
+                                        />
+                                    ))}
+                                </VStack>
+                                : <HStack gap={'32px'}>
+                                    Накладные М11 отсутствуют
+                                </HStack>
+                        }
+                    </VStack>
+                </Card>
             </VStack>
         </div>
     );

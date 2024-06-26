@@ -1,0 +1,99 @@
+.OrderStatusLine {
+    width: 100%;
+}
+
+.element {
+    text-align: center;
+    flex-grow: 1;
+    padding: 0 20px;
+    font: var(--font-s);
+    border: 1px solid black;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-right: none;
+    border-left: none;
+    color: #8686837F;
+    &.editMode {
+        cursor: pointer;
+    }
+}
+
+.container {
+    width: 100%;
+}
+
+.container:first-child {
+    border-left: 1px solid black;
+}
+
+.container:last-child {
+    border-right: 1px solid black;
+}
+
+.issued {
+    &.reached {
+        background-color: var(--order-status-issued);
+        color: var(--font-color);
+    }
+    &.elHover {
+        box-shadow: 3px 3px 5px var(--order-status-issued), -2px -2px 10px var(--order-status-issued);
+        color: var(--font-color);
+    }
+}
+
+.waiting_for_request {
+    &.reached {
+        background-color: var(--order-status-waiting-for-request);
+        color: var(--font-color);
+    }
+    &.elHover {
+        box-shadow: 3px 3px 5px var(--order-status-waiting-for-request), -2px -2px 10px var(--order-status-waiting-for-request);
+        color: var(--font-color);
+    }
+}
+
+.executing {
+    &.reached {
+        background-color: var(--order-status-executing);
+        color: var(--font-color);
+    }
+    &.elHover {
+        box-shadow: 3px 3px 5px var(--order-status-executing), -2px -2px 10px var(--order-status-executing);
+        color: var(--font-color);
+    }
+}
+
+.agreement {
+    &.reached {
+        background-color: var(--order-status-agreement);
+        color: var(--font-color);
+    }
+    &.elHover {
+        box-shadow: 3px 3px 5px var(--order-status-agreement), -2px -2px 10px var(--order-status-agreement);
+        color: var(--font-color);
+    }
+}
+
+.waiting_for_technical_closing {
+    &.reached {
+        background-color: var(--order-status-waiting-for-technical-closing);
+        color: var(--font-color);
+    }
+    &.elHover {
+        box-shadow: 3px 3px 5px var(--order-status-waiting-for-technical-closing), -2px -2px 10px var(--order-status-waiting-for-technical-closing);
+        color: var(--font-color);
+    }
+}
+
+.technical_closed {
+    &.reached {
+        background-color: var(--order-status-technical-closed);
+        color: var(--font-color);
+    }
+
+    &.elHover {
+        box-shadow: 3px 3px 5px var(--order-status-technical-closed), -2px -2px 10px var(--order-status-technical-closed);
+        color: var(--font-color);
+    }
+}

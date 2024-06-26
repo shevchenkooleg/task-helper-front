@@ -3,6 +3,7 @@
 }
 
 .btn {
+    position: relative;
     display: block;
     padding: 3px 3px 3px 15px;
     border-radius: 10px;
@@ -11,14 +12,21 @@
     border: 1px solid var(--secondary-color);
     background-color: var(--bg-color);
     color: var(--secondary-color);
+    cursor: pointer;
+    &.readonly {
+        cursor: auto;
+        border: 1px solid var(--listbox-border-readonly);
+        background-color: var(--listbox-bg-readonly);
+        color: var(--listbox-font-color-readonly);
+}
 
 }
 
 .dropIcon {
     width: 20px;
     position: absolute;
-    top: 85px;
-    right: 20px;
+    top: 5px;
+    right: 4px;
     pointer-events: none;
 }
 

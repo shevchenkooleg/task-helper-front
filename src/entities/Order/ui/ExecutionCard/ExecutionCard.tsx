@@ -19,8 +19,9 @@ import { deleteInnerDocument } from '../../model/services/deleteInnerDocument/de
 import { createInnerDocument } from '../../model/services/createInnerDocument/createInnerDocument';
 import { ExecutionDataCard } from '../ExecutionDataCard/ExecutionDataCard';
 import { getOrderId } from '../../model/selectors/getOrderId/getOrderId';
-import { ExecutionStatus, OrderStatus, orderStatusMapper } from '@/shared/const/orderConsts';
+import { ExecutionStatus, orderStatusMapper } from '@/shared/const/orderConsts';
 import { orderExecutionStatusOption } from '@/shared/const/orderDetailsConsts';
+import { StatusLine } from '@/shared/ui/StatusLine/StatusLine';
 
 interface ExecutionCardProps {
     className?: string
@@ -35,7 +36,7 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
     const editMode = useSelector(getOrderDetailsEditMode);
     const dispatch = useAppDispatch();
 
-    const orderExecutionStatusValue = execution?.status ?? OrderStatus.ISSUED;
+    const orderExecutionStatusValue = execution?.status ?? ExecutionStatus.EXECUTING;
 
 
     const onDeleteClickHandler = useCallback(() => {
@@ -81,10 +82,10 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
     return (
 
         <div className={classNames(cls.ExecutionCard, {}, [className])}>
-            <HStack wrap={'wrap'} gap={'12px'} className={cls.card} justify={'center'}>
-                <VStack align={'start'} gap={'24px'}>
-                    <VStack align={'start'} gap={'8px'}>
-                        <HStack gap={'12px'} justify={'between'} max={true}>
+            <VStack wrap={'wrap'} gap={'32px'} className={cls.card} justify={'center'}>
+                <HStack align={'start'} gap={'24px'} max>
+                    <VStack align={'start'} gap={'8px'} max>
+                        <HStack gap={'12px'} justify={'between'} max>
                             <Text text={'Основные данные'} align={TextAlign.START}/>
                             {
                                 editMode && <Button
@@ -97,13 +98,15 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
                                 </Button>
                             }
                         </HStack>
-                        <HStack max={true} gap={'12px'} justify={'center'}>
-                            <Text text={'№ выполнения'}/>
-                            <Input
-                                value={execution?.value}
-                                readOnly={!editMode}
-                                onChange={onChangeExecuteId}
-                            />
+                        <VStack max={true} gap={'12px'} justify={'center'} align={'start'}>
+                            <HStack gap={'12px'}>
+                                <Text text={'№ выполнения'}/>
+                                <Input
+                                    value={execution?.value}
+                                    readOnly={!editMode}
+                                    onChange={onChangeExecuteId}
+                                />
+                            </HStack>
                             <ListBox
                                 readOnly={!editMode}
                                 size={ButtonSize.SIZE_S}
@@ -111,7 +114,7 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
                                 items={orderExecutionStatusOption}
                                 onChange={(value: string)=>onExecutingStatusChange(value as ExecutionStatus)}
                             />
-                        </HStack>
+                        </VStack>
                     </VStack>
                     <VStack align={'start'} gap={'4px'} max={true}>
                         <HStack justify={'between'} max={true}>
@@ -150,10 +153,14 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
                                 : <div>Акты на списание отсутствуют</div>
                         }
                     </VStack>
-                </VStack>
-
-
-            </HStack>
+                </HStack>
+                <StatusLine<ExecutionStatus>
+                    editMode={editMode}
+                    statusOptions={orderExecutionStatusOption}
+                    onChange={(value: string)=>onExecutingStatusChange(value as ExecutionStatus)}
+                    currentStatus={orderExecutionStatusValue}
+                />
+            </VStack>
         </div>
     );
 });

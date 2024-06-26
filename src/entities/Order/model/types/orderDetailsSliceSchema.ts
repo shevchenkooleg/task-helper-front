@@ -1,6 +1,7 @@
 import { ExecutionStatus, OrderDocumentsStatus, OrderStatus } from '@/shared/const/orderConsts';
 import { MaterialToOrderTab } from '@/entities/Material';
 import { OrderExecutionType, OrderType } from '@/shared/const/addNewOrderConsts';
+import { OrderDetailsCardView } from '@/shared/const/orderDetailsConsts';
 
 export interface Order {
     _id?: string
@@ -59,14 +60,13 @@ export interface WriteOffDocumentInterface {           // Акт на списа
     _id: string
 }
 
-
-
 export interface OrderDetailsSliceSchema {
     order: Order
     form: Order
     error?: string
     isLoading: boolean
     editMode: boolean
+    view: OrderDetailsCardView
 }
 
 export type CreateInnerDocumentOperationsTypes = 'createCorrection' | 'createConsignment' | 'createExecution' | 'createKS2' | 'createWriteOffDocument'

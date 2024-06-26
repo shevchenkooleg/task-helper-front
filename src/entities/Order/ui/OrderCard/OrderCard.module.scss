@@ -1,8 +1,12 @@
 .OrderCard {
-    padding: 16px;
-    border: 2px solid var(--primary-color)
+    padding: 20px;
+    //border: 2px solid var(--primary-color);
+    position: relative;
+    border-radius: 10px;
+    //min-height: calc(100vh - var(--navbar-height) - 60px);
 }
 
 .OrderCardMaterialTable {
 
 }
+

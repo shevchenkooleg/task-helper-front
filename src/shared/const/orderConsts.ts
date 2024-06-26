@@ -41,7 +41,7 @@ export enum OrderDocumentsStatus {
     WAITING_FOR_EC = 'waiting_for_EC',
     AGREEMENT_IN_EC = 'agreement_in_EC',
     AWAITING_SIGNING = 'awaiting_signing',
-    SUBMITTED_FOR_SIGNING = 'submitted_for_signing',
+    SUBMITTED_FOR_SIGNING = 'submt_for_signing',
     READY_TO_TRANSFER = 'ready_to_transfer',
     UPLOADED_TO_TTS = 'uploaded_to_TTS',
 }
@@ -70,6 +70,14 @@ export const orderStatusMapper: Record<OrderStatus, string> = {
     [OrderStatus.WAITING_FOR_TECHNICAL_CLOSING]: 'Ожидает технического закрытия',
     [OrderStatus.NONE]: 'Состояние не указано',
 };
+export const orderExecutingStatusMapper: Record<ExecutionStatus, string> = {
+    [ExecutionStatus.EXECUTING]: 'Выполняется',
+    [ExecutionStatus.AGREEMENT]: 'На согласовании',
+    [ExecutionStatus.WAITING_FOR_TECHNICAL_CLOSING]: 'Ожидает технического закрытия',
+    [ExecutionStatus.TECHNICAL_CLOSED]: 'Технически закрыт',
+
+};
+
 
 export const billOfQuantitiesStatusMapper: Record<BillOfQuantitiesStatus, string> = {
     [BillOfQuantitiesStatus.LOADED]: 'Загружен в ТОРО',

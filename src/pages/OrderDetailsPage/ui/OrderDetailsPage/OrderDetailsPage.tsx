@@ -1,7 +1,7 @@
 import cls from './OrderDetailsPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo, useCallback } from 'react';
-import { VStack } from '@/shared/ui/Stack';
+import { HStack, VStack } from '@/shared/ui/Stack';
 import { Page } from '@/widgets/Page';
 import { EditableCard } from '@/features/editableCard';
 import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitialEffect';
@@ -19,6 +19,9 @@ import { useSelector } from 'react-redux';
 import { deleteOrderById } from '@/entities/Order';
 import { OrderCard } from '@/entities/Order';
 import { OrderDetailsPageToolPanel } from '../OrderDetailsPageToolPanel/OrderDetailsPageToolPanel';
+import {
+    getOrderDetailsCardView
+} from '@/entities/Order';
 
 interface OrderDetailsPageProps {
     className?: string
@@ -31,6 +34,7 @@ const OrderDetailsPage = memo((props: OrderDetailsPageProps) => {
     const navigate = useNavigate();
     const isLoading = useSelector(getOrderDetailIsLoading);
     const editMode = useSelector(getOrderDetailsEditMode);
+    const orderDetailsCardView = useSelector(getOrderDetailsCardView);
 
     useInitialEffect(()=>{
         orderId && dispatch(fetchOrderById(orderId));
@@ -66,7 +70,7 @@ const OrderDetailsPage = memo((props: OrderDetailsPageProps) => {
 
 
     return (
-        <VStack className={cls.layout}>
+        <HStack className={cls.layout}>
             <OrderDetailsPageToolPanel
                 onBackClick={onBackClickHandler}
                 onEditClick={onEditClickHandler}
@@ -74,19 +78,21 @@ const OrderDetailsPage = memo((props: OrderDetailsPageProps) => {
                 onSaveClick={onSaveClickHandler}
                 onCancelClick={onCancelClickHandler}
                 editMode={editMode}
+                newDesign={true}
+                className={cls.toolPanel}
             />
             <Page className={classNames(cls.OrderDetailsPage, {}, [className])}>
-                <VStack gap={'16px'} max={true} >
+                <VStack gap={'16px'} max={true}>
                     <EditableCard
                         reducer={reducer}
                         removeAfterUnmount={true}
                         isLoading={isLoading}
                     >
-                        <OrderCard newCard={true}/>
+                        <OrderCard newDesign={true} view={orderDetailsCardView}/>
                     </EditableCard>
                 </VStack>
             </Page>
-        </VStack>
+        </HStack>
     );
 });
 

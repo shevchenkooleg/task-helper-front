@@ -1,6 +1,6 @@
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo, useCallback } from 'react';
-import { ListBox } from '@/shared/ui/Popups';
+import { MListBox } from '@/shared/ui/Popups';
 import { OrderDocumentsStatus, orderDocumentsStatusMapper } from '../../../../shared/const/orderConsts';
 import { ButtonSize, ButtonTheme } from '@/shared/ui/Button';
 
@@ -18,7 +18,7 @@ const statusOptions = [
     { value: OrderDocumentsStatus.WAITING_FOR_EC, content: orderDocumentsStatusMapper.waiting_for_EC },
     { value: OrderDocumentsStatus.AGREEMENT_IN_EC, content: orderDocumentsStatusMapper.agreement_in_EC },
     { value: OrderDocumentsStatus.AWAITING_SIGNING, content: orderDocumentsStatusMapper.awaiting_signing },
-    { value: OrderDocumentsStatus.SUBMITTED_FOR_SIGNING, content: orderDocumentsStatusMapper.submitted_for_signing },
+    { value: OrderDocumentsStatus.SUBMITTED_FOR_SIGNING, content: orderDocumentsStatusMapper.submt_for_signing },
     { value: OrderDocumentsStatus.READY_TO_TRANSFER, content: orderDocumentsStatusMapper.ready_to_transfer },
     { value: OrderDocumentsStatus.UPLOADED_TO_TTS, content: orderDocumentsStatusMapper.uploaded_to_TTS }
 ];
@@ -31,7 +31,7 @@ export const OrderDocumentsStatusSelect = memo((props: OrderStatusSelectProps) =
     },[onChange]);
 
     return (
-        <ListBox
+        <MListBox
             className={classNames('', {}, [className])}
             onChange={onChangeHandler}
             items={statusOptions}

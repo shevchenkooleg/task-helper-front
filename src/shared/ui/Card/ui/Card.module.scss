@@ -1,3 +1,10 @@
 .Card {
+    margin-top: 10px;
+    padding: 20px;
+    background-color: var(--secondary-bg-color);
+    box-shadow: 2px 2px 8px var(--secondary-color);
+}
 
+.max {
+    width: 100%;
 }

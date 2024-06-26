@@ -1,11 +1,21 @@
 .OrderDetailsPage {
-    padding-top: 40px;
+    padding: 25px 10px 0 10px;
     width: 100%;
+    height: calc(100vh - var(--navbar-height) - 17px);;
+    //border: 2px solid red;
 }
 
 .layout {
+    position: relative;
     flex-grow: 1;
-    height: calc(100vh - var(--navbar-height));
+    height: calc(100vh - var(--navbar-height) - 15px);
     overflow-y: auto;
     flex-shrink: 1000;
+    margin: 15px 15px 5px 15px;
+}
+
+.toolPanel {
+    width: 120px;
+    margin-right: 15px;
+    height: calc(100vh - var(--navbar-height) - 20px);
 }

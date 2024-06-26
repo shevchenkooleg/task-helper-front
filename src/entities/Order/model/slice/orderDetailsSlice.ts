@@ -1,26 +1,28 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
     KS2DocumentInterface,
-    Order, OrderConsignmentNoteInterface,
+    Order,
+    OrderConsignmentNoteInterface,
     OrderDetailsSliceSchema,
     OrderExecutionInterface,
-    OrderMaterialCorrectionInterface, WriteOffDocumentInterface
+    OrderMaterialCorrectionInterface,
+    WriteOffDocumentInterface
 } from '../types/orderDetailsSliceSchema';
 import { fetchOrderById } from '../services/fetchOrderById/fetchOrderById';
 import { updateOrderById } from '../../model/services/updateOrderById/updateOrderById';
 import { deleteOrderById } from '../../model/services/deleteOrderById/deleteOrderById';
 import { MaterialToOrderTab } from '@/entities/Material';
 import { expandDataForMaterial } from '../../model/services/expandDataForMaterial/expandDataForMaterial';
-import {
-    fetchMaterialDataForOrder
-} from '../services/fetchMaterialDataForOrder/fetchMaterialDataForOrder';
+import { fetchMaterialDataForOrder } from '../services/fetchMaterialDataForOrder/fetchMaterialDataForOrder';
+import { OrderDetailsCardView } from '@/shared/const/orderDetailsConsts';
 
 const initialState: OrderDetailsSliceSchema = {
     error: '',
     isLoading: false,
     editMode: false,
     order: {},
-    form: {}
+    form: {},
+    view: OrderDetailsCardView.BASE
 };
 
 export const orderDetailsSlice = createSlice({
@@ -84,6 +86,9 @@ export const orderDetailsSlice = createSlice({
         },
         deleteMaterialInOrder: (state, action:PayloadAction<string>) => {
             state.form!.materials! = [...state.form!.materials!.filter(el=>el._id !== action.payload)];
+        },
+        setOrderDetailsCardView: (state, action: PayloadAction<OrderDetailsCardView>)=>{
+            state.view = action.payload;
         }
     },
     extraReducers: (builder) => {
