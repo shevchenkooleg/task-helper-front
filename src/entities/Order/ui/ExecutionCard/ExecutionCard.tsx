@@ -9,7 +9,6 @@ import {
     WriteOffDocumentInterface
 } from '../../model/types/orderDetailsSliceSchema';
 import { Input } from '@/shared/ui/Input';
-import { ListBox } from '@/shared/ui/Popups';
 import { useSelector } from 'react-redux';
 import { getOrderDetailsEditMode } from '../../model/selectors/getEditMode/getOrderDetailsEditMode';
 import { Button, ButtonSize, ButtonTheme } from '@/shared/ui/Button';
@@ -19,7 +18,7 @@ import { deleteInnerDocument } from '../../model/services/deleteInnerDocument/de
 import { createInnerDocument } from '../../model/services/createInnerDocument/createInnerDocument';
 import { ExecutionDataCard } from '../ExecutionDataCard/ExecutionDataCard';
 import { getOrderId } from '../../model/selectors/getOrderId/getOrderId';
-import { ExecutionStatus, orderStatusMapper } from '@/shared/const/orderConsts';
+import { ExecutionStatus } from '@/shared/const/orderConsts';
 import { orderExecutionStatusOption } from '@/shared/const/orderDetailsConsts';
 import { StatusLine } from '@/shared/ui/StatusLine/StatusLine';
 
@@ -107,13 +106,13 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
                                     onChange={onChangeExecuteId}
                                 />
                             </HStack>
-                            <ListBox
-                                readOnly={!editMode}
-                                size={ButtonSize.SIZE_S}
-                                value={orderStatusMapper[orderExecutionStatusValue]}
-                                items={orderExecutionStatusOption}
-                                onChange={(value: string)=>onExecutingStatusChange(value as ExecutionStatus)}
-                            />
+                            {/*<ListBox*/}
+                            {/*    readOnly={!editMode}*/}
+                            {/*    size={ButtonSize.SIZE_S}*/}
+                            {/*    value={orderStatusMapper[orderExecutionStatusValue]}*/}
+                            {/*    items={orderExecutionStatusOption}*/}
+                            {/*    onChange={(value: string)=>onExecutingStatusChange(value as ExecutionStatus)}*/}
+                            {/*/>*/}
                         </VStack>
                     </VStack>
                     <VStack align={'start'} gap={'4px'} max={true}>
