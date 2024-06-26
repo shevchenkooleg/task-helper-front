@@ -25,18 +25,31 @@ interface MListBoxProps {
 
 export const MListBox = memo((props: MListBoxProps) => {
 
-    const { items, value, onChange, label , readOnly } = props;
+    const { items, value, onChange, label , readOnly, size = ButtonSize.SIZE_M } = props;
+    const mods = {
+        [cls.readonly]: readOnly,
+        [cls[size]]:true
+    };
 
-    console.log('readOnly ', readOnly);
+    const textSizeMapper = {
+        [ButtonSize.SIZE_XL]: TextSize.SIZE_XL,
+        [ButtonSize.SIZE_L]: TextSize.SIZE_L,
+        [ButtonSize.SIZE_M]: TextSize.SIZE_M,
+        [ButtonSize.SIZE_S]: TextSize.SIZE_S,
+        [ButtonSize.SIZE_XS]: TextSize.SIZE_XS,
+    };
+
+    console.log(size);
+
     return (
         <HListBox value={value} onChange={onChange}>
-            <ListboxButton className={classNames(cls.btn, { [cls.readonly]:readOnly })} disabled={readOnly}>
+            <ListboxButton className={classNames(cls.btn, mods,[])} disabled={readOnly}>
                 <HStack gap={'8px'}>
                     {label && <Text text={label} borderTrim={false} size={TextSize.SIZE_S}/>}
-                    <Text text={value === 'any' ? '---' : value} borderTrim={false} size={TextSize.SIZE_M}/>
+                    <Text text={value === 'any' ? '---' : value} borderTrim={false} size={textSizeMapper[size]}/>
                 </HStack>
                 <ChevronDownIcon
-                    className={cls.dropIcon}
+                    className={classNames(cls.dropIcon, {}, [size ? cls[size] : ''])}
                     aria-hidden="true"
                 />
             </ListboxButton>

@@ -8,11 +8,13 @@ import { Button, ButtonSize, ButtonTheme } from '@/shared/ui/Button';
 import { useSelector } from 'react-redux';
 import { getOrderDetailsEditMode } from '../../model/selectors/getEditMode/getOrderDetailsEditMode';
 import { HStack } from '@/shared/ui/Stack';
-import { OrderDocumentsStatus } from '@/shared/const/orderConsts';
+import { OrderDocumentsStatus, orderDocumentsStatusMapper } from '@/shared/const/orderConsts';
+import DeleteIcon from '@/shared/assets/icons/DeleteIcon.svg';
+import { Icon } from '@/shared/ui/Icon';
 
 interface ExecutionDataCardProps {
     className?: string
-    data?: KS2DocumentInterface | WriteOffDocumentInterface
+    data: KS2DocumentInterface | WriteOffDocumentInterface
     onDeleteClick?: () => void
     onChangeExecutionDataCardValue?: (newKS2: KS2DocumentInterface, KS2Id: string) => void
 }
@@ -21,6 +23,8 @@ export const ExecutionDataCard = memo((props: ExecutionDataCardProps) => {
     const { className, data, onDeleteClick, onChangeExecutionDataCardValue } = props;
     const editMode = useSelector(getOrderDetailsEditMode);
     const [lineHover, setLineHover] = useState(false);
+
+    const currentStatus = orderDocumentsStatusMapper[data.status] as OrderDocumentsStatus;
 
     const onChangeDataCardStatus = useCallback((newStatus?: OrderDocumentsStatus)=>{
         data?._executionId && onChangeExecutionDataCardValue &&  onChangeExecutionDataCardValue(
@@ -45,19 +49,21 @@ export const ExecutionDataCard = memo((props: ExecutionDataCardProps) => {
             />
             <OrderDocumentsStatusSelect
                 readOnly={!editMode}
-                value={data?.status}
+                value={currentStatus}
                 size={ButtonSize.SIZE_S}
                 onChange={onChangeDataCardStatus}
                 className={lineHover ? cls.outsideHover : ''}
             />
             {editMode && <Button
-                size={ButtonSize.SIZE_S}
-                theme={ButtonTheme.OUTLINE_RED}
+                size={ButtonSize.SIZE_XS}
+                theme={ButtonTheme.CLEAR}
+                trimPadding={true}
                 onClick={onDeleteClick}
                 onMouseEnter={()=>setLineHover(true)}
                 onMouseLeave={()=>setLineHover(false)}
+                className={cls.deleteBtn}
             >
-                X
+                <Icon Svg={DeleteIcon} style={{ 'width':'20px' }} red/>
             </Button>}
         </HStack>
     );

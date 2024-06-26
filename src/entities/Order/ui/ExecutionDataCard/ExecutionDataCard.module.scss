@@ -1,9 +1,15 @@
 .ExecutionDataCard {
-
+    position: relative;
 }
 
 .outsideHover {
     opacity: 0.7;
     fill-opacity: 0.7;
     stroke-opacity: 0.7;
+}
+
+.deleteBtn {
+    position: absolute;
+    right: -35px;
+    top: -5px
 }

@@ -17,7 +17,7 @@
 
 .clear {
     border: none;
-    background: var(--bg-color);
+    background: none;
     color: var(--primary-color);
 }
 
@@ -56,6 +56,12 @@
     color: var(--inverted-primary-color);
     background: #0a800a;
     border: 1px solid #0a800a;
+}
+
+.background_red {
+    color: white;
+    background: #FF0000FF;
+    border: 1px solid #b90808;
 }
 
 .inverted {

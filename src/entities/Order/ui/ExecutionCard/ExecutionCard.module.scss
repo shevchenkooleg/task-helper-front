@@ -1,5 +1,5 @@
 .ExecutionCard {
-
+    position: relative;
 }
 
 .card {
@@ -8,4 +8,10 @@
 
 .title {
     margin: 3px 0 3px 0;
+}
+
+.deleteBtn {
+    position: absolute;
+    right: -10px;
+    top: -10px
 }

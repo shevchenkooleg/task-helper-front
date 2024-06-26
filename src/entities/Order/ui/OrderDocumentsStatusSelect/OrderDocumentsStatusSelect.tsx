@@ -30,6 +30,8 @@ export const OrderDocumentsStatusSelect = memo((props: OrderStatusSelectProps) =
         onChange?.(value as OrderDocumentsStatus);
     },[onChange]);
 
+    console.log('value ', value);
+
     return (
         <MListBox
             className={classNames('', {}, [className])}

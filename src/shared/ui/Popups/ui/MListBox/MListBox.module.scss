@@ -18,8 +18,10 @@
         border: 1px solid var(--listbox-border-readonly);
         background-color: var(--listbox-bg-readonly);
         color: var(--listbox-font-color-readonly);
-}
-
+    }
+    &.size_s {
+        width: 135px;
+    }
 }
 
 .dropIcon {
@@ -28,6 +30,9 @@
     top: 5px;
     right: 4px;
     pointer-events: none;
+    &.size_s {
+        top: 2px;
+    }
 }
 
 .checkIcon {
@@ -70,4 +75,24 @@
 
 .text {
     font: var(--font-m);
+}
+
+.size_xs {
+    font: var(--font-s);
+}
+
+.size_s {
+    font: var(--font-s);
+}
+
+.size_m {
+    font: var(--font-m);
+}
+
+.size_l {
+    font: var(--font-l);
+}
+
+.size_xl {
+    font: var(--font-xl);
 }

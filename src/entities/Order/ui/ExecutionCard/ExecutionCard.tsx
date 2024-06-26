@@ -84,16 +84,18 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
             <VStack wrap={'wrap'} gap={'32px'} className={cls.card} justify={'center'}>
                 <HStack align={'start'} gap={'24px'} max>
                     <VStack align={'start'} gap={'8px'} max>
-                        <HStack gap={'12px'} justify={'between'} max>
+                        <HStack gap={'4px'} justify={'between'} max className={cls.mainDataHeader}>
                             <Text text={'Основные данные'} align={TextAlign.START}/>
                             {
                                 editMode && <Button
                                     size={ButtonSize.SIZE_XS}
-                                    theme={ButtonTheme.OUTLINE_RED}
-                                    square={true}
+                                    theme={ButtonTheme.BACKGROUND_RED}
+                                    rounded
+                                    trimPadding
                                     onClick={onDeleteClickHandler}
+                                    className={cls.deleteBtn}
                                 >
-                                X
+                                    Удалить выполнение
                                 </Button>
                             }
                         </HStack>
