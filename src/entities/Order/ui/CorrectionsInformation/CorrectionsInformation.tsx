@@ -83,7 +83,7 @@ export const CorrectionsInformation = memo((props: CorrectionsInformationProps) 
                 </Card>
                 <Card max={true}>
                     <VStack align={'start'}>
-                        <HStack>
+                        <HStack max align={'center'} justify={'center'}>
                             <div className={cls.title}>Накладные М11:</div>
                             {editMode && <Button size={ButtonSize.SIZE_S} theme={ButtonTheme.CLEAR} onClick={addConsignmentNotes}>Add M11</Button>}
                         </HStack>

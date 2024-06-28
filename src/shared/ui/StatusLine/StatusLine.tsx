@@ -23,10 +23,6 @@ export const StatusLine =  <T extends string> (props: StatusLineProps<T>) => {
         onChange && onChange(newStatus);
     };
 
-    console.log('currentOrderStatusIndex ', currentOrderStatusIndex);
-
-    console.log('statusOptions ', statusOptions);
-
     return (
         <HStack className={classNames(cls.OrderStatusLine, {}, [className])}>
             {statusOptions.map((el, index)=>{

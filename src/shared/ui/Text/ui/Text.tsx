@@ -58,8 +58,6 @@ export const Text = memo((props: TextProps) => {
         align = TextAlign.START, theme = TextTheme.INVERTED, inverted,
         onClick, borderTrim = false, color= '' } = props;
 
-    console.log(className);
-
     const mods: Mods = {
         [cls[theme]]: true,
         [cls[align]]: true,

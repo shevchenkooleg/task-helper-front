@@ -62,7 +62,7 @@ export const OrdersPageTable = memo((props: OrdersPageTableProps) => {
 
     if (ordersForRendering){
         return (
-            <VStack gap={'32px'}>
+            <VStack gap={'32px'} className={cls.OrdersPageTable}>
                 <TableGrid<Order, OrdersSortField, typeof OrdersSortField>
                     tabKeys={tableKeysForRender}
                     headerKeysMapper={ordersTitlesMapper}

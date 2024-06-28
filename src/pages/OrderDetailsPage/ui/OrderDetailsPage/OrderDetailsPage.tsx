@@ -1,6 +1,6 @@
 import cls from './OrderDetailsPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { Page } from '@/widgets/Page';
 import { EditableCard } from '@/features/editableCard';
@@ -8,7 +8,7 @@ import { useInitialEffect } from '@/shared/lib/hooks/useInitialEffect/useInitial
 import { ReducerList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import {
     fetchOrderById,
-    getOrderDetailIsLoading, getOrderDetailsEditMode,
+    getOrderDetailIsLoading, getOrderDetailsEditMode, getOrderFormData,
     orderDetailsSliceActions,
     orderDetailsSliceReducer, updateOrderById
 } from '@/entities/Order';
@@ -22,6 +22,7 @@ import { OrderDetailsPageToolPanel } from '../OrderDetailsPageToolPanel/OrderDet
 import {
     getOrderDetailsCardView
 } from '@/entities/Order';
+import { DeleteOrderModal } from '../DeleteOrderModal/DeleteOrderModal';
 
 interface OrderDetailsPageProps {
     className?: string
@@ -35,6 +36,8 @@ const OrderDetailsPage = memo((props: OrderDetailsPageProps) => {
     const isLoading = useSelector(getOrderDetailIsLoading);
     const editMode = useSelector(getOrderDetailsEditMode);
     const orderDetailsCardView = useSelector(getOrderDetailsCardView);
+    const [isDeleteOrderModalOpen, setIsDeleteOrderModalOpen] = useState(false);
+    const orderName = useSelector(getOrderFormData)?.orderId;
 
     useInitialEffect(()=>{
         orderId && dispatch(fetchOrderById(orderId));
@@ -68,17 +71,19 @@ const OrderDetailsPage = memo((props: OrderDetailsPageProps) => {
         dispatch(orderDetailsSliceActions.rollBackForm());
     }, [dispatch]);
 
+    const onModalClose = useCallback(() => {
+        setIsDeleteOrderModalOpen(false);
+    },[]);
+
 
     return (
         <HStack className={cls.layout}>
             <OrderDetailsPageToolPanel
                 onBackClick={onBackClickHandler}
                 onEditClick={onEditClickHandler}
-                onDeleteClick={onDeleteClickHandler}
                 onSaveClick={onSaveClickHandler}
                 onCancelClick={onCancelClickHandler}
                 editMode={editMode}
-                newDesign={true}
                 className={cls.toolPanel}
             />
             <Page className={classNames(cls.OrderDetailsPage, {}, [className])}>
@@ -88,8 +93,14 @@ const OrderDetailsPage = memo((props: OrderDetailsPageProps) => {
                         removeAfterUnmount={true}
                         isLoading={isLoading}
                     >
-                        <OrderCard newDesign={true} view={orderDetailsCardView}/>
+                        <OrderCard view={orderDetailsCardView} onDeleteModalOpen={setIsDeleteOrderModalOpen}/>
                     </EditableCard>
+                    <DeleteOrderModal
+                        isOpen={isDeleteOrderModalOpen}
+                        onClose={onModalClose}
+                        orderName={orderName}
+                        orderId={orderId}
+                    />
                 </VStack>
             </Page>
         </HStack>
