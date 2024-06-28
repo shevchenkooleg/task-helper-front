@@ -21,6 +21,8 @@ import { getOrderId } from '../../model/selectors/getOrderId/getOrderId';
 import { ExecutionStatus } from '@/shared/const/orderConsts';
 import { orderExecutionStatusOption } from '@/shared/const/orderDetailsConsts';
 import { StatusLine } from '@/shared/ui/StatusLine/StatusLine';
+import { Icon } from '@/shared/ui/Icon';
+import AddCircleIcon from '@/shared/assets/icons/AddCircleIcon.svg';
 
 interface ExecutionCardProps {
     className?: string
@@ -36,6 +38,7 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
     const dispatch = useAppDispatch();
 
     const orderExecutionStatusValue = execution?.status ?? ExecutionStatus.EXECUTING;
+
 
 
     const onDeleteClickHandler = useCallback(() => {
@@ -118,9 +121,18 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
                         </VStack>
                     </VStack>
                     <VStack align={'start'} gap={'4px'} max={true}>
-                        <HStack justify={'between'} max={true}>
+                        <HStack justify={'between'} max={true} className={cls.partHeader}>
                             <Text text={'Акты по форме КС-2'} align={TextAlign.START} className={cls.title}/>
-                            {editMode && <Button size={ButtonSize.SIZE_S} theme={ButtonTheme.CLEAR} onClick={addKS2}>Add Document</Button>}
+                            {editMode &&
+                                <Button
+                                    size={ButtonSize.SIZE_S}
+                                    theme={ButtonTheme.CLEAR}
+                                    onClick={addKS2}
+                                    className={cls.addKS2Btn}
+                                    trimPadding
+                                >
+                                    <Icon Svg={AddCircleIcon} style={{ 'width':'25px' }}/>
+                                </Button>}
                         </HStack>
                         {
                             KS2 && KS2?.length > 0
@@ -136,9 +148,18 @@ export const ExecutionCard = memo((props: ExecutionCardProps) => {
                         }
                     </VStack>
                     <VStack align={'start'} gap={'4px'} max={true}>
-                        <HStack justify={'between'} max={true}>
+                        <HStack justify={'between'} max={true} className={cls.partHeader}>
                             <Text text={'Акты на списание'} align={TextAlign.START} className={cls.title}/>
-                            {editMode && <Button size={ButtonSize.SIZE_S} theme={ButtonTheme.CLEAR} onClick={addWriteOffDocument}>Add Document</Button>}
+                            {editMode &&
+                                <Button
+                                    size={ButtonSize.SIZE_S}
+                                    theme={ButtonTheme.CLEAR}
+                                    onClick={addWriteOffDocument}
+                                    className={cls.addBtn}
+                                    trimPadding
+                                >
+                                    <Icon Svg={AddCircleIcon} style={{ 'width':'25px' }}/>
+                                </Button>}
                         </HStack>
 
                         {

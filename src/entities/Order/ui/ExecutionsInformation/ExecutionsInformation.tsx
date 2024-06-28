@@ -29,11 +29,12 @@ export const ExecutionsInformation = memo((props: ExecutionsInformationProps) =>
         orderId && dispatch(createInnerDocument({ orderId, operationType: 'createExecution' }));
     },[dispatch, orderId]);
 
+
     return (
         <div className={classNames(cls.ExecutionsInformation, {}, [className])}>
             <HStack gap={'8px'} justify={'between'}>
                 <h4 className={cls.title}>Выполнения</h4>
-                <Button size={ButtonSize.SIZE_S} theme={ButtonTheme.BACKGROUND_GREEN} rounded onClick={addExecution}>Add Execution</Button>
+                <Button size={ButtonSize.SIZE_S} theme={ButtonTheme.BACKGROUND_GREEN} rounded onClick={addExecution}>Новое выполнение</Button>
             </HStack>
             <VStack gap={'12px'} wrap={'wrap'}>
                 {executions && executions?.length > 0

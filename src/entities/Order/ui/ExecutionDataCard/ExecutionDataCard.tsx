@@ -38,6 +38,9 @@ export const ExecutionDataCard = memo((props: ExecutionDataCardProps) => {
         );
     },[data, onChangeExecutionDataCardValue]);
 
+
+    console.log('data in card', data);
+
     return (
         <HStack gap={'16px'} className={classNames(cls.ExecutionDataCard, {}, [className])}>
             <Input

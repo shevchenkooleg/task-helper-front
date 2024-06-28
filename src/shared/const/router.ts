@@ -11,6 +11,7 @@ export enum AppRoutes {
     ADMIN_PANEL = 'admin_panel',
     REPORTS = 'reports',
     USER_PROFILE = 'user_profile',
+    STRUCTURE = 'structure',
     // TOTAL_VOLUME_MATERIAL_REPORT = 'total_volume_material_report',
     // MATERIAL_INVOLVEMENT_REPORT = 'material_involvement_report',
     // FORBIDDEN_PAGE = 'forbidden_page',

@@ -20,13 +20,15 @@ import { OrderStatus } from '@/shared/const/orderConsts';
 import { getOrderDetailsEditMode } from '../../model/selectors/getEditMode/getOrderDetailsEditMode';
 import { Card } from '@/shared/ui/Card';
 import { StatusLine } from '@/shared/ui/StatusLine/StatusLine';
+import { Button, ButtonSize, ButtonTheme } from '@/shared/ui/Button';
 
 interface BaseOrderInformationProps {
     className?: string
+    onDeleteModalOpen?: (newValue: boolean) => void
 }
 
 export const BaseOrderInformation = memo((props: BaseOrderInformationProps) => {
-    const { className } = props;
+    const { className, onDeleteModalOpen } = props;
     const dispatch = useAppDispatch();
     const orderFormData = useSelector(getOrderFormData);
     const editMode = useSelector(getOrderDetailsEditMode);
@@ -101,14 +103,17 @@ export const BaseOrderInformation = memo((props: BaseOrderInformationProps) => {
                             />
                         </VStack>
                     </HStack>
-                    {/*<HStack gap={'8px'} width={'240px'}>*/}
-                    {/*    <OrderStatusSelect*/}
-                    {/*        value={orderFormData?.orderStatus}*/}
-                    {/*        onChange={onChangeOrderStatus}*/}
-                    {/*        size={ButtonSize.SIZE_S}*/}
-                    {/*        readOnly={!editMode}*/}
-                    {/*    />*/}
-                    {/*</HStack>*/}
+                    {editMode && <Button
+                        className={cls.deleteBtn}
+                        theme={ButtonTheme.BACKGROUND_RED}
+                        rounded
+                        size={ButtonSize.SIZE_S}
+                        trimPadding
+                        onClick={()=>{
+                            onDeleteModalOpen && onDeleteModalOpen(true);}}
+                    >
+                        Удалить заказ
+                    </Button>}
                 </VStack>
             </Card>
         </div>

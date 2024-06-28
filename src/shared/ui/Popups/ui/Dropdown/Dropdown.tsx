@@ -1,7 +1,7 @@
 import cls from './Dropdown.module.scss';
 import popupCls from './../../styles/popup.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
-import { Menu } from '@headlessui/react';
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { Fragment, type ReactNode } from 'react';
 import { mapDirectionClass } from '../../styles/styleClassMapper';
 import { DropdownDirection } from '@/shared/types/ui';
@@ -32,8 +32,8 @@ export const Dropdown = (props: DropdownProps) => {
 
     return (
         <Menu as={'div'} className={classNames(popupCls.popup, {}, [className])}>
-            <Menu.Button className={popupCls.trigger}>{trigger}</Menu.Button>
-            <Menu.Items className={classNames(cls.menu, {}, menuClasses)}>
+            <MenuButton className={popupCls.trigger}>{trigger}</MenuButton>
+            <MenuItems className={classNames(cls.menu, {}, menuClasses)}>
                 {items.map((item, index) => {
                     const content = ({ active }: { active: boolean }) => (
                         <Button
@@ -48,19 +48,19 @@ export const Dropdown = (props: DropdownProps) => {
 
                     if (item.href) {
                         return (
-                            <Menu.Item as={AppLink} to={item.href} key={index} disabled={item.disabled}>
+                            <MenuItem as={AppLink} to={item.href} key={index} disabled={item.disabled}>
                                 {content}
-                            </Menu.Item>
+                            </MenuItem>
                         );
                     }
 
                     return (
-                        <Menu.Item as={Fragment} key={index} disabled={item.disabled}>
+                        <MenuItem as={Fragment} key={index} disabled={item.disabled}>
                             {content}
-                        </Menu.Item>
+                        </MenuItem>
                     );
                 })}
-            </Menu.Items>
+            </MenuItems>
         </Menu>
     );
 };

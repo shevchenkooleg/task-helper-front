@@ -2,6 +2,7 @@ import cls from './Input.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import React, { memo, type FC, type InputHTMLAttributes } from 'react';
 import { HStack } from '../Stack';
+import { TextSize } from '../Text';
 
 type InputAttributes = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'readOnly'>
 
@@ -25,6 +26,7 @@ interface InputProps extends InputAttributes {
     dataType?: InputTypes
     autoWidth?: boolean
     theme?: InputTheme
+    fontSize?: TextSize
 }
 
 export const Input: FC<InputProps> = memo((props: InputProps) => {
@@ -40,6 +42,7 @@ export const Input: FC<InputProps> = memo((props: InputProps) => {
         placeholder,
         autoWidth,
         width,
+        fontSize,
         ...otherProps
 
     } = props;
@@ -50,7 +53,7 @@ export const Input: FC<InputProps> = memo((props: InputProps) => {
         keyDownValue = e.key;
     };
 
-    const inputWidth = width ? width : autoWidth ? autoWidth && value && value.length * 10 : '175';
+    const inputWidth = width ? width : autoWidth ? autoWidth && value && value.length * 11 : '175';
 
     const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
         // console.log('keyDownValue ', keyDownValue);
@@ -77,6 +80,7 @@ export const Input: FC<InputProps> = memo((props: InputProps) => {
             )}
             <div>
                 <input
+                    className={classNames('', {}, [fontSize ? cls[fontSize] : ''])}
                     type={dataType}
                     value={value}
                     onKeyDown={onKeyDownHandler}

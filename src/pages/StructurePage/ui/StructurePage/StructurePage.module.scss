@@ -1,0 +1,11 @@
+.StructurePage {
+    position: relative;
+}
+
+.layout {
+    flex-grow: 1;
+    height: calc(100vh - var(--navbar-height) - 20px);
+    overflow-y: auto;
+    flex-shrink: 1000;
+    margin: 15px 15px 5px 15px;
+}
