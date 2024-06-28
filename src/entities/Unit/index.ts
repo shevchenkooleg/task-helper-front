@@ -1,0 +1,1 @@
+export { type UnitInterface } from './model/types/unitDetailsTypes';
