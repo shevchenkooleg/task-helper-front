@@ -73,6 +73,7 @@ const StructurePage = (props: StructurePageProps) => {
         const { data , child } = props;
 
         console.log(child);
+        console.log('yoyoyo');
 
         return (
             <VStack max gap={'16px'} align={'start'} className={cls.structure}>
