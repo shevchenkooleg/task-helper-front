@@ -1,5 +1,7 @@
+import { Unit } from '@/entities/Unit';
+
 export interface StructurePageSchema {
-    error: '',
-    isLoading: false,
-    units: [],
+    error: string,
+    isLoading: boolean,
+    units: Record<string, Unit[]>,
 }

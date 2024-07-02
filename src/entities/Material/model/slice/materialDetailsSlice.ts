@@ -13,7 +13,7 @@ const initialState: MaterialDetailsSliceSchema = {
 };
 
 export const materialDetailsSlice = createSlice({
-    name: 'newMaterialSlice',
+    name: 'materialDetailsSlice',
     initialState,
     reducers: {
         setEditMode: (state, action: PayloadAction<boolean>)=>{

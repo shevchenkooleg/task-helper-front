@@ -1,18 +1,19 @@
 import { type ComponentMeta, type ComponentStory } from '@storybook/react';
 import { ThemeDecorator } from '@/shared/config/storybook/Decorators/ThemeDecorator';
 import { Theme } from '@/shared/const/theme';
-import { OrderStatusSelect } from './OrderStatusSelect';
+import { StructurePageToolsPanel } from './StructurePageToolsPanel';
 
 
+// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 export default {
-    title: 'widgets/OrderStatusSelect',
-    component: OrderStatusSelect,
+    title: 'widgets/StructurePageToolsPanel',
+    component: StructurePageToolsPanel,
     argTypes: {
         backgroundColor: { control: 'color' }
     }
-} as ComponentMeta<typeof OrderStatusSelect>;
+} as ComponentMeta<typeof StructurePageToolsPanel>;
 
-const Template: ComponentStory<typeof OrderStatusSelect> = (args) => <OrderStatusSelect {...args}/>;
+const Template: ComponentStory<typeof StructurePageToolsPanel> = (args) => <StructurePageToolsPanel {...args}/>;
 
 export const Primary = Template.bind({});
 Primary.args = {};

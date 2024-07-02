@@ -18,12 +18,13 @@ interface ComboBoxProps {
     items?: Array<string>
     callback?: (item:string)=>void
     value?: string
+    width?: string
 }
 
 export const ComboBox = (props: ComboBoxProps) => {
     const { className, placeholder = 'placeholder', query, buttonStyles, buttonIconStyles,
-        setQuery, items, callback, value = '', inputPlaceholder, inputStyles, inputBlockStyles
-    } = props;
+        setQuery, items, callback, value = '', inputPlaceholder,
+        inputStyles, inputBlockStyles, width } = props;
 
     const [selected, setSelected] = useState('');
 
@@ -35,8 +36,7 @@ export const ComboBox = (props: ComboBoxProps) => {
 
     return (
         <div className={cls.ComboBox}>
-            <div className={cls.placeholder}>{placeholder}</div>
-
+            {placeholder && <div className={cls.placeholder}>{placeholder}</div>}
             <Combobox value={selected} onChange={setSelected}>
                 <div className={cls.container}>
                     <div className={inputBlockStyles ? inputBlockStyles : cls.inputBlock}>

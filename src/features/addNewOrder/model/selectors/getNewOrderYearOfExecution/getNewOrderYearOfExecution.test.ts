@@ -1,4 +1,4 @@
-import { getNewOrderYearOfExecution } from '../..';
+import { getNewOrderYearOfExecution } from '../../../index';
 import { StateSchema } from '@/app/providers/StoreProvider';
 
 describe('getNewOrderYearOfExecution.test', () => {

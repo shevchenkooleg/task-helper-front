@@ -8,7 +8,7 @@ import { MaterialTabHeaderKeys } from '@/features/addNewMaterial';
 import {
     materialsTableContentMapper,
     materialsTableTitleMapper
-} from '../../../../shared/lib/titleMappers/materialsTableMappers';
+} from '@/shared/lib/titleMappers/materialsTableMappers';
 import { getRouteMaterialDetails } from '@/shared/const/router';
 import { TableGrid } from '@/shared/ui/TableGrid';
 

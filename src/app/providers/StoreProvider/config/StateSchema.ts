@@ -20,6 +20,7 @@ import { MaterialToOrderSliceSchema } from '@/features/addMatarialToOrder';
 import { OrderListFiltersSchema } from '@/features/orderListFilters';
 import { ReportsPageSchema } from '@/pages/ReportsPage';
 import { StructurePageSchema } from '@/pages/StructurePage';
+import { AddNewUnitSliceSchema } from '@/features/addNewUnit';
 
 
 export interface StateSchema {
@@ -40,6 +41,7 @@ export interface StateSchema {
     orderFilters?: OrderListFiltersSchema
     reports?: ReportsPageSchema
     structure?: StructurePageSchema
+    newUnit?: AddNewUnitSliceSchema
     // profile?: ProfileSchema
     // articleDetails?: ArticleDetailsSchema
     // articleDetailsComments?: ArticleDetailsCommentSchema

@@ -40,7 +40,7 @@ interface TextProps {
     borderTrim?: boolean
     inverted?: boolean
     color?: TextColor
-    onClick?: ()=>void
+    onClick?: ()=>void,
 }
 
 type HeaderTagType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5'

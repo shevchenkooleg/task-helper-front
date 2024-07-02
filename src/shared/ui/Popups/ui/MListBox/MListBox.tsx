@@ -21,11 +21,13 @@ interface MListBoxProps {
     onChange: <T extends string>(value: T) => void
     buttonTheme?: ButtonTheme
     size?: ButtonSize
+    width?: string
 }
 
 export const MListBox = memo((props: MListBoxProps) => {
 
-    const { items, value, onChange, label , readOnly, size = ButtonSize.SIZE_M } = props;
+    const { items, value, onChange, label ,
+        readOnly, size = ButtonSize.SIZE_M , width } = props;
     const mods = {
         [cls.readonly]: readOnly,
         [cls[size]]:true
@@ -43,7 +45,7 @@ export const MListBox = memo((props: MListBoxProps) => {
 
     return (
         <HListBox value={value} onChange={onChange}>
-            <ListboxButton className={classNames(cls.btn, mods,[])} disabled={readOnly}>
+            <ListboxButton className={classNames(cls.btn, mods,[])} disabled={readOnly} style={width ? { 'width': `${width}px` } : {}}>
                 <HStack gap={'8px'}>
                     {label && <Text text={label} borderTrim={false} size={TextSize.SIZE_S}/>}
                     <Text text={value === 'any' ? '---' : value} borderTrim={false} size={textSizeMapper[size]}/>

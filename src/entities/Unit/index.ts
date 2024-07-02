@@ -1,1 +1,1 @@
-export { type UnitInterface } from './model/types/unitDetailsTypes';
+export { type Unit } from './model/types/unitDetailsTypes';
