@@ -1,0 +1,36 @@
+.UnitCard {
+    border: 1px solid;
+    margin-bottom: 8px;
+}
+
+.nesting-0 {
+    border-color: yellow;
+}
+
+.nesting-1 {
+    border-color: red;
+    margin-left: 30px;
+    width: calc(100% - var(--nesting-margin-step));
+}
+
+.nesting-2 {
+    border-color: blue;
+    margin-left: 60px;
+    width: calc(100% - var(--nesting-margin-step)*2);
+}
+
+.nesting-3 {
+    border-color: green;
+    margin-left: 90px;
+    width: calc(100% - var(--nesting-margin-step)*3);
+}
+
+.nesting-4 {
+    border-color: orange;
+    margin-left: 120px;
+    width: calc(100% - var(--nesting-margin-step)*4);
+}
+
+.element {
+    width: 100%;
+}

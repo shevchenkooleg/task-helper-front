@@ -9,12 +9,12 @@ import { StructurePageToolsPanel } from '../StructurePageToolsPanel/StructurePag
 import { AddNewUnitModal } from '@/features/addNewUnit';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { getUnitList } from '@/features/getMainParentUnits';
-import { useSelector } from 'react-redux';
-import { getStructure } from '../..';
 import { Input } from '@/shared/ui/Input';
 import { Button } from '@/shared/ui/Button';
 import { fetchParentForNewUnit } from '@/features/addNewUnit';
-import { Unit } from '@/entities/Unit';
+import { useSelector } from 'react-redux';
+import { getStructure } from '../..';
+import { StructureElement } from '../StructureElement/StructureElement';
 
 interface StructurePageProps {
     className?: string
@@ -23,18 +23,17 @@ interface StructurePageProps {
 const StructurePage = (props: StructurePageProps) => {
     const { className } = props;
     const dispatch = useAppDispatch();
+    const structure = useSelector(getStructure);
 
-    useEffect(()=>{
-        dispatch(getUnitList({ 'nestingLevel':'0' }));
-    },[dispatch]);
+    useEffect(() => {
+        dispatch(getUnitList({ 'nestingLevel': '0' }));
+    }, [dispatch]);
 
     const reducers: ReducerList = {
         structure: StructurePageReducer
     };
-
-    const structure = useSelector(getStructure);
-    const childKeysList = (structure && Object.keys(structure).filter(el=>el!=='null'));
-    const mainParents = structure && structure['null'];
+    
+    const mainElements = structure ? structure['null'] : [];
 
 
     const [isNewOrderModalOpen, setIsNewOrderModalOpen] = useState(false);
@@ -42,73 +41,34 @@ const StructurePage = (props: StructurePageProps) => {
     const onModalClose = useCallback(() => {
         console.log('request order because modal close');
         setIsNewOrderModalOpen(false);
-    },[]);
+    }, []);
 
     const onAddUnitBtnClickHandler = useCallback(() => {
         setIsNewOrderModalOpen(true);
-    },[]);
+    }, []);
 
     const [request, setRequest] = useState('');
 
     const onSearchButtonClick = useCallback(() => {
-        console.log('request ', request);
         dispatch(fetchParentForNewUnit(request));
-    },[dispatch, request]);
-
-    const onElementClick = useCallback((parentId: string) => {
-        dispatch(getUnitList({ 'parentId': parentId ?? '' }));
-    },[dispatch]);
-
-    console.log('structure ', structure);
-    const structureKeys = structure && Object.keys(structure);
-    console.log(structureKeys);
-
-    interface StructureElementPropsInterface {
-        data: Unit[]
-        child?: string[]
-    }
-
-    const StructureElement = memo((props: StructureElementPropsInterface) => {
-
-        const { data , child } = props;
-
-        console.log(child);
-        console.log('yoyoyo');
-
-        return (
-            <VStack max gap={'16px'} align={'start'} className={cls.structure}>
-                {data?.map((unit)=>{
-                    return (
-                        <div key={unit._id}>
-                            <div  onClick={()=> {
-                                unit._id && onElementClick(unit._id);
-                            }}>{unit.unitName}</div>
-                            {child && structure && <div>
-                                <StructureElement data={structure[child.filter(el=>unit._id === el)[0]]} child={childKeysList}/>
-                            </div>}
-                        </div>
-                    );
-                })}
-            </VStack>
-        );
-    });
-
-    StructureElement.displayName = 'StructureElement';
+    }, [dispatch, request]);
 
     return (
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
-            <VStack className={cls.layout} max align={'start'}>
+            <VStack className={cls.layout} max={true} align={'start'}>
                 <StructurePageToolsPanel addUnitCallback={onAddUnitBtnClickHandler}/>
-                <Page data-testid={'StructurePage'} className={classNames(cls.StructurePage, {}, [className])}>
-                    <VStack align={'start'} max>
-                        <HStack gap={'8px'}>
-                            <Input value={request} onChange={(newValue)=>setRequest(newValue)}/>
-                            <Button onClick={onSearchButtonClick}>Search</Button>
-                        </HStack>
-                        <StructureElement data={mainParents ?? []} child={childKeysList}/>
-                        <AddNewUnitModal isOpen={isNewOrderModalOpen} onClose={onModalClose}/>
-                    </VStack>
-                </Page>
+                {structure
+                    ? <Page data-testid={'StructurePage'} className={classNames(cls.StructurePage, {}, [className])} max>
+                        <VStack align={'start'} max>
+                            <HStack gap={'8px'} max>
+                                <Input value={request} onChange={(newValue) => setRequest(newValue)}/>
+                                <Button onClick={onSearchButtonClick}>Search</Button>
+                            </HStack>
+                            <StructureElement data={mainElements} structure={structure}/>
+                            <AddNewUnitModal isOpen={isNewOrderModalOpen} onClose={onModalClose}/>
+                        </VStack>
+                    </Page>
+                    : null}
             </VStack>
         </DynamicModuleLoader>
     );

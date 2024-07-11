@@ -13,7 +13,7 @@ export const StructurePageToolsPanel = memo((props: StructurePageToolPanelProps)
     const { className , addUnitCallback } = props;
 
     return (
-        <VStack gap={'24px'} className={classNames(cls.StructurePageToolPanel, {}, [className])}>
+        <VStack gap={'24px'} className={classNames(cls.StructurePageToolPanel, {}, [className])} max align={'start'}>
             <Button theme={ButtonTheme.BACKGROUND_GREEN} rounded size={ButtonSize.SIZE_S} onClick={addUnitCallback}>
                 Добавить объект
             </Button>

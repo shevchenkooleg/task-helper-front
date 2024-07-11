@@ -17,10 +17,13 @@ export const StructurePage = createSlice({
             .addCase(getUnitList.pending, (state) => {
                 state.error = '';
                 state.isLoading = true;
+                console.log('blabla');
             })
             .addCase(getUnitList.fulfilled, (state, action) => {
+                console.log(action);
                 state.isLoading = false;
                 if (action.payload.length > 0) state.units[action.payload[0].parentId as string] = action.payload;
+                console.log('yoyoyo');
                 // state.units = { [action.payload[0].parentId as string]: action.payload };
             })
             .addCase(getUnitList.rejected, (state, action) => {

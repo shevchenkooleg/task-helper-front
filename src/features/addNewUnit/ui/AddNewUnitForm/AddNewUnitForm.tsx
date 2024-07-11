@@ -44,9 +44,10 @@ const AddNewUnitForm = (props: AddNewUnitFormProps) => {
     const parentUnitName = useSelector(getParentUnitData)?.unitName;
     const possibleParentUnits = useSelector(getPossibleParentUnits) ?? [];
     const parentUnitNestingLevel = useSelector(getParentUnitData)?.nestingLevel;
+    const nextNestingLevel = parentUnitNestingLevel !== undefined ? parentUnitNestingLevel + 1 : undefined;
 
     console.log('parentUnitNestingLevel ', parentUnitNestingLevel);
-    console.log('nextNestingLevel ', parentUnitNestingLevel === 0 ? parentUnitNestingLevel + 1 : 0);
+    console.log('nextNestingLevel ', nextNestingLevel);
 
     const onNewUnitTypeChange = useCallback((newValue: string) => {
         dispatch(AddNewUnitSliceActions.setUnitType(newValue as UnitType));
@@ -60,12 +61,12 @@ const AddNewUnitForm = (props: AddNewUnitFormProps) => {
             unitName: newUnitName,
             unitType: newUnitType,
             parentId: newUnitParentId === '' ? null : newUnitParentId,
-            nestingLevel: parentUnitNestingLevel === 0 ? parentUnitNestingLevel + 1 : 0
+            nestingLevel: nextNestingLevel
         };
         console.log(newUnitData);
         dispatch(addNewUnit(newUnitData));
         onSuccess();
-    },[dispatch, newUnitName, newUnitParentId, newUnitType, onSuccess, parentUnitNestingLevel]);
+    },[dispatch, newUnitName, newUnitParentId, newUnitType, nextNestingLevel, onSuccess]);
 
     useEffect(()=>{
         const status = newUnitName.length > 0 && newUnitType.length > 0;
