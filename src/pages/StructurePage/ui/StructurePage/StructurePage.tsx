@@ -32,7 +32,7 @@ const StructurePage = (props: StructurePageProps) => {
     const reducers: ReducerList = {
         structure: StructurePageReducer
     };
-    
+
     const mainElements = structure ? structure['null'] : [];
 
 
