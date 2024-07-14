@@ -1,26 +1,27 @@
 .UnitCard {
     border: 1px solid;
     margin-bottom: 8px;
+    width: 100%;
 }
 
 .nesting-0 {
-    border-color: yellow;
+    background: rgba(255, 255, 0, 0.13);
 }
 
 .nesting-1 {
-    border-color: red;
     margin-left: 30px;
+    background: rgba(255, 0, 0, 0.13);
     width: calc(100% - var(--nesting-margin-step));
 }
 
 .nesting-2 {
-    border-color: blue;
+    background: rgba(0, 21, 255, 0.13);
     margin-left: 60px;
     width: calc(100% - var(--nesting-margin-step)*2);
 }
 
 .nesting-3 {
-    border-color: green;
+    background: rgba(0, 255, 13, 0.13);
     margin-left: 90px;
     width: calc(100% - var(--nesting-margin-step)*3);
 }
@@ -32,5 +33,15 @@
 }
 
 .element {
+    user-select: none;
     width: 100%;
+    margin-left: 10px;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+.pointer {
+    cursor: pointer;
 }

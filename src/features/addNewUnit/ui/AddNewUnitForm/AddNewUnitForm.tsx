@@ -18,6 +18,8 @@ import { addNewUnit } from '../../model/services/addNewUnit/addNewUnit';
 import { fetchParentForNewUnit, getParentUnitData, getPossibleParentUnits } from '../..';
 import { useDebounce } from '@/shared/lib/hooks/useDebounce/useDebounce';
 import { Unit } from '@/entities/Unit';
+// eslint-disable-next-line path-import-validation-plugin/layer-imports
+import { getUnitList } from '@/features/getMainParentUnits';
 
 
 
@@ -56,16 +58,20 @@ const AddNewUnitForm = (props: AddNewUnitFormProps) => {
         dispatch(AddNewUnitSliceActions.setUnitName(newValue));
     },[dispatch]);
 
-    const onAddBtnClick = useCallback(() => {
+    const onAddBtnClick = useCallback(async () => {
         const newUnitData = {
             unitName: newUnitName,
             unitType: newUnitType,
             parentId: newUnitParentId === '' ? null : newUnitParentId,
             nestingLevel: nextNestingLevel
         };
-        console.log(newUnitData);
-        dispatch(addNewUnit(newUnitData));
-        onSuccess();
+        try {
+            await dispatch(addNewUnit(newUnitData));
+            await dispatch(getUnitList({ 'parentId': newUnitParentId ?? '' }));
+            onSuccess();
+        } catch (err) {
+            console.log(err);
+        }
     },[dispatch, newUnitName, newUnitParentId, newUnitType, nextNestingLevel, onSuccess]);
 
     useEffect(()=>{

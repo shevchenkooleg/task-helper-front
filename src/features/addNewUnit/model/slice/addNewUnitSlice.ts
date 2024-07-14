@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AddNewUnitSliceSchema } from '../types/addNewUnit';
 import { UnitType } from '@/shared/const/unitConsts';
 import { addNewUnit } from '../services/addNewUnit/addNewUnit';
-import { fetchParentForNewUnit } from '../..';
+import { fetchParentForNewUnit } from '../services/fetchParentForNewUnit/fetchParentForNewUnit';
 import { Unit } from '@/entities/Unit';
 
 const initialState: AddNewUnitSliceSchema = {

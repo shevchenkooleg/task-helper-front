@@ -41,8 +41,6 @@ export const MListBox = memo((props: MListBoxProps) => {
         [ButtonSize.SIZE_XS]: TextSize.SIZE_XS,
     };
 
-    console.log(size);
-
     return (
         <HListBox value={value} onChange={onChange}>
             <ListboxButton className={classNames(cls.btn, mods,[])} disabled={readOnly} style={width ? { 'width': `${width}px` } : {}}>
@@ -65,9 +63,10 @@ export const MListBox = memo((props: MListBoxProps) => {
                             key={id}
                             value={item.value}
                             className={classNames(cls.element)}
+
                         >
                             <CheckIcon className={classNames(cls.checkIcon, { [cls.selected]: item.content === value } , [])} />
-                            <div className={cls.text}>{item.value === 'any' ? '---' : item.content}</div>
+                            <div className={cls.text} >{item.value === 'any' ? '---' : item.content}</div>
                         </ListboxOption>
                     ))}
                 </ListboxOptions>

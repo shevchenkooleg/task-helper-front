@@ -21,6 +21,7 @@ import { OrderListFiltersSchema } from '@/features/orderListFilters';
 import { ReportsPageSchema } from '@/pages/ReportsPage';
 import { StructurePageSchema } from '@/pages/StructurePage';
 import { AddNewUnitSliceSchema } from '@/features/addNewUnit';
+import { UnitDetailsSliceSchema } from '@/entities/Unit';
 
 
 export interface StateSchema {
@@ -42,6 +43,7 @@ export interface StateSchema {
     reports?: ReportsPageSchema
     structure?: StructurePageSchema
     newUnit?: AddNewUnitSliceSchema
+    unitDetails?: UnitDetailsSliceSchema
     // profile?: ProfileSchema
     // articleDetails?: ArticleDetailsSchema
     // articleDetailsComments?: ArticleDetailsCommentSchema

@@ -6,15 +6,17 @@ import { StructurePageReducer } from '../../model/slice/structurePageSlice';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { Page } from '@/widgets/Page';
 import { StructurePageToolsPanel } from '../StructurePageToolsPanel/StructurePageToolsPanel';
-import { AddNewUnitModal } from '@/features/addNewUnit';
+import { AddNewUnitModal, AddNewUnitSliceActions } from '@/features/addNewUnit';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { getUnitList } from '@/features/getMainParentUnits';
-import { Input } from '@/shared/ui/Input';
-import { Button } from '@/shared/ui/Button';
-import { fetchParentForNewUnit } from '@/features/addNewUnit';
 import { useSelector } from 'react-redux';
 import { getStructure } from '../..';
-import { StructureElement } from '../StructureElement/StructureElement';
+import { StructureElements } from '../StructureElement/StructureElements';
+import { Unit } from '@/entities/Unit';
+import { UnitDataCard } from '@/entities/Unit';
+import { UnitDetailsSliceReducer } from '@/entities/Unit';
+import { Text } from '@/shared/ui/Text';
+import { getUnitDetailsFormData } from '@/entities/Unit';
 
 interface StructurePageProps {
     className?: string
@@ -24,13 +26,15 @@ const StructurePage = (props: StructurePageProps) => {
     const { className } = props;
     const dispatch = useAppDispatch();
     const structure = useSelector(getStructure);
+    const unitDetailsFormData = useSelector(getUnitDetailsFormData);
 
     useEffect(() => {
         dispatch(getUnitList({ 'nestingLevel': '0' }));
     }, [dispatch]);
 
     const reducers: ReducerList = {
-        structure: StructurePageReducer
+        structure: StructurePageReducer,
+        unitDetails: UnitDetailsSliceReducer
     };
 
     const mainElements = structure ? structure['null'] : [];
@@ -41,32 +45,37 @@ const StructurePage = (props: StructurePageProps) => {
     const onModalClose = useCallback(() => {
         console.log('request order because modal close');
         setIsNewOrderModalOpen(false);
-    }, []);
+        dispatch(AddNewUnitSliceActions.setParentUnit({}));
+    }, [dispatch]);
 
     const onAddUnitBtnClickHandler = useCallback(() => {
         setIsNewOrderModalOpen(true);
     }, []);
+    
 
-    const [request, setRequest] = useState('');
-
-    const onSearchButtonClick = useCallback(() => {
-        dispatch(fetchParentForNewUnit(request));
-    }, [dispatch, request]);
+    const fastAddCallback = useCallback((unitData: Unit) => {
+        console.log('fastAddCallback');
+        dispatch(AddNewUnitSliceActions.setParentUnit(unitData));
+        setIsNewOrderModalOpen(true);
+    },[dispatch]);
 
     return (
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount={false}>
-            <VStack className={cls.layout} max={true} align={'start'}>
+            <VStack className={cls.layout} align={'start'} gap={'12px'}>
                 <StructurePageToolsPanel addUnitCallback={onAddUnitBtnClickHandler}/>
                 {structure
                     ? <Page data-testid={'StructurePage'} className={classNames(cls.StructurePage, {}, [className])} max>
-                        <VStack align={'start'} max>
-                            <HStack gap={'8px'} max>
-                                <Input value={request} onChange={(newValue) => setRequest(newValue)}/>
-                                <Button onClick={onSearchButtonClick}>Search</Button>
-                            </HStack>
-                            <StructureElement data={mainElements} structure={structure}/>
-                            <AddNewUnitModal isOpen={isNewOrderModalOpen} onClose={onModalClose}/>
-                        </VStack>
+                        <HStack max gap={'32px'} align={'start'}>
+                            <VStack max gap={'12px'} className={cls.dataFrame}>
+                                <Text title={'Структура технических объектов'}/>
+                                <StructureElements data={mainElements} structure={structure} fastAddCallback={fastAddCallback}/>
+                            </VStack>
+                            <VStack max gap={'12px'} className={cls.dataFrame}>
+                                <Text title={'Сведения об объекте'}/>
+                                {unitDetailsFormData?.unitName ? <UnitDataCard/> : <Text text={'Информация о техническом объекте'}/>}
+                            </VStack>
+                        </HStack>
+                        <AddNewUnitModal isOpen={isNewOrderModalOpen} onClose={onModalClose}/>
                     </Page>
                     : null}
             </VStack>

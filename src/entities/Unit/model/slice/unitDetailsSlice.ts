@@ -1,16 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { UnitDetailsSliceInterface } from '../types/unitDetailsTypes';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Unit, UnitDetailsSliceSchema } from '../types/unitDetailsTypes';
 
-const initialState: UnitDetailsSliceInterface = {
+const initialState: UnitDetailsSliceSchema = {
     error:'',
     unit: {},
+    form: {},
     isLoading: false,
 };
 
 export const UnitDetailsSlice = createSlice({
     name: 'UnitDetailsSlice',
     initialState,
-    reducers: {},
+    reducers: {
+        setUnitDetailsData: (state, action:PayloadAction<Unit>)=>{
+            state.unit = action.payload;
+            state.form = action.payload;
+        }
+    },
     extraReducers: (builder) => {
         //builder
         //.addCase(loginByUsername.pending, (state) => {
