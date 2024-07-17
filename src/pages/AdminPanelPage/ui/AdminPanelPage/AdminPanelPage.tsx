@@ -2,9 +2,9 @@ import cls from './AdminPanelPage.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo, useEffect, useState } from 'react';
 import { Page } from '@/widgets/Page';
-import { AdminPanelBar } from '../AdminPanelBar/AdminPanelBar';
+import { AdminPanelPageToolPanel } from '../AdminPanelToolPanel/AdminPanelPageToolPanel';
 import { AdminPanelContentMode } from '../../model/type/adminPanel';
-import { VStack } from '@/shared/ui/Stack';
+import { HStack, VStack } from '@/shared/ui/Stack';
 import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { adminPanelDataReducer } from '../../model/slice/adminPanelSlice';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -30,14 +30,17 @@ const AdminPanelPage = (props: AdminPanelPageProps) => {
 
     return (
         <DynamicModuleLoader reducers={reducers} removeAfterUnmount={true}>
-            <VStack className={cls.layout}>
-                <AdminPanelBar contentMode={contentMode} onToggle={setContentMode}/>
+            <HStack className={cls.layout}>
+                <AdminPanelPageToolPanel
+                    contentMode={contentMode}
+                    //onToggle={setContentMode}
+                />
                 <Page data-testid={'AdminPanelPage'} className={classNames('', {}, [className])}>
                     <VStack max={true} gap={'8px'} align={'start'} className={cls.AdminPanelPage}>
                         <AdminPanelLayout contentMode={contentMode}/>
                     </VStack>
                 </Page>
-            </VStack>
+            </HStack>
         </DynamicModuleLoader>
     );
 };
