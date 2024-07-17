@@ -1,18 +1,25 @@
 import { AdminPanelDataSchema, getUsersForAdminPanel } from '@/features/getAdminPanelData';
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AdminPanelView } from '@/shared/const/adminPanelConsts';
 
 
 
 const initialState: AdminPanelDataSchema = {
     users: {},
+    maintenances: [],
     isLoading: false,
-    error: ''
+    error: '',
+    view: AdminPanelView.USERS
 };
 
 export const adminPanelSlice = createSlice({
     name: 'adminPanelData',
     initialState,
-    reducers: {},
+    reducers: {
+        setAdminPanelView: (state, action:PayloadAction<AdminPanelView>) => {
+            state.view = action.payload;
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getUsersForAdminPanel.pending, (state) => {

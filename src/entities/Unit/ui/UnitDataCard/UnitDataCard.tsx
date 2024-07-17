@@ -43,6 +43,10 @@ export const UnitDataCard = memo((props: UnitDataCardProps) => {
                 <Input value={unitFormData?.toroKKS}/>
             </HStack>
             <HStack gap={'8px'} max>
+                <Text text={'Модель объекта: '} className={cls.title}/>
+                <Input value={unitFormData?.toroKKS}/>
+            </HStack>
+            <HStack gap={'8px'} max>
                 <Text text={'Планируемая дата ТО: '} className={cls.title}/>
                 <Input type={'date'} value={unitFormData?.toroKKS}/>
             </HStack>

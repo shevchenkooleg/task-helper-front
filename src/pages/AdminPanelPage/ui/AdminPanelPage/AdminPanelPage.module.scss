@@ -1,11 +1,14 @@
 .AdminPanelPage {
-    margin-top: 30px;
+    padding: 25px 10px 0 10px;
     width: 100%;
+    height: calc(100vh - var(--navbar-height) - 17px);;
 }
 
 .layout {
+    position: relative;
     flex-grow: 1;
-    height: calc(100vh - var(--navbar-height));
+    height: calc(100vh - var(--navbar-height) - 15px);
     overflow-y: auto;
     flex-shrink: 1000;
+    margin: 15px 15px 5px 15px;
 }

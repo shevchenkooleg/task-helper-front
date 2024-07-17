@@ -1,0 +1,9 @@
+.AdminPanelBar {
+    height: calc(100vh - var(--navbar-height) - 22px);
+    padding-top: 30px;
+    margin: 0 10px;
+}
+
+.btn {
+    width: 120px;
+}
