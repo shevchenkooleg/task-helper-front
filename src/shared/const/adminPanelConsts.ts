@@ -1,9 +1,17 @@
 
-export enum AdminPanelTabHeaderKeys {
+export enum AdminPanelUserTabHeaderKeys {
     USER_ID = '_id',
     USER_NAME = 'username',
     CREATED = 'created',
     ROLES = 'roles'
+}
+
+export enum AdminPanelMaintenanceTabHeaderKeys {
+    USER_ID = '_id',
+    FULL_NAME = 'fullName',
+    SHORT_NAME = 'shortName',
+    REPLACEABLE_MAINTENANCE = 'replaceableMaintenance',
+    PERIODICITY = 'periodicity',
 }
 
 export enum AdminPanelView {

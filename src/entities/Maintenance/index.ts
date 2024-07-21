@@ -1,0 +1,2 @@
+export { type MaintenanceDetailsSliceSchema, type AdminPanelMaintenanceItem } from './model/types/maintenanceDetailsSlice';
+export { MaintenanceDetailsSliceActions, MaintenanceDetailsSliceReducer } from './model/slice/maintenanceDetailsSlice';

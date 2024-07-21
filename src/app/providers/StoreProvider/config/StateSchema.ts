@@ -22,6 +22,7 @@ import { ReportsPageSchema } from '@/pages/ReportsPage';
 import { StructurePageSchema } from '@/pages/StructurePage';
 import { AddNewUnitSliceSchema } from '@/features/addNewUnit';
 import { UnitDetailsSliceSchema } from '@/entities/Unit';
+import { AddNewMaintenanceSliceSchema } from '@/features/addNewMaintenance';
 
 
 export interface StateSchema {
@@ -44,6 +45,7 @@ export interface StateSchema {
     structure?: StructurePageSchema
     newUnit?: AddNewUnitSliceSchema
     unitDetails?: UnitDetailsSliceSchema
+    newMaintenance?: AddNewMaintenanceSliceSchema
     // profile?: ProfileSchema
     // articleDetails?: ArticleDetailsSchema
     // articleDetailsComments?: ArticleDetailsCommentSchema

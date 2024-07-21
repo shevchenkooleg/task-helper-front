@@ -1,5 +1,5 @@
 import { Combobox, Transition } from '@headlessui/react';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useCallback } from 'react';
 import UpDownIcon from '@/shared/assets/icons/UpDownIcon.svg';
 import CheckIcon from '@/shared/assets/icons/CheckIcon.svg';
 import cls from './ComboBox.module.scss';
@@ -26,18 +26,15 @@ export const ComboBox = (props: ComboBoxProps) => {
         setQuery, items, callback, value = '', inputPlaceholder,
         inputStyles, inputBlockStyles, width } = props;
 
-    const [selected, setSelected] = useState('');
-
-    useEffect(()=>{
-        callback && callback(selected);
-    },[callback, selected]);
-
-    console.log('selected ', selected);
+    const onOptionsElementClick = useCallback((value: string)=>{
+        console.log(value);
+        callback && callback(value);
+    },[callback]);
 
     return (
         <div className={cls.ComboBox}>
             {placeholder && <div className={cls.placeholder}>{placeholder}</div>}
-            <Combobox value={selected} onChange={setSelected}>
+            <Combobox value={''} onChange={onOptionsElementClick}>
                 <div className={cls.container}>
                     <div className={inputBlockStyles ? inputBlockStyles : cls.inputBlock}>
                         <Combobox.Input

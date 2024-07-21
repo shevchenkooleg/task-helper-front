@@ -1,23 +1,28 @@
 import cls from './AdminPanelLayout.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo } from 'react';
-import { AdminPanelContentMode } from '../../model/type/adminPanel';
 import { AdminPanelUserTable } from '../AdminPanelUserTable/AdminPanelUserTable';
+import { AdminPanelView } from '@/shared/const/adminPanelConsts';
+import { MaintenanceTable } from '../MaintenanceTable/MaintenanceTable';
 
 
 
 interface AdminPanelLayoutProps {
     className?: string
-    contentMode: AdminPanelContentMode
+    currenView?: AdminPanelView
 }
 
 export const AdminPanelLayout = memo((props: AdminPanelLayoutProps) => {
-    const { className, contentMode } = props;
+    const { className, currenView } = props;
 
 
-    if (contentMode === AdminPanelContentMode.USERS){
+    if (currenView === AdminPanelView.USERS){
         return (<AdminPanelUserTable/>);
     }
+    if (currenView === AdminPanelView.MAINTENANCE){
+        return (<MaintenanceTable/>);
+    }
+
     return (
         <div className={classNames(cls.AdminPanelLayout, {}, [className])}>
 

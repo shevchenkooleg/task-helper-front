@@ -2,24 +2,19 @@ import cls from './AdminPanelPageToolPanel.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo } from 'react';
 import { Button, ButtonSize, ButtonTheme } from '@/shared/ui/Button';
-import { AdminPanelContentMode } from '../../model/type/adminPanel';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { VStack } from '@/shared/ui/Stack';
 import { adminPanelSelectorBtn, AdminPanelView } from '@/shared/const/adminPanelConsts';
-import { useSelector } from 'react-redux';
-import { getAdminPanelView } from '../..';
 import { adminPanelDataActions } from '../../model/slice/adminPanelSlice';
 
 interface AdminPanelPageToolPanelProps {
     className?: string
-    // onToggle: (newValue: AdminPanelView) => void
-    contentMode: AdminPanelContentMode
+    currenView?: AdminPanelView
 }
 
 export const AdminPanelPageToolPanel = memo((props: AdminPanelPageToolPanelProps) => {
-    const { className } = props;
+    const { className, currenView } = props;
     const dispatch = useAppDispatch();
-    const currenView = useSelector(getAdminPanelView);
 
     // const onUsersButtonClick = () => {
     //     onToggle(AdminPanelView.USERS);

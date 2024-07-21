@@ -1,0 +1,10 @@
+export { type AddNewMaintenanceSliceSchema } from './model/types/addNewMaintenance';
+export { addNewMaintenanceReducer, addNewMaintenanceActions } from './model/slice/addNewMaintenanceSlice';
+export { AddNewMaintenanceModal } from './ui/AddNewMaintenanceModal/AddNewMaintenanceModal';
+export { getNewMaintenanceData } from './model/selectors/getNewMaintenanceData/getNewMaintenanceData';
+export { getNewMaintenanceId } from './model/selectors/getNewMaintenanceId/getNewMaintenanceId';
+export { getNewMaintenancePeriodicity } from './model/selectors/getNewMaintenancePeriodicity/getNewMaintenancePeriodicity';
+export { getNewMaintenanceReplaceableMaintenanceId } from '@/features/addNewMaintenance/model/selectors/getNewMaintenanceReplaceableMaintenanceId/getNewMaintenanceReplaceableMaintenanceId';
+export { getNewMaintenanceFullName } from './model/selectors/getNewMaintenanceFullName/getNewMaintenanceFullName';
+export { getNewMaintenanceShortName } from './model/selectors/getNewMaintenanceShortName/getNewMaintenanceShortName';
+export { getNewMaintenanceReplaceableList } from './model/selectors/getNewMaintenanceReplaceableList/getNewMaintenanceReplaceableList';

@@ -1,6 +1,6 @@
 import { OrderTabHeaderKeys } from './orderConsts';
 import { MaterialInOrderTabHeaderKeys, MaterialTabHeaderKeys } from './materialTabHeaderKeys';
-import { AdminPanelTabHeaderKeys } from './adminPanelConsts';
+import { AdminPanelMaintenanceTabHeaderKeys, AdminPanelUserTabHeaderKeys } from './adminPanelConsts';
 import { TotalVolumeMaterialReportKeys } from './reportConsts';
 
 export const DefaultTableTemplatesObject: Record<string, Record<string, string>> = {
@@ -29,10 +29,17 @@ export const DefaultTableTemplatesObject: Record<string, Record<string, string>>
         [MaterialInOrderTabHeaderKeys.TOTAL_QUANTITY]: '1fr',
     },
     ['adminPanelUsersTemplate']: {
-        [AdminPanelTabHeaderKeys.USER_ID]: '1fr',
-        [AdminPanelTabHeaderKeys.USER_NAME]: '1fr',
-        [AdminPanelTabHeaderKeys.CREATED]: '1fr',
-        [AdminPanelTabHeaderKeys.ROLES]: '1fr',
+        [AdminPanelUserTabHeaderKeys.USER_ID]: '1fr',
+        [AdminPanelUserTabHeaderKeys.USER_NAME]: '1fr',
+        [AdminPanelUserTabHeaderKeys.CREATED]: '1fr',
+        [AdminPanelUserTabHeaderKeys.ROLES]: '1fr',
+    },
+    ['adminPanelMaintenanceTemplate']: {
+        [AdminPanelMaintenanceTabHeaderKeys.USER_ID]: '1fr',
+        [AdminPanelMaintenanceTabHeaderKeys.FULL_NAME]: '1fr',
+        [AdminPanelMaintenanceTabHeaderKeys.SHORT_NAME]: '1fr',
+        [AdminPanelMaintenanceTabHeaderKeys.REPLACEABLE_MAINTENANCE]: '1fr',
+        [AdminPanelMaintenanceTabHeaderKeys.PERIODICITY]: '1fr',
     },
     ['totalVolumeMaterialReportTemplate']: {
         [TotalVolumeMaterialReportKeys.MATERIAL_NAME]: '3fr',

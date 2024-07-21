@@ -58,7 +58,7 @@ export const UnitStructureCard = memo((props: UnitCardProps) => {
         dispatch(UnitDetailsSliceActions.setUnitDetailsData(unitData));
     };
 
-    console.log('nestingString ', nestingString);
+    // console.log('nestingString ', nestingString);
 
     if (unitData.unitType === UnitType.EQUIPMENT) {
         return (

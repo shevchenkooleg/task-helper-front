@@ -38,8 +38,7 @@ export const StructureElements = memo((props: StructureElementsProps) => {
                 const childKeysList = (structure && Object.keys(structure).filter(el=>el===unit._id)) ?? [];
 
                 return (
-                    // <VStack key={unit._id} max justify={'start'} align={'start'}>
-                    <>
+                    <VStack key={unit._id} max justify={'start'} align={'start'}>
                         <UnitStructureCard
                             key={unit._id}
                             unitData={unit}
@@ -56,8 +55,7 @@ export const StructureElements = memo((props: StructureElementsProps) => {
                                 />
                                 : null
                         }
-                    </>
-                // </VStack>
+                    </VStack>
                 );
             })}
         </VStack>

@@ -26,7 +26,7 @@ export const AdminPanelUserTable = memo((props: AdminPanelUserTableProps) => {
         console.log(el);
     };
 
-    console.log(users);
+    // console.log(users);
 
     const tabKeys = [
         '_id',
@@ -36,14 +36,8 @@ export const AdminPanelUserTable = memo((props: AdminPanelUserTableProps) => {
     ];
 
     if (users){
-        console.log(users);
+        // console.log(users);
         return (
-            // <Table<AdminPanelUserData>
-            //     items={Object.values(users)}
-            //     tabKeys={tabKeys}
-            //     // exceptions={['hashedPassword', '__v', 'salt']}
-            //     callback={onTableClick}
-            // />
             <TableGrid<AdminPanelUserData, null, null>
                 items={Object.values(users)}
                 tabKeys={tabKeys}

@@ -160,6 +160,29 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
                                 </td>
                             );
                         }
+                        if (key === 'replaceableMaintenance' && Array.isArray(el[key])){
+                            let replaceableItems: string[] = [];
+                            replaceableItems = el[key].map((i:T) => items.filter(el=>el._id === i)[0].shortName);
+
+                            return (
+                                <td  key={index}>
+                                    <HStack justify={'center'} gap={'12px'}>
+                                        <div className={cls.tableRowElement}>
+                                            {replaceableItems.join(', ')}
+                                        </div>
+                                    </HStack>
+                                </td>
+                            );
+                        }
+
+                        if (key === 'periodicity'){
+                            return (
+                                <td key={index}>
+                                    {helpMappers ? helpMappers[el[key]] : el[key]  }
+                                </td>
+                            );
+                        }
+
                         if (Array.isArray(el[key]) && el[key].length > 0) {
                             console.log('el[key]-key ', el[key], key);
 

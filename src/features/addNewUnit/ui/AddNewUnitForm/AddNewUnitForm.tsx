@@ -48,8 +48,8 @@ const AddNewUnitForm = (props: AddNewUnitFormProps) => {
     const parentUnitNestingLevel = useSelector(getParentUnitData)?.nestingLevel;
     const nextNestingLevel = parentUnitNestingLevel !== undefined ? parentUnitNestingLevel + 1 : undefined;
 
-    console.log('parentUnitNestingLevel ', parentUnitNestingLevel);
-    console.log('nextNestingLevel ', nextNestingLevel);
+    // console.log('parentUnitNestingLevel ', parentUnitNestingLevel);
+    // console.log('nextNestingLevel ', nextNestingLevel);
 
     const onNewUnitTypeChange = useCallback((newValue: string) => {
         dispatch(AddNewUnitSliceActions.setUnitType(newValue as UnitType));

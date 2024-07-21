@@ -1,5 +1,5 @@
 import { UserRole } from '@/entities/User';
-import { Maintenance } from '@/entities/Maintenans';
+import { AdminPanelMaintenanceItem } from 'src/entities/Maintenance';
 import { AdminPanelView } from '@/shared/const/adminPanelConsts';
 
 export interface AdminPanelUserData {
@@ -16,7 +16,7 @@ export type AdminPanelUserType = {[key: string]: AdminPanelUserData}
 
 export interface AdminPanelDataSchema {
     users: AdminPanelUserType
-    maintenances?: Maintenance[]
+    maintenances?: AdminPanelMaintenanceItem[]
     isLoading: boolean
     error?: string
     view?: AdminPanelView

@@ -1,4 +1,5 @@
 import { UnitType } from '@/shared/const/unitConsts';
+import { MaintenancePeriodicity } from '@/shared/const/maintenanceConsts';
 
 export interface UnitDetailsSliceSchema {
     error: '',
@@ -6,8 +7,6 @@ export interface UnitDetailsSliceSchema {
     unit: Unit,
     form: Unit,
 }
-
-export type Unit = EquipmentInterface | TechnicalPlaceInterface;
 
 export interface MaintenanceLogElement {
     maintenanceDate: string,
@@ -18,8 +17,17 @@ export interface MaintenanceLogElement {
     _id: string,
 }
 
+export interface Maintenance {
+    _id?: string
+    fullName?: string
+    shortName?: string
+    periodicity?: MaintenancePeriodicity
+    replaceableMaintenanceId?: string[]
+}
 
-export interface EquipmentInterface {
+export type Unit = EquipmentInterface | TechnicalPlaceInterface;
+
+export type EquipmentInterface = {
     _id?: string
     unitName?: string
     modified?: string
@@ -31,6 +39,7 @@ export interface EquipmentInterface {
     unitModel?: string
     serialNumber?: string
     dateOfProduce?: string
+    scheduledMaintenanceList?: Maintenance[]
     nextScheduledMaintenanceDate?: {
         maintenanceDate: string
         maintenanceType: string
@@ -39,7 +48,7 @@ export interface EquipmentInterface {
     maintenanceLog?: MaintenanceLogElement[]
 }
 
-export interface TechnicalPlaceInterface {
+export type TechnicalPlaceInterface = {
     _id?: string
     unitName?: string
     modified?: string

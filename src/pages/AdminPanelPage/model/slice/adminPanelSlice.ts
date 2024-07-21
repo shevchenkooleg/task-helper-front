@@ -1,6 +1,7 @@
-import { AdminPanelDataSchema, getUsersForAdminPanel } from '@/features/getAdminPanelData';
+import { AdminPanelDataSchema, getMaintenanceForAdminPanel, getUsersForAdminPanel } from '@/features/getAdminPanelData';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AdminPanelView } from '@/shared/const/adminPanelConsts';
+import { filterObject } from '@/shared/lib/filterObject/filterObject';
 
 
 
@@ -33,6 +34,19 @@ export const adminPanelSlice = createSlice({
                 });
             })
             .addCase(getUsersForAdminPanel.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload;
+            })
+            .addCase(getMaintenanceForAdminPanel.pending, (state) => {
+                state.error = '';
+                state.isLoading = true;
+            })
+            .addCase(getMaintenanceForAdminPanel.fulfilled, (state, action) => {
+                state.isLoading = false;
+                console.log(action.payload);
+                state.maintenances = action.payload.map(el=>filterObject(el,['__v']));
+            })
+            .addCase(getMaintenanceForAdminPanel.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload;
             });

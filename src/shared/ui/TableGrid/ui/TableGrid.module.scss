@@ -51,6 +51,17 @@
             minmax(50px, 250px)
 }
 
+.adminPanelMaintenanceTemplate {
+    grid-template-columns:
+            minmax(50px, 500px)
+            minmax(50px, 250px)
+            minmax(50px, 250px)
+            minmax(50px, 250px)
+            minmax(50px, 250px)
+            minmax(50px, 250px)
+            minmax(50px, 250px)
+}
+
 thead,
 tbody,
 tr {
