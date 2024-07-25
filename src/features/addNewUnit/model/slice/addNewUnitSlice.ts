@@ -10,7 +10,7 @@ const initialState: AddNewUnitSliceSchema = {
     isLoading: false,
     validationError: false,
     possibleParentUnits: [],
-    parentUnit: { },
+    parentUnit: { } as Unit,
     newUnit: {
         unitName: '',
         unitType: UnitType.TECHNICAL_PLACE,

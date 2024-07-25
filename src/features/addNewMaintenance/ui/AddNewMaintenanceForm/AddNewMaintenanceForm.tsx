@@ -6,16 +6,11 @@ import { Text } from '@/shared/ui/Text';
 import { Input } from '@/shared/ui/Input';
 import { DynamicModuleLoader, ReducerList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { addNewMaintenanceActions, addNewMaintenanceReducer } from '../../model/slice/addNewMaintenanceSlice';
-import { MListBox } from '@/shared/ui/Popups';
 import { useSelector } from 'react-redux';
-import { getNewMaintenanceData, getNewMaintenancePeriodicity, getNewMaintenanceReplaceableList } from '../..';
-import {
-    MaintenancePeriodicity,
-    maintenancePeriodicityMapper,
-    maintenanceSelectorOptions
-} from '@/shared/const/maintenanceConsts';
+import { getNewMaintenanceData, getNewMaintenanceReplaceableList } from '../..';
+
+
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { SearchMaintenance } from '../SearchMaintenance/SearchMaintenance';
 
 
 import { useDebounce } from '@/shared/lib/hooks/useDebounce/useDebounce';
@@ -27,9 +22,8 @@ import { addNewMaintenance } from '../../model/services/addNewMaintenance/addNew
 import { getIsLoading } from '../../model/selectors/getIsLoading/getIsLoading';
 // eslint-disable-next-line path-import-validation-plugin/layer-imports
 import { getMaintenanceForAdminPanel } from '@/features/getAdminPanelData';
-import {
-    getPossibleReplaceableItems
-} from '../../model/selectors/getPossibleReplaceableItems/getPossibleReplaceableItems';
+
+
 
 export interface AddNewMaintenanceFormProps {
     className?: string
@@ -48,9 +42,9 @@ const AddNewMaintenanceForm = memo((props: AddNewMaintenanceFormProps) => {
     const dispatch = useAppDispatch();
     const isLoading = useSelector(getIsLoading);
     const newMaintenanceData = useSelector(getNewMaintenanceData);
-    const maintenancePeriodicity = useSelector(getNewMaintenancePeriodicity);
+    // const maintenancePeriodicity = useSelector(getNewMaintenancePeriodicity);
     const replaceableList = useSelector(getNewMaintenanceReplaceableList);
-    const possibleReplaceableItems = useSelector(getPossibleReplaceableItems);
+    // const possibleReplaceableItems = useSelector(getPossibleReplaceableItems);
     // useEffect(() => {
     // dispatch(addNewMaintenanceActions.setReplaceableMaintenanceItem(replaceableList?.filter(el=>el.fullName === )));
     // }, [replaceableList]);
@@ -58,9 +52,9 @@ const AddNewMaintenanceForm = memo((props: AddNewMaintenanceFormProps) => {
     console.log('replaceableList ', replaceableList);
     const [query, setQuery] = useState('');
 
-    const onNewMaintenancePeriodicityChange = useCallback((newPeriodicity: string) => {
-        dispatch(addNewMaintenanceActions.setNewMaintenancePeriodicity(newPeriodicity as MaintenancePeriodicity));
-    },[dispatch]);
+    // const onNewMaintenancePeriodicityChange = useCallback((newPeriodicity: string) => {
+    //     dispatch(addNewMaintenanceActions.setNewMaintenancePeriodicity(newPeriodicity as MaintenancePeriodicity));
+    // },[dispatch]);
 
     const onFullNameChange = useCallback((newValue: string) => {
         dispatch(addNewMaintenanceActions.setNewMaintenanceFullName(newValue));
@@ -80,22 +74,22 @@ const AddNewMaintenanceForm = memo((props: AddNewMaintenanceFormProps) => {
         debouncedFetchData();
     },[debouncedFetchData, query]);
 
-    const onChangeMaintenanceComboBoxQuery = useCallback((value: string) => {
-        setQuery(value);
-    }, []);
-
-    const addMaintainsIntoReplaceableList = useCallback((newItem: any) => {
-        const item = possibleReplaceableItems?.filter(el=>el.fullName === newItem)[0];
-        item && dispatch(addNewMaintenanceActions.setReplaceableMaintenanceItem(item));
-    },[dispatch, possibleReplaceableItems]);
+    // const onChangeMaintenanceComboBoxQuery = useCallback((value: string) => {
+    //     setQuery(value);
+    // }, []);
+    //
+    // const addMaintainsIntoReplaceableList = useCallback((newItem: any) => {
+    //     const item = possibleReplaceableItems?.filter(el=>el.fullName === newItem)[0];
+    //     item && dispatch(addNewMaintenanceActions.setReplaceableMaintenanceItem(item));
+    // },[dispatch, possibleReplaceableItems]);
 
     const onAddMaintenanceButtonClick = useCallback(async ()=>{
 
         const maintenanceForDispatch = {
             fullName: newMaintenanceData?.fullName ?? '',
             shortName: newMaintenanceData?.shortName ?? '',
-            periodicity: newMaintenanceData?.periodicity ?? 'once',
-            replaceableMaintenance: newMaintenanceData?.replaceableMaintenanceId ?? []
+            // periodicity: newMaintenanceData?.periodicity ?? 'once',
+            // replaceableMaintenance: newMaintenanceData?.replaceableMaintenanceId ?? []
         };
 
         try {
@@ -106,7 +100,7 @@ const AddNewMaintenanceForm = memo((props: AddNewMaintenanceFormProps) => {
         } catch (e) {
             console.log(e);
         }
-    },[dispatch, newMaintenanceData?.fullName, newMaintenanceData?.periodicity, newMaintenanceData?.replaceableMaintenanceId, newMaintenanceData?.shortName, onSuccess]);
+    },[dispatch, newMaintenanceData?.fullName, newMaintenanceData?.shortName, onSuccess]);
 
     return (
         <DynamicModuleLoader reducers={initialReducer}>
@@ -123,30 +117,30 @@ const AddNewMaintenanceForm = memo((props: AddNewMaintenanceFormProps) => {
                         value={newMaintenanceData?.shortName ?? ''}
                         onChange={onShortNameChange}
                     />
-                    <HStack gap={'8px'}>
-                        <div>Периодичность ТО:</div>
-                        <MListBox
-                            value={newMaintenanceData && newMaintenanceData.periodicity && maintenancePeriodicityMapper[newMaintenanceData?.periodicity] || maintenancePeriodicityMapper.once}
-                            onChange={onNewMaintenancePeriodicityChange}
-                            items={maintenanceSelectorOptions}
-                        />
-                    </HStack>
-                    <VStack gap={'8px'} max align={'start'}>
-                        <HStack gap={'8px'} max>
-                            <div>Заменяемое ТО:</div>
-                            <HStack gap={'8px'}>
-                                {replaceableList?.map((el,key)=>(<div key={key}>{el.shortName}</div>))}
-                            </HStack>
-                        </HStack>
+                    {/*<HStack gap={'8px'}>*/}
+                    {/*    <div>Периодичность ТО:</div>*/}
+                    {/*    <MListBox*/}
+                    {/*        value={newMaintenanceData && newMaintenanceData.periodicity && maintenancePeriodicityMapper[newMaintenanceData?.periodicity] || maintenancePeriodicityMapper.once}*/}
+                    {/*        onChange={onNewMaintenancePeriodicityChange}*/}
+                    {/*        items={maintenanceSelectorOptions}*/}
+                    {/*    />*/}
+                    {/*</HStack>*/}
+                    {/*<VStack gap={'8px'} max align={'start'}>*/}
+                    {/*    <HStack gap={'8px'} max>*/}
+                    {/*        <div>Заменяемое ТО:</div>*/}
+                    {/*        <HStack gap={'8px'}>*/}
+                    {/*            {replaceableList?.map((el,key)=>(<div key={key}>{el.shortName}</div>))}*/}
+                    {/*        </HStack>*/}
+                    {/*    </HStack>*/}
 
-                        <SearchMaintenance
-                            value={''}
-                            query={query}
-                            setQuery={onChangeMaintenanceComboBoxQuery}
-                            callback={addMaintainsIntoReplaceableList}
-                            maintenanceList={possibleReplaceableItems}
-                        />
-                    </VStack>
+                    {/*    <SearchMaintenance*/}
+                    {/*        value={''}*/}
+                    {/*        query={query}*/}
+                    {/*        setQuery={onChangeMaintenanceComboBoxQuery}*/}
+                    {/*        callback={addMaintainsIntoReplaceableList}*/}
+                    {/*        maintenanceList={possibleReplaceableItems}*/}
+                    {/*    />*/}
+                    {/*</VStack>*/}
                     <HStack max justify={'end'}>
                         <Button onClick={onAddMaintenanceButtonClick} disabled={isLoading}>
                             Добавить

@@ -17,7 +17,9 @@ import { UnitDataCard } from '@/entities/Unit';
 import { UnitDetailsSliceReducer } from '@/entities/Unit';
 import { Text } from '@/shared/ui/Text';
 import { getUnitDetailsFormData } from '@/entities/Unit';
-import { AddNewMaintenanceModal } from '@/features/addNewMaintenance';
+import {
+    AddNewMaintenanceToUnitModal
+} from '@/features/addMaintenanceToUnit';
 
 interface StructurePageProps {
     className?: string
@@ -44,11 +46,17 @@ const StructurePage = (props: StructurePageProps) => {
     const [isNewOrderModalOpen, setIsNewOrderModalOpen] = useState(false);
     const [isAddMaintenanceModalOpen, setIsAddMaintenanceModalOpen] = useState(false);
 
-    const onModalClose = useCallback(() => {
+    const onAddUnitModalClose = useCallback(() => {
         console.log('request order because modal close');
         setIsNewOrderModalOpen(false);
-        dispatch(AddNewUnitSliceActions.setParentUnit({}));
+        dispatch(AddNewUnitSliceActions.setParentUnit({} as Unit));
     }, [dispatch]);
+
+    const onAddMaintenanceModalClose = useCallback(() => {
+        console.log('request order because addMaintenance modal close');
+        setIsAddMaintenanceModalOpen(false);
+        // dispatch(AddNewUnitSliceActions.setParentUnit({}));
+    }, []);
 
     const onAddUnitBtnClickHandler = useCallback(() => {
         setIsNewOrderModalOpen(true);
@@ -81,13 +89,18 @@ const StructurePage = (props: StructurePageProps) => {
                                 {unitDetailsFormData?.unitName ? <UnitDataCard setModalOpen={setIsAddMaintenanceModalOpenHandler}/> : <Text text={'Информация о техническом объекте'}/>}
                             </VStack>
                         </HStack>
-                        <AddNewUnitModal isOpen={isNewOrderModalOpen} onClose={onModalClose}/>
+                        <AddNewUnitModal
+                            isOpen={isNewOrderModalOpen}
+                            onClose={onAddUnitModalClose}
+                        />
+                        <AddNewMaintenanceToUnitModal
+                            isOpen={isAddMaintenanceModalOpen}
+                            onClose={onAddMaintenanceModalClose}
+                        />
                     </Page>
                     :
                     null
                 }
-                {isAddMaintenanceModalOpen && <AddNewMaintenanceModal isOpen={isAddMaintenanceModalOpen} onClose={()=>{
-                    console.log('close');}}/>}
             </VStack>
         </DynamicModuleLoader>
     );

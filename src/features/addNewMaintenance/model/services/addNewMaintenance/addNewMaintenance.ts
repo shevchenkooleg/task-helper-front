@@ -6,8 +6,8 @@ import { AdminPanelMaintenanceItem } from '@/entities/Maintenance';
 interface AddNewMaintenanceProps {
     fullName: string,
     shortName: string,
-    periodicity: string,
-    replaceableMaintenance: string[]
+    // periodicity: string,
+    // replaceableMaintenance: string[]
 }
 
 export const addNewMaintenance = createAsyncThunk<AdminPanelMaintenanceItem, AddNewMaintenanceProps, ThunkConfig<string>>(

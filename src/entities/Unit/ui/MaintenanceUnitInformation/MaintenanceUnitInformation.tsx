@@ -14,6 +14,13 @@ interface MaintenanceUnitInformationProps {
     setModalOpen?: (isOpen: boolean) => void
 }
 
+const tabKeys = [
+    'fullName',
+    'shortName',
+    'replaceableMaintenance',
+    'periodicity',
+];
+
 export const MaintenanceUnitInformation = memo((props: MaintenanceUnitInformationProps) => {
     const { className , setModalOpen } = props;
     const formData = useSelector(getUnitDetailsFormData) as EquipmentInterface;
@@ -24,7 +31,7 @@ export const MaintenanceUnitInformation = memo((props: MaintenanceUnitInformatio
     },[setModalOpen]);
 
     return (
-        <VStack max className={classNames(cls.MaintenanceUnitInformation, {}, [className])}>
+        <VStack gap={'8px'} max className={classNames(cls.MaintenanceUnitInformation, {}, [className])}>
             <Text text={'Виды периодического ТО'}/>
             <Button
                 theme={ButtonTheme.BACKGROUND_GREEN} 
@@ -35,7 +42,13 @@ export const MaintenanceUnitInformation = memo((props: MaintenanceUnitInformatio
             >
                 Добавить ТО
             </Button>
-            {formData.scheduledMaintenanceList ? <TableGrid items={formData.scheduledMaintenanceList}/> : <Text text={'ТО не назначено'}/>}
+            {formData.scheduledMaintenanceList?.length
+                ? <TableGrid
+                    items={formData.scheduledMaintenanceList}
+                    template={'adminPanelMaintenanceTemplate'}
+                    tabKeys={tabKeys}
+                />
+                : <Text text={'ТО не назначено'}/>}
         </VStack>
     );
 });

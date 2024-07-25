@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AddNewMaintenanceSliceSchema } from '../types/addNewMaintenance';
-import { MaintenancePeriodicity } from '@/shared/const/maintenanceConsts';
 import {
     fetchMaintenanceForComboBox
 } from '../services/fetchMaintenanceForComboBox/fetchMaintenanceForComboBox';
@@ -9,9 +8,9 @@ import { AdminPanelMaintenanceItem } from '@/entities/Maintenance';
 const initialState: AddNewMaintenanceSliceSchema = {
     isLoading: false,
     error: '',
-    newMaintenance: { replaceableMaintenanceId: [] },
-    replaceableMaintenance: [],
-    possibleReplaceableItems: []
+    newMaintenance: {},
+    // replaceableMaintenance: [],
+    // possibleReplaceableItems: []
 };
 
 export const addNewMaintenanceSlice = createSlice({
@@ -24,13 +23,13 @@ export const addNewMaintenanceSlice = createSlice({
         setNewMaintenanceShortName: (state: AddNewMaintenanceSliceSchema, action: PayloadAction<string>) => {
             state.newMaintenance.shortName = action.payload;
         },
-        setNewMaintenancePeriodicity: (state: AddNewMaintenanceSliceSchema, action: PayloadAction<MaintenancePeriodicity>) => {
-            state.newMaintenance.periodicity = action.payload;
-        },
-        setReplaceableMaintenanceItem: (state: AddNewMaintenanceSliceSchema, action: PayloadAction<AdminPanelMaintenanceItem>)=>{
-            state.replaceableMaintenance.push(action.payload);
-            action.payload._id && state.newMaintenance.replaceableMaintenanceId?.push(action.payload._id);
-        },
+        // setNewMaintenancePeriodicity: (state: AddNewMaintenanceSliceSchema, action: PayloadAction<MaintenancePeriodicity>) => {
+        //     state.newMaintenance.periodicity = action.payload;
+        // },
+        // setReplaceableMaintenanceItem: (state: AddNewMaintenanceSliceSchema, action: PayloadAction<AdminPanelMaintenanceItem>)=>{
+        //     state.replaceableMaintenance.push(action.payload);
+        //     action.payload._id && state.newMaintenance.replaceableMaintenanceId?.push(action.payload._id);
+        // },
     },
     extraReducers: (builder) => {
         builder
@@ -40,7 +39,7 @@ export const addNewMaintenanceSlice = createSlice({
             })
             .addCase(fetchMaintenanceForComboBox.fulfilled, (state, action: PayloadAction<AdminPanelMaintenanceItem[]>) => {
                 state.isLoading = false;
-                state.possibleReplaceableItems = action.payload;
+                // state.possibleReplaceableItems = action.payload;
 
             })
             .addCase(fetchMaintenanceForComboBox.rejected, (state, action) => {

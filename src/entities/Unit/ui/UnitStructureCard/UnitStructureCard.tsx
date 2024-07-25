@@ -58,11 +58,11 @@ export const UnitStructureCard = memo((props: UnitCardProps) => {
         dispatch(UnitDetailsSliceActions.setUnitDetailsData(unitData));
     };
 
-    // console.log('nestingString ', nestingString);
+    console.log('nestingString ', nestingString);
 
     if (unitData.unitType === UnitType.EQUIPMENT) {
         return (
-            <HStack max className={classNames(cls.UnitCard, mods, [className])} justify={'between'} gap={'32px'}>
+            <HStack className={classNames(cls.UnitCard, mods, [className])} justify={'between'} gap={'32px'}>
                 <div onClick={onElementClick} className={cls.element}>
                     {unitData.unitName}
                 </div>
@@ -72,7 +72,7 @@ export const UnitStructureCard = memo((props: UnitCardProps) => {
     }
 
     return (
-        <HStack max className={classNames(cls.UnitCard, mods, [className])} justify={'between'} gap={'32px'}>
+        <HStack className={classNames(cls.UnitCard, mods, [className])} justify={'between'} gap={'32px'}>
             <HStack align={'center'} max >
                 <div onClick={onElementClick} className={`${cls.element} ${cls.pointer}`}>
                     {unitData.unitName}

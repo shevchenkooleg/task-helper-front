@@ -1,5 +1,5 @@
 
-export const enum UnitType {
+export enum UnitType {
     TECHNICAL_PLACE = 'technicalPlace',
     EQUIPMENT = 'equipment'
 }

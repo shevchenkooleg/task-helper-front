@@ -64,7 +64,7 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
 
         const orderStatusForColorized = el.orderStatus;
         return (
-            <tr className={cls.cellsRow} key={el._id} onDoubleClick={(e)=> {
+            <tr className={cls.cellsRow} key={i} onDoubleClick={(e)=> {
                 callback && callback(e, el);
             }}>
                 {

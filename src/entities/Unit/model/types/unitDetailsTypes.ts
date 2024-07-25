@@ -1,9 +1,10 @@
 import { UnitType } from '@/shared/const/unitConsts';
 import { MaintenancePeriodicity } from '@/shared/const/maintenanceConsts';
+import { AdminPanelMaintenanceItem } from '@/entities/Maintenance';
 
 export interface UnitDetailsSliceSchema {
-    error: '',
-    isLoading: false,
+    error: string,
+    isLoading: boolean,
     unit: Unit,
     form: Unit,
 }
@@ -17,15 +18,15 @@ export interface MaintenanceLogElement {
     _id: string,
 }
 
-export interface Maintenance {
-    _id?: string
-    fullName?: string
-    shortName?: string
+export interface Maintenance extends AdminPanelMaintenanceItem {
+    // _id?: string
+    // fullName?: string
+    // shortName?: string
     periodicity?: MaintenancePeriodicity
     replaceableMaintenanceId?: string[]
 }
 
-export type Unit = EquipmentInterface | TechnicalPlaceInterface;
+export type Unit = | EquipmentInterface | TechnicalPlaceInterface;
 
 export type EquipmentInterface = {
     _id?: string
@@ -54,6 +55,6 @@ export type TechnicalPlaceInterface = {
     modified?: string
     parentId?: string
     nestingLevel?: number
-    unitType?:UnitType.TECHNICAL_PLACE
+    unitType:UnitType.TECHNICAL_PLACE
     unitKKS?: string
 }

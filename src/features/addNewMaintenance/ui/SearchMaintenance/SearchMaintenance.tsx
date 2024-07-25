@@ -20,11 +20,6 @@ export const SearchMaintenance = memo((props: SearchMaintenanceProps) => {
     const maintenanceFullNameList: Array<string> = [];
     maintenanceList?.forEach(el=>el.fullName && maintenanceFullNameList.push(el.fullName));
 
-    // const setMaterialItem = (itemName: string) => {
-    //     const item = materialList?.filter(el=>el.materialName === itemName)[0];
-    //     callback && item && callback(item);
-    // };
-
     return (
         <ComboBox
             className={classNames(cls.SearchMaintenance, {}, [className])}

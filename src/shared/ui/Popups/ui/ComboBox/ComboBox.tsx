@@ -39,6 +39,7 @@ export const ComboBox = (props: ComboBoxProps) => {
                     <div className={inputBlockStyles ? inputBlockStyles : cls.inputBlock}>
                         <Combobox.Input
                             className={inputStyles ? inputStyles : cls.input}
+                            style={{ 'width': `${width}` }}
                             displayValue={() => value}
                             placeholder={inputPlaceholder}
                             onChange={(event) => {

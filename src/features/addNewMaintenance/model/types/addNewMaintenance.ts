@@ -4,6 +4,6 @@ export interface AddNewMaintenanceSliceSchema {
     isLoading: boolean
     error: string
     newMaintenance: AdminPanelMaintenanceItem
-    replaceableMaintenance: AdminPanelMaintenanceItem[]
-    possibleReplaceableItems: AdminPanelMaintenanceItem[]
+    // replaceableMaintenance: AdminPanelMaintenanceItem[]
+    // possibleReplaceableItems: AdminPanelMaintenanceItem[]
 }

@@ -34,6 +34,7 @@ export const StructureElements = memo((props: StructureElementsProps) => {
     return (
         <VStack align={'start'} className={cls.StructureElement} justify={'start'} max>
             {data?.map((unit)=>{
+                console.log('unit._id ', unit._id);
 
                 const childKeysList = (structure && Object.keys(structure).filter(el=>el===unit._id)) ?? [];
 

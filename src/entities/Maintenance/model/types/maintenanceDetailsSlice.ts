@@ -1,4 +1,3 @@
-import { MaintenancePeriodicity } from '@/shared/const/maintenanceConsts';
 
 export interface MaintenanceDetailsSliceSchema {
     isLoading?: boolean
@@ -10,6 +9,6 @@ export interface AdminPanelMaintenanceItem {
     _id?: string
     fullName?: string
     shortName?: string
-    periodicity?: MaintenancePeriodicity
-    replaceableMaintenanceId?: string[]
+    // periodicity?: MaintenancePeriodicity
+    // replaceableMaintenanceId?: string[]
 }
