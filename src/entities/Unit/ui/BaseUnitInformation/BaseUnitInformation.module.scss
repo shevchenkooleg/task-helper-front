@@ -1,3 +1,13 @@
 .BaseUnitInformation {
+    position: relative;
+}
 
+.title {
+    width: 180px;
+}
+
+.saveBtn {
+    position: absolute;
+    right: 0;
+    top: -40px;
 }

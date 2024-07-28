@@ -8,6 +8,12 @@ import { getUnitDetailsFormData } from '../../model/selectors/getUnitDetailsForm
 import { EquipmentInterface } from '../../model/types/unitDetailsTypes';
 import { TableGrid } from '@/shared/ui/TableGrid';
 import { Button, ButtonSize, ButtonTheme } from '@/shared/ui/Button';
+import { maintenanceTabTitlesMapper } from '@/shared/lib/titleMappers/maintenanceTitleMapper';
+import {
+    getUnitDetailsMaintenanceDictionary
+} from '../../model/selectors/getUnitDetailsMaintenanceDictionary/getUnitDetailsMaintenanceDictionary';
+import { maintenancePeriodicityMapper } from '@/shared/const/maintenanceConsts';
+import { expandUnitDetailsData } from '@/shared/lib/expandUnitDetailsData/expandUnitDetailsData';
 
 interface MaintenanceUnitInformationProps {
     className?: string
@@ -24,11 +30,13 @@ const tabKeys = [
 export const MaintenanceUnitInformation = memo((props: MaintenanceUnitInformationProps) => {
     const { className , setModalOpen } = props;
     const formData = useSelector(getUnitDetailsFormData) as EquipmentInterface;
-    formData && console.log('formData ', formData.scheduledMaintenanceList);
+    const possibleMaintenance = useSelector(getUnitDetailsMaintenanceDictionary);
 
     const onAddBtnClickHandler = useCallback(()=>{
         setModalOpen && setModalOpen(true);
     },[setModalOpen]);
+
+    const scheduledMaintenanceListForRendering = expandUnitDetailsData(formData.scheduledMaintenanceList!, possibleMaintenance!);
 
     return (
         <VStack gap={'8px'} max className={classNames(cls.MaintenanceUnitInformation, {}, [className])}>
@@ -42,11 +50,13 @@ export const MaintenanceUnitInformation = memo((props: MaintenanceUnitInformatio
             >
                 Добавить ТО
             </Button>
-            {formData.scheduledMaintenanceList?.length
+            {scheduledMaintenanceListForRendering.length
                 ? <TableGrid
-                    items={formData.scheduledMaintenanceList}
-                    template={'adminPanelMaintenanceTemplate'}
+                    items={scheduledMaintenanceListForRendering}
+                    template={'structurePageMaintenanceTemplate'}
                     tabKeys={tabKeys}
+                    headerKeysMapper={maintenanceTabTitlesMapper}
+                    helpMappers={maintenancePeriodicityMapper}
                 />
                 : <Text text={'ТО не назначено'}/>}
         </VStack>

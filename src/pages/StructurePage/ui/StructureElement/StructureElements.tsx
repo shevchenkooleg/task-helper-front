@@ -26,16 +26,12 @@ export const StructureElements = memo((props: StructureElementsProps) => {
     },[dispatch]);
 
     const lessDataCallbackClick = useCallback((unitId: string)=> {
-        console.log('unitId ', unitId);
         dispatch(StructurePageActions.deleteStructureItems(unitId));
-        console.log('structure____ ', structure);
     },[dispatch, structure]);
 
     return (
         <VStack align={'start'} className={cls.StructureElement} justify={'start'} max>
             {data?.map((unit)=>{
-                console.log('unit._id ', unit._id);
-
                 const childKeysList = (structure && Object.keys(structure).filter(el=>el===unit._id)) ?? [];
 
                 return (

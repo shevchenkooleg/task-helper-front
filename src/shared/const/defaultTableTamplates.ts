@@ -38,6 +38,12 @@ export const DefaultTableTemplatesObject: Record<string, Record<string, string>>
         [AdminPanelMaintenanceTabHeaderKeys.USER_ID]: '1fr',
         [AdminPanelMaintenanceTabHeaderKeys.FULL_NAME]: '1fr',
         [AdminPanelMaintenanceTabHeaderKeys.SHORT_NAME]: '1fr',
+        // [AdminPanelMaintenanceTabHeaderKeys.REPLACEABLE_MAINTENANCE]: '1fr',
+        // [AdminPanelMaintenanceTabHeaderKeys.PERIODICITY]: '1fr',
+    },
+    ['structurePageMaintenanceTemplate']: {
+        [AdminPanelMaintenanceTabHeaderKeys.FULL_NAME]: '1fr',
+        [AdminPanelMaintenanceTabHeaderKeys.SHORT_NAME]: '1fr',
         [AdminPanelMaintenanceTabHeaderKeys.REPLACEABLE_MAINTENANCE]: '1fr',
         [AdminPanelMaintenanceTabHeaderKeys.PERIODICITY]: '1fr',
     },

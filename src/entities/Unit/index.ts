@@ -6,3 +6,4 @@ export { UnitDetailsSliceReducer, UnitDetailsSliceActions } from './model/slice/
 export { getUnitDetailsFormData } from './model/selectors/getUnitDetailsFormData/getUnitDetailsFormData';
 export { type Maintenance } from './model/types/unitDetailsTypes';
 export { updateUnitById } from './model/services/updateUnitById';
+export { getUnitDetailsFormScheduledMaintenanceList } from './model/selectors/getUnitDetailsFormScheduledMaintenanceList/getUnitDetailsFormScheduledMaintenanceList';

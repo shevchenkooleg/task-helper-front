@@ -162,8 +162,7 @@ export const TableGrid = <T extends Record<string, any>, R, S>(props: TableGridP
                         }
                         if (key === 'replaceableMaintenance' && Array.isArray(el[key])){
                             let replaceableItems: string[] = [];
-                            replaceableItems = el[key].map((i:T) => items.filter(el=>el._id === i)[0].shortName);
-
+                            replaceableItems = el[key].map((i:T) => i.shortName);
                             return (
                                 <td  key={index}>
                                     <HStack justify={'center'} gap={'12px'}>

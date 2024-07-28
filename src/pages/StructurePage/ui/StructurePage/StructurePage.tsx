@@ -20,6 +20,7 @@ import { getUnitDetailsFormData } from '@/entities/Unit';
 import {
     AddNewMaintenanceToUnitModal
 } from '@/features/addMaintenanceToUnit';
+import { getMaintenanceForAdminPanel } from '@/features/getAdminPanelData';
 
 interface StructurePageProps {
     className?: string
@@ -33,6 +34,7 @@ const StructurePage = (props: StructurePageProps) => {
 
     useEffect(() => {
         dispatch(getUnitList({ 'nestingLevel': '0' }));
+        dispatch(getMaintenanceForAdminPanel(null));
     }, [dispatch]);
 
     const reducers: ReducerList = {
@@ -64,7 +66,6 @@ const StructurePage = (props: StructurePageProps) => {
     
 
     const fastAddCallback = useCallback((unitData: Unit) => {
-        console.log('fastAddCallback');
         dispatch(AddNewUnitSliceActions.setParentUnit(unitData));
         setIsNewOrderModalOpen(true);
     },[dispatch]);

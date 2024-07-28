@@ -14,7 +14,7 @@ export const UnitDataCard = memo((props: UnitDataCardProps) => {
 
 
     return (
-        <VStack gap={'12px'}>
+        <VStack gap={'12px'} max>
             <BaseUnitInformation/>
             <MaintenanceUnitInformation setModalOpen={setModalOpen}/>
         </VStack>

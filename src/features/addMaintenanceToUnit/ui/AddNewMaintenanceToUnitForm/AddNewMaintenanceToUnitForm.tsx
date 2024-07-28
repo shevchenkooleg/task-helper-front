@@ -1,34 +1,27 @@
 import cls from './AddNewMaintenanceToUnitForm.module.scss';
 import { classNames } from '@/shared/lib/classNames/classNames';
 import { memo, useCallback, useEffect, useState } from 'react';
-import {
-    SearchMaintenanceToUnit
-} from '../SearchMaintenanceToUnit/SearchMaintenanceToUnit';
+import { SearchMaintenanceToUnit } from '../SearchMaintenanceToUnit/SearchMaintenanceToUnit';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { useDebounce } from '@/shared/lib/hooks/useDebounce/useDebounce';
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch';
 
 
-import {
-    fetchMaintenanceForUnitAdd
-} from '../../model/services/fetchMaintenanceForUnitAdd/fetchMaintenanceForUnitAdd';
+import { fetchMaintenanceForUnitAdd } from '../../model/services/fetchMaintenanceForUnitAdd/fetchMaintenanceForUnitAdd';
 import { DynamicModuleLoader } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { AddMaintenanceToUnitActions, AddMaintenanceToUnitReducer } from '../../model/slice/addMaintenanceToUnitSlice';
 import { useSelector } from 'react-redux';
-import {
-    getMaintenanceToUnitData
-} from '../../model/selectors/getMaintenanceToUnitData/getMaintenanceToUnitData';
+import { getMaintenanceToUnitData } from '../../model/selectors/getMaintenanceToUnitData/getMaintenanceToUnitData';
 import {
     MaintenancePeriodicity,
     maintenancePeriodicityMapper,
     maintenanceSelectorOptions
 } from '@/shared/const/maintenanceConsts';
 import { MListBox } from '@/shared/ui/Popups';
-import { Button } from '@/shared/ui/Button';
+import { Button, ButtonTheme } from '@/shared/ui/Button';
 import { getIsLoading } from '../../model/selectors/getIsLoading/getIsLoading';
 import { AdminPanelMaintenanceItem } from '@/entities/Maintenance';
-import { getUnitDetailsFormData } from '@/entities/Unit';
-import { updateUnitById } from '@/entities/Unit';
+import { getUnitDetailsFormData, getUnitDetailsFormScheduledMaintenanceList, updateUnitById } from '@/entities/Unit';
 
 export interface AddNewMaintenanceToUnitFormProps {
     className?: string
@@ -48,6 +41,8 @@ const AddNewMaintenanceToUnitForm = memo((props: AddNewMaintenanceToUnitFormProp
     const newMaintenanceData = useSelector(getMaintenanceToUnitData);
     const isLoading = useSelector(getIsLoading);
     const unitId = useSelector(getUnitDetailsFormData)?._id;
+    const maintenanceList = useSelector(getUnitDetailsFormScheduledMaintenanceList);
+    const replaceableMaintenanceIdList = useSelector(getMaintenanceToUnitData)?.replaceableMaintenanceId;
 
     const fetchMaintenanceForUnitComboBoxHandler = useCallback(() => {
         dispatch(fetchMaintenanceForUnitAdd(query));
@@ -71,6 +66,15 @@ const AddNewMaintenanceToUnitForm = memo((props: AddNewMaintenanceToUnitFormProp
         dispatch(AddMaintenanceToUnitActions.setSelectedMaintenanceBasicData(selectedMaintenanceData));
     },[dispatch]);
 
+    const onMaintenanceClick = useCallback((maintenanceId: string, active: boolean) => {
+        if (!active) {
+            dispatch(AddMaintenanceToUnitActions.addReplaceableMaintenanceId(maintenanceId));
+        }
+        else {
+            dispatch(AddMaintenanceToUnitActions.deleteReplaceableMaintenanceId(maintenanceId));
+        }
+    },[]);
+
     const addMaintenanceToUnitButtonClick = useCallback(async ()=>{
 
         const maintenanceForDispatch = {
@@ -78,23 +82,17 @@ const AddNewMaintenanceToUnitForm = memo((props: AddNewMaintenanceToUnitFormProp
             fullName: newMaintenanceData?.fullName ?? '',
             shortName: newMaintenanceData?.shortName ?? '',
             periodicity: newMaintenanceData?.periodicity as MaintenancePeriodicity ?? 'once',
-            replaceableMaintenance: newMaintenanceData?.replaceableMaintenanceId ?? []
+            replaceableMaintenanceId: newMaintenanceData?.replaceableMaintenanceId ?? []
         };
 
+        console.log('maintenanceForDispatch ', maintenanceForDispatch);
+
         try {
-            // await dispatch(UnitDetailsSliceActions.setScheduledMaintenanceListItem(maintenanceForDispatch));
             if (unitId) {
                 await dispatch(updateUnitById({ unitId: unitId, updatedUnit: { scheduledMaintenanceList : [maintenanceForDispatch] } }));
                 onSuccess();
-                // if (updatedUnit.payload && typeof updatedUnit.payload !== 'string'){
-                //     dispatch(getUnitList({ 'parentId': updatedUnit.payload.parentId ?? '' }));
-                // }
-                // updatedUnit.payload && typeof updatedUnit.payload !== 'string' && dispatch(StructurePageActions.updateStructureItems(updatedUnit.payload));
-                // await dispatch(fetchUnitById(unitId));
-                // await onSuccess();
 
             }
-            // await dispatch(getMaintenanceForAdminPanel(null));
 
         } catch (e) {
             console.log(e);
@@ -123,17 +121,27 @@ const AddNewMaintenanceToUnitForm = memo((props: AddNewMaintenanceToUnitFormProp
                     <HStack gap={'8px'} max>
                         <div>Заменяемое ТО:</div>
                         <HStack gap={'8px'}>
-                            {/*{replaceableList?.map((el,key)=>(<div key={key}>{el.shortName}</div>))}*/}
+                            {
+                                maintenanceList?.map((el,key)=>{
+                                    console.log('el ', el);
+                                    const activeReplace = replaceableMaintenanceIdList?.includes(el._id!);
+                                    console.log('activeReplace ', activeReplace);
+                                    return (
+                                        <Button
+                                            className={classNames('', { [cls.active]: activeReplace }, [])}
+                                            key={key}
+                                            theme={ButtonTheme.OUTLINE}
+                                            rounded
+                                            onClick={() => {
+                                                el._id && activeReplace !== undefined && onMaintenanceClick(el._id, activeReplace);
+                                            }}
+                                        >
+                                            {el.shortName}
+                                        </Button>
+                                    );
+                                })}
                         </HStack>
                     </HStack>
-
-                    {/*<SearchMaintenance*/}
-                    {/*    value={''}*/}
-                    {/*    query={query}*/}
-                    {/*    setQuery={onChangeMaintenanceComboBoxQuery}*/}
-                    {/*    callback={addMaintainsIntoReplaceableList}*/}
-                    {/*    maintenanceList={possibleReplaceableItems}*/}
-                    {/*/>*/}
                     <HStack max justify={'end'}>
                         <Button onClick={addMaintenanceToUnitButtonClick} disabled={isLoading}>
                             Добавить

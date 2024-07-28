@@ -7,6 +7,7 @@ export interface UnitDetailsSliceSchema {
     isLoading: boolean,
     unit: Unit,
     form: Unit,
+    maintenanceDictionary: Maintenance[]
 }
 
 export interface MaintenanceLogElement {
@@ -24,6 +25,7 @@ export interface Maintenance extends AdminPanelMaintenanceItem {
     // shortName?: string
     periodicity?: MaintenancePeriodicity
     replaceableMaintenanceId?: string[]
+    replaceableMaintenance?: Maintenance[]
 }
 
 export type Unit = | EquipmentInterface | TechnicalPlaceInterface;
@@ -57,4 +59,5 @@ export type TechnicalPlaceInterface = {
     nestingLevel?: number
     unitType:UnitType.TECHNICAL_PLACE
     unitKKS?: string
+    toroKKS?: string
 }

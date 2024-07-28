@@ -2,12 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Maintenance, Unit, UnitDetailsSliceSchema } from '../types/unitDetailsTypes';
 import { UnitType } from '@/shared/const/unitConsts';
 import { updateUnitById } from '../../model/services/updateUnitById';
+import { getMaintenanceForAdminPanel } from '@/features/getAdminPanelData';
 
 const initialState: UnitDetailsSliceSchema = {
     error:'',
     unit: {} as Unit,
     form: {} as Unit,
     isLoading: false,
+    maintenanceDictionary: []
 };
 
 export const UnitDetailsSlice = createSlice({
@@ -23,6 +25,18 @@ export const UnitDetailsSlice = createSlice({
             case (UnitType.EQUIPMENT):
                 state.form.scheduledMaintenanceList = [...state.form.scheduledMaintenanceList!, action.payload];
             }
+        },
+        setUnitNameFormData: (state, action:PayloadAction<string>)=>{
+            state.form.unitName = action.payload;
+        },
+        setUnitKKSFormData: (state, action:PayloadAction<string>)=>{
+            state.form.unitKKS = action.payload;
+        },
+        setToroKKSFormData: (state, action:PayloadAction<string>)=>{
+            state.form.toroKKS = action.payload;
+        },
+        cancelUnitFormDataChanges: (state)=>{
+            state.form = state.unit;
         }
     },
     extraReducers: (builder) => {
@@ -38,6 +52,18 @@ export const UnitDetailsSlice = createSlice({
                 state.form = action.payload;
             })
             .addCase(updateUnitById.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.payload ?? 'request error';
+            })
+            .addCase(getMaintenanceForAdminPanel.pending, (state) => {
+                state.error = '';
+                state.isLoading = true;
+            })
+            .addCase(getMaintenanceForAdminPanel.fulfilled, (state, action: PayloadAction<Maintenance[]>) => {
+                state.isLoading = false;
+                state.maintenanceDictionary = action.payload;
+            })
+            .addCase(getMaintenanceForAdminPanel.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error = action.payload ?? 'request error';
             });

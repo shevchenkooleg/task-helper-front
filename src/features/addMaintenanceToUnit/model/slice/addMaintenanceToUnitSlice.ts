@@ -26,7 +26,14 @@ export const AddMaintenanceToUnitSlice = createSlice({
             state.newMaintenance._id = action.payload._id;
             state.newMaintenance.fullName = action.payload.fullName;
             state.newMaintenance.shortName = action.payload.shortName;
-        }
+        },
+        addReplaceableMaintenanceId: (state, action: PayloadAction<string>) =>{
+            if (state.newMaintenance.replaceableMaintenanceId) state.newMaintenance.replaceableMaintenanceId.push(action.payload);
+        },
+        deleteReplaceableMaintenanceId: (state, action: PayloadAction<string>) =>{
+            state.newMaintenance.replaceableMaintenanceId = state.newMaintenance!.replaceableMaintenanceId!.filter(el=> el !== action.payload);
+        },
+
     },
     extraReducers: (builder) => {
         builder

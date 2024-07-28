@@ -40,8 +40,8 @@ export const MaintenanceTable = memo((props: MaintenanceTableProps) => {
         '_id',
         'fullName',
         'shortName',
-        'replaceableMaintenance',
-        'periodicity',
+        // 'replaceableMaintenance',
+        // 'periodicity',
     ];
 
     const MaintenanceTable = ()=>{
